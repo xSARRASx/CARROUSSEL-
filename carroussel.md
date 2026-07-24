@@ -61,16 +61,25 @@ Plus 2 rôles transverses :
 - **Community manager** (descriptions Instagram/TikTok, hooks, CTA — 3 marques) → PARTIE B.
 - **Prompts visuels IA** (Seedance / Magnific / Ideogram / Midjourney — 3 marques) → PARTIE D.
 
-## 🧠 Les métiers (ne pas confondre — chacun a ses règles et parfois ses palettes)
+## ⭐ MODE DE TRAVAIL PRINCIPAL — Claude fait TOUT de bout en bout (décision Martin, 24/07/2026)
+Martin veut que je gère **toute la chaîne moi-même**, en une seule conversation :
+1. **Création du CONTENU** des slides (PARTIE A)
+2. **La description** Instagram / hooks / CTA (PARTIE B)
+3. **La mise en page** design → PNG (PARTIE C)
+4. **La photo de fond** que j'utilise dans le carrousel : je l'écris et je la crée
+   moi-même (règles PARTIE D), je ne la demande PLUS à Martin.
+→ Je ne demande à Martin que **la marque** (si pas évidente) et son **feu vert / ses
+   retouches**. Le reste, je le fais.
+
+## 🧠 Les 4 métiers (composantes de la chaîne — chacun a ses règles et parfois ses palettes)
 1. **Création de CONTENU** de carrousels (textes, structure, hiérarchie) → PARTIE A.
 2. **Community manager** : descriptions Instagram/TikTok, hooks → PARTIE B.
 3. **Mise en page** carrousels (design HTML/CSS → PNG via Playwright) → PARTIE C.
-4. **Prompts visuels** (génération IA image/vidéo : fonds, stories, pubs) → PARTIE D.
+4. **Prompts visuels + photo de fond** (génération IA : fonds, stories, pubs) → PARTIE D.
 
-Chaque métier se fait en général dans une conversation séparée. ⚠️ Les palettes
-de la **mise en page** (PARTIE C, couleurs du design HTML) et des **prompts
-visuels** (PARTIE D, couleurs des rendus IA photo) NE SONT PAS identiques : ne pas
-les mélanger. Toujours se référer à la partie concernée.
+⚠️ Les palettes de la **mise en page** (PARTIE C, couleurs du design HTML) et des
+**prompts visuels** (PARTIE D, couleurs des rendus IA photo) NE SONT PAS identiques :
+ne pas les mélanger. Toujours se référer à la partie concernée.
 
 ---
 
@@ -357,8 +366,10 @@ Inscris-toi sur leapwayapp.com et abonne-toi à @leapwayoff sur Instagram, c'est
 - Blocs de listes avec marges latérales (pas full-width brut).
 - **Logo officiel EXTRAIT** (fond transparent via PIL/numpy), **jamais recréé en
   SVG**, jamais approximé. Toujours **centré en bas**.
-- **Photo de fond DEMANDÉE à chaque nouveau carrousel** : ne jamais réutiliser
-  celle d'un précédent, ne jamais en inventer. Visible en filigrane (~45-50%).
+- **Photo de fond : je l'écris et je la crée MOI-MÊME** (décision Martin, 24/07/2026).
+  Je ne demande plus la photo à Martin : je rédige moi-même le prompt de fond
+  (selon le sujet + la palette de la marque, règles PARTIE D) et je produis l'image.
+  Ne jamais réutiliser la photo d'un carrousel précédent. Visible en filigrane (~45-50%).
 - **Tailles textes centraux (lisibilité mobile), ne jamais descendre en dessous** :
   titre de point ~33px weight 800, description ~27px weight 500 (line-height 1.35),
   marge entre points 24-32px. Si ça ne rentre pas, réduire le titre de slide ou le
@@ -536,11 +547,12 @@ flèches + tampon incliné rotate(-6deg)) ; jauges (barres % horizontales) ; che
 blocks (gros chiffre orange + libellé). Le visuel occupe 150-260px, sans écraser les
 textes.
 
-## C7. Ce qu'il faut demander au début d'un carrousel de mise en page
-1. Le logo officiel de la marque (PNG ; version blanche pour Le Sous Loueur).
-2. La photo de fond du carrousel en cours.
-(Guestlucky : + format du CTA slide 9.) Attendre que Martin ait tout envoyé avant
-de commencer.
+## C7. Ce qu'il faut demander au début (mode « Claude fait tout »)
+- **La marque** (si pas évidente) et, pour Guestlucky, le format du CTA slide 9.
+- Je ne demande PLUS la photo de fond (je la crée moi-même, PARTIE D).
+- Seul élément que je ne peux pas inventer : **le logo officiel** de la marque (PNG).
+  Si je ne l'ai pas encore reçu dans le projet, le demander une fois (version blanche
+  pour Le Sous Loueur) ; ensuite le réutiliser.
 
 ---
 
