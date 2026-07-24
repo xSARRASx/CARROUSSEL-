@@ -678,13 +678,37 @@ Martin le fait tourner sur son Mac.
 4. Les pages de doc API Seedance + Metricool (Martin me les colle en capture : je ne
    peux pas y accéder depuis le web).
 
-## Plan par étapes
-- **Étape 1** : chaîne de création (contenu → photo Seedance → 10 slides Playwright →
-  JPEG Metricool-ready). Testée avec Martin.
-- **Étape 2** : publication Metricool (d'abord brouillon programmé, pour vérifier).
-- **Étape 3** : déclencheur automatique + filet de sécurité → tourne sans surveillance.
+## Workflow cible (précisé par Martin, 24/07/2026)
+Cadence **hebdomadaire, 100% autonome** :
+- Une vidéo sort **chaque dimanche** sur une chaîne YouTube (URL à fournir par Martin).
+- **Chaque lundi** : le robot récupère tout seul la transcription → fabrique **DEUX**
+  carrousels **adaptés** à partir de la même vidéo :
+  - 1 pour **Guestlucky** (angle « ce qu'on vend », palette/logo/CTA Guestlucky),
+  - 1 pour **Le Sous Loueur** (son angle, palette/logo/CTA Le Sous Loueur).
+- Programmation **vendredi 18h** sur l'Instagram de Guestlucky ET celui de Le Sous
+  Loueur, via **Metricool**.
 
-**Étape en cours : Étape 0 — installer Claude Code sur le Mac de Martin.**
+## Décision d'architecture — OÙ tourne le robot (à trancher avec Martin)
+- Ce bureau cloud actuel BLOQUE YouTube (403), Metricool (403) et Seedance (403).
+  (googleapis.com répond 405 = joignable, mais youtube.com non.)
+- **Option A — sur le Mac de Martin** : réseau ouvert, mais Mac doit être allumé le
+  lundi + cron local. Mac éteint = pas de post.
+- **Option B (RECOMMANDÉE pour du vrai « sans moi ») — environnement cloud toujours
+  allumé avec politique réseau ouverte** (autoriser youtube.com + api.seedance2.ai +
+  Metricool). Claude pose un déclencheur cron « tous les lundis » → tourne sans le Mac.
+- Claude Code Remote dispose bien d'outils de planification (triggers/cron) : le
+  « sans surveillance » est possible techniquement, à condition d'ouvrir le réseau.
+
+## Plan par étapes
+- **Étape 1 (le cœur, se construit ici sans réseau)** : moteur de création
+  (contenu → photo → 10 slides Playwright → JPEG Metricool-ready). Testé avec Martin.
+- **Étape 2** : brique « récupérer la transcription YouTube » (dans l'env. à réseau ouvert).
+- **Étape 3** : brique « publication Metricool » (d'abord brouillon programmé, pour vérifier).
+- **Étape 4** : déclencheur hebdo (lundi) + filet de sécurité (contrôle qualité auto +
+  journal des posts + kill switch) → tourne sans surveillance.
+
+**Étape en cours : Étape 1 — construire le moteur de carrousels (démarre par Guestlucky).**
+Prérequis immédiats : ZIP des logos + URL de la chaîne YouTube.
 
 ---
 
