@@ -646,6 +646,48 @@ plateforme unique, moins de commissions ; leapwayapp.com) :
 
 ---
 
+# 🤖 PROJET — AUTOMATISATION COMPLÈTE (objectif de Martin, 24/07/2026)
+
+**Objectif choisi par Martin : le TOUT-AUTOMATIQUE** — une chaîne qui crée ET
+publie les carrousels seule, sans clic de sa part (option « tout auto sans moi »).
+On y va, mais on le construit **brique par brique**, en testant chaque brique avant
+de laisser tourner sans surveillance (un post fautif sur un compte public est dur à
+rattraper). Même en tout-auto : filet de sécurité obligatoire (contrôle qualité auto
++ journal des publications + kill switch facile).
+
+## Contrainte clé — où tourne la machine
+Cet environnement (Claude Code sur le web) est un **bureau cloud à réseau bloqué** :
+`api.seedance2.ai` et Metricool sont refusés par la politique réseau (403 CONNECT,
+vérifié le 24/07/2026). → **L'automatisation doit tourner sur le Mac de Martin**
+(Claude Code en local, sans ces restrictions). Ici, je PRÉPARE le code dans le repo ;
+Martin le fait tourner sur son Mac.
+
+## Seedance — ce qu'on sait
+- API réelle : base URL `https://api.seedance2.ai` (docs `seedance2.ai/api-docs`).
+- Auth : clé API en Bearer token (créée dans le dashboard, montrée une seule fois).
+- Génération **asynchrone** (vidéo surtout) : créer une tâche → task ID → polling
+  ou webhook → récupérer le rendu. Crédits réservés à la soumission, remboursés si échec.
+- ⚠️ Surtout orienté VIDÉO ; pour des photos de fond, vérifier l'endpoint « AI Image ».
+- ⚠️ Repo PUBLIC → la clé Seedance ne va JAMAIS dans le code : variable d'environnement
+  / `.env` local non commité.
+
+## Check-list des prérequis (à réunir avec Martin)
+1. Claude Code installé sur le Mac de Martin (le déclencheur).
+2. Clé API Seedance + crédits.
+3. Abonnement Metricool incluant l'accès API + token (à vérifier : pas tous les forfaits).
+4. Les pages de doc API Seedance + Metricool (Martin me les colle en capture : je ne
+   peux pas y accéder depuis le web).
+
+## Plan par étapes
+- **Étape 1** : chaîne de création (contenu → photo Seedance → 10 slides Playwright →
+  JPEG Metricool-ready). Testée avec Martin.
+- **Étape 2** : publication Metricool (d'abord brouillon programmé, pour vérifier).
+- **Étape 3** : déclencheur automatique + filet de sécurité → tourne sans surveillance.
+
+**Étape en cours : Étape 0 — installer Claude Code sur le Mac de Martin.**
+
+---
+
 ## 📝 Historique des sessions
 
 ### Session 1 — 24 juillet 2026
