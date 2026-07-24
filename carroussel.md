@@ -768,8 +768,16 @@ est figé). Il se choisit à la **création d'un environnement** :
   jamais violet). Recadrage auto 4:5, sortie `pipeline/assets/backgrounds/<marque>_bg.jpg`.
 - Outils requis : `pip install imageio imageio-ffmpeg` (secours extraction frame),
   Pillow. Pas de ffmpeg système dans l'env.
-- **RESTE À FAIRE** : 1 vrai test payant (~60 crédits/marque) pour valider la qualité,
-  puis brancher le fond dans build_guestlucky.py / build_lesousloueur.py (~50% opacité).
+- ⚠️ Le CDN Seedance renvoie **403 sur le téléchargement** si on ne se présente pas
+  comme un navigateur → `_download_bytes` envoie un User-Agent navigateur (comme YouTube).
+- Option `--task-id <id>` : récupère l'image d'une tâche DÉJÀ générée sans repayer
+  (utile si le download rate après une génération réussie).
+- ✅ **Test payant fait (24/07/2026) : 2 fonds générés et validés visuellement** :
+  - `pipeline/assets/backgrounds/guestlucky_bg.jpg` (navy + volutes violet/magenta, 720x900, 4:5)
+  - `pipeline/assets/backgrounds/lesousloueur_bg.jpg` (navy + brume orange, sans violet, 720x900, 4:5)
+  - Rendu premium éditorial, haut sombre dégagé pour le texte. Coût réel : 60 crédits/photo.
+- **RESTE À FAIRE Étape 3** : brancher ces fonds dans build_guestlucky.py /
+  build_lesousloueur.py (poser à ~50% opacité + overlay navy) au lieu du dégradé temporaire.
 
 ## Étape 2 — récupération transcription YouTube (FAITE, détails techniques)
 - Script : `pipeline/engine/fetch_transcript.py` (aucune clé API requise).
