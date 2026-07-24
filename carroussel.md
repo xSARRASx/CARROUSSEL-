@@ -731,15 +731,35 @@ est figé). Il se choisit à la **création d'un environnement** :
   « sans surveillance » est possible techniquement, à condition d'ouvrir le réseau.
 
 ## Plan par étapes
-- **Étape 1 (le cœur, se construit ici sans réseau)** : moteur de création
-  (contenu → photo → 10 slides Playwright → JPEG Metricool-ready). Testé avec Martin.
-- **Étape 2** : brique « récupérer la transcription YouTube » (dans l'env. à réseau ouvert).
-- **Étape 3** : brique « publication Metricool » (d'abord brouillon programmé, pour vérifier).
-- **Étape 4** : déclencheur hebdo (lundi) + filet de sécurité (contrôle qualité auto +
+- **Étape 1 (FAITE)** : moteur de création (contenu → photo → 10 slides Playwright →
+  JPEG Metricool-ready). Testé avec Martin.
+- **Étape 2 (FAITE)** : brique « récupérer la transcription YouTube ».
+  Script : `pipeline/engine/fetch_transcript.py`. Fonctionne dans l'env réseau ouvert.
+- **Étape 3** : brique « photo de fond Seedance » (base https://api.seedance2.ai,
+  clé SEEDANCE_API_KEY, Bearer, endpoint image).
+- **Étape 4** : brique « publication Metricool » (d'abord brouillon programmé, pour vérifier).
+- **Étape 5** : déclencheur hebdo (lundi) + filet de sécurité (contrôle qualité auto +
   journal des posts + kill switch) → tourne sans surveillance.
 
-**Étape en cours : Étape 1 — construire le moteur de carrousels (démarre par Guestlucky).**
-Prérequis immédiats : ZIP des logos + URL de la chaîne YouTube.
+**Étape en cours : Étape 3 — photo de fond via l'API Seedance.**
+
+## Étape 2 — récupération transcription YouTube (FAITE, détails techniques)
+- Script : `pipeline/engine/fetch_transcript.py` (aucune clé API requise).
+- Outil retenu : **yt-dlp** (`pip install yt-dlp`). ⚠️ La petite lib
+  `youtube-transcript-api` (plan A) se fait **bloquer par YouTube depuis un serveur
+  cloud** (erreur RequestBlocked : IP data-center). yt-dlp (plan B) passe car il
+  se présente comme un vrai navigateur. → toujours utiliser yt-dlp ici.
+- **Vraies vidéos, PAS les shorts** (demande de Martin) : on lit l'onglet
+  `/@moresebastien/videos` (exclut shorts + lives), `--playlist-items 1` = la plus récente.
+- Transcription : sous-titres `fr-orig` (piste FR originale) sinon `fr`, format `json3`,
+  parsé en texte propre (segments recollés avec espace pour éviter les mots collés).
+- Sortie rangée dans `pipeline/output/transcripts/AAAAMMJJ_videoid.txt` (en-tête
+  titre/date/durée/lien/chaîne + le texte). Ces .txt sont commités (contenu public).
+- 1er test réussi (24/07/2026) : vidéo « Airbnb tue le micro BIC » (24min, 24329 car.).
+  Sujets : commission Airbnb 15,5%/réel 18,6%, micro-BIC vs réel, DAC7, loi Le Meur,
+  classement meublé de tourisme, réservation directe.
+- ⚠️ La vidéo cite « Beds24 » = **mot banni côté Guestlucky** : à filtrer au moment
+  de la création de contenu Guestlucky (jamais dans les slides publiées).
 
 ---
 
