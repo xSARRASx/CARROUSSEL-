@@ -175,8 +175,17 @@ def download_background(task_data, out_path):
     return out_path, img.size
 
 
+# Le CDN de Seedance refuse les telechargements "robot" (403). On se presente
+# comme un vrai navigateur, comme pour YouTube.
+_BROWSER_UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+)
+
+
 def _download_bytes(url):
-    with urllib.request.urlopen(url, timeout=120) as r:
+    req = urllib.request.Request(url, headers={"User-Agent": _BROWSER_UA})
+    with urllib.request.urlopen(req, timeout=120) as r:
         return r.read()
 
 
@@ -205,9 +214,23 @@ def main():
                     help="Prepare la commande SANS l'envoyer (0 credit).")
     ap.add_argument("--go", action="store_true",
                     help="Lance la vraie generation (DEPENSE des credits).")
+    ap.add_argument("--task-id", default=None,
+                    help="Recupere l'image d'une tache DEJA generee (0 credit).")
     ap.add_argument("--resolution", default=DEFAULT_RESOLUTION)
     ap.add_argument("--aspect", default=DEFAULT_ASPECT)
     args = ap.parse_args()
+
+    # Cas special : recuperer une image deja generee, sans repayer.
+    if args.task_id:
+        print("=== RECUPERATION d'une tache existante (0 credit) ===")
+        _, result = _api("GET", TASK_ENDPOINT.format(id=args.task_id))
+        if result.get("status") != "completed":
+            print("Statut de la tache :", result.get("status"), "-> pas encore prete.")
+            return
+        out_path = os.path.join(BACKGROUNDS_DIR, args.brand + "_bg.jpg")
+        path, size = download_background(result, out_path)
+        print("Image sauvee :", path, "| taille", size[0], "x", size[1])
+        return
 
     payload = build_payload(args.brand, args.aspect, args.resolution)
 
