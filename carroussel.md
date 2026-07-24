@@ -847,7 +847,28 @@ dans les build scripts (la div `.bg` de chaque slide), donc générés à chaque
 - Les 2 réutilisent les gabarits des moteurs (import, pas de duplication). Rendus :
   10 slides chacun, 0 débordement, 0 tiret, acronymes expliqués (BIC, TVA, DAC7, LMNP).
 - C'est exactement l'étape que le robot fera seul chaque lundi (moi = le cerveau qui écrit).
-- Reste à écrire pour compléter la semaine : les DESCRIPTIONS Instagram (PARTIE B) des 2 posts.
+- Descriptions Instagram écrites (PARTIE B) : `description.txt` dans chaque dossier de
+  sortie. Règle apprise (Martin, 24/07) : **PAS d'emoji clé 🔑 à la fin des descriptions**
+  (le 😉 après le CTA du haut reste). Package livré : 2 ZIP (10 JPG + description.txt).
+
+## ⚙️ DÉCISION WORKFLOW (Martin, 24/07/2026) : mode SEMI-AUTO (Voie 2)
+**« Claude prépare tout, Martin vient juste programmer. »**
+- Pas d'API Metricool pour l'instant (forfait Starter 5, API réservée Advanced ;
+  décision d'upgrade en discussion avec le père). L'Étape 4 (publication API) est en PAUSE.
+- **Routine automatique du lundi CRÉÉE** (trigger `trig_01BJ9PpUqznmkYP7XwEfUyG3`,
+  cron `0 6 * * 1` UTC = lundi 8h Paris l'été, se déclenche dans CETTE session) :
+  chaque lundi le robot fait TOUT seul : transcription dernière vidéo → 2 carrousels
+  adaptés → rendu 20 slides + contrôles → 2 descriptions → 2 ZIP envoyés à Martin
+  (SendUserFile proactive) → commit/push + mise à jour mémoire.
+  - Garde-fou anti-doublon : si pas de nouvelle vidéo (même id que dans
+    output/transcripts/), prévenir et s'arrêter.
+  - **Kill switch : Martin écrit STOP dans la conversation** (ou pause de la Routine
+    dans l'interface claude.ai). Suppression : delete_trigger avec l'id ci-dessus.
+- Martin, chaque semaine : ouvrir les 2 ZIP → dans Metricool, créer la publication
+  Instagram de chaque marque (10 JPG dans l'ordre 01→10 + coller description.txt) →
+  programmer **vendredi 18h**. C'est tout (~5 min).
+- Le jour où le token Metricool existe (METRICOOL_TOKEN) : construire l'Étape 4 et
+  passer en 100% auto (le robot programmera lui-même vendredi 18h).
 
 ## Étape 2 — récupération transcription YouTube (FAITE, détails techniques)
 - Script : `pipeline/engine/fetch_transcript.py` (aucune clé API requise).
