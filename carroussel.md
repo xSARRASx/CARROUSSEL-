@@ -672,11 +672,21 @@ Martin le fait tourner sur son Mac.
   / `.env` local non commité.
 
 ## Check-list des prérequis (à réunir avec Martin)
-1. Claude Code installé sur le Mac de Martin (le déclencheur).
-2. Clé API Seedance + crédits.
-3. Abonnement Metricool incluant l'accès API + token (à vérifier : pas tous les forfaits).
-4. Les pages de doc API Seedance + Metricool (Martin me les colle en capture : je ne
-   peux pas y accéder depuis le web).
+1. **Ouvrir la politique réseau** de l'environnement (autoriser youtube.com +
+   api.seedance2.ai + metricool) — Option B choisie par Martin (24/07/2026).
+2. Clé API Seedance + crédits (bouton "Create API Key" sur seedance2.ai/api-docs,
+   affichée une seule fois). → à fournir comme SECRET, jamais dans le code.
+3. Token API Metricool (Paramètres → section API) + forfait incluant l'API
+   (souvent Advanced+). → SECRET.
+4. Les pages de doc API Seedance + Metricool (Martin me les colle en capture).
+
+## Repères comptes (fournis par Martin, 24/07/2026 — identifiants, PAS des secrets)
+- **Chaîne YouTube (source du dimanche)** : https://www.youtube.com/@moresebastien
+- **Metricool** : userId = 3122469
+  - Le Sous Loueur (compte « Sebastien More ») : blogId = 3968518
+  - Guestlucky (compte « guestlucky.off ») : blogId = 4001072
+- **Seedance** : base URL https://api.seedance2.ai, auth Bearer, génération async
+  (orienté vidéo ; vérifier l'endpoint AI Image pour les photos de fond).
 
 ## Workflow cible (précisé par Martin, 24/07/2026)
 Cadence **hebdomadaire, 100% autonome** :
