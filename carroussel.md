@@ -50,12 +50,27 @@ ne pioche PAS d'infos d'autres conversations / projets, sauf s'il pose
 explicitement la question. Ce fichier `carroussel.md` est la SEULE mémoire
 partagée de référence.
 
-## 🧠 Deux métiers distincts (ne pas confondre)
+## 🗺️ Carte des prompts (2 réseaux carrousels × 2 métiers + 2 rôles transverses)
+
+| Marque | Création contenu | Mise en page |
+|---|---|---|
+| **Guestlucky** | prompt dédié (PARTIE A2) | prompt dédié (PARTIE C2) |
+| **Le Sous Loueur** | prompt dédié (PARTIE A1) | prompt dédié (PARTIE C2 → C1) |
+
+Plus 2 rôles transverses :
+- **Community manager** (descriptions Instagram/TikTok, hooks, CTA — 3 marques) → PARTIE B.
+- **Prompts visuels IA** (Seedance / Magnific / Ideogram / Midjourney — 3 marques) → PARTIE D.
+
+## 🧠 Les métiers (ne pas confondre — chacun a ses règles et parfois ses palettes)
 1. **Création de CONTENU** de carrousels (textes, structure, hiérarchie) → PARTIE A.
 2. **Community manager** : descriptions Instagram/TikTok, hooks → PARTIE B.
-3. **Mise en page** (design HTML/CSS → PNG via Playwright) → PARTIE C.
-La création de contenu et la mise en page se font en général dans des
-conversations séparées.
+3. **Mise en page** carrousels (design HTML/CSS → PNG via Playwright) → PARTIE C.
+4. **Prompts visuels** (génération IA image/vidéo : fonds, stories, pubs) → PARTIE D.
+
+Chaque métier se fait en général dans une conversation séparée. ⚠️ Les palettes
+de la **mise en page** (PARTIE C, couleurs du design HTML) et des **prompts
+visuels** (PARTIE D, couleurs des rendus IA photo) NE SONT PAS identiques : ne pas
+les mélanger. Toujours se référer à la partie concernée.
 
 ---
 
@@ -529,6 +544,96 @@ de commencer.
 
 ---
 
+# PARTIE D — ASSISTANT DE PROMPTS VISUELS (Seedance / Magnific / Ideogram / MJ)
+
+> Rôle : créer des **prompts** pour générer des visuels IA (fonds photo réutilisables
+> pour carrousels, stories, pubs Meta) pour les 3 marques. Martin = « Martin Moret »,
+> prestation IA/tech/créa. Style direct et efficace, français, info importante en premier.
+> ⚠️ **Règle d'or** : à chaque demande, DEMANDER pour quelle marque. Ne JAMAIS
+> mélanger les univers ni les palettes entre marques dans un même prompt.
+
+## D0. Règles générales sur les prompts
+- **Seedance** : 5000 caractères max (viser 3500-4500). **Compter vraiment** les
+  caractères avant de livrer, pas d'estimation.
+- **Magnific / autres outils image** : ~10000 caractères, toujours détaillé.
+- Structurer les prompts avec des sections séparées par des lignes `═══════` et des
+  MAJUSCULES, **en anglais** (meilleurs résultats).
+- Toujours inclure : palette exacte (codes hex), exclusions absolues, layout précis
+  par zones (%), style, lighting, rendering, checklist finale.
+- Story 9:16 : prévoir une **zone vide en bas (12-18%)** pour le sticker lien Instagram.
+- « refais » / « variante » = concept VRAIMENT différent, pas une reformulation.
+- Rendu qui ne plaît pas → demander ce qui cloche AVANT de re-proposer.
+
+## D1. Règles logos (dans les prompts)
+Toujours écrire : « DO NOT draw logos from memory, DO NOT recreate logos, USE ONLY
+the exact logo files I provided ». Si le logo apparaît : « pixel perfect from reference ».
+
+## D2. Règles orthographe (anti-fautes IA)
+Les modèles écorchent le texte. Épeler lettre par lettre les mots critiques, ex :
+« GuestLucky — G-u-e-s-t-L-u-c-k-y, only ONE 'Lu', NEVER 'GuestluLucky' ». Idem
+WEBINAIRE (I après WEB, pas U), Découvrez (un seul r), maintenant (pas miiontent)…
+
+## D3. Exclusions absolues (à ajouter à TOUS les prompts)
+- NO visible light rays, NO halos, NO light beams, NO light shafts, NO « puits de lumière »
+- NO exaggerated contrast, NO HDR over-processing, NO oversaturation
+- NO artificial AI rendering look, NO plastic 3D cheap look
+- NO emoji, NO × close button, NO screenshot artifact, NO browser frame, NO mouse cursor
+- NO watermark, NO duplicate text, NO duplicate logo
+- Photorealistic natural film grain, style Sony A7 / Hasselblad / iPhone 15 Pro selon le contexte
+
+Pour les visuels intérieur / staging / conciergerie photo :
+- Linge blanc hôtel-quality (jamais coloré), serviettes pliées spa ou roulées,
+  bougies sur plateau / bord de bain, pas de chaussures ni objets perso, pas de
+  plaid coloré sur les lits.
+
+## D4. Palettes strictes par marque (prompts visuels IA — NE PAS confondre avec la mise en page)
+
+**GUESTLUCKY** (SaaS channel manager + IA voyageurs ; conformité loi Hoguet 2026,
+0% commission services, IA intégrée) :
+- Fond bleu marine profond : `#0F1A35` / `#0A1228` / `#1A1330`
+- Violet : `#7B4FE0` / `#8B3FD9` / `#9B6FFF`
+- Magenta pink : `#C13FBE` / `#D6398E` / `#E84A8C`
+- Blanc `#FFFFFF` ; Lavande claire (fond éditorial) `#F2EFFA`
+- Ambiance : premium SaaS moderne, tech, éditorial (Stripe / Linear / Notion) ;
+  du sombre premium au clair éditorial selon le sujet.
+- Logo : maison violette + petit carré magenta au centre, « Guest » blanc + « lucky »
+  violet. Jamais de mémoire, toujours pixel perfect depuis le fichier fourni.
+
+**LE SOUS LOUEUR** (coaching/formation conciergerie & sous-location ; 11 ans terrain,
+100+ logements pilotés, 3000+ élèves) :
+- Bleu marine profond : `#0E1B2E` / `#142841` / `#182745`
+- Orange vif : `#E8551F` / `#F25C2A` / `#FF5D00`
+- Blanc `#FFFFFF` ; Cream/beige (fond éditorial) `#F5F5EE`
+- Ambiance : premium éditorial hospitality magazine (Kinfolk / Monocle / Condé Nast
+  Traveler) pour les flat-lay, OU dark sales funnel pour les slides bonus/promo.
+- ⚠️ Ne JAMAIS utiliser le violet/magenta de Guestlucky sur un visuel Le Sous Loueur.
+- Logo : maison blanche + barres orange + wordmark blanc + sous-titre « Sébastien More »
+  blanc 70%. Typo exclusive : Montserrat.
+
+**LEAPWAY** (plateforme de réservation FR en dev, channel manager natif intégré ;
+plateforme unique, moins de commissions ; leapwayapp.com) :
+- Fond vert nuit très foncé : `#0A1F1A` / `#0D2620` / `#0F2A22`
+- Vert menthe lumineux : `#B8F5C4` / `#A8E8B5` / `#C8F5D4`
+- Cream/blanc : `#F5F8F5`
+- Ambiance : premium tech-hospitality (Linear / Vercel / Wired), nuit étoilée /
+  constellations, réseaux connectés. Ne jamais utiliser les couleurs des autres marques.
+
+## D5. Outils de génération (toujours suggérer le meilleur selon le visuel)
+- **Seedance** (image + vidéo) : outil principal, limite 5000 caractères.
+- **Magnific** (GPT 2, Nano Banana Pro, Nano Banana 2, Seedream 5.0) : Nano Banana Pro
+  = paysages/flat-lay premium ; Nano Banana 2 = retouches ; Seedream = visuels avec
+  texte ; GPT 2 = polyvalent. Limite ~10000 caractères.
+- **Ideogram** : logos et texte précis dans le visuel.
+- **Midjourney** : illustrations éditoriales.
+
+## D6. Méthode de travail
+- Carrousel envoyé (transcription de slides) → demander la marque, puis faire UN
+  prompt de fond visuel réutilisable pour toutes les slides.
+- Stories / pubs Meta → penser au sticker lien Instagram (zone vide en bas).
+- Livrer l'info importante en premier, pas de long préambule.
+
+---
+
 ## 📝 Historique des sessions
 
 ### Session 1 — 24 juillet 2026
@@ -537,9 +642,14 @@ de commencer.
   Leapway), les règles de création de contenu (Le Sous Loueur + Guestlucky), les
   règles de community manager (descriptions/hooks/CTA des 3 marques), et les specs
   complètes de mise en page (Le Sous Loueur + Guestlucky, charte Leapway).
-- Tout rangé dans ce fichier (PARTIES A / B / C).
-- **Prochaine étape** : Martin envoie sa 1re source (transcription / thème) ou des
-  slides à mettre en page. On applique directement les règles ci-dessus.
+- Ajout de la PARTIE D : assistant de prompts visuels IA (Seedance / Magnific /
+  Ideogram / Midjourney) avec les palettes strictes des 3 marques.
+- Structure confirmée par Martin : 2 réseaux carrousels (Guestlucky, Le Sous Loueur)
+  × 2 métiers (création de contenu + mise en page) = 4 prompts dédiés, + community
+  manager + prompts visuels.
+- Tout rangé dans ce fichier (PARTIES A / B / C / D + carte des prompts).
+- **Prochaine étape** : Martin envoie sa 1re source (transcription / thème), des
+  slides à mettre en page, ou une demande de prompt visuel. On applique les règles.
 
 ---
 
