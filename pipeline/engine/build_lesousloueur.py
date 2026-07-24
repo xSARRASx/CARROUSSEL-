@@ -36,9 +36,13 @@ COMMON_CSS = f"""
    -webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;}}
 .slide{{width:1080px;height:1350px;background:{NAVY};position:relative;overflow:hidden;color:{WHITE};}}
 .bg{{position:absolute;inset:0;background:
-  radial-gradient(115% 75% at 84% -5%, rgba(232,86,31,0.16) 0%, rgba(13,27,46,0) 55%),
-  radial-gradient(100% 70% at -5% 105%, rgba(32,134,200,0.16) 0%, rgba(13,27,46,0) 52%),
-  {NAVY};}}
+  radial-gradient(60% 46% at 28% 82%, rgba(232,86,31,0.30) 0%, rgba(13,27,46,0) 60%),
+  radial-gradient(55% 42% at 82% 70%, rgba(32,134,200,0.24) 0%, rgba(13,27,46,0) 62%),
+  radial-gradient(52% 42% at 60% 106%, rgba(232,86,31,0.20) 0%, rgba(13,27,46,0) 65%),
+  linear-gradient(180deg, #081320 0%, {NAVY} 100%);}}
+.bg::after{{content:"";position:absolute;inset:0;background:
+  radial-gradient(82% 78% at 50% 60%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.42) 100%),
+  linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0) 32%);}}
 .topbar{{position:absolute;top:0;left:0;right:0;height:6px;
   background:linear-gradient(90deg,{BLUE} 0%,#5fa0d0 50%,{ORANGE} 100%);z-index:5;}}
 .pad{{position:absolute;inset:0;padding:96px 84px 170px;z-index:2;display:flex;flex-direction:column;}}

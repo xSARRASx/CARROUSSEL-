@@ -813,6 +813,23 @@ Playwright, donc on dessine des fonds premium en CSS et on les rend net (x3).
   pour le texte, sur-marque. En attente : Martin choisit son style préféré.
 - Prochaine étape : brancher le style choisi dans build_guestlucky.py / build_lesousloueur.py.
 
+### ✅ ÉTAPE 3 TERMINÉE (24/07/2026) : fonds HTML branchés dans les slides
+Décision Martin : un fond par marque, ses couleurs. Fonds dessinés en CSS directement
+dans les build scripts (la div `.bg` de chaque slide), donc générés à chaque rendu,
+0 crédit, 0 dépendance externe :
+- **Guestlucky** : style "grid" (grille tech masquée) + halos violet #7c3aed / rose #ec4899
+  sur navy, vignette (`.bg` + `.bg::before` grille + `.bg::after` vignette).
+- **Le Sous Loueur** : style "mesh" (halos doux) orange #E8561F / bleu #2086C8 sur navy,
+  vignette (`.bg` + `.bg::after`).
+- Rendu des 2 démos validé visuellement : couvertures + slides de contenu, texte lisible,
+  haut sombre, zéro débordement, zéro tiret. Gros gain vs l'ancien dégradé plat.
+- Les fonds Seedance (guestlucky_bg.jpg, lesousloueur_bg.jpg) et les essais (make_bg/bg_html)
+  restent dans assets/backgrounds/ comme références, mais NE sont plus utilisés (les slides
+  dessinent leur fond en CSS). On peut ajuster couleurs/intensité à la demande.
+- ⚠️ Dépendance rendu : `pip install playwright` (Chromium déjà présent, pas de playwright install).
+
+**Étape suivante : Étape 4 — publication Metricool (token METRICOOL_TOKEN à fournir).**
+
 ## Étape 2 — récupération transcription YouTube (FAITE, détails techniques)
 - Script : `pipeline/engine/fetch_transcript.py` (aucune clé API requise).
 - Outil retenu : **yt-dlp** (`pip install yt-dlp`). ⚠️ La petite lib

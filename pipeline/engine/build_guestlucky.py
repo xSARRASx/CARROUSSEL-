@@ -43,9 +43,19 @@ COMMON_CSS = f"""
    -webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;}}
 .slide{{width:1080px;height:1350px;background:{NAVY};position:relative;overflow:hidden;color:{WHITE};}}
 .bg{{position:absolute;inset:0;background:
-  radial-gradient(115% 75% at 82% -5%, rgba(124,58,237,0.20) 0%, rgba(10,14,39,0) 55%),
-  radial-gradient(100% 70% at -5% 105%, rgba(236,72,153,0.13) 0%, rgba(10,14,39,0) 52%),
-  {NAVY};}}
+  radial-gradient(55% 45% at 30% 86%, rgba(124,58,237,0.34) 0%, rgba(10,14,39,0) 60%),
+  radial-gradient(52% 42% at 82% 70%, rgba(236,72,153,0.22) 0%, rgba(10,14,39,0) 62%),
+  linear-gradient(180deg, #05060f 0%, {NAVY} 100%);}}
+.bg::before{{content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size:90px 90px;
+  -webkit-mask-image:radial-gradient(75% 68% at 50% 58%, #000 30%, transparent 82%);
+          mask-image:radial-gradient(75% 68% at 50% 58%, #000 30%, transparent 82%);}}
+.bg::after{{content:"";position:absolute;inset:0;background:
+  radial-gradient(82% 78% at 50% 60%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.42) 100%),
+  linear-gradient(180deg, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0) 32%);}}
 .topbar{{position:absolute;top:0;left:0;right:0;height:6px;
   background:linear-gradient(90deg,{VIOLET} 0%,{ROSE} 100%);z-index:5;}}
 .pad{{position:absolute;inset:0;padding:96px 84px 170px;z-index:2;display:flex;flex-direction:column;}}
