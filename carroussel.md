@@ -741,7 +741,35 @@ est figé). Il se choisit à la **création d'un environnement** :
 - **Étape 5** : déclencheur hebdo (lundi) + filet de sécurité (contrôle qualité auto +
   journal des posts + kill switch) → tourne sans surveillance.
 
-**Étape en cours : Étape 3 — photo de fond via l'API Seedance.**
+**Étape en cours : Étape 3 — photo de fond via Seedance (code prêt, test payant à valider).**
+
+## Étape 3 — photo de fond Seedance (découvertes techniques, 24/07/2026)
+⚠️ **L'API Seedance (avec la clé) ne fait QUE de la VIDEO**, pas de photo.
+- generation_type acceptés : `text-to-video`, `image-to-video`, `reference-to-video`.
+  Pas de `text-to-image`. Confirmé en testant l'API.
+- Le "text-to-image" (Seedream, Nano Banana, Z-Image, GPT Image) existe seulement
+  sur le **site web** seedance2.ai/ai-image (routes internes type
+  `/api/video/<provider>/generate`, gated par session utilisateur), PAS via la clé API.
+  Donc inutilisable par un robot automatique.
+- **ASTUCE retenue** : l'API vidéo accepte l'option **`return_last_frame: true`** →
+  elle renvoie une IMAGE (last_frame_url). On demande une mini-vidéo et on prend
+  l'image : c'est notre photo de fond, 100% automatique avec la clé.
+- **Endpoints** : créer = `POST /v1/videos/generations` (corps `{"input":{...}}`,
+  Bearer) → renvoie `{taskId, credits}` ; suivre = `GET /v1/tasks/:id` (statut
+  `generating`/`completed`/`failed`, `data.last_frame_url`, `data.results[0]`=mp4).
+  Pas d'endpoint d'annulation (DELETE 405, cancel 404) ni de solde de crédits.
+- **Coût mesuré** : génération standard 5s / 720p = **60 crédits**. (1080p/4k = plus.)
+- ⚠️ **60 crédits dépensés par erreur** le 24/07 (un test a lancé une vraie tâche
+  vidéo, prompt bidon). Leçon : NE JAMAIS envoyer un POST /v1/videos/generations
+  valide en test ; pour sonder, corps volontairement invalide (400 sans coût).
+- Script : `pipeline/engine/seedance_bg.py`. Modes `--dry-run` (0 crédit, prépare
+  la commande) et `--go` (génère pour de vrai). Prompts de fond par marque (palettes
+  PARTIE D strictes : Guestlucky navy/violet/magenta ; Le Sous Loueur navy/orange,
+  jamais violet). Recadrage auto 4:5, sortie `pipeline/assets/backgrounds/<marque>_bg.jpg`.
+- Outils requis : `pip install imageio imageio-ffmpeg` (secours extraction frame),
+  Pillow. Pas de ffmpeg système dans l'env.
+- **RESTE À FAIRE** : 1 vrai test payant (~60 crédits/marque) pour valider la qualité,
+  puis brancher le fond dans build_guestlucky.py / build_lesousloueur.py (~50% opacité).
 
 ## Étape 2 — récupération transcription YouTube (FAITE, détails techniques)
 - Script : `pipeline/engine/fetch_transcript.py` (aucune clé API requise).
