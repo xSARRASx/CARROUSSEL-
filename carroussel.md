@@ -779,6 +779,26 @@ est figé). Il se choisit à la **création d'un environnement** :
 - **RESTE À FAIRE Étape 3** : brancher ces fonds dans build_guestlucky.py /
   build_lesousloueur.py (poser à ~50% opacité + overlay navy) au lieu du dégradé temporaire.
 
+### ⚠️⚠️ PREUVE DÉFINITIVE (24/07/2026) : l'IMAGE Seedance est INACCESSIBLE au robot
+Martin voulait ses vrais fonds "Nano Banana Pro" (flat-lay éditoriaux / visuels 3D,
+faits sur le site Seedance en text-to-image). Investigation poussée :
+- Le site utilise des routes internes `POST /api/image/{provider}/generate`
+  (providers image : **fal**, kie, wavespeed). Modèles VALIDES sur fal :
+  `nano-banana`, `nano-banana-pro`, `z-image`, `seedream-v4` (champ `modelId`).
+- **MAIS ces routes exigent une SESSION connectée (cookies), PAS la clé API.**
+  Testé : avec la clé Bearer, tout modèle image valide renvoie **401 Unauthorized**
+  (`nano-banana-pro` → 401, `z-image` → 401, etc.). Un modèle inconnu renvoie 400
+  "Unsupported model" (donc la validation modèle passe AVANT l'auth → preuve que
+  l'auth par clé échoue). → **Le robot NE PEUT PAS générer d'image Seedance.**
+- L'API "clé" de Seedance (`/v1/videos/generations`) = **VIDÉO uniquement**. Point.
+- 🔑 **INSIGHT** : "Nano Banana Pro" est un **modèle de GOOGLE** (Gemini image).
+  Seedance ne fait que le revendre. → Pour avoir EXACTEMENT ces fonds en automatique,
+  appeler **Google directement** (Gemini API, `generativelanguage.googleapis.com`,
+  joignable = 403 sans clé), avec un `GEMINI_API_KEY`. Même modèle, même qualité, clé-compatible.
+- Décision en attente de Martin : (A) route Google Nano Banana Pro [recommandé,
+  seule voie auto pour SA qualité] ; (B) réserve de fonds faits main sur le site Seedance
+  + rotation par le robot. L'option "Seedance image par clé" est écartée (impossible, prouvé).
+
 ## Étape 2 — récupération transcription YouTube (FAITE, détails techniques)
 - Script : `pipeline/engine/fetch_transcript.py` (aucune clé API requise).
 - Outil retenu : **yt-dlp** (`pip install yt-dlp`). ⚠️ La petite lib
