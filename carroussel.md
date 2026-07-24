@@ -870,6 +870,22 @@ dans les build scripts (la div `.bg` de chaque slide), donc générés à chaque
 - Le jour où le token Metricool existe (METRICOOL_TOKEN) : construire l'Étape 4 et
   passer en 100% auto (le robot programmera lui-même vendredi 18h).
 
+## 📸 CIRCUIT PHOTOS DE FOND (Martin, 24/07/2026) : prompts Seedance faits main
+Martin veut ses vrais fonds Nano Banana Pro (site Seedance) plutôt que les fonds CSS.
+Circuit validé (intégré à la routine du lundi, trigger mis à jour) :
+1. Chaque lundi, le robot écrit AUSSI **2 prompts Seedance** (un par marque, adaptés
+   au sujet de la semaine, règles PARTIE D, cible 3500-4500 caractères comptés),
+   sauvés en `seedance_prompt.txt` dans chaque dossier de sortie, envoyés avec les ZIP.
+2. Martin (optionnel, quand il veut) : colle chaque prompt dans Seedance
+   (AI Image → Nano Banana Pro → ratio 4:5 → 2K), renvoie les 2 photos ici.
+3. Le robot : recadre 4:5, base64, fond des slides à ~45-50% + overlay navy (C1/C2),
+   re-rend, renvoie les ZIP finaux.
+4. Si Martin n'envoie rien : la version fonds CSS est déjà publiable (rien ne bloque).
+Modèles de prompts : `pipeline/output/lsl_airbnb_microbic/seedance_prompt.txt`
+(flat-lay éditorial navy/orange, zone haute vide) et
+`pipeline/output/gl_airbnb_direct/seedance_prompt.txt` (still-life tech nuit
+navy/violet/magenta, zone haute vide). Écrans toujours éteints, zéro texte lisible.
+
 ## Étape 2 — récupération transcription YouTube (FAITE, détails techniques)
 - Script : `pipeline/engine/fetch_transcript.py` (aucune clé API requise).
 - Outil retenu : **yt-dlp** (`pip install yt-dlp`). ⚠️ La petite lib
