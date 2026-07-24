@@ -799,6 +799,20 @@ faits sur le site Seedance en text-to-image). Investigation poussée :
   seule voie auto pour SA qualité] ; (B) réserve de fonds faits main sur le site Seedance
   + rotation par le robot. L'option "Seedance image par clé" est écartée (impossible, prouvé).
 
+### PISTE RETENUE (24/07/2026) : fonds dessinés en HTML/CSS (gratuit, auto, 0 crédit)
+Martin a proposé de faire les fonds en HTML. Excellent : le moteur rend déjà en
+Playwright, donc on dessine des fonds premium en CSS et on les rend net (x3).
+- Script : `pipeline/engine/bg_html.py` (Playwright + Chromium
+  `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`, viewport 1080x1350 x3).
+  Styles : `mesh` (halos façon Stripe/Linear), `grid` (grille tech blueprint),
+  `aurora` (bandes diagonales). Grain SVG feTurbulence + vignette. Palettes marque.
+  `--all` génère les 6 (2 marques x 3 styles) dans assets/backgrounds/<marque>_html_<style>.jpg.
+- Aussi `pipeline/engine/make_bg.py` : variante en PIL/numpy (halos + grain), au cas où.
+- ⚠️ `pip install playwright` requis (le binaire Chromium est déjà présent, NE PAS
+  faire `playwright install`). Rendu validé visuellement : très propre, haut sombre
+  pour le texte, sur-marque. En attente : Martin choisit son style préféré.
+- Prochaine étape : brancher le style choisi dans build_guestlucky.py / build_lesousloueur.py.
+
 ## Étape 2 — récupération transcription YouTube (FAITE, détails techniques)
 - Script : `pipeline/engine/fetch_transcript.py` (aucune clé API requise).
 - Outil retenu : **yt-dlp** (`pip install yt-dlp`). ⚠️ La petite lib
