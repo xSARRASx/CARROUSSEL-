@@ -829,6 +829,25 @@ dans les build scripts (la div `.bg` de chaque slide), donc générés à chaque
 - ⚠️ Dépendance rendu : `pip install playwright` (Chromium déjà présent, pas de playwright install).
 
 **Étape suivante : Étape 4 — publication Metricool (token METRICOOL_TOKEN à fournir).**
+⚠️ Metricool : forfait actuel de Martin = "Starter 5" → l'API n'est PAS incluse
+(réservée Advanced/Custom). Décision d'upgrade en attente (Martin en parle avec le père).
+
+## Démo de l'étape "écrire les carrousels" (24/07/2026) — le coeur du robot
+À partir de la VRAIE dernière vidéo ("Airbnb tue le micro BIC", transcription Étape 2),
+2 carrousels ADAPTÉS produits (même vidéo, 2 angles, jamais les mêmes slides) :
+- `build_lsl_airbnb_microbic.py` (slug `lsl_airbnb_microbic`) : angle coaching / alerte
+  réforme. Sujets : commission 15,5 % / coût réel 18,6 %, micro-BIC qui coule,
+  calcul du prix ÷0,814, DAC7, micro vs réel + amortissement LMNP, décisions avant
+  le 13 octobre. CTA : commenter **SIMULATEUR** (fichier micro vs réel).
+- `build_gl_airbnb_direct.py` (slug `gl_airbnb_direct`) : angle produit Guestlucky.
+  Sujets : hausse commission → dépendance risquée, réponse = réservation directe 0 %,
+  channel manager natif, facturation électronique 2026 + loi Hoguet, tout-en-un.
+  CTA : commenter **DIRECT** (⚠️ mot-clé NOUVEAU, pas dans la liste B2 : à valider
+  avec Martin, sinon repli sur DEMO/OUTIL). Aucun concurrent nommé (mots bannis OK).
+- Les 2 réutilisent les gabarits des moteurs (import, pas de duplication). Rendus :
+  10 slides chacun, 0 débordement, 0 tiret, acronymes expliqués (BIC, TVA, DAC7, LMNP).
+- C'est exactement l'étape que le robot fera seul chaque lundi (moi = le cerveau qui écrit).
+- Reste à écrire pour compléter la semaine : les DESCRIPTIONS Instagram (PARTIE B) des 2 posts.
 
 ## Étape 2 — récupération transcription YouTube (FAITE, détails techniques)
 - Script : `pipeline/engine/fetch_transcript.py` (aucune clé API requise).
