@@ -698,6 +698,27 @@ Cadence **hebdomadaire, 100% autonome** :
 - Programmation **vendredi 18h** sur l'Instagram de Guestlucky ET celui de Le Sous
   Loueur, via **Metricool**.
 
+## ✅ COMMENT OUVRIR LE RÉSEAU (trouvé le 24/07/2026)
+Le réglage réseau n'est PAS modifiable dans une session en cours (l'env « Default »
+est figé). Il se choisit à la **création d'un environnement** :
+- Dans claude.ai/code → cliquer le nuage ☁️ de l'environnement → **« Nouvel
+  environnement cloud »** (apparaît en créant une nouvelle conversation).
+- Champ **« Accès réseau »** : 4 niveaux (doc code.claude.com) :
+  - **Aucun / None** : pas d'accès internet.
+  - **Trusted** : uniquement l'allowlist par défaut (npm, pypi, GitHub…). = l'actuel.
+  - **Complet / Full** : **N'IMPORTE QUEL domaine** → YouTube + Seedance + Metricool OK.
+  - **Custom** : allowlist perso (une ligne par domaine, wildcard `*.`).
+- → Créer un env **« CARROUSSEL AUTO »** avec **Accès réseau = Complet**.
+- Les **secrets** (clé Seedance, token Metricool) se mettent dans le champ
+  **« Variables d'environnement »** de cet env (format `.env`, `KEY=valeur`) —
+  JAMAIS dans le code. ⚠️ Visibles par qui peut éditer l'env (pas de coffre secret
+  dédié), mais ça reste privé au compte de Martin. C'est le bon endroit.
+- ⚠️ Le nouvel env n'ouvre le réseau que pour les **NOUVELLES sessions** lancées
+  dessus (la session actuelle reste en Trusted). Le robot se construit dans une
+  session neuve sur l'env « CARROUSSEL AUTO » + repo CARROUSSEL-. Tout le code est
+  déjà dans le repo, donc une session neuve le retrouve.
+- Setup script possible (installer Pillow/numpy/playwright) au démarrage de session.
+
 ## Décision d'architecture — OÙ tourne le robot (à trancher avec Martin)
 - Ce bureau cloud actuel BLOQUE YouTube (403), Metricool (403) et Seedance (403).
   (googleapis.com répond 405 = joignable, mais youtube.com non.)
