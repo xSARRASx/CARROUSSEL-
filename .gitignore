@@ -1,0 +1,4 @@
+pipeline/output/**/png/
+pipeline/output/**/*.zip
+__pycache__/
+*.pyc

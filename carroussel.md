@@ -726,8 +726,21 @@ Prérequis immédiats : ZIP des logos + URL de la chaîne YouTube.
   × 2 métiers (création de contenu + mise en page) = 4 prompts dédiés, + community
   manager + prompts visuels.
 - Tout rangé dans ce fichier (PARTIES A / B / C / D + carte des prompts).
-- **Prochaine étape** : Martin envoie sa 1re source (transcription / thème), des
-  slides à mettre en page, ou une demande de prompt visuel. On applique les règles.
+- **Logos reçus** (ZIP) : Guestlucky (détouré du fond navy → `pipeline/assets/logos/
+  guestlucky.png`) et Le Sous Loueur version SOMBRE (`lesousloueur.png`). ⚠️ Il manque
+  la **version BLANCHE de Le Sous Loueur** (pour les fonds navy). Guestlucky OK.
+- **Moteur Guestlucky CONSTRUIT et FONCTIONNEL** : `pipeline/engine/build_guestlucky.py`
+  (contenu + HTML des 10 slides, charte violet/rose C2) + `pipeline/engine/render.py`
+  (Playwright → PNG 3240×4050 + JPEG 1080×1350 Metricool-ready, contrôle débordement +
+  anti-tiret). Police Montserrat installée en local (`pipeline/assets/fonts/`, via npm
+  @fontsource, car Google Fonts bloqué). Chromium lancé via `executable_path=
+  /opt/pw-browsers/chromium-1194/chrome-linux/chrome` (mismatch de version, pas de
+  `playwright install`).
+- **1er carrousel de démo rendu** : `gl_demo_messagerie_ia` (Messagerie IA + Auto
+  Actions), 10 slides, zéro débordement, zéro tiret, accents FR corrects. Fond
+  TEMPORAIRE fait main (dégradé navy/violet) en attendant Seedance.
+- **Prochaine étape** : retour de Martin sur la démo → ajustements ; brancher la vraie
+  photo Seedance ; décliner le moteur pour Le Sous Loueur ; puis briques YouTube + Metricool.
 
 ---
 
