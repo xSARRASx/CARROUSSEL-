@@ -743,7 +743,47 @@ Prérequis immédiats : ZIP des logos + URL de la chaîne YouTube.
 
 ---
 
+# 🎁 PROJET — PACK ÉLÈVES CONCIERGERIE (30 visuels à personnaliser, demande Martin 25/07/2026)
+
+**Le but** : un pack de 30 visuels Instagram "prêts à poster" offert aux ÉLÈVES
+(conciergeries DÉJÀ LANCÉES). Objectif des posts : convaincre des PROPRIÉTAIRES
+de leur confier leur bien. 30 visuels = 30 posts différents = 3 mois de contenu
+(1 post tous les 3 jours).
+
+**Règles clés (dites par Martin)** :
+- 1 visuel = 1 post (PAS des carrousels de 10 slides).
+- Chaque visuel est un TEMPLATE : zones marquées « à personnaliser » (couleurs,
+  logo, slogan, ville, contact) + contenus préfixés « Exemple : » que l'élève
+  remplace (ses offres, son histoire, ses zones d'intervention).
+- **Le mot « gestion » est INTERDIT** (et dérivés).
+- Style : visuels CLAIRS (fond crème éditorial), neutres, premium, qui donnent envie.
+- Thèmes : histoire, services, pourquoi confier son bien, conseils propriétaires,
+  astuces Airbnb (photos, annonce, algorithme, prix, avis), preuve sociale, engagement.
+- Conseils Airbnb : s'appuyer sur les vidéos YouTube de Sébastien sur le BUSINESS
+  Airbnb (algorithme, annonces...). ⚠️ PAS les vidéos « conciergerie » (elles ciblent
+  les élèves qui se lancent, pas les propriétaires). 1 vidéo peut nourrir 4-5 posts.
+- Premier livrable demandé : 3-4 visuels d'exemple à envoyer à Martin. **FAIT.**
+
+**Où c'est** (branche `claude/instagram-pack-students-hs2k7y`) :
+- Plan des 30 posts : `pipeline/PACK_CONCIERGERIE_30_POSTS.md`
+- Moteur : `pipeline/engine/build_pack_conciergerie.py` (palette crème #F6F3EC /
+  encre #17222F / accent terracotta #C4633C remplaçable, zones pointillées grises,
+  check auto anti-« gestion » / anti-tirets / anti-emoji intégré au build).
+- Rendus : `pipeline/output/pack_demo/` (posts 1, 5, 10, 17 du plan).
+- Prochaine étape : retour de Martin sur le style → produire les 26 restants.
+
+---
+
 ## 📝 Historique des sessions
+
+### Session 2 — 25 juillet 2026 (branche `claude/instagram-pack-students-hs2k7y`)
+- Nouvelle demande de Martin (vocal) : le PACK ÉLÈVES CONCIERGERIE (voir section
+  dédiée ci-dessus). 30 visuels templates, mot « gestion » interdit, style clair.
+- Construit `build_pack_conciergerie.py` + rendu des 4 premiers visuels de démo
+  (pourquoi confier son bien / nos services / astuce photos / notre histoire),
+  zéro débordement, accents vérifiés visuellement.
+- Rédigé le plan complet des 30 posts (`pipeline/PACK_CONCIERGERIE_30_POSTS.md`).
+- En attente : retour de Martin sur le style avant de produire les 26 restants.
 
 ### Session 1 — 24 juillet 2026
 - Création du repo `CARROUSSEL-` et du fichier mémoire `carroussel.md`.
