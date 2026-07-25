@@ -783,6 +783,14 @@ de leur confier leur bien. 30 visuels = 30 posts différents = 3 mois de contenu
   (pourquoi confier son bien / nos services / astuce photos / notre histoire),
   zéro débordement, accents vérifiés visuellement.
 - Rédigé le plan complet des 30 posts (`pipeline/PACK_CONCIERGERIE_30_POSTS.md`).
+- **Chaîne YouTube @moresebastien récupérée** (le réseau de CETTE session laisse
+  passer YouTube) : 30 vidéos cataloguées, 7 transcriptions « business Airbnb »
+  téléchargées (`pipeline/sources/youtube/`), vidéos conciergerie écartées comme
+  demandé. Méthode qui marche : yt-dlp client `tv` (web/android exigent un PO token).
+- **Banque de conseils** compilée et reliée aux posts 17-25 du plan
+  (`pipeline/sources/youtube/BANQUE_CONSEILS.md`) + matière bonus (commission
+  13/10/2026, classement meublé, loi Le Meur, Booking). ⚠️ Poids d'algorithme =
+  analyses de Sébastien, pas des chiffres officiels ; infos fiscales datées.
 - En attente : retour de Martin sur le style avant de produire les 26 restants.
 
 ### Session 1 — 24 juillet 2026

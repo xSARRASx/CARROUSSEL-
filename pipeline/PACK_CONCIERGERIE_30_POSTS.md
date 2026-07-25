@@ -47,6 +47,9 @@
 16. Les questions à poser avant de confier son bien (et nos réponses)
 
 ### D. Conseils et astuces Airbnb, valeur pure (9 posts, source : vidéos YouTube business Airbnb)
+> Matière détaillée post par post : `sources/youtube/BANQUE_CONSEILS.md`
+> (extraite des 7 transcriptions de `sources/youtube/`, promos et contenus
+> « conciergerie » filtrés).
 17. Des photos qui font réserver votre bien — **FAIT (démo visuel 3)**
 18. Le titre d'annonce qui arrête le scroll (formule + exemples)
 19. Comment l'algorithme Airbnb classe votre annonce (et comment remonter)
@@ -68,6 +71,8 @@
 
 ## État
 - [x] Moteur + 4 visuels de démo (posts 1, 5, 10, 17) rendus et validés (zéro débordement).
+- [x] Chaîne YouTube @moresebastien récupérée : 7 transcriptions business Airbnb
+      + banque de conseils reliée aux posts 17-25 (`sources/youtube/`).
 - [ ] Retour de Martin sur le style (fond clair, zones pointillées, accent terracotta).
 - [ ] Produire les 26 visuels restants après validation.
 - [ ] Option à discuter : livrer aussi une version Canva pour que les élèves modifient
