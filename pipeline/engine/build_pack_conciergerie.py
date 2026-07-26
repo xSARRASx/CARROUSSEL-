@@ -218,7 +218,105 @@ def visuel_04():
     return page(body)
 
 # =====================================================================
-BUILDERS = [visuel_01, visuel_02, visuel_03, visuel_04]
+# VISUELS 5 a 8 : posts conseils bases sur la banque YouTube
+# (sources/youtube/BANQUE_CONSEILS.md, videos business Airbnb de Sebastien)
+# =====================================================================
+
+def conseil_slide(eyebrow, title_html, cards, note, numbered=True, ct_size=23, cl_size=27):
+    pts = ""
+    for i, (label, text) in enumerate(cards, 1):
+        num = f'<span class="n">{i}.</span>' if numbered else ''
+        pts += (f'<div class="card" style="padding:20px 28px;">'
+                f'<div class="cl" style="font-size:{cl_size}px;">{num}{label}</div>'
+                f'<div class="ct" style="font-size:{ct_size}px;">{text}</div></div>')
+    return page(slide_open() +
+        '<div class="pad">' + brandrow() +
+        f'<div class="eyebrow">{eyebrow}</div>'
+        f'<div class="title">{title_html}</div>'
+        f'<div class="points" style="margin-top:26px;gap:16px;">{pts}</div>'
+        f'<div class="custom" style="margin-top:18px;padding:14px 24px;">{note}</div>'
+        '</div>' + footer())
+
+NOTE_TEL_QUEL = ('<b>À personnaliser :</b> ce conseil se poste tel quel. '
+                 'Ajoute juste tes couleurs, ton logo et signe avec le nom de ta conciergerie.')
+
+# VISUEL 5 (post 18) : le titre d'annonce
+def visuel_05():
+    return conseil_slide(
+        "Astuce propriétaire",
+        f'Le titre d\'annonce qui arrête le {acc("scroll")}',
+        [
+            ("La formule qui marche",
+             "Capacité + équipement star + localisation. Exemple : 6 personnes, jacuzzi, 5 min à pied de la plage."),
+            ("50 caractères maximum",
+             "Un titre est une publicité, pas un inventaire de votre logement."),
+            ("Zéro bourrage de mots-clés",
+             "Wifi, parking, Netflix, clim : ça marchait en 2020. Aujourd'hui, ça fait annonce au rabais."),
+            ("Un nom mémorable",
+             "L'Atelier du Confluent bat T2 centre-ville wifi : on s'en souvient et on le recherche."),
+            ("Les 3 premières lignes comptent",
+             "Avant le bouton lire la suite : capacité, atout numéro 1, localisation. Le reste vient après."),
+        ],
+        NOTE_TEL_QUEL)
+
+# VISUEL 6 (post 19) : l'algorithme Airbnb
+def visuel_06():
+    return conseil_slide(
+        "Comprendre Airbnb",
+        f'Ce que l\'algorithme Airbnb regarde {acc("vraiment")}',
+        [
+            ("Le taux de conversion d'abord",
+             "Airbnb pousse les annonces qui transforment les vues en réservations, pas les moins chères."),
+            ("Répondre en moins d'une heure",
+             "Les meilleurs hôtes répondent en 30 minutes. Au-delà de 24 heures, l'annonce recule."),
+            ("Le badge Guest Favorite",
+             "Note 4,9 et plus, avis excellents et réguliers : c'est le nouveau graal, devant le statut Superhost."),
+            ("La réservation instantanée",
+             "Activée avec le filtre voyageurs vérifiés : plus de visibilité, sans mauvaises surprises."),
+            ("Une annonce vivante",
+             "Photo ajoutée, description mise à jour, calendrier frais : autant de signaux positifs envoyés."),
+        ],
+        NOTE_TEL_QUEL)
+
+# VISUEL 7 (post 20) : les prix
+def visuel_07():
+    return conseil_slide(
+        "Astuce revenus",
+        f'Un prix fixe toute l\'année vous fait {acc("perdre")} de l\'argent',
+        [
+            ("Le tarif par voyageur",
+             "95 euros pour 2 personnes puis 12 euros par voyageur en plus : vous apparaissez à 95 euros dans les recherches, sans rien perdre."),
+            ("Le tarif non remboursable à -10%",
+             "9 hôtes sur 10 l'ignorent : votre annonce s'affiche moins chère et ces réservations sont en béton."),
+            ("Les mini-saisons",
+             "Salons, vacances scolaires, week-ends fériés : chaque événement local a son prix, comme à l'hôtel."),
+            ("La basse saison se joue tôt",
+             "La fenêtre de réservation se ferme 30 à 45 jours avant. Ajuster la semaine d'avant, c'est trop tard."),
+        ],
+        NOTE_TEL_QUEL, ct_size=24)
+
+# VISUEL 8 (post 25) : les 3 chiffres a surveiller
+def visuel_08():
+    return conseil_slide(
+        "Suivi de votre annonce",
+        f'Les 3 chiffres qui disent si votre annonce va {acc("bien")}',
+        [
+            ("Le taux d'impression",
+             "Au-dessus de 55 : bonne visibilité. Sous 35 : votre annonce est quasi invisible dans les recherches."),
+            ("Le taux de clic",
+             "Plus de 30% : excellent. Sous 15% : c'est la photo principale ou le titre qu'il faut revoir."),
+            ("Le taux de conversion",
+             "Plus de 5% : excellent. Sous 2% : alerte rouge, l'annonce ne transforme pas ses visites."),
+            ("La lecture croisée",
+             "Des vues sans clics : photo ou prix. Des clics sans réservation : description, conditions ou avis."),
+        ],
+        '<b>À personnaliser :</b> ce conseil se poste tel quel (chiffres visibles dans les '
+        'statistiques Airbnb, profil professionnel activé). Ajoute tes couleurs et ton logo.',
+        ct_size=24)
+
+# =====================================================================
+BUILDERS = [visuel_01, visuel_02, visuel_03, visuel_04,
+            visuel_05, visuel_06, visuel_07, visuel_08]
 
 def check_no_forbidden(html, name):
     # mot "gestion" interdit (et derives), tirets longs interdits, emojis interdits
