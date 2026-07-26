@@ -791,7 +791,13 @@ de leur confier leur bien. 30 visuels = 30 posts différents = 3 mois de contenu
   (`pipeline/sources/youtube/BANQUE_CONSEILS.md`) + matière bonus (commission
   13/10/2026, classement meublé, loi Le Meur, Booking). ⚠️ Poids d'algorithme =
   analyses de Sébastien, pas des chiffres officiels ; infos fiscales datées.
-- En attente : retour de Martin sur le style avant de produire les 26 restants.
+- 4 visuels conseils produits sur la banque YouTube (posts 18, 19, 20, 25) en
+  format « titre + cartes », puis **4 variantes graphiques** demandées par
+  Martin (`pipeline/output/pack_variantes/`) : carte mentale, entonnoir,
+  avant/après, schéma annoté. Le frère veut des formats variés (schémas, cartes
+  mentales), pas toujours titre + liste : varier les structures dans le pack.
+- En attente : retour de Martin/frère sur les formats préférés avant de
+  produire les 22 visuels restants.
 
 ### Session 1 — 24 juillet 2026
 - Création du repo `CARROUSSEL-` et du fichier mémoire `carroussel.md`.
