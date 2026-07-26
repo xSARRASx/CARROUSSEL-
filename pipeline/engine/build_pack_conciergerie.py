@@ -315,12 +315,170 @@ def visuel_08():
         ct_size=24)
 
 # =====================================================================
-BUILDERS = [visuel_01, visuel_02, visuel_03, visuel_04,
-            visuel_05, visuel_06, visuel_07, visuel_08]
+# VARIANTES GRAPHIQUES (demande Martin) : memes conseils, mises en page
+# differentes : carte mentale, entonnoir, avant/apres, schema annote.
+# Sorties dans output/pack_variantes/.
+# =====================================================================
+REDL   = "#B94A44"   # rouge sombre lisible sur fond clair
+GREENL = "#2F7D57"   # vert sombre lisible sur fond clair
+
+def head_block(eyebrow, title_html, tsize=46):
+    return (f'<div class="eyebrow">{eyebrow}</div>'
+            f'<div class="title" style="font-size:{tsize}px;">{title_html}</div>')
+
+# ---- VARIANTE A (post 19) : CARTE MENTALE de l'algorithme ----
+def variante_mindmap():
+    C = (464, 300)   # centre du noeud dans le conteneur 928x660
+    spots = [
+        (135, 75,  "Conversion", "Des vues qui deviennent des réservations", 0, 0),
+        (793, 75,  "Réponse rapide", "Moins d'1 heure, les meilleurs font 30 min", 658, 0),
+        (135, 545, "Guest Favorite", "Note 4,9 et avis excellents réguliers", 0, 480),
+        (464, 545, "Résa instantanée", "Avec le filtre voyageurs vérifiés", 329, 480),
+        (793, 545, "Annonce vivante", "Photos et calendrier mis à jour", 658, 480),
+    ]
+    lines = "".join(
+        f'<line x1="{C[0]}" y1="{C[1]}" x2="{x}" y2="{y}" stroke="{ACCENT}" stroke-width="3" stroke-linecap="round" opacity="0.55"/>'
+        for x, y, *_ in spots)
+    boxes = "".join(
+        f'<div style="position:absolute;left:{bx}px;top:{by}px;width:270px;background:{CARD};'
+        f'border:1.5px solid rgba(23,34,47,0.10);border-radius:14px;padding:16px 18px;z-index:2;">'
+        f'<div style="color:{ACCENT};font-weight:800;font-size:22px;">{label}</div>'
+        f'<div style="color:{INK};font-weight:500;font-size:19px;line-height:1.3;margin-top:6px;opacity:0.9;">{txt}</div></div>'
+        for x, y, label, txt, bx, by in spots)
+    node = (f'<div style="position:absolute;left:354px;top:190px;width:220px;height:220px;'
+            f'background:{ACCENT};border-radius:50%;display:flex;align-items:center;justify-content:center;'
+            f'text-align:center;z-index:2;">'
+            f'<div style="color:#fff;font-weight:900;font-size:27px;line-height:1.15;text-transform:uppercase;">Votre<br>annonce</div></div>')
+    schema = (f'<div style="flex:1;display:flex;align-items:center;">'
+              f'<div style="position:relative;width:928px;height:660px;">'
+              f'<svg width="928" height="660" style="position:absolute;inset:0;z-index:1;">{lines}</svg>'
+              f'{node}{boxes}</div></div>')
+    return page(slide_open() +
+        '<div class="pad">' + brandrow() +
+        head_block("Comprendre Airbnb", f'L\'algorithme Airbnb en une {acc("carte")}') +
+        schema +
+        '<div class="custom" style="margin-top:auto;padding:14px 24px;">'
+        '<b>À personnaliser :</b> ce schéma se poste tel quel. Tes couleurs, ton logo, et signe '
+        'avec le nom de ta conciergerie.</div>'
+        '</div>' + footer())
+
+# ---- VARIANTE B (post 25) : ENTONNOIR du scroll a la reservation ----
+def variante_funnel():
+    bars = [
+        ("1. VU", "taux d'impression", "55+", "#17222F", 928),
+        ("2. CLIQUÉ", "taux de clic", "30%", "#4E5D6E", 686),
+        ("3. RÉSERVÉ", "taux de conversion", "5%", ACCENT, 464),
+    ]
+    rows = ""
+    for i, (stage, metric, goal, bg, w) in enumerate(bars):
+        rows += (f'<div style="width:{w}px;margin:0 auto;background:{bg};border-radius:16px;'
+                 f'padding:24px 34px;display:flex;justify-content:space-between;align-items:center;">'
+                 f'<div><div style="color:#fff;font-weight:900;font-size:28px;text-transform:uppercase;">{stage}</div>'
+                 f'<div style="color:rgba(255,255,255,0.75);font-weight:600;font-size:20px;">{metric}</div></div>'
+                 f'<div style="text-align:right;"><div style="color:#fff;font-weight:900;font-size:42px;">{goal}</div>'
+                 f'<div style="color:rgba(255,255,255,0.75);font-weight:600;font-size:17px;text-transform:uppercase;letter-spacing:1px;">objectif</div></div></div>')
+        if i < 2:
+            rows += f'<div style="text-align:center;color:{ACCENT};font-weight:900;font-size:30px;line-height:1;margin:12px 0;">▼</div>'
+    diag = ('<div style="display:flex;gap:16px;margin-top:30px;">'
+            f'<div style="flex:1;background:{CARD};border:1.5px solid rgba(23,34,47,0.10);border-radius:14px;padding:18px 22px;">'
+            f'<div style="color:{REDL};font-weight:800;font-size:21px;">Des vues, pas de clics ?</div>'
+            f'<div style="color:{INK};font-weight:500;font-size:20px;margin-top:6px;">Photo principale ou prix à revoir.</div></div>'
+            f'<div style="flex:1;background:{CARD};border:1.5px solid rgba(23,34,47,0.10);border-radius:14px;padding:18px 22px;">'
+            f'<div style="color:{REDL};font-weight:800;font-size:21px;">Des clics, pas de résa ?</div>'
+            f'<div style="color:{INK};font-weight:500;font-size:20px;margin-top:6px;">Description, conditions ou avis.</div></div></div>')
+    return page(slide_open() +
+        '<div class="pad">' + brandrow() +
+        head_block("Suivi de votre annonce", f'Du scroll à la {acc("réservation")} : l\'entonnoir Airbnb') +
+        f'<div style="margin-top:34px;">{rows}</div>' + diag +
+        '<div class="custom" style="margin-top:auto;padding:14px 24px;">'
+        '<b>À personnaliser :</b> chiffres visibles dans les statistiques Airbnb (profil '
+        'professionnel activé). Ajoute tes couleurs et ton logo, puis poste tel quel.</div>'
+        '</div>' + footer())
+
+# ---- VARIANTE C (post 20) : AVANT / APRES sur les prix ----
+def variante_avant_apres():
+    def col(color, bg, title_txt, glyph, items):
+        lis = "".join(
+            f'<div style="display:flex;gap:14px;margin-top:22px;align-items:flex-start;">'
+            f'<div style="color:{color};font-weight:900;font-size:24px;line-height:1.2;flex-shrink:0;">{glyph}</div>'
+            f'<div style="color:{INK};font-weight:500;font-size:24px;line-height:1.35;">{t}</div></div>'
+            for t in items)
+        return (f'<div style="flex:1;border:2px solid {color};border-radius:16px;padding:24px 24px;background:{bg};">'
+                f'<div style="color:{color};font-weight:900;font-size:25px;text-transform:uppercase;letter-spacing:1px;">{title_txt}</div>{lis}</div>')
+    avant = col(REDL, "rgba(185,74,68,0.07)", "Prix fixe", "×", [
+        "120 euros, toute l'année, pour tout le monde",
+        "Invisible dans les recherches 2 voyageurs",
+        "Basse saison ajustée au dernier moment",
+        "Calendrier troué, revenus en dents de scie",
+    ])
+    apres = col(GREENL, "rgba(47,125,87,0.07)", "Prix piloté", "✓", [
+        "95 euros pour 2, puis 12 euros par voyageur",
+        "Tarif non remboursable affiché à -10%",
+        "Mini-saisons : salons, vacances, fériés",
+        "Prix calés 30 à 45 jours avant la basse saison",
+    ])
+    arrow = f'<div style="align-self:center;color:{ACCENT};font-weight:900;font-size:52px;padding:0 4px;">→</div>'
+    strip = (f'<div style="background:{CARD};border:1.5px solid rgba(23,34,47,0.10);border-radius:14px;'
+             f'padding:24px 30px;margin-top:30px;text-align:center;">'
+             f'<div style="color:{INK};font-weight:700;font-size:25px;line-height:1.4;">Même logement, même confort : '
+             f'seule la façon d\'afficher le prix change. <span style="color:{ACCENT};">Et le classement suit.</span></div></div>')
+    return page(slide_open() +
+        '<div class="pad">' + brandrow() +
+        head_block("Astuce revenus", f'Prix fixe ou prix {acc("piloté")} : le match') +
+        f'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;">'
+        f'<div style="display:flex;gap:12px;align-items:stretch;">{avant}{arrow}{apres}</div>' +
+        strip + '</div>' +
+        '<div class="custom" style="margin-top:auto;padding:14px 24px;">'
+        '<b>À personnaliser :</b> adapte les montants d\'exemple à ton marché, mets tes couleurs '
+        'et ton logo. Le reste se poste tel quel.</div>'
+        '</div>' + footer())
+
+# ---- VARIANTE D (post 18) : ANATOMIE d'un titre d'annonce ----
+def variante_anatomie():
+    good = (f'<div style="background:{CARD};border:1.5px solid rgba(23,34,47,0.10);border-radius:16px;padding:34px 34px;">'
+            f'<div style="color:{MUTED};font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:2px;">Le bon titre</div>'
+            f'<div style="font-weight:800;font-size:36px;line-height:1.6;color:{INK};margin-top:16px;">'
+            f'<span style="border-bottom:7px solid {ACCENT};">6 personnes</span> · '
+            f'<span style="border-bottom:7px solid {GREENL};">jacuzzi</span> · '
+            f'<span style="border-bottom:7px solid {REDL};">5 min à pied de la plage</span></div>'
+            f'<div style="display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;">'
+            f'<div style="background:{ACCENT};color:#fff;font-weight:800;font-size:18px;padding:8px 16px;border-radius:30px;text-transform:uppercase;letter-spacing:1px;">Capacité</div>'
+            f'<div style="background:{GREENL};color:#fff;font-weight:800;font-size:18px;padding:8px 16px;border-radius:30px;text-transform:uppercase;letter-spacing:1px;">Équipement star</div>'
+            f'<div style="background:{REDL};color:#fff;font-weight:800;font-size:18px;padding:8px 16px;border-radius:30px;text-transform:uppercase;letter-spacing:1px;">Localisation</div>'
+            f'</div></div>')
+    bad = (f'<div style="background:rgba(185,74,68,0.07);border:2px solid {REDL};border-radius:16px;padding:28px 34px;margin-top:26px;">'
+           f'<div style="color:{REDL};font-weight:900;font-size:19px;text-transform:uppercase;letter-spacing:2px;">× Le titre inventaire</div>'
+           f'<div style="color:{INK};font-weight:600;font-size:27px;margin-top:10px;text-decoration:line-through;opacity:0.65;">'
+           f'Joli T2 cosy wifi parking Netflix clim balcon</div>'
+           f'<div style="color:{REDL};font-weight:600;font-size:20px;margin-top:10px;font-style:italic;">'
+           f'Le bourrage de mots-clés de 2020 : aujourd\'hui, ça fait annonce au rabais.</div></div>')
+    rules = ('<div style="display:flex;gap:16px;margin-top:26px;">'
+             f'<div style="flex:1;border:2px solid {ACCENT};border-radius:40px;padding:16px 22px;text-align:center;'
+             f'color:{ACCENT};font-weight:800;font-size:21px;">50 caractères maximum</div>'
+             f'<div style="flex:1;border:2px solid {ACCENT};border-radius:40px;padding:14px 22px;text-align:center;'
+             f'color:{ACCENT};font-weight:800;font-size:21px;">Un titre = une promesse</div></div>')
+    return page(slide_open() +
+        '<div class="pad">' + brandrow() +
+        head_block("Astuce propriétaire", f'L\'anatomie d\'un titre qui fait {acc("cliquer")}') +
+        f'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;">{good}{bad}{rules}</div>' +
+        '<div class="custom" style="margin-top:auto;padding:14px 24px;">'
+        '<b>À personnaliser :</b> remplace l\'exemple par le titre de TON annonce en gardant la '
+        'formule capacité + équipement star + localisation. Tes couleurs, ton logo.</div>'
+        '</div>' + footer())
+
+# =====================================================================
+GROUPS = {
+    "pack_demo": [visuel_01, visuel_02, visuel_03, visuel_04,
+                  visuel_05, visuel_06, visuel_07, visuel_08],
+    "pack_variantes": [variante_mindmap, variante_funnel,
+                       variante_avant_apres, variante_anatomie],
+}
 
 def check_no_forbidden(html, name):
-    # mot "gestion" interdit (et derives), tirets longs interdits, emojis interdits
+    # mot "gestion" interdit (et derives), tirets longs interdits, emojis interdits.
+    # Glyphes sobres autorises par la charte (colorises en CSS) : ✓ × ▼ ▲ → ↓ ★ ·
     text = re.sub(r'data:[^"\']+', '', html)
+    text = re.sub(r'[✓×▼▲→↓★·»]', '', text)
     for pat, label in [(r'(?i)gestion', 'mot "gestion"'),
                        (r'[‒–—―─﹣－]', 'tiret long'),
                        (r'[\U0001F000-\U0001FAFF☀-➿]', 'emoji')]:
@@ -328,15 +486,16 @@ def check_no_forbidden(html, name):
         assert not m, f"{name} : {label} detecte ({m.group(0)!r})"
 
 def main():
-    out = ROOT / "output" / "pack_demo" / "html"
-    out.mkdir(parents=True, exist_ok=True)
-    for i, build in enumerate(BUILDERS, 1):
-        html = build()
-        name = f"slide_{i:02d}.html"
-        check_no_forbidden(html, name)
-        (out / name).write_text(html, encoding="utf-8")
-        print(f"OK {name}")
-    print(f"HTML dans {out}")
+    for slug, builders in GROUPS.items():
+        out = ROOT / "output" / slug / "html"
+        out.mkdir(parents=True, exist_ok=True)
+        for i, build in enumerate(builders, 1):
+            html = build()
+            name = f"slide_{i:02d}.html"
+            check_no_forbidden(html, f"{slug}/{name}")
+            (out / name).write_text(html, encoding="utf-8")
+            print(f"OK {slug}/{name}")
+        print(f"HTML dans {out}")
 
 if __name__ == "__main__":
     main()
