@@ -70,7 +70,12 @@
 30. Question aux propriétaires : qu'est-ce qui vous empêche de louer ? (post conversation)
 
 ## État
-- [x] Moteur + 4 visuels de démo (posts 1, 5, 10, 17) rendus et validés (zéro débordement).
+- [x] **PACK COMPLET : les 30 visuels rendus** dans `output/pack_30/` (slide_01
+      à slide_30, dans l'ordre de ce plan), ~15 structures de mise en page
+      différentes (récit, portrait, timeline, checklist, calcul, escalier,
+      objection/réponse, Q/R, carte mentale, entonnoir, avant/après, anatomie,
+      grille pictos, vrai/faux, question). Zéro débordement, zéro « gestion ».
+- [x] Moteur + démos intermédiaires (`output/pack_demo/`, `output/pack_variantes/`).
 - [x] Chaîne YouTube @moresebastien récupérée : 7 transcriptions business Airbnb
       + banque de conseils reliée aux posts 17-25 (`sources/youtube/`).
 - [ ] Retour de Martin sur le style (fond clair, zones pointillées, accent terracotta).

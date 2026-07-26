@@ -612,12 +612,416 @@ def variante_anatomie():
         '</div>' + footer())
 
 # =====================================================================
+# =====================================================================
+# PACK COMPLET : les 19 visuels restants du plan (PACK_CONCIERGERIE_30_POSTS.md)
+# Chaque visuel a une STRUCTURE differente + des zones a modifier.
+# =====================================================================
+
+def wrap_center(inner):
+    return f'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;">{inner}</div>'
+
+def custom_note(txt):
+    return f'<div class="custom" style="margin-top:auto;padding:14px 24px;"><b>À personnaliser :</b> {txt}</div>'
+
+def base(eyebrow, title_html, inner, note, tsize=48):
+    return page(slide_open() + '<div class="pad">' + brandrow() +
+        head_block(eyebrow, title_html, tsize) + wrap_center(inner) +
+        custom_note(note) + '</div>' + footer())
+
+def dz(txt, extra=""):
+    """Zone pointillee a remplacer (dashed zone)."""
+    return (f'<div style="border:2.5px dashed {ANNOT};border-radius:12px;padding:10px 18px;'
+            f'color:{ANNOT};font-weight:600;font-size:20px;font-style:italic;display:inline-block;{extra}">{txt}</div>')
+
+# ---- P02 : QUI S'OCCUPE DE VOTRE BIEN (portrait + parcours) ----
+def p02_equipe():
+    photo = (f'<div style="width:360px;height:440px;border:2.5px dashed {ANNOT};border-radius:20px;'
+             f'display:flex;align-items:center;justify-content:center;text-align:center;color:{ANNOT};'
+             f'font-weight:700;font-size:22px;font-style:italic;line-height:1.4;flex-shrink:0;">'
+             f'Ta photo ici<br>(toi ou ton équipe,<br>souriants, en situation)</div>')
+    pts = "".join(f'<div style="display:flex;gap:12px;margin-top:18px;align-items:flex-start;">'
+                  f'<div style="color:{ACCENT};font-weight:900;font-size:24px;">→</div>'
+                  f'<div style="color:{INK};font-weight:600;font-size:23px;line-height:1.3;">{t}</div></div>'
+                  for t in ["Joignable 7 jours sur 7 pendant les séjours",
+                            "Sur place : on connaît chaque rue du secteur",
+                            "Une obsession : les avis 5 étoiles de vos voyageurs"])
+    right = (f'<div style="flex:1;">{dz("Ton prénom + ton rôle. Exemple : Julie, fondatrice")}'
+             f'<div style="margin-top:16px;">{dz("Une phrase sur ton parcours. Exemple : 8 ans dans l&#39;hôtellerie avant de créer ma conciergerie", "font-size:19px;")}</div>'
+             f'{pts}</div>')
+    inner = f'<div style="display:flex;gap:36px;align-items:center;">{photo}{right}</div>'
+    return base("Qui sommes-nous", f'La personne qui veille sur votre {acc("bien")}', inner,
+        "ta photo, ton prénom, ton parcours en une phrase. Les 3 points peuvent rester.")
+
+# ---- P03 : NOS VALEURS (3 colonnes + pictos SVG) ----
+def p03_valeurs():
+    ic = {
+      "oeil": f'<svg width="54" height="54" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z" stroke="{ACCENT}" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="{ACCENT}" stroke-width="1.8"/></svg>',
+      "etoile": f'<svg width="54" height="54" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6-5.4-3-5.4 3 1.1-6L3.2 9.4l6.1-.8L12 3z" stroke="{ACCENT}" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+      "maison": f'<svg width="54" height="54" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="{ACCENT}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v10h14V10" stroke="{ACCENT}" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+    }
+    vals = [(ic["oeil"], "Transparence", "Vous savez tout, tout le temps : séjours, revenus, état du logement."),
+            (ic["etoile"], "Exigence", "Une qualité hôtelière à chaque séjour, sans exception."),
+            (ic["maison"], "Proximité", "Une personne du coin qui décroche, pas une plateforme anonyme.")]
+    cols = "".join(f'<div style="flex:1;background:{CARD};border:1.5px solid rgba(23,34,47,0.08);'
+                   f'border-radius:18px;padding:34px 26px;text-align:center;">{svg}'
+                   f'<div style="color:{ACCENT};font-weight:900;font-size:27px;text-transform:uppercase;margin-top:18px;">{v}</div>'
+                   f'<div style="color:{INK};font-weight:500;font-size:21px;line-height:1.4;margin-top:14px;">{t}</div></div>'
+                   for svg, v, t in vals)
+    inner = (f'<div style="display:flex;gap:20px;align-items:stretch;">{cols}</div>'
+             f'<div style="margin-top:28px;text-align:center;">{dz("Ta promesse en une phrase. Exemple : votre bien traité comme si c&#39;était le nôtre")}</div>')
+    return base("Nos valeurs", f'Ce qu\'on {acc("promet")} à chaque propriétaire', inner,
+        "garde ou remplace ces 3 valeurs par les TIENNES, et écris ta promesse en bas.")
+
+# ---- P04 : UNE JOURNEE TYPE (timeline verticale) ----
+def p04_journee():
+    steps = [("9h", "Contrôle après le départ", "État du logement vérifié pièce par pièce"),
+             ("11h", "Ménage et linge hôtelier", "Le logement redevient impeccable"),
+             ("15h", "Annonce et prix à jour", "Calendrier, tarifs, photos : rien ne dort"),
+             ("18h", "Accueil des nouveaux voyageurs", "Arrivée fluide, consignes claires"),
+             ("21h", "Réponses aux messages", "Moins d'une heure, même le soir")]
+    rows = ""
+    for i, (h, t, d) in enumerate(steps):
+        rows += (f'<div style="display:flex;gap:24px;align-items:flex-start;position:relative;padding-bottom:{26 if i<4 else 0}px;">'
+                 f'<div style="width:86px;flex-shrink:0;text-align:right;color:{ACCENT};font-weight:900;font-size:28px;">{h}</div>'
+                 f'<div style="width:14px;height:14px;border-radius:50%;background:{ACCENT};margin-top:10px;flex-shrink:0;"></div>'
+                 f'<div><div style="color:{INK};font-weight:800;font-size:25px;">{t}</div>'
+                 f'<div style="color:{MUTED};font-weight:500;font-size:20px;margin-top:4px;">{d}</div></div></div>')
+    inner = (f'<div style="position:relative;padding-left:6px;">'
+             f'<div style="position:absolute;left:132px;top:14px;bottom:14px;width:3px;background:{ACCENT};opacity:0.3;"></div>{rows}</div>')
+    return base("Les coulisses", f'Une journée au service de votre {acc("bien")}', inner,
+        "adapte les horaires et les étapes à TA vraie journée : c'est ça qui rassure.")
+
+# ---- P06 : ZOOM ANNONCE (checklist coches vertes) ----
+def p06_annonce():
+    items = ["Photos retravaillées, ou refaites par un pro",
+             "Titre construit avec la formule qui fait cliquer",
+             "Description qui répond aux questions des voyageurs",
+             "Équipements TOUS déclarés : chaque case est un filtre",
+             "Calendrier et prix tenus à jour chaque semaine"]
+    rows = "".join(f'<div style="display:flex;gap:18px;align-items:flex-start;background:{CARD};'
+                   f'border:1.5px solid rgba(23,34,47,0.08);border-radius:14px;padding:20px 26px;margin-top:16px;">'
+                   f'<div style="color:{GREENL};font-weight:900;font-size:30px;line-height:1;">✓</div>'
+                   f'<div style="color:{INK};font-weight:600;font-size:24px;line-height:1.3;">{t}</div></div>'
+                   for t in items)
+    strip = (f'<div style="background:{ACCENT};border-radius:14px;padding:18px 26px;margin-top:24px;text-align:center;'
+             f'color:#fff;font-weight:800;font-size:23px;">Résultat : plus de vues, plus de clics, plus de réservations.</div>')
+    return base("Zoom service", f'Votre annonce, prise en main de {acc("A à Z")}', inner=rows+strip,
+        note="ajuste la liste à ce que TU fais vraiment sur les annonces. Tes couleurs, ton logo.")
+
+# ---- P07 : ZOOM ACCUEIL (2 colonnes arrivee / depart) ----
+def p07_accueil():
+    def col(title_txt, items):
+        lis = "".join(f'<div style="display:flex;gap:12px;margin-top:18px;align-items:flex-start;">'
+                      f'<div style="color:{ACCENT};font-weight:900;font-size:22px;">→</div>'
+                      f'<div style="color:{INK};font-weight:500;font-size:22px;line-height:1.35;">{t}</div></div>' for t in items)
+        return (f'<div style="flex:1;background:{CARD};border:1.5px solid rgba(23,34,47,0.08);border-radius:18px;padding:30px 28px;">'
+                f'<div style="color:{ACCENT};font-weight:900;font-size:26px;text-transform:uppercase;letter-spacing:1px;">{title_txt}</div>{lis}</div>')
+    inner = ('<div style="display:flex;gap:20px;align-items:stretch;">'
+             + col("À l'arrivée", ["Toutes les infos envoyées la veille : code, parking, wifi",
+                                   "Check-in autonome ou accueil en personne, au choix",
+                                   "Logement vérifié et à température avant chaque entrée"])
+             + col("Au départ", ["État du logement contrôlé dans la journée",
+                                 "Ménage et linge lancés aussitôt",
+                                 "L'avis du voyageur sollicité au bon moment"]) + '</div>')
+    return base("Zoom service", f'Des séjours {acc("fluides")}, de l\'arrivée au départ', inner,
+        "arrivée autonome, en personne, les deux ? Adapte les points à TON accueil.")
+
+# ---- P08 : ZOOM MENAGE (grille 2x2 avec pictos) ----
+def p08_menage():
+    ic = {
+      "lit": f'<svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6" stroke="{ACCENT}" stroke-width="1.8" stroke-linecap="round"/><path d="M3 18h18M6 10V7h12v3" stroke="{ACCENT}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      "spray": f'<svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M9 8h6l-1 12H10L9 8z" stroke="{ACCENT}" stroke-width="1.8" stroke-linejoin="round"/><path d="M11 8V5h3M17 4l2-1M18 6l2 0M17 8l2 1" stroke="{ACCENT}" stroke-width="1.8" stroke-linecap="round"/></svg>',
+      "loupe": f'<svg width="48" height="48" viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="6" stroke="{ACCENT}" stroke-width="1.8"/><path d="M15 15l6 6" stroke="{ACCENT}" stroke-width="1.8" stroke-linecap="round"/></svg>',
+      "photo": f'<svg width="48" height="48" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2" stroke="{ACCENT}" stroke-width="1.8"/><path d="M9 7l1.5-2.5h3L15 7" stroke="{ACCENT}" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.2" stroke="{ACCENT}" stroke-width="1.8"/></svg>',
+    }
+    tiles = [(ic["lit"], "Linge blanc hôtelier", "Draps et serviettes qualité hôtel, fournis et pliés"),
+             (ic["spray"], "Consommables refaits", "Savon, papier, café : rien ne manque jamais"),
+             (ic["loupe"], "Contrôle pièce par pièce", "Une checklist passée après chaque ménage"),
+             (ic["photo"], "Photos de contrôle", "La preuve visuelle envoyée après chaque passage")]
+    grid = "".join(f'<div style="width:calc(50% - 10px);background:{CARD};border:1.5px solid rgba(23,34,47,0.08);'
+                   f'border-radius:18px;padding:28px 26px;">{svg}'
+                   f'<div style="color:{ACCENT};font-weight:800;font-size:24px;margin-top:14px;">{t}</div>'
+                   f'<div style="color:{INK};font-weight:500;font-size:20px;line-height:1.35;margin-top:8px;">{d}</div></div>'
+                   for svg, t, d in tiles)
+    inner = f'<div style="display:flex;flex-wrap:wrap;gap:20px;">{grid}</div>'
+    return base("Zoom service", f'Un logement {acc("impeccable")}, séjour après séjour', inner,
+        "adapte les 4 tuiles à TON process ménage (prestataire, linge, contrôles...).")
+
+# ---- P11 : 5 SIGNES (checklist a cocher) ----
+def p11_signes():
+    items = ["Vous répondez encore aux voyageurs à 23h",
+             "Le ménage entre deux séjours est un casse-tête",
+             "Votre calendrier a des trous inexpliqués",
+             "Vos prix n'ont pas bougé depuis des mois",
+             "Vous n'osez plus partir en week-end"]
+    rows = "".join(f'<div style="display:flex;gap:18px;align-items:center;background:{CARD};'
+                   f'border:1.5px solid rgba(23,34,47,0.08);border-radius:14px;padding:19px 24px;margin-top:15px;">'
+                   f'<div style="width:34px;height:34px;border:3px solid {ACCENT};border-radius:8px;flex-shrink:0;"></div>'
+                   f'<div style="color:{INK};font-weight:600;font-size:23px;line-height:1.3;">{t}</div></div>'
+                   for t in items)
+    strip = (f'<div style="background:{ACCENT};border-radius:14px;padding:16px 26px;margin-top:22px;text-align:center;'
+             f'color:#fff;font-weight:800;font-size:22px;">3 cases cochées ou plus ? Écrivez-nous, on en parle.</div>')
+    return base("Propriétaires", f'5 signes qu\'il est temps de {acc("déléguer")}', rows+strip,
+        "ce post se poste tel quel : tes couleurs, ton logo, ton contact en bas.")
+
+# ---- P12 : IDEE RECUE COUT (calcul) ----
+def p12_calcul():
+    def calc(color, bg, title_txt, lines, total):
+        lis = "".join(f'<div style="color:{INK};font-weight:600;font-size:22px;line-height:1.5;">{l}</div>' for l in lines)
+        return (f'<div style="flex:1;border:2px solid {color};border-radius:16px;padding:26px 28px;background:{bg};">'
+                f'<div style="color:{color};font-weight:900;font-size:23px;text-transform:uppercase;">{title_txt}</div>'
+                f'<div style="margin-top:14px;">{lis}</div>'
+                f'<div style="color:{color};font-weight:900;font-size:34px;margin-top:14px;">{total}</div></div>')
+    seul = calc(REDL, "rgba(185,74,68,0.07)", "Seul", ["100 € la nuit", "× 12 nuits réservées", "+ vos soirées et week-ends"], "= 1 200 €")
+    avec = calc(GREENL, "rgba(47,125,87,0.07)", "Avec conciergerie", ["110 € la nuit, optimisée", "× 18 nuits réservées", "- 20% de commission"], "= 1 584 €")
+    punch = (f'<div style="background:{ACCENT};border-radius:16px;padding:22px 30px;margin-top:26px;text-align:center;">'
+             f'<div style="color:#fff;font-weight:900;font-size:30px;">+ 384 € par mois, sans lever le petit doigt</div>'
+             f'<div style="color:rgba(255,255,255,0.85);font-weight:600;font-size:19px;margin-top:8px;font-style:italic;">'
+             f'Exemple illustratif : chaque marché est différent</div></div>')
+    inner = f'<div style="display:flex;gap:18px;align-items:stretch;">{seul}{avec}</div>{punch}'
+    return base("Idée reçue", f'« Une conciergerie, ça coûte cher » : faisons le {acc("calcul")}', inner,
+        "remplace par TES chiffres réels (tarif, nuits, commission) : le calcul doit être honnête.", tsize=44)
+
+# ---- P13 : TEMPS RECUPERE (addition des heures) ----
+def p13_temps():
+    rows = [("5 h", "Messages et demandes voyageurs"),
+            ("6 h", "Ménages, linge, contrôles"),
+            ("4 h", "Arrivées, départs, imprévus"),
+            ("3 h", "Annonce, prix, calendrier")]
+    lis = "".join(f'<div style="display:flex;align-items:center;gap:22px;background:{CARD};'
+                  f'border:1.5px solid rgba(23,34,47,0.08);border-radius:14px;padding:18px 26px;margin-top:14px;">'
+                  f'<div style="color:{ACCENT};font-weight:900;font-size:34px;width:96px;text-align:right;flex-shrink:0;">{h}</div>'
+                  f'<div style="color:{INK};font-weight:600;font-size:23px;">{t}</div></div>' for h, t in rows)
+    total = (f'<div style="display:flex;align-items:center;gap:22px;background:{INK};border-radius:14px;'
+             f'padding:22px 26px;margin-top:20px;">'
+             f'<div style="color:#fff;font-weight:900;font-size:40px;width:130px;text-align:right;flex-shrink:0;">18 h</div>'
+             f'<div style="color:#fff;font-weight:800;font-size:24px;">rendues chaque mois. Deux week-ends entiers.</div></div>')
+    return base("Propriétaires", f'Ce que vous {acc("récupérez")} : votre temps, chiffré', lis+total,
+        "ajuste les heures à la réalité de TES propriétaires (c'est souvent plus).")
+
+# ---- P14 : PROPRIETAIRE A DISTANCE (objection / reponse) ----
+def p14_distance():
+    pairs = [("« Je suis à 600 km »", "Nous, on est sur place. C'est justement le principe."),
+             ("« Et s'il y a un souci à 22h ? »", "C'est notre téléphone qui sonne, jamais le vôtre."),
+             ("« Je veux garder un œil »", "Photos et compte rendu après chaque séjour, revenus suivis en temps réel.")]
+    rows = ""
+    for q, r in pairs:
+        rows += (f'<div style="margin-top:22px;">'
+                 f'<div style="display:inline-block;background:rgba(23,34,47,0.06);border-radius:30px;'
+                 f'padding:12px 24px;color:{MUTED};font-weight:700;font-size:22px;font-style:italic;">{q}</div>'
+                 f'<div style="background:{CARD};border-left:5px solid {ACCENT};border-radius:0 14px 14px 0;'
+                 f'padding:18px 24px;margin-top:10px;margin-left:34px;color:{INK};font-weight:600;font-size:23px;line-height:1.35;">{r}</div></div>')
+    return base("Propriétaires", f'Louer sans être sur place, {acc("sereinement")}', rows,
+        "remplace « 600 km » par un vrai cas de chez toi, et poste tel quel.")
+
+# ---- P15 : LES 4 ETAPES (escalier) ----
+def p15_etapes():
+    steps = [("1", "On se rencontre", "Visite de votre bien, échange sur vos objectifs. Gratuit."),
+             ("2", "On prépare", "Annonce, photos, équipement, tarifs : tout est calé."),
+             ("3", "On lance", "Voyageurs, séjours, ménage : votre bien travaille."),
+             ("4", "Vous suivez", "Revenus et comptes rendus. Le reste, c'est pour nous.")]
+    rows = ""
+    for i, (n, t, d) in enumerate(steps):
+        rows += (f'<div style="display:flex;gap:22px;align-items:flex-start;margin-left:{i*56}px;margin-top:{0 if i==0 else 18}px;'
+                 f'background:{CARD};border:1.5px solid rgba(23,34,47,0.08);border-radius:16px;padding:20px 26px;max-width:760px;">'
+                 f'<div style="color:{ACCENT};font-weight:900;font-size:52px;line-height:0.9;flex-shrink:0;">{n}</div>'
+                 f'<div><div style="color:{INK};font-weight:800;font-size:25px;">{t}</div>'
+                 f'<div style="color:{MUTED};font-weight:500;font-size:20px;line-height:1.35;margin-top:6px;">{d}</div></div></div>')
+    zone = f'<div style="margin-top:26px;text-align:center;">{dz("Délai moyen chez toi. Exemple : votre bien en ligne en 2 semaines")}</div>'
+    return base("Comment ça se passe", f'Nous confier votre bien, en {acc("4 étapes")}', rows+zone,
+        "adapte les étapes et le délai à TON process. Tes couleurs, ton logo.")
+
+# ---- P16 : LES BONNES QUESTIONS (Q fixes / reponses a remplir) ----
+def p16_questions():
+    qs = ["Qui entre chez moi, et quand ?",
+          "Comment sont fixés mes prix ?",
+          "Que se passe-t-il en cas de casse ?",
+          "Comment je suis mes revenus ?"]
+    rows = ""
+    for q in qs:
+        rows += (f'<div style="margin-top:18px;">'
+                 f'<div style="color:{INK};font-weight:800;font-size:24px;"><span style="color:{ACCENT};font-weight:900;">Q.</span> {q}</div>'
+                 f'<div style="border:2.5px dashed {ANNOT};border-radius:12px;padding:12px 20px;margin-top:8px;'
+                 f'color:{ANNOT};font-weight:600;font-size:19px;font-style:italic;">Ta réponse, en une phrase claire</div></div>')
+    intro = (f'<div style="color:{MUTED};font-weight:600;font-size:22px;font-style:italic;">'
+             f'Les questions que vous DEVRIEZ poser à toute conciergerie. Voici nos réponses :</div>')
+    return base("Transparence", f'Les {acc("4 questions")} à nous poser (et nos réponses)', intro+rows,
+        "réponds à chaque question avec TON process réel : c'est le post qui crée la confiance.", tsize=44)
+
+# ---- P21 : AVIS 5 ETOILES (3 temps) ----
+def p21_avis():
+    stars = f'<div style="text-align:center;color:{ACCENT};font-size:44px;letter-spacing:10px;margin-bottom:24px;">★★★★★</div>'
+    cols = [("Avant", "Une annonce exacte, des infos claires : zéro mauvaise surprise à l'arrivée."),
+            ("Pendant", "Réponse en moins d'une heure et un petit plus mémorable dans le logement."),
+            ("Après", "Un message de fin qui oriente l'avis, et une réponse à chaque commentaire.")]
+    row = "".join(f'<div style="flex:1;background:{CARD};border-top:6px solid {ACCENT};border-radius:16px;'
+                  f'padding:26px 24px;">'
+                  f'<div style="color:{ACCENT};font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:1px;">{t}<span style="color:{MUTED};font-weight:700;font-size:18px;text-transform:none;"> le séjour</span></div>'
+                  f'<div style="color:{INK};font-weight:500;font-size:21px;line-height:1.4;margin-top:12px;">{d}</div></div>'
+                  for t, d in cols)
+    note = (f'<div style="background:rgba(23,34,47,0.05);border-radius:14px;padding:16px 24px;margin-top:24px;'
+            f'text-align:center;color:{INK};font-weight:700;font-size:21px;">'
+            f'Propreté, exactitude et arrivée pèsent double dans votre note.</div>')
+    inner = stars + f'<div style="display:flex;gap:18px;align-items:stretch;">{row}</div>' + note
+    return base("Astuce propriétaire", f'La recette des avis {acc("5 étoiles")}', inner,
+        "ce conseil se poste tel quel : tes couleurs, ton logo, ta signature.")
+
+# ---- P22 : CHECK-IN (chemin numerote fleche) ----
+def p22_checkin():
+    steps = [("J-1", "Le message qui dit tout : code, parking, wifi, horaires"),
+             ("Jour J matin", "Code testé, logement à température, lumières prêtes"),
+             ("Arrivée", "Entrée autonome fluide, ou accueil en personne"),
+             ("H+1", "Petit message : « tout va bien ? » Les soucis se règlent à chaud")]
+    rows = ""
+    for i, (t, d) in enumerate(steps):
+        rows += (f'<div style="display:flex;align-items:center;gap:20px;margin-top:{0 if i==0 else 14}px;">'
+                 f'<div style="background:{ACCENT};color:#fff;font-weight:900;font-size:21px;border-radius:30px;'
+                 f'padding:12px 22px;white-space:nowrap;flex-shrink:0;min-width:170px;text-align:center;">{t}</div>'
+                 f'<div style="color:{INK};font-weight:600;font-size:23px;line-height:1.3;">{d}</div></div>')
+        if i < 3:
+            rows += f'<div style="color:{ACCENT};font-weight:900;font-size:26px;margin:6px 0 0 74px;">↓</div>'
+    note = (f'<div style="background:rgba(23,34,47,0.05);border-radius:14px;padding:16px 24px;margin-top:26px;'
+            f'text-align:center;color:{INK};font-weight:700;font-size:21px;">'
+            f'L\'arrivée pèse double dans les avis : c\'est la première impression.</div>')
+    return base("Astuce propriétaire", f'Un check-in sans accroc, la note {acc("suit")}', rows+note,
+        "ce conseil se poste tel quel : tes couleurs, ton logo, ta signature.")
+
+# ---- P23 : EQUIPEMENTS = FILTRES (grille de pills) ----
+def p23_equipements():
+    on = [("Lave-linge déclaré", "filtre familles et longs séjours"),
+          ("Lit parapluie + chaise haute", "filtre voyage avec bébé"),
+          ("Espace de travail dédié", "filtre télétravail"),
+          ("Wifi mesuré, débit affiché", "rassure les nomades"),
+          ("Tous les couchages déclarés", "mieux classé pour les familles")]
+    pills = "".join(f'<div style="display:flex;gap:14px;align-items:center;background:{CARD};'
+                    f'border:2px solid {GREENL};border-radius:40px;padding:14px 24px;margin-top:14px;">'
+                    f'<div style="color:{GREENL};font-weight:900;font-size:26px;">✓</div>'
+                    f'<div style="color:{INK};font-weight:700;font-size:22px;">{t} '
+                    f'<span style="color:{MUTED};font-weight:500;font-size:19px;">· {d}</span></div></div>'
+                    for t, d in on)
+    off = (f'<div style="display:flex;gap:14px;align-items:center;background:rgba(185,74,68,0.07);'
+           f'border:2px solid {REDL};border-radius:40px;padding:14px 24px;margin-top:20px;">'
+           f'<div style="color:{REDL};font-weight:900;font-size:26px;">×</div>'
+           f'<div style="color:{INK};font-weight:700;font-size:22px;">Cocher des cases « pour faire bien » '
+           f'<span style="color:{MUTED};font-weight:500;font-size:19px;">· il faut les BONS équipements pour VOS voyageurs</span></div></div>')
+    intro = (f'<div style="color:{MUTED};font-weight:600;font-size:22px;font-style:italic;margin-bottom:8px;">'
+             f'Chaque équipement coché = un filtre de recherche où votre annonce apparaît.</div>')
+    return base("Astuce propriétaire", f'Vos équipements sont des {acc("filtres")} de recherche', intro+pills+off,
+        "ce conseil se poste tel quel : tes couleurs, ton logo, ta signature.", tsize=46)
+
+# ---- P24 : 5 ERREURS (croix + bon reflexe) ----
+def p24_erreurs():
+    items = [("La photo principale montre un salon banal", "Montrez votre atout distinctif : vue, jacuzzi, terrasse"),
+             ("Un prix unique toute l'année", "Chaque saison, chaque événement local a son tarif"),
+             ("Le titre inventaire : wifi, parking, clim...", "Capacité + équipement star + localisation"),
+             ("Décliner des demandes, annuler", "Chaque refus est un signal négatif pour l'algorithme"),
+             ("L'annonce jamais mise à jour", "Une annonce vivante remonte, une annonce figée descend")]
+    rows = "".join(f'<div style="background:{CARD};border:1.5px solid rgba(23,34,47,0.08);border-radius:14px;'
+                   f'padding:17px 24px;margin-top:14px;">'
+                   f'<div style="display:flex;gap:14px;align-items:flex-start;">'
+                   f'<div style="color:{REDL};font-weight:900;font-size:26px;line-height:1.1;">×</div>'
+                   f'<div style="color:{INK};font-weight:700;font-size:23px;line-height:1.25;">{e}</div></div>'
+                   f'<div style="display:flex;gap:14px;align-items:flex-start;margin-top:6px;margin-left:40px;">'
+                   f'<div style="color:{GREENL};font-weight:900;font-size:22px;">→</div>'
+                   f'<div style="color:{GREENL};font-weight:600;font-size:20px;line-height:1.3;">{f}</div></div></div>'
+                   for e, f in items)
+    return base("Astuce propriétaire", f'5 erreurs qui {acc("plombent")} une annonce', rows,
+        "ce conseil se poste tel quel : tes couleurs, ton logo, ta signature.")
+
+# ---- P28 : AVANT / APRES ANNONCE (vertical, resultat) ----
+def p28_avant_apres():
+    av = (f'<div style="border:2px solid {REDL};border-radius:16px;padding:24px 28px;background:rgba(185,74,68,0.06);">'
+          f'<div style="color:{REDL};font-weight:900;font-size:22px;text-transform:uppercase;">Avant</div>'
+          f'<div style="color:{INK};font-weight:600;font-size:22px;line-height:1.45;margin-top:10px;">'
+          f'12 photos sombres au téléphone · titre « Bel appartement centre-ville » · prix fixe · '
+          f'<span style="color:{REDL};font-weight:800;">55% d\'occupation</span></div></div>')
+    ap = (f'<div style="border:2px solid {GREENL};border-radius:16px;padding:24px 28px;background:rgba(47,125,87,0.06);margin-top:14px;">'
+          f'<div style="color:{GREENL};font-weight:900;font-size:22px;text-transform:uppercase;">Après reprise en main</div>'
+          f'<div style="color:{INK};font-weight:600;font-size:22px;line-height:1.45;margin-top:10px;">'
+          f'Photos lumineuses refaites · titre qui fait cliquer · prix pilotés à la saison · '
+          f'<span style="color:{GREENL};font-weight:800;">82% d\'occupation</span></div></div>')
+    arrow = f'<div style="text-align:center;color:{ACCENT};font-weight:900;font-size:34px;margin:10px 0;">▼</div>'
+    zone = (f'<div style="border:2.5px dashed {ANNOT};border-radius:16px;height:210px;margin-top:24px;'
+            f'display:flex;align-items:center;justify-content:center;text-align:center;color:{ANNOT};'
+            f'font-weight:700;font-size:22px;font-style:italic;line-height:1.4;">'
+            f'Tes captures avant / après ici :<br>photos de l\'annonce, courbe de réservations...</div>')
+    ex = f'<div class="ex" style="margin-top:14px;text-align:center;"><b>Exemple :</b> remplace par UN vrai bien que tu as repris (chiffres réels)</div>'
+    return base("Preuve", f'Une annonce {acc("reprise en main")}, avant / après', av+arrow+ap+zone+ex,
+        "tes vrais chiffres, tes vraies captures : c'est la preuve qui convainc le plus.", tsize=46)
+
+# ---- P29 : VRAI OU FAUX ----
+def p29_vrai_faux():
+    def badge(v):
+        c = GREENL if v else REDL
+        return (f'<div style="background:{c};color:#fff;font-weight:900;font-size:20px;border-radius:10px;'
+                f'padding:10px 18px;flex-shrink:0;letter-spacing:1px;">{"VRAI" if v else "FAUX"}</div>')
+    items = [("Une annonce se classe surtout grâce à son prix", False, "C'est la conversion : les vues qui deviennent des réservations"),
+             ("Répondre vite fait monter l'annonce", True, "Moins d'une heure : c'est un critère direct de l'algorithme"),
+             ("Plus d'équipements cochés, mieux c'est, toujours", False, "Il faut les BONS équipements pour VOS voyageurs"),
+             ("Les avis récents comptent plus que les anciens", True, "L'algorithme lit surtout les 2 derniers mois")]
+    rows = "".join(f'<div style="background:{CARD};border:1.5px solid rgba(23,34,47,0.08);border-radius:14px;'
+                   f'padding:19px 24px;margin-top:15px;display:flex;gap:18px;align-items:flex-start;">{badge(v)}'
+                   f'<div><div style="color:{INK};font-weight:700;font-size:23px;line-height:1.25;">{q}</div>'
+                   f'<div style="color:{MUTED};font-weight:500;font-size:19px;line-height:1.3;margin-top:6px;">{r}</div></div></div>'
+                   for q, v, r in items)
+    return base("Quiz", f'{acc("Vrai ou faux")} : la location courte durée', rows,
+        "ce post se poste tel quel. En description : demande leur score en commentaire.")
+
+# ---- P30 : QUESTION AUX PROPRIETAIRES (post conversation) ----
+def p30_question():
+    inner = (f'<div style="text-align:center;">'
+             f'<div style="color:{ACCENT};font-weight:900;font-size:150px;line-height:0.9;">?</div>'
+             f'<div style="color:{INK};font-weight:900;font-size:46px;line-height:1.15;text-transform:uppercase;'
+             f'letter-spacing:-1px;margin-top:24px;">Qu\'est-ce qui vous empêche<br>de louer votre bien ?</div>'
+             f'<div style="display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap;">'
+             + "".join(f'<div style="border:2px solid {ACCENT};color:{ACCENT};font-weight:800;font-size:21px;'
+                       f'border-radius:40px;padding:14px 26px;">{t}</div>'
+                       for t in ["Le temps", "La confiance", "Par où commencer ?"])
+             + f'</div>'
+             f'<div style="color:{MUTED};font-weight:600;font-size:23px;font-style:italic;margin-top:34px;">'
+             f'Dites-le nous en commentaire : on répond à tout le monde.</div></div>')
+    return base("On vous écoute", f'Parlons {acc("vrai")}, propriétaires', inner,
+        "adapte la question à ta ville si tu veux (« ...votre bien à Annecy ? ») et poste.")
+
 GROUPS = {
     "pack_demo": [visuel_01, visuel_02, visuel_03, visuel_04,
                   visuel_05, visuel_06, visuel_07, visuel_08,
                   visuel_09, visuel_10, visuel_11],
     "pack_variantes": [variante_mindmap, variante_funnel,
                        variante_avant_apres, variante_anatomie],
+    # LE PACK FINAL : les 30 posts dans l'ordre du plan PACK_CONCIERGERIE_30_POSTS.md
+    "pack_30": [
+        visuel_04,            # 01 Pourquoi j'ai cree ma conciergerie (recit)
+        p02_equipe,           # 02 Qui veille sur votre bien (portrait)
+        p03_valeurs,          # 03 Nos valeurs (3 colonnes pictos)
+        p04_journee,          # 04 Une journee type (timeline)
+        visuel_02,            # 05 Nos services (cartes)
+        p06_annonce,          # 06 Zoom annonce (checklist verte)
+        p07_accueil,          # 07 Zoom accueil (2 colonnes)
+        p08_menage,           # 08 Zoom menage (grille 2x2 pictos)
+        visuel_11,            # 09 Zone d'intervention (pills + photo)
+        visuel_01,            # 10 Pourquoi confier votre bien (4 cartes)
+        p11_signes,           # 11 5 signes qu'il est temps de deleguer (checklist)
+        p12_calcul,           # 12 Idee recue cout (calcul)
+        p13_temps,            # 13 Temps recupere (addition)
+        p14_distance,         # 14 Proprietaire a distance (objection/reponse)
+        p15_etapes,           # 15 Les 4 etapes (escalier)
+        p16_questions,        # 16 Les bonnes questions (Q/R a remplir)
+        visuel_03,            # 17 Photos qui font reserver (liste)
+        variante_anatomie,    # 18 Titre d'annonce (schema annote)
+        variante_mindmap,     # 19 Algorithme (carte mentale)
+        variante_avant_apres, # 20 Prix (match avant/apres)
+        p21_avis,             # 21 Avis 5 etoiles (3 temps)
+        p22_checkin,          # 22 Check-in (chemin numerote)
+        p23_equipements,      # 23 Equipements = filtres (pills)
+        p24_erreurs,          # 24 5 erreurs (croix + bon reflexe)
+        variante_funnel,      # 25 3 chiffres a surveiller (entonnoir)
+        visuel_09,            # 26 Temoignage proprietaire
+        visuel_10,            # 27 Chiffres cles + slogan
+        p28_avant_apres,      # 28 Annonce reprise en main (preuve)
+        p29_vrai_faux,        # 29 Vrai ou faux (quiz)
+        p30_question,         # 30 Question aux proprietaires (conversation)
+    ],
 }
 
 def check_no_forbidden(html, name):
