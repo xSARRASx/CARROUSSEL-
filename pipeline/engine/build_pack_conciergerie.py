@@ -36,6 +36,24 @@ def load_profile(path):
 def is_perso():
     return PROFILE.get("mode") == "perso"
 
+import hashlib
+def pick(key, options):
+    """Variation automatique anti-doublons : chaque eleve recoit une des
+    formulations, choisie de facon stable a partir du nom de sa conciergerie.
+    Deux eleves ne postent donc pas les memes titres. En mode template : la 1re."""
+    if not is_perso():
+        return options[0]
+    h = int(hashlib.md5((PROFILE["nom"] + key).encode()).hexdigest(), 16)
+    return options[h % len(options)]
+
+def rotate(key, items):
+    """Meme principe pour l'ORDRE des points d'un post (quand il est libre)."""
+    if not is_perso():
+        return items
+    h = int(hashlib.md5((PROFILE["nom"] + key).encode()).hexdigest(), 16)
+    k = h % len(items)
+    return items[k:] + items[:k]
+
 # ---------- Palette du template (l'eleve remplace l'accent par SA couleur) ----------
 CREAM  = "#F6F3EC"   # fond clair editorial
 INK    = "#17222F"   # texte principal (encre)
@@ -353,6 +371,95 @@ def visuel_08():
         ct_size=24)
 
 # =====================================================================
+# VISUELS 9 a 11 : templates RICHES EN ZONES A MODIFIER (demande Martin) :
+# temoignage, chiffres cles, lieux d'intervention. Chaque zone pointillee
+# est un rectangle propre, facile a recouvrir dans Canva avec son logo,
+# sa photo ou son texte.
+# =====================================================================
+
+# VISUEL 9 : TEMOIGNAGE PROPRIETAIRE (avis + prenom + photo a remplacer)
+def visuel_09():
+    quote = (f'<div class="card" style="padding:40px 44px;position:relative;">'
+             f'<div style="color:{ACCENT};font-weight:900;font-size:110px;line-height:0.5;margin-bottom:26px;">»</div>'
+             f'<div class="ex" style="margin-top:0;"><b>Exemple :</b></div>'
+             f'<div style="color:{INK};font-weight:600;font-style:italic;font-size:29px;line-height:1.5;margin-top:12px;">'
+             f'Depuis que j\'ai confié mon appartement, je ne m\'occupe plus de rien : '
+             f'je reçois mes revenus, les avis 5 étoiles, et je dors tranquille. '
+             f'J\'aurais dû le faire deux ans plus tôt.</div></div>')
+    author = ('<div style="display:flex;align-items:center;gap:24px;margin-top:30px;">'
+              f'<div style="width:120px;height:120px;border:2.5px dashed {ANNOT};border-radius:50%;'
+              f'display:flex;align-items:center;justify-content:center;text-align:center;color:{ANNOT};'
+              f'font-weight:700;font-size:16px;line-height:1.2;flex-shrink:0;">Sa photo<br>(option)</div>'
+              f'<div><div style="border:2.5px dashed {ANNOT};border-radius:40px;padding:12px 26px;color:{ANNOT};'
+              f'font-weight:700;font-size:22px;font-style:italic;display:inline-block;">Prénom du propriétaire</div>'
+              f'<div style="color:{MUTED};font-weight:600;font-size:20px;margin-top:10px;">'
+              f'propriétaire à <span style="border:2px dashed {ANNOT};border-radius:8px;padding:2px 10px;'
+              f'color:{ANNOT};font-style:italic;">ta ville</span> depuis '
+              f'<span style="border:2px dashed {ANNOT};border-radius:8px;padding:2px 10px;color:{ANNOT};'
+              f'font-style:italic;">X années</span></div></div></div>')
+    return page(slide_open() +
+        '<div class="pad">' + brandrow() +
+        '<div class="eyebrow">Ils nous font confiance</div>'
+        f'<div class="title" style="font-size:50px;">Ce que disent les {acc("propriétaires")}</div>'
+        f'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;">{quote}{author}</div>'
+        '<div class="custom"><b>À personnaliser :</b> colle un VRAI avis d\'un de tes propriétaires '
+        '(ou voyageurs), son prénom, ta ville, l\'ancienneté. Photo optionnelle.</div>'
+        '</div>' + footer())
+
+# VISUEL 10 : CHIFFRES CLES + SLOGAN (stats et slogan a remplacer)
+def visuel_10():
+    def stat(num, label):
+        return (f'<div style="flex:1;background:{CARD};border:2.5px dashed {ANNOT};border-radius:16px;'
+                f'padding:30px 20px;text-align:center;">'
+                f'<div style="color:{ACCENT};font-weight:900;font-size:64px;line-height:1;">{num}</div>'
+                f'<div style="color:{INK};font-weight:600;font-size:21px;line-height:1.25;margin-top:12px;">{label}</div></div>')
+    stats = ('<div style="display:flex;gap:18px;">'
+             + stat("12", "logements accompagnés") + stat("4,9", "de note moyenne")
+             + stat("98%", "de calendriers remplis l'été") + '</div>')
+    slogan = (f'<div style="border:2.5px dashed {ANNOT};border-radius:40px;padding:20px 34px;margin-top:30px;'
+              f'text-align:center;color:{ANNOT};font-weight:700;font-size:24px;font-style:italic;">'
+              f'Ton slogan ici. Exemple : votre bien entre de bonnes mains, vos revenus au sommet</div>')
+    ex = (f'<div class="ex" style="margin-top:26px;text-align:center;"><b>Exemple :</b> '
+          f'remplace chaque chiffre par les tiens (vrais chiffres uniquement)</div>')
+    return page(slide_open() +
+        '<div class="pad">' + brandrow() +
+        '<div class="eyebrow">En quelques chiffres</div>'
+        f'<div class="title" style="font-size:50px;">Notre conciergerie en {acc("chiffres")}</div>'
+        f'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;">{stats}{ex}{slogan}</div>'
+        '<div class="custom"><b>À personnaliser :</b> tes 3 chiffres (logements, note, remplissage, '
+        'années...), ton slogan, tes couleurs, ton logo. Reste honnête : ce sont TES vrais chiffres.</div>'
+        '</div>' + footer())
+
+# VISUEL 11 : LIEUX D'INTERVENTION (villes + photo de la region a remplacer)
+def visuel_11():
+    pin = (f'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">'
+           f'<path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11z" stroke="{ACCENT}" stroke-width="2" '
+           f'stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" stroke="{ACCENT}" stroke-width="2"/></svg>')
+    def place(txt, main=False):
+        w = 800 if main else 700
+        return (f'<div style="display:flex;align-items:center;gap:16px;border:2.5px dashed {ANNOT};'
+                f'border-radius:40px;padding:{"18px 30px" if main else "14px 26px"};margin-top:16px;'
+                f'max-width:{w}px;">{pin}'
+                f'<div style="color:{ANNOT};font-weight:{800 if main else 600};font-size:{25 if main else 22}px;'
+                f'font-style:italic;">{txt}</div></div>')
+    places = (place("Ta ville principale (exemple : Annecy)", main=True)
+              + place("Commune voisine 1 (exemple : Sévrier)")
+              + place("Commune voisine 2 (exemple : Talloires)")
+              + place("Et jusqu'à... (exemple : 30 min autour du lac)"))
+    photo = (f'<div style="border:2.5px dashed {ANNOT};border-radius:16px;height:250px;margin-top:28px;'
+             f'display:flex;align-items:center;justify-content:center;text-align:center;color:{ANNOT};'
+             f'font-weight:700;font-size:23px;font-style:italic;line-height:1.4;">'
+             f'Ta photo ici : ta région, ta ville,<br>un de tes logements (paysage)</div>')
+    return page(slide_open() +
+        '<div class="pad">' + brandrow() +
+        '<div class="eyebrow">Zone d\'intervention</div>'
+        f'<div class="title" style="font-size:50px;">Là où nous prenons soin de votre {acc("bien")}</div>'
+        f'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;">{places}{photo}</div>'
+        '<div class="custom"><b>À personnaliser :</b> tes villes et ton rayon d\'action, une belle photo '
+        'de ta région, tes couleurs, ton logo. Les propriétaires doivent se dire : c\'est chez moi.</div>'
+        '</div>' + footer())
+
+# =====================================================================
 # VARIANTES GRAPHIQUES (demande Martin) : memes conseils, mises en page
 # differentes : carte mentale, entonnoir, avant/apres, schema annote.
 # Sorties dans output/pack_variantes/.
@@ -507,7 +614,8 @@ def variante_anatomie():
 # =====================================================================
 GROUPS = {
     "pack_demo": [visuel_01, visuel_02, visuel_03, visuel_04,
-                  visuel_05, visuel_06, visuel_07, visuel_08],
+                  visuel_05, visuel_06, visuel_07, visuel_08,
+                  visuel_09, visuel_10, visuel_11],
     "pack_variantes": [variante_mindmap, variante_funnel,
                        variante_avant_apres, variante_anatomie],
 }
