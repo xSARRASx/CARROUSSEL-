@@ -17,10 +17,24 @@ Regles specifiques au pack :
 Genere les 4 premiers visuels de demo dans output/pack_demo/html/slide_XX.html,
 rendus ensuite par render.py ("python3 render.py pack_demo").
 """
-import pathlib, re, base64
+import pathlib, re, base64, json, sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 FONTS = ROOT / "assets" / "fonts"
+
+# ---------- PROFIL ELEVE ----------
+# Mode "template" (defaut) : zones pointillees "Ton logo ici", "Exemple :"...
+# Mode "perso" : le pack est GENERE avec les infos de l'eleve (questionnaire
+# pipeline/FORMULAIRE_ELEVE.md) : couleur, nom, ville, histoire, services...
+# -> 30 eleves = 30 packs differents, personne ne modifie rien a la main.
+PROFILE = {"mode": "template"}
+
+def load_profile(path):
+    global PROFILE
+    PROFILE = {"mode": "perso", **json.loads(pathlib.Path(path).read_text(encoding="utf-8"))}
+
+def is_perso():
+    return PROFILE.get("mode") == "perso"
 
 # ---------- Palette du template (l'eleve remplace l'accent par SA couleur) ----------
 CREAM  = "#F6F3EC"   # fond clair editorial
@@ -82,18 +96,44 @@ COMMON_CSS = f"""
 .footer .pill{{border:2.5px dashed {ANNOT};border-radius:40px;padding:12px 26px;}}
 """
 
+SIG_CSS = f"""
+.sig{{background:{ACCENT};border-radius:14px;padding:18px 26px;margin-top:26px;text-align:center;
+  color:#fff;font-weight:800;font-size:22px;letter-spacing:0.5px;}}
+"""
+
 def page(body):
-    return (f'<!DOCTYPE html><html><head><meta charset="utf-8"><style>{COMMON_CSS}</style></head>'
+    html = (f'<!DOCTYPE html><html><head><meta charset="utf-8"><style>{COMMON_CSS}{SIG_CSS}</style></head>'
             f'<body>{body}</body></html>')
+    if is_perso():
+        # 1) les notes "A personnaliser" deviennent la signature de la conciergerie
+        sig = PROFILE.get("signature") or f'{PROFILE["nom"]} · {PROFILE["ville"]}'
+        html = re.sub(r'<div class="custom"([^>]*)>.*?</div>',
+                      lambda m: f'<div class="sig"{m.group(1)}>{sig}</div>', html, flags=re.S)
+        # 2) les etiquettes "Exemple :" disparaissent (le contenu EST le sien)
+        html = re.sub(r'<div class="ex"[^>]*>.*?</div>', '', html, flags=re.S)
+        # 3) la couleur accent du template est remplacee par SA couleur de marque
+        html = html.replace(ACCENT, PROFILE.get("couleur", ACCENT))
+    return html
 
 def slide_open():
     return '<div class="slide"><div class="bg"></div><div class="topbar"></div>'
 
 def brandrow():
+    if is_perso():
+        return ('<div class="brandrow">'
+                f'<div style="background:{ACCENT};color:#fff;font-weight:900;font-size:25px;'
+                f'padding:14px 28px;border-radius:12px;letter-spacing:1px;text-transform:uppercase;">{PROFILE["nom"]}</div>'
+                f'<div style="border:2.5px solid {ACCENT};color:{ACCENT};border-radius:40px;'
+                f'padding:12px 24px;font-weight:700;font-size:20px;">{PROFILE["instagram"]}</div></div>')
     return ('<div class="brandrow"><div class="logobox">Ton logo ici</div>'
             '<div class="handle">@ta.conciergerie</div></div>')
 
 def footer(left="Ta ville + ta zone", right="Ton site ou ton contact"):
+    if is_perso():
+        style = (f'border:2px solid rgba(23,34,47,0.18);border-radius:40px;padding:12px 26px;'
+                 f'color:{INK};font-weight:700;font-style:normal;')
+        return (f'<div class="footer"><div style="{style}">{PROFILE["ville"]}</div>'
+                f'<div style="{style}">{PROFILE["contact"]}</div></div></div>')
     return (f'<div class="footer"><div class="pill">{left}</div>'
             f'<div class="pill">{right}</div></div></div>')
 
@@ -132,7 +172,7 @@ def visuel_01():
 # VISUEL 2 : OFFRES / SERVICES (zones "Exemple :" a remplacer)
 # =====================================================================
 def visuel_02():
-    cards = [
+    cards = PROFILE.get("services") or [
         ("Annonce", "Création et optimisation de votre annonce",
          "Photos mises en valeur, titre travaillé, description qui donne envie de réserver."),
         ("Sejours", "Accueil des voyageurs et départs",
@@ -191,27 +231,25 @@ def visuel_03():
 # VISUEL 4 : NOTRE HISTOIRE (texte "Exemple :" a remplacer par la sienne)
 # =====================================================================
 def visuel_04():
+    paras = PROFILE.get("histoire") or [
+        "Tout est parti d'un constat simple : autour de moi, des propriétaires laissaient "
+        "leur logement vide une partie de l'année, faute de temps pour s'en occuper.",
+        "J'ai commencé avec un seul logement, celui d'un proche. Annonce refaite, accueil "
+        "soigné, ménage impeccable : les réservations ont suivi, et les avis 5 étoiles aussi.",
+        "Aujourd'hui, j'accompagne des propriétaires qui veulent que leur bien rapporte, "
+        "sans y consacrer leurs soirées ni leurs week-ends.",
+    ]
+    cards = ""
+    for i, p in enumerate(paras):
+        ex = '<div class="ex" style="margin-top:0;"><b>Exemple :</b></div>' if i == 0 else ''
+        mt = 'margin-top:12px;' if i == 0 else ''
+        cards += (f'<div class="card">{ex}'
+                  f'<div class="ct" style="font-size:26px;line-height:1.5;{mt}">{p}</div></div>')
     body = (slide_open() +
         '<div class="pad">' + brandrow() +
         '<div class="eyebrow">Notre histoire</div>'
         f'<div class="title">Pourquoi j\'ai créé ma {acc("conciergerie")}</div>'
-        '<div class="points" style="margin-top:36px;justify-content:center;gap:30px;">'
-        '<div class="card"><div class="ex" style="margin-top:0;"><b>Exemple :</b></div>'
-        f'<div class="ct" style="font-size:26px;line-height:1.5;margin-top:12px;">'
-        'Tout est parti d\'un constat simple : autour de moi, des propriétaires laissaient '
-        'leur logement vide une partie de l\'année, faute de temps pour s\'en occuper.'
-        '</div></div>'
-        '<div class="card">'
-        f'<div class="ct" style="font-size:26px;line-height:1.5;">'
-        'J\'ai commencé avec un seul logement, celui d\'un proche. Annonce refaite, accueil '
-        'soigné, ménage impeccable : les réservations ont suivi, et les avis 5 étoiles aussi.'
-        '</div></div>'
-        '<div class="card">'
-        f'<div class="ct" style="font-size:26px;line-height:1.5;">'
-        'Aujourd\'hui, j\'accompagne des propriétaires qui veulent que leur bien rapporte, '
-        'sans y consacrer leurs soirées ni leurs week-ends.'
-        '</div></div>'
-        '</div>'
+        f'<div class="points" style="margin-top:36px;justify-content:center;gap:30px;">{cards}</div>'
         '<div class="custom"><b>À personnaliser :</b> remplace ce récit par TON histoire : '
         'ton déclic, ta ville, ton premier logement, ce qui te rend fier aujourd\'hui.</div>'
         '</div>' + footer())
@@ -485,17 +523,27 @@ def check_no_forbidden(html, name):
         m = re.search(pat, text)
         assert not m, f"{name} : {label} detecte ({m.group(0)!r})"
 
+def write_group(slug, builders):
+    out = ROOT / "output" / slug / "html"
+    out.mkdir(parents=True, exist_ok=True)
+    for i, build in enumerate(builders, 1):
+        html = build()
+        name = f"slide_{i:02d}.html"
+        check_no_forbidden(html, f"{slug}/{name}")
+        (out / name).write_text(html, encoding="utf-8")
+        print(f"OK {slug}/{name}")
+    print(f"HTML dans {out}")
+
 def main():
-    for slug, builders in GROUPS.items():
-        out = ROOT / "output" / slug / "html"
-        out.mkdir(parents=True, exist_ok=True)
-        for i, build in enumerate(builders, 1):
-            html = build()
-            name = f"slide_{i:02d}.html"
-            check_no_forbidden(html, f"{slug}/{name}")
-            (out / name).write_text(html, encoding="utf-8")
-            print(f"OK {slug}/{name}")
-        print(f"HTML dans {out}")
+    if len(sys.argv) > 1:
+        # usage : python3 build_pack_conciergerie.py profiles/eleve.json
+        # -> genere le pack PERSONNALISE de l'eleve (toutes les mises en page)
+        load_profile(ROOT / sys.argv[1] if not pathlib.Path(sys.argv[1]).is_absolute() else sys.argv[1])
+        slug = PROFILE.get("slug") or "pack_perso"
+        write_group(slug, GROUPS["pack_demo"] + GROUPS["pack_variantes"])
+    else:
+        for slug, builders in GROUPS.items():
+            write_group(slug, builders)
 
 if __name__ == "__main__":
     main()

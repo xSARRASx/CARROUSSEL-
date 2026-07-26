@@ -796,6 +796,17 @@ de leur confier leur bien. 30 visuels = 30 posts différents = 3 mois de contenu
   Martin (`pipeline/output/pack_variantes/`) : carte mentale, entonnoir,
   avant/après, schéma annoté. Le frère veut des formats variés (schémas, cartes
   mentales), pas toujours titre + liste : varier les structures dans le pack.
+- **Mode PERSO du moteur** (réponse à la demande « plus de choses à modifier +
+  comment ils modifient ») : le pack est GÉNÉRÉ par élève depuis un profil JSON
+  (`pipeline/profiles/`) rempli via un questionnaire de 10 questions
+  (`pipeline/FORMULAIRE_ELEVE.md`) : nom, Instagram, ville/zones, contact,
+  couleur, logo, histoire, services, chiffre fier, témoignage. L'élève ne
+  modifie RIEN : il répond aux questions, on lui rend SES visuels finis.
+  30 élèves = 30 packs différents. Démo : profil fictif « Cap Océan
+  Conciergerie » (`profiles/exemple_cap_ocean.json` →
+  `output/perso_cap_ocean/`, 12 visuels).
+  Commandes : `python3 engine/build_pack_conciergerie.py profiles/x.json`
+  puis `python3 engine/render.py <slug>`.
 - En attente : retour de Martin/frère sur les formats préférés avant de
   produire les 22 visuels restants.
 

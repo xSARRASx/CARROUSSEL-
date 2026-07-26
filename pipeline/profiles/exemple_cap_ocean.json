@@ -1,0 +1,24 @@
+{
+  "slug": "perso_cap_ocean",
+  "nom": "Cap Océan Conciergerie",
+  "instagram": "@capocean.conciergerie",
+  "ville": "La Rochelle · Île de Ré · Châtelaillon",
+  "contact": "capocean-conciergerie.fr",
+  "couleur": "#1F6E8C",
+  "signature": "Cap Océan Conciergerie · La Rochelle et alentours",
+  "histoire": [
+    "En 2022, l'appartement de mes parents à Châtelaillon restait vide dix mois par an. Je m'en suis occupée un été : annonce refaite, accueil soigné, et il ne restait plus une semaine libre.",
+    "Le bouche à oreille a fait le reste : des voisins, puis des propriétaires de l'île de Ré m'ont confié leurs clés. Cap Océan était née.",
+    "Aujourd'hui, nous prenons soin d'une vingtaine de logements entre La Rochelle et l'île de Ré, avec une obsession : que chaque propriétaire soit tranquille et que chaque voyageur revienne."
+  ],
+  "services": [
+    ["Annonce", "Votre annonce refaite de A à Z",
+     "Photos professionnelles, titre travaillé, description qui donne envie de réserver."],
+    ["Séjours", "Accueil des voyageurs 7 jours sur 7",
+     "Arrivées autonomes ou en personne, disponibilité continue pendant les séjours."],
+    ["Entretien", "Ménage hôtelier et linge blanc",
+     "Logement impeccable entre chaque séjour, linge de qualité hôtelière fourni."],
+    ["Revenus", "Prix ajustés à la saison rochelaise",
+     "Francofolies, vacances, ponts de mai : chaque période au bon tarif."]
+  ]
+}
