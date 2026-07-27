@@ -1092,6 +1092,17 @@ Objectif de Martin : ne plus JAMAIS générer les fonds à la main sur Seedance.
 - **Coût officiel** : 0,134 $ par image 1K/2K, 0,24 $ en 4K, pas de palier gratuit.
   ≈ **1 $/mois** pour 8 fonds (2 carrousels/semaine). Facturation Google à activer.
 
+### ⚠️ PIÈGE PLAYWRIGHT / CHROMIUM (corrigé le 27/07/2026)
+`pip install playwright` installe la **dernière** version (1.61 → veut le build
+`chromium-1228`), alors que l'environnement ne fournit que le build **1194**.
+Résultat : `BrowserType.launch: Executable doesn't exist…` et Playwright réclame
+`playwright install` — qui NE MARCHE PAS (téléchargement bloqué par le réseau).
+**Correction appliquée dans `render.py`** : la fonction `find_chrome()` cherche le
+binaire avec un glob `/opt/pw-browsers/chromium-*/chrome-linux/chrome` et prend le
+build le plus récent, au lieu du chemin codé en dur. Si rien n'est trouvé, on laisse
+Playwright se débrouiller. Le rendu survivra donc à une mise à jour de l'image.
+✅ Revérifié : `python3 render.py lsl_conciergerie_220k` → 10 slides, 0 débordement.
+
 ### ✅ TEST PAYANT RÉUSSI (27/07/2026) : la chaîne fonds automatiques MARCHE
 Première vraie génération lancée depuis une session avec `GEMINI_API_KEY` :
 ```

@@ -11,7 +11,24 @@ from playwright.sync_api import sync_playwright
 from PIL import Image
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+
+
+def find_chrome():
+    """Trouve le Chromium fourni par l'environnement.
+
+    Le numero de build (chromium-1194) change quand l'image est mise a jour,
+    et il ne correspond pas forcement a la version de playwright installee par
+    pip : on cherche donc le binaire au lieu de coder le chemin en dur.
+    Ne JAMAIS lancer `playwright install` (le reseau bloque le telechargement).
+    """
+    for pat in ("chromium-*/chrome-linux/chrome", "chromium/chrome-linux/chrome"):
+        found = sorted(pathlib.Path("/opt/pw-browsers").glob(pat))
+        if found:
+            return str(found[-1])          # le build le plus recent
+    return None                            # laisse playwright se debrouiller
+
+
+CHROME = find_chrome()
 
 def render(slug):
     out = ROOT / "output" / slug
@@ -24,7 +41,7 @@ def render(slug):
     assert htmls, f"aucune slide dans {html_dir}"
 
     with sync_playwright() as p:
-        b = p.chromium.launch(executable_path=CHROME)
+        b = p.chromium.launch(**({"executable_path": CHROME} if CHROME else {}))
         pg = b.new_page(viewport={"width":1080,"height":1350}, device_scale_factor=3)
         for h in htmls:
             pg.goto(h.as_uri())
