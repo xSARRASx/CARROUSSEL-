@@ -19,7 +19,7 @@
 | Transcription YouTube (vraies vidéos, pas les shorts) | `pipeline/engine/fetch_transcript.py` | ✅ |
 | Mise en page V2 par SCHÉMAS (le style actuel) | `pipeline/engine/design_v2.py` | ✅ |
 | Rendu PNG/JPEG + contrôles | `pipeline/engine/render.py` | ✅ |
-| Fonds photo automatiques (Nano Banana Pro / Google) | `pipeline/engine/gemini_bg.py` | ✅ (clé requise) |
+| Fonds photo automatiques (Nano Banana Pro / Google) | `pipeline/engine/gemini_bg.py` | ✅ testé en vrai le 27/07 (0,134 $/image) |
 | Déclencheur hebdo lundi 8h | Routine `trig_01BJ9PpUqznmkYP7XwEfUyG3` | ✅ |
 | Publication Metricool par API | — | ⛔ en pause (forfait Starter, API non incluse) |
 
@@ -1082,6 +1082,32 @@ Objectif de Martin : ne plus JAMAIS générer les fonds à la main sur Seedance.
 - Modes : `--dry-run` (0 dépense, affiche le prompt) et `--go` (génère).
 - **Coût officiel** : 0,134 $ par image 1K/2K, 0,24 $ en 4K, pas de palier gratuit.
   ≈ **1 $/mois** pour 8 fonds (2 carrousels/semaine). Facturation Google à activer.
+
+### ✅ TEST PAYANT RÉUSSI (27/07/2026) : la chaîne fonds automatiques MARCHE
+Première vraie génération lancée depuis une session avec `GEMINI_API_KEY` :
+```
+python3 pipeline/engine/gemini_bg.py --brand lesousloueur \
+  --theme "a court ruling on short-term rental compliance" --out test_gemini.jpg --go
+```
+- Résultat : `pipeline/assets/backgrounds/test_gemini.jpg`, **1856×2304** (ratio 0,806,
+  soit 4:5 à un cheveu près), JPEG RGB, 2,9 Mo. Coût réel : **0,134 $**.
+- Endpoint qui a répondu : la chaîne `_payloads()` a abouti sans erreur (repli non nécessaire).
+- **Qualité : équivalente à Nano Banana Pro sur Seedance, et pour cause : c'est le
+  MÊME modèle** (`gemini-3-pro-image` = Nano Banana Pro, Seedance ne fait que le
+  revendre). Flat-lay éditorial photo-réaliste, fond navy exact, orange limité à
+  3 touches (stylo + trombones), zéro texte, zéro logo, zéro personne, objets dans
+  le tiers bas, **haut de l'image sombre et dégagé** pour le titre blanc.
+- ⚠️ **2 défauts mineurs constatés** (à corriger dans le prompt si ça se reproduit) :
+  1. une **traînée de lumière** en haut à gauche, alors que COMMON_RULES interdit les
+     « light shafts » : renforcer l'exclusion (ex. « NO haze, NO light streak,
+     NO lens flare, NO fog in the upper zone »).
+  2. la **pile de papiers est coupée au bord droit** malgré la consigne de marges :
+     insister (« ALL objects fully inside the frame, nothing touching the edges »).
+  Ni l'un ni l'autre ne gêne : sous le voile navy 0,82-0,88 du design V2, ça disparaît.
+- ⚠️ Le ratio n'est pas 4:5 pile (0,8056) : `set_bg_photo` / le recadrage 4:5 reste
+  nécessaire avant de poser la photo en fond.
+- **Conclusion : plus besoin de passer par le site Seedance à la main. Étape « fonds »
+  100 % automatique et validée.**
 
 ### Nouveau circuit hebdomadaire (plus aucune action de Martin sur les fonds)
 Le robot du lundi : transcription → 2 carrousels → **écrit lui-même les 2 prompts
