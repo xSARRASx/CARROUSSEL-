@@ -20,7 +20,7 @@
 | Mise en page V2 par SCHÉMAS (le style actuel) | `pipeline/engine/design_v2.py` | ✅ |
 | Rendu PNG/JPEG + contrôles | `pipeline/engine/render.py` | ✅ |
 | Fonds photo automatiques (Nano Banana Pro / Google) | `pipeline/engine/gemini_bg.py` | ✅ testé en vrai le 27/07 (0,134 $/image) |
-| Déclencheur hebdo lundi 8h | Routine `trig_01BJ9PpUqznmkYP7XwEfUyG3` | ✅ |
+| Déclencheur hebdo lundi 8h | Routine `trig_01GTc5qL9sFLY2ZZ5tkcCTNh` | ✅ (recréée 27/07) |
 | Publication Metricool par API | — | ⛔ en pause (forfait Starter, API non incluse) |
 
 **Exemples à copier pour un nouveau carrousel** (design V2, la référence) :
@@ -906,8 +906,17 @@ dans les build scripts (la div `.bg` de chaque slide), donc générés à chaque
 **« Claude prépare tout, Martin vient juste programmer. »**
 - Pas d'API Metricool pour l'instant (forfait Starter 5, API réservée Advanced ;
   décision d'upgrade en discussion avec le père). L'Étape 4 (publication API) est en PAUSE.
-- **Routine automatique du lundi CRÉÉE** (trigger `trig_01BJ9PpUqznmkYP7XwEfUyG3`,
+- **Routine automatique du lundi** (trigger **`trig_01GTc5qL9sFLY2ZZ5tkcCTNh`**,
   cron `0 6 * * 1` UTC = lundi 8h Paris l'été, se déclenche dans CETTE session) :
+  ⚠️ **27/07/2026 — Routine RECRÉÉE dans une nouvelle conversation.** L'ancienne
+  (`trig_01BJ9PpUqznmkYP7XwEfUyG3`, session `session_01TEk97JnoYL2eRuncAvFmE8`) a été
+  **supprimée avec delete_trigger** pour éviter que Martin reçoive le package en double.
+  Une Routine est rattachée à UNE conversation : si on change de conversation, il faut
+  recréer la Routine ET supprimer l'ancienne. Le prompt a été repris mot pour mot.
+  Ne pas confondre avec `trig_018Re37nCRvKAFkHiXmcCbA3` = « Robot blog » de Sébastien
+  (autre projet, autre repo) : **ne jamais y toucher**.
+  ⚠️ Une Routine créée via MCP ne transporte pas de connecteurs (Gmail, Drive…).
+  Sans importance ici : le robot n'utilise que Bash / Read / Write / SendUserFile.
   chaque lundi le robot fait TOUT seul : transcription dernière vidéo → 2 carrousels
   adaptés → rendu 20 slides + contrôles → 2 descriptions → 2 ZIP envoyés à Martin
   (SendUserFile proactive) → commit/push + mise à jour mémoire.
