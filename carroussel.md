@@ -1006,3 +1006,37 @@ Martin a demandé de refaire totalement la mise en page : plus propre, avec des
 (semaine du 27/07, 20 slides, 0 débordement, 0 tiret).
 → **Le robot du lundi utilise désormais design_v2.py** (ancien style conservé
 dans build_guestlucky.py / build_lesousloueur.py pour référence).
+
+## 🖼️ FONDS 100% AUTOMATIQUES via Google Nano Banana Pro (27/07/2026)
+Objectif de Martin : ne plus JAMAIS générer les fonds à la main sur Seedance.
+
+### Ce qui a été prouvé (ne pas re-tester)
+- **Piloter un navigateur ici est impossible** : Playwright + Chromium se lancent,
+  mais le réseau coupe le navigateur. Testé : Chromium via le proxy →
+  ERR_CONNECTION_RESET (même sur un domaine autorisé) ; Chromium en direct →
+  ERR_CERT_AUTHORITY_INVALID puis RESET. Seuls les domaines de l'allowlist
+  (pypi.org…) répondent. curl/Python passent, Chromium non. Ce n'est pas un
+  problème de code : c'est la politique réseau de l'environnement.
+- **Seedance ne génère pas d'images par API** (401 sur /api/image/*/generate).
+- → Voie retenue : **appeler Google directement**. "Nano Banana Pro" est un
+  modèle Google que Seedance revend : même modèle, même qualité, clé-compatible.
+
+### La brique : `pipeline/engine/gemini_bg.py`
+- Modèle `gemini-3-pro-image`, format `4:5`, taille `2K`, sortie base64 → JPEG.
+- Endpoint principal `POST /v1beta/interactions`, repli automatique sur
+  `/v1beta/models/<model>:generateContent` (les deux formes sont gérées).
+- Auth par en-tête `x-goog-api-key`, clé lue dans **GEMINI_API_KEY** (jamais en dur).
+- `build_prompt(brand, theme)` écrit le prompt de la semaine (règles PARTIE D,
+  palettes strictes par marque, zone haute vide, exclusions absolues).
+- Modes : `--dry-run` (0 dépense, affiche le prompt) et `--go` (génère).
+- **Coût officiel** : 0,134 $ par image 1K/2K, 0,24 $ en 4K, pas de palier gratuit.
+  ≈ **1 $/mois** pour 8 fonds (2 carrousels/semaine). Facturation Google à activer.
+
+### Nouveau circuit hebdomadaire (plus aucune action de Martin sur les fonds)
+Le robot du lundi : transcription → 2 carrousels → **écrit lui-même les 2 prompts
+d'image et génère les 2 fonds via gemini_bg** → pose les fonds (design_v2
+`set_bg_photo`) → rendu → descriptions → livraison (slides affichées + ZIP).
+Martin ne fait plus que programmer dans Metricool.
+⚠️ Toujours indiquer en une ligne quelle image a été générée et utilisée.
+⚠️ Si la génération échoue (quota, clé, refus) : s'arrêter proprement, le dire,
+et livrer avec le fond CSS de secours plutôt que d'improviser.
