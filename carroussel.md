@@ -44,8 +44,11 @@ gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
 8. **Zéro emoji et zéro tiret long dans les slides**, acronymes expliqués,
    mots bannis Guestlucky (beds24, mandat de gestion, garantie financière),
    aucun dénigrement frontal de concurrent.
-9. **Martin ne fait plus que programmer dans Metricool** (vendredi 18h, 2 comptes).
-   Tout le reste est automatique, y compris les fonds photo.
+9. **Martin ne fait PLUS RIEN à la main** (mis à jour le 27/07/2026). Il ne télécharge
+   plus, ne programme plus. Le **Claude du Mac** récupère `livraison/` sur GitHub et
+   programme lui-même dans Metricool (vendredi 18h). **Le travail de ce robot s'arrête
+   au push GitHub.** Dans le message du lundi : dire ce qui a été livré, et ne JAMAIS
+   dire à Martin de télécharger ou de programmer.
 10. **Honnêteté** : si une brique échoue (clé, quota, réseau), le dire clairement et
     livrer avec le fond de secours. Jamais improviser ni prétendre avoir vérifié.
 11. **JAMAIS DE GÉNÉRATION POUR RIEN** (règle confirmée par Martin le 27/07/2026).
@@ -870,7 +873,8 @@ Cadence **hebdomadaire, 100% autonome** :
   - 1 pour **Guestlucky** (angle « ce qu'on vend », palette/logo/CTA Guestlucky),
   - 1 pour **Le Sous Loueur** (son angle, palette/logo/CTA Le Sous Loueur).
 - Programmation **vendredi 18h** sur l'Instagram de Guestlucky ET celui de Le Sous
-  Loueur, via **Metricool**.
+  Loueur, via **Metricool** — faite par le **Claude du Mac** depuis le 27/07/2026,
+  plus par Martin. Ce robot s'arrête au push GitHub.
 
 ## ✅ COMMENT OUVRIR LE RÉSEAU (trouvé le 24/07/2026)
 Le réglage réseau n'est PAS modifiable dans une session en cours (l'env « Default »
@@ -1027,6 +1031,8 @@ dans les build scripts (la div `.bg` de chaque slide), donc générés à chaque
 
 ## ⚙️ DÉCISION WORKFLOW (Martin, 24/07/2026) : mode SEMI-AUTO (Voie 2)
 **« Claude prépare tout, Martin vient juste programmer. »**
+⚠️ **DÉPASSÉ le 27/07/2026** : Martin ne programme plus non plus. Le Claude du Mac
+s'en charge. Section gardée pour l'historique — voir « CHAÎNE 100% AUTOMATIQUE ».
 - Pas d'API Metricool pour l'instant (forfait Starter 5, API réservée Advanced ;
   décision d'upgrade en discussion avec le père). L'Étape 4 (publication API) est en PAUSE.
 - **Routine automatique du lundi** (trigger **`trig_01GTc5qL9sFLY2ZZ5tkcCTNh`**,
@@ -1051,11 +1057,31 @@ dans les build scripts (la div `.bg` de chaque slide), donc générés à chaque
     output/transcripts/), prévenir et s'arrêter.
   - **Kill switch : Martin écrit STOP dans la conversation** (ou pause de la Routine
     dans l'interface claude.ai). Suppression : delete_trigger avec l'id ci-dessus.
-- Martin, chaque semaine : ouvrir les 2 ZIP → dans Metricool, créer la publication
-  Instagram de chaque marque (10 JPG dans l'ordre 01→10 + coller description.txt) →
-  programmer **vendredi 18h**. C'est tout (~5 min).
-- Le jour où le token Metricool existe (METRICOOL_TOKEN) : construire l'Étape 4 et
-  passer en 100% auto (le robot programmera lui-même vendredi 18h).
+- ⚠️ **OBSOLÈTE depuis le 27/07/2026** : Martin n'ouvre plus les ZIP et ne programme
+  plus rien à la main. Voir « CHAÎNE 100% AUTOMATIQUE » ci-dessous.
+- L'Étape 4 (publication Metricool par API depuis CET environnement) reste inutile :
+  c'est le Claude du Mac qui programme, et `api.metricool.com` est de toute façon
+  bloqué ici. Ne pas relancer ce chantier.
+
+## ✅ CHAÎNE 100% AUTOMATIQUE (Martin, 27/07/2026) — Martin ne fait PLUS RIEN
+Le dernier maillon manuel a sauté. Répartition définitive du travail :
+
+| Qui | Fait quoi | Quand |
+|---|---|---|
+| **Ce robot (cloud)** | vidéo → 2 carrousels design V2 → 2 fonds générés → rendu → 2 descriptions → dépôt dans `livraison/` → **push GitHub** | lundi 8h |
+| **Claude du Mac** | `git pull` de `livraison/` → programme dans Metricool | vendredi 18h |
+| **Martin** | **rien**. Il regarde les slides si ça lui chante. | — |
+
+Programmation faite par le Mac : `lesousloueur-*` → marque **Sebastien More**
+(sans accent, 3 réseaux) ; `guestlucky-*` → marque **guestlucky.off**.
+
+### ⛔ Ce que ce robot ne doit PLUS écrire dans son message du lundi
+- « les ZIP sont prêts à programmer », « pense à programmer vendredi 18h »,
+  « télécharge les ZIP », « ouvre Metricool »… → **tout cela est FAUX désormais.**
+- Le message du lundi dit simplement **ce qui a été livré** : les 2 noms de dossiers
+  de `livraison/`, le résultat du contrôle, et quelle image de fond a servi.
+- Le travail de ce robot **s'arrête au push GitHub**. Ce qui se passe après ne le
+  regarde pas : c'est le Mac qui prend le relais.
 
 ## 📸 CIRCUIT PHOTOS DE FOND (Martin, 24/07/2026) : prompts Seedance faits main
 Martin veut ses vrais fonds Nano Banana Pro (site Seedance) plutôt que les fonds CSS.
@@ -1260,7 +1286,7 @@ python3 pipeline/engine/gemini_bg.py --brand lesousloueur \
 Le robot du lundi : transcription → 2 carrousels → **écrit lui-même les 2 prompts
 d'image et génère les 2 fonds via gemini_bg** → pose les fonds (design_v2
 `set_bg_photo`) → rendu → descriptions → livraison (slides affichées + ZIP).
-Martin ne fait plus que programmer dans Metricool.
+Martin ne fait plus rien du tout : le Claude du Mac programme (27/07/2026).
 ⚠️ Toujours indiquer en une ligne quelle image a été générée et utilisée.
 ⚠️ Si la génération échoue (quota, clé, refus) : s'arrêter proprement, le dire,
 et livrer avec le fond CSS de secours plutôt que d'improviser.
