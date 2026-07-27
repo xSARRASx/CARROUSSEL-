@@ -959,6 +959,15 @@ navy/violet/magenta, zone haute vide). Écrans toujours éteints, zéro texte li
   **Ne jamais installer curl_cffi dans cet environnement.**
 - En attente : photos Seedance de Martin (optionnel) → re-rendu fonds ; sinon publiable tel quel.
 
+## 👁️ RÈGLE DE LIVRAISON (Martin, 27/07/2026) : TOUJOURS MONTRER LES SLIDES
+Martin veut **voir le rendu de chaque slide**, pas seulement recevoir les ZIP.
+À chaque livraison (hebdo automatique ou à la demande) :
+1. Envoyer les **10 JPEG de chaque marque** via SendUserFile avec `display: "render"`
+   (2 appels : un par marque, dans l'ordre slide_01 → slide_10, caption indiquant
+   la marque + le CTA).
+2. Puis (ou avant) les **ZIP** avec `display: "attach"`.
+Ne jamais livrer uniquement les ZIP : les images d'abord, visibles dans la conversation.
+
 ## 🛡️ Règles de sauvegarde
 - Mettre à jour ce fichier à chaque grosse étape / nouvelle règle apprise.
 - Commit + push fréquents sur `claude/salut-af8y9u`.
