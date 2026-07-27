@@ -973,3 +973,36 @@ Ne jamais livrer uniquement les ZIP : les images d'abord, visibles dans la conve
 - Commit + push fréquents sur `claude/salut-af8y9u`.
 - « Sauvegarde » = mise à jour + commit + push immédiat, sans débat.
 - Aucun secret / clé API dans le code (repo public).
+
+## 🎨 DESIGN V2 (Martin, 27/07/2026) : mise en page visuelle par SCHÉMAS
+Martin a demandé de refaire totalement la mise en page : plus propre, avec des
+**schémas et des cartes mentales** au lieu de listes de texte. Nouveau moteur :
+`pipeline/engine/design_v2.py` (classe `Deck`), utilisé par les scripts `v2_*.py`.
+
+**Briques visuelles disponibles** (une par slide de contenu) :
+- `stats(...)` : blocs de gros chiffres (alterne accent 1 / accent 2)
+- `timeline(...)` : chronologie verticale, l'étape clé marquée `hot=True`
+- `flow(...)` : 3 étapes horizontales reliées par des flèches
+- `mindmap(...)` : carte mentale, noyau central + 4 branches reliées (connecteurs SVG)
+- `compare(...)` : 2 cartes rouge / vert (faux vs vrai, avant vs après)
+- `checklist(...)` : lignes avec coche verte ou croix rouge
+- `layers(...)` : étages empilés (piliers, briques, rôles)
+- `pincer(...)` : tenaille, 2 contraintes qui convergent vers un bloc central
+- plus `cover(...)`, `cta(...)`, `closing(...)`
+
+**Choix de mise en page V2** :
+- Titre BLANC + mot-clé en accent via `acc("mot")` (plus éditorial que le titre coloré).
+- `eyebrow` (surtitre en accent 2) + gros chiffre éditorial en haut à droite.
+- **Phrase d'intro obligatoire** (`lead=`) sous le titre : elle donne le contexte
+  ET équilibre la composition (sans elle, gros vides).
+- Hauteurs de blocs MAÎTRISÉES (`min-height` par brique) + visuel centré :
+  ni grand vide, ni bloc démesuré. Leçon apprise en 3 itérations avec Martin.
+- Carte mentale : noeuds du bas ancrés `bottom:0` (ils grandissent vers le haut,
+  donc jamais de débordement sur le bandeau, quel que soit le nombre de lignes).
+- Photo de fond via `deck.set_bg_photo(fichier, veil=0.82..0.88)` : monter le voile
+  si la photo est claire (papiers blancs), baisser si elle est déjà sombre.
+
+**Démos validées** : `v2_lsl_conciergerie_220k` et `v2_gl_conformite_lemeur`
+(semaine du 27/07, 20 slides, 0 débordement, 0 tiret).
+→ **Le robot du lundi utilise désormais design_v2.py** (ancien style conservé
+dans build_guestlucky.py / build_lesousloueur.py pour référence).

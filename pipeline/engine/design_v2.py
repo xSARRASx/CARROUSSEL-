@@ -128,7 +128,8 @@ CSS_TPL = """
 
 /* carte mentale */
 .map{position:relative;width:928px;height:640px;}
-.node{position:absolute;border-radius:18px;padding:22px 22px;
+.node{position:absolute;border-radius:18px;padding:22px 22px;min-height:150px;
+  display:flex;flex-direction:column;justify-content:center;
   border:2px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.06);}
 .node .nl{font-size:29px;font-weight:800;color:{{A1}};line-height:1.12;}
 .node .nt{font-size:22px;font-weight:500;line-height:1.34;margin-top:9px;
@@ -159,7 +160,7 @@ CSS_TPL = """
   color:rgba(255,255,255,0.84);}
 
 /* flux horizontal */
-.flow{display:flex;align-items:stretch;gap:12px;min-height:520px;}
+.flow{display:flex;align-items:stretch;gap:12px;min-height:450px;}
 .step{flex:1;border-radius:16px;padding:28px 22px;display:flex;
   flex-direction:column;justify-content:center;
   border:2px solid rgba(255,255,255,0.16);background:rgba(255,255,255,0.05);}
@@ -397,7 +398,7 @@ class Deck:
         """Carte mentale : un noyau central + 4 branches (haut/bas x gauche/droite)."""
         assert len(branches) == 4, "la carte mentale attend exactement 4 branches"
         pos = [("left:0;top:18px;width:300px;", 0), ("left:628px;top:18px;width:300px;", 1),
-               ("left:0;top:490px;width:300px;", 2), ("left:628px;top:490px;width:300px;", 3)]
+               ("left:0;bottom:0;width:300px;", 2), ("left:628px;bottom:0;width:300px;", 3)]
         nodes = ""
         for style, i in pos:
             label, text = branches[i]
