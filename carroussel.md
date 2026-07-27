@@ -784,13 +784,38 @@ livraison/
 - poids réel : **~1,2 Mo par carrousel**, soit ~2,5 Mo/semaine, ~130 Mo/an. OK pour GitHub.
 
 ### L'outil : `pipeline/engine/livraison.py`
-`python3 livraison.py <slug> [--date AAAA-MM-JJ] [--sujet mot-cle]`
-- marque déduite du préfixe du slug (`lsl_` → lesousloueur, `gl_` → guestlucky)
-- date par défaut = lundi de la semaine en cours
-- **refuse de livrer** s'il n'y a pas exactement 10 slides ou si `description.txt`
-  manque → mieux vaut rien livrer qu'un carrousel incomplet
-- re-livrer le même dossier l'écrase proprement (jamais de mélange d'anciennes images)
-- ✅ testé sur les 4 carrousels existants : 44 fichiers, format conforme.
+`python3 livraison.py <slug> [--date AAAA-MM-JJ] [--sujet mot-cle] [--remplacer]`
+`python3 livraison.py --controle [--date AAAA-MM-JJ]`
+
+- **Marque déduite par recherche du jeton**, pas du seul préfixe : `lsl_x`,
+  `v2_lsl_x`, `build_gl_x`, `LSL-x`, `lesousloueur_x` fonctionnent tous.
+  Jetons reconnus : `lsl` / `lesousloueur` / `sousloueur` → lesousloueur ;
+  `gl` / `guestlucky` → guestlucky.
+- Date par défaut = lundi de la semaine en cours.
+- **Refuse de livrer** s'il n'y a pas exactement 10 slides ou si `description.txt`
+  manque → mieux vaut rien livrer qu'un carrousel incomplet.
+- **Refuse d'écraser** une livraison au contenu DIFFÉRENT (il faut `--remplacer`
+  ou un `--sujet` distinct). Re-livrer à l'identique dit « déjà livré, rien à faire ».
+- Construction dans un dossier provisoire `.tmp-…` puis renommage : si ça casse en
+  cours de copie, la livraison précédente reste intacte.
+- **`--controle`** : vérifie que les DEUX marques sont livrées pour la semaine, avec
+  10 images et une description chacune. Code de sortie 1 si incomplet.
+
+### ⚠️ BUG TROUVÉ ET CORRIGÉ LE 27/07/2026 (2 carrousels perdus en silence)
+La 1re version ne lisait que le **préfixe** du slug : tout nom commençant par `v2_`
+était refusé. Résultat : `v2_lsl_conciergerie_220k` et `v2_gl_conformite_lemeur`
+(les **démos design V2 validées**, donc les meilleures) n'avaient PAS été livrées,
+sans que rien ne le signale. Le prompt du lundi n'imposait aucune règle de nommage,
+alors qu'il demande de suivre le modèle des fichiers `v2_lsl_…py` : la panne était
+donc probable dès la première exécution.
+**Trois correctifs appliqués** :
+1. détection du jeton de marque n'importe où dans le nom (plus seulement en préfixe) ;
+2. règle de nommage écrite noir sur blanc dans le prompt du lundi (étape 3) ;
+3. **étape 9 du robot = `--controle` obligatoire avant le push** : si une marque
+   manque, interdiction de pousser en silence, il doit nommer la marque manquante
+   en première ligne de son message à Martin.
+Les 2 carrousels V2 ont été rattrapés sous les sujets `…-designv2`.
+**Leçon générale : tout maillon silencieux doit avoir un contrôle qui alerte.**
 
 ### Adresses à donner au Claude du Mac
 - dépôt : `https://github.com/xSARRASx/CARROUSSEL-`

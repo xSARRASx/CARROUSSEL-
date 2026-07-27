@@ -19,13 +19,16 @@ Regles :
     alphabetique soit aussi un tri chronologique.
 
 Usage :
-    python3 livraison.py <slug> [--date AAAA-MM-JJ] [--sujet mot-cle]
+    python3 livraison.py <slug> [--date AAAA-MM-JJ] [--sujet mot-cle] [--remplacer]
+    python3 livraison.py --controle [--date AAAA-MM-JJ]
 
     python3 livraison.py lsl_conciergerie_220k
-    python3 livraison.py gl_conformite_lemeur --sujet conformite
+    python3 livraison.py v2_gl_conformite_lemeur --sujet conformite-lemeur-v2
+    python3 livraison.py --controle          # verifie que la semaine est complete
 """
 import argparse
 import datetime
+import filecmp
 import pathlib
 import re
 import shutil
@@ -34,13 +37,22 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 LIVRAISON = ROOT.parent / "livraison"
 
-# prefixe de slug -> nom de marque exact attendu par le Mac
+# Jetons reconnus dans un slug -> nom de marque exact attendu par le Mac.
+# On accepte les alias pour ne JAMAIS perdre un carrousel a cause d'un nom :
+# lsl_x, v2_lsl_x, build_lsl_x, lesousloueur_x... donnent tous "lesousloueur".
 MARQUES = {
     "lsl": "lesousloueur",
+    "lesousloueur": "lesousloueur",
+    "sousloueur": "lesousloueur",
     "gl": "guestlucky",
+    "guestlucky": "guestlucky",
 }
 
+# Jetons techniques a ignorer quand ils precedent la marque (v2_lsl_..., build_gl_...)
+JETONS_IGNORES = {"v1", "v2", "v3", "build", "deck", "carrousel", "carroussel"}
+
 NB_SLIDES = 10
+MARQUES_ATTENDUES = ("lesousloueur", "guestlucky")
 
 
 def lundi_de_la_semaine(jour=None):
@@ -51,24 +63,44 @@ def lundi_de_la_semaine(jour=None):
 
 def nettoie(texte):
     """Reduit un texte a des minuscules, chiffres et tirets."""
-    texte = texte.lower().replace("_", "-")
-    texte = re.sub(r"[^a-z0-9-]+", "-", texte)
+    texte = texte.lower()
+    texte = re.sub(r"[^a-z0-9]+", "-", texte)
     return re.sub(r"-+", "-", texte).strip("-")
 
 
 def devine_marque_et_sujet(slug):
-    """Deduit la marque et le sujet du slug (ex: lsl_conciergerie_220k)."""
-    prefixe, _, reste = slug.partition("_")
-    marque = MARQUES.get(prefixe)
-    if not marque:
-        raise SystemExit(
-            f"ERREUR : slug '{slug}' — prefixe '{prefixe}' inconnu.\n"
-            f"Prefixes acceptes : {', '.join(sorted(MARQUES))}."
-        )
-    return marque, nettoie(reste or slug)
+    """Deduit la marque et le sujet du slug, quel que soit le prefixe.
+
+    Accepte lsl_x, v2_lsl_x, build_gl_x, LSL-x, lesousloueur_x...
+    On cherche le PREMIER jeton connu, le sujet est tout ce qui suit.
+    """
+    jetons = [j for j in re.split(r"[^a-zA-Z0-9]+", slug) if j]
+    for i, jeton in enumerate(jetons):
+        marque = MARQUES.get(jeton.lower())
+        if marque:
+            reste = jetons[i + 1:]
+            sujet = nettoie("-".join(reste)) if reste else nettoie(slug)
+            return marque, sujet
+
+    connus = ", ".join(sorted(set(MARQUES)))
+    raise SystemExit(
+        f"ERREUR : impossible de deviner la marque du slug '{slug}'.\n"
+        f"Le nom doit contenir un de ces jetons : {connus}.\n"
+        f"Exemples valides : lsl_fiscalite, v2_gl_conformite, build_lsl_airbnb.\n"
+        f"Sinon, force la marque en renommant le dossier de sortie."
+    )
 
 
-def livrer(slug, date=None, sujet=None):
+def _memes_dossiers(a, b):
+    """Vrai si deux dossiers contiennent exactement les memes fichiers."""
+    noms = sorted(f.name for f in a.iterdir())
+    if noms != sorted(f.name for f in b.iterdir()):
+        return False
+    egaux, differents, erreurs = filecmp.cmpfiles(a, b, noms, shallow=False)
+    return not differents and not erreurs
+
+
+def livrer(slug, date=None, sujet=None, remplacer=False):
     """Copie un carrousel fini dans livraison/. Renvoie le dossier cree."""
     src = ROOT / "output" / slug
     jpg_dir = src / "jpg"
@@ -91,24 +123,94 @@ def livrer(slug, date=None, sujet=None):
     date = date or lundi_de_la_semaine().isoformat()
 
     dest = LIVRAISON / f"{marque}-{date}-{sujet}"
-    if dest.exists():
-        shutil.rmtree(dest)          # re-livraison propre, jamais de melange
-    dest.mkdir(parents=True)
+    provisoire = LIVRAISON / f".tmp-{marque}-{date}-{sujet}"
 
+    # Construction dans un dossier provisoire : si quelque chose casse en cours
+    # de route, la livraison precedente reste intacte.
+    if provisoire.exists():
+        shutil.rmtree(provisoire)
+    provisoire.mkdir(parents=True)
     for i, slide in enumerate(slides, start=1):
-        shutil.copy2(slide, dest / f"{i:02d}.jpg")
-    shutil.copy2(description, dest / "description.txt")
+        shutil.copy2(slide, provisoire / f"{i:02d}.jpg")
+    shutil.copy2(description, provisoire / "description.txt")
 
+    if dest.exists():
+        if _memes_dossiers(dest, provisoire):
+            shutil.rmtree(provisoire)
+            print(f"  deja livre a l'identique : livraison/{dest.name} (rien a faire)")
+            return dest
+        if not remplacer:
+            shutil.rmtree(provisoire)
+            raise SystemExit(
+                f"ERREUR : livraison/{dest.name} existe deja avec un contenu DIFFERENT.\n"
+                f"Livraison annulee pour ne rien ecraser par accident.\n"
+                f"  - si c'est un autre carrousel : relance avec --sujet <autre-mot-cle>\n"
+                f"  - si tu veux vraiment remplacer : relance avec --remplacer"
+            )
+        shutil.rmtree(dest)
+        print(f"  (remplacement demande : ancienne version de {dest.name} supprimee)")
+
+    provisoire.rename(dest)
     poids = sum(f.stat().st_size for f in dest.iterdir()) / 1024 / 1024
     print(f"  livre : livraison/{dest.name}  ({NB_SLIDES} images + description.txt, {poids:.1f} Mo)")
     return dest
 
 
+def controle_semaine(date=None):
+    """Verifie qu'une marque ET l'autre ont bien ete livrees pour la semaine.
+
+    Renvoie True si tout va bien. Sinon affiche une alerte explicite et
+    renvoie False (le robot du lundi doit alors PREVENIR Martin, pas pousser
+    en silence).
+    """
+    date = date or lundi_de_la_semaine().isoformat()
+    print(f"CONTROLE DE LA SEMAINE DU {date}")
+
+    if not LIVRAISON.is_dir():
+        print("  ALERTE : le dossier livraison/ n'existe pas du tout.")
+        return False
+
+    ok = True
+    for marque in MARQUES_ATTENDUES:
+        dossiers = sorted(LIVRAISON.glob(f"{marque}-{date}-*"))
+        if not dossiers:
+            print(f"  ALERTE : AUCUN carrousel '{marque}' livre pour le {date}.")
+            ok = False
+            continue
+        if len(dossiers) > 1:
+            noms = ", ".join(d.name for d in dossiers)
+            print(f"  ATTENTION : {len(dossiers)} dossiers '{marque}' pour le {date} ({noms}).")
+        for d in dossiers:
+            images = sorted(d.glob("[0-9][0-9].jpg"))
+            legende = (d / "description.txt").is_file()
+            if len(images) != NB_SLIDES or not legende:
+                print(
+                    f"  ALERTE : {d.name} est INCOMPLET "
+                    f"({len(images)}/{NB_SLIDES} images, description.txt "
+                    f"{'presente' if legende else 'MANQUANTE'})."
+                )
+                ok = False
+            else:
+                print(f"  OK : {d.name} ({NB_SLIDES} images + description.txt)")
+
+    if ok:
+        print(f"  RESULTAT : semaine complete, les 2 marques sont livrees.")
+    else:
+        print(
+            "  RESULTAT : SEMAINE INCOMPLETE.\n"
+            "  NE PAS pousser en silence : previens Martin explicitement en lui\n"
+            "  disant quelle marque manque et pourquoi."
+        )
+    return ok
+
+
 def main():
     ap = argparse.ArgumentParser(description="Depose un carrousel fini dans livraison/.")
-    ap.add_argument("slug", help="nom du dossier dans pipeline/output/ (ex: lsl_conciergerie_220k)")
+    ap.add_argument("slug", nargs="?", help="dossier dans pipeline/output/ (ex: lsl_conciergerie_220k)")
     ap.add_argument("--date", help="date du lundi, format AAAA-MM-JJ (defaut : lundi de cette semaine)")
     ap.add_argument("--sujet", help="mot-cle du sujet (defaut : deduit du slug)")
+    ap.add_argument("--remplacer", action="store_true", help="autorise l'ecrasement d'une livraison differente")
+    ap.add_argument("--controle", action="store_true", help="verifie que les 2 marques sont livrees pour la semaine")
     args = ap.parse_args()
 
     if args.date:
@@ -117,7 +219,14 @@ def main():
         except ValueError:
             raise SystemExit(f"ERREUR : date '{args.date}' invalide, format attendu AAAA-MM-JJ.")
 
-    livrer(args.slug, date=args.date, sujet=args.sujet)
+    if args.controle:
+        return 0 if controle_semaine(args.date) else 1
+
+    if not args.slug:
+        ap.error("indique un slug a livrer, ou utilise --controle.")
+
+    livrer(args.slug, date=args.date, sujet=args.sujet, remplacer=args.remplacer)
+    return 0
 
 
 if __name__ == "__main__":
