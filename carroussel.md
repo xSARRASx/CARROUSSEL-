@@ -994,8 +994,12 @@ dans les build scripts (la div `.bg` de chaque slide), donc générés à chaque
   ⚠️ Une Routine créée via MCP ne transporte pas de connecteurs (Gmail, Drive…).
   Sans importance ici : le robot n'utilise que Bash / Read / Write / SendUserFile.
   chaque lundi le robot fait TOUT seul : transcription dernière vidéo → 2 carrousels
-  adaptés → rendu 20 slides + contrôles → 2 descriptions → 2 ZIP envoyés à Martin
-  (SendUserFile proactive) → commit/push + mise à jour mémoire.
+  adaptés → 2 fonds générés par gemini_bg → rendu 20 slides + contrôles → 2 descriptions
+  → slides affichées puis 2 ZIP envoyés à Martin (SendUserFile proactive) →
+  **livraison.py sur les 2 carrousels (dépôt dans `livraison/`)** → commit/push
+  (le push DOIT inclure `livraison/`) + mise à jour mémoire.
+  ⚠️ Prompt mis à jour le 27/07/2026 : étape 8 = livraison GitHub, étape 9 = push,
+  plus les règles gravées sur les marques Metricool.
   - Garde-fou anti-doublon : si pas de nouvelle vidéo (même id que dans
     output/transcripts/), prévenir et s'arrêter.
   - **Kill switch : Martin écrit STOP dans la conversation** (ou pause de la Routine
