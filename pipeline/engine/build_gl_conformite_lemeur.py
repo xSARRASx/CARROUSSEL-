@@ -9,10 +9,14 @@ Aucun mot banni (beds24, mandat de gestion, garantie financiere). Aucun
 denigrement de concurrent. Reutilise les gabarits de build_guestlucky.py.
 Usage : python3 build_gl_conformite_lemeur.py && python3 render.py gl_conformite_lemeur
 """
+import build_guestlucky as ENGINE
 from build_guestlucky import (
-    cover, content, content_ba, cta, closing, acc, COMMON_CSS, ROOT,
+    cover, content, content_ba, cta, closing, acc, ROOT,
     VIOLET, ROSE, check_dashes,
 )
+
+# Photo de fond de la semaine (generee par Martin sur Seedance, recadree 4:5).
+ENGINE.set_bg_photo("gl_conformite_lemeur_bg.jpg")
 
 SLUG = "gl_conformite_lemeur"
 
@@ -81,7 +85,7 @@ def main():
     total_dash = 0
     for i, body in enumerate(SLIDES, 1):
         html = (f'<!doctype html><html><head><meta charset="utf-8">'
-                f'<style>{COMMON_CSS}</style></head><body>{body}</body></html>')
+                f'<style>{ENGINE.COMMON_CSS}</style></head><body>{body}</body></html>')
         total_dash += len(check_dashes(html, i))
         (html_dir / f"slide_{i:02d}.html").write_text(html, encoding="utf-8")
     print(f"{len(SLIDES)} slides HTML ecrites dans {html_dir}. Tirets longs: {total_dash}")

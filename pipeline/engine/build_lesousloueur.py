@@ -24,6 +24,29 @@ def b64(path, mime):
     return f"data:{mime};base64," + base64.b64encode(pathlib.Path(path).read_bytes()).decode()
 LOGO_B64 = b64(LOGO, "image/png")
 
+# Photo de fond optionnelle (voir build_guestlucky.set_bg_photo).
+BG_PHOTO = None
+BG_PHOTO_B64 = None
+
+def set_bg_photo(filename):
+    """Active une photo de fond (fichier dans assets/backgrounds/)."""
+    global BG_PHOTO, BG_PHOTO_B64, COMMON_CSS
+    BG_PHOTO = ASSETS / "backgrounds" / filename
+    BG_PHOTO_B64 = b64(BG_PHOTO, "image/jpeg")
+    COMMON_CSS = COMMON_CSS + _photo_css()
+
+def _photo_css():
+    """CSS qui pose la photo en fond (~50%) sous un voile navy."""
+    return (
+        ".bg{background-image:url(" + BG_PHOTO_B64 + ") !important;"
+        "background-size:cover !important;background-position:center bottom !important;}"
+        ".bg{opacity:1;}"
+        ".bg::after{background:"
+        "linear-gradient(135deg, rgba(13,27,46,0.86), rgba(10,21,37,0.91)),"
+        "linear-gradient(180deg, rgba(13,27,46,0.55) 0%, rgba(13,27,46,0.10) 40%) !important;}"
+    )
+
+
 def font_face(weight):
     data = b64(FONTS / f"montserrat-latin-{weight}-normal.woff2", "font/woff2")
     return (f"@font-face{{font-family:'Montserrat';font-style:normal;font-weight:{weight};"

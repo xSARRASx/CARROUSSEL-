@@ -8,9 +8,14 @@ concierges" (transcription pipeline/output/transcripts/20260726_YiAaGhoimhA.txt)
 Reutilise les gabarits du moteur build_lesousloueur.py.
 Usage : python3 build_lsl_conciergerie_220k.py && python3 render.py lsl_conciergerie_220k
 """
+import build_lesousloueur as ENGINE
 from build_lesousloueur import (
-    cover, content, content_ba, cta, closing, acc, COMMON_CSS, ROOT, DASHES,
+    cover, content, content_ba, cta, closing, acc, ROOT, DASHES,
 )
+
+# Photo de fond de la semaine (generee par Martin sur Seedance, recadree 4:5).
+# Doit etre activee AVANT de construire les slides.
+ENGINE.set_bg_photo("lsl_conciergerie_220k_bg.jpg")
 
 SLUG = "lsl_conciergerie_220k"
 
@@ -85,7 +90,7 @@ def main():
     td = 0
     for i, body in enumerate(SLIDES, 1):
         html = (f'<!doctype html><html><head><meta charset="utf-8">'
-                f'<style>{COMMON_CSS}</style></head><body>{body}</body></html>')
+                f'<style>{ENGINE.COMMON_CSS}</style></head><body>{body}</body></html>')
         d = [c for c in html if c in DASHES_LOCAL]
         if d:
             print(f"  ALERTE tiret slide {i}: {set(d)}"); td += len(d)

@@ -29,6 +29,32 @@ def b64(path, mime):
 
 LOGO_B64 = b64(LOGO, "image/png")
 
+# Photo de fond optionnelle : un script de carrousel peut faire
+#   import build_guestlucky as B ; B.set_bg_photo("nom_du_fichier.jpg")
+# AVANT de construire ses slides. Sans photo, on garde le fond CSS.
+BG_PHOTO = None
+BG_PHOTO_B64 = None
+
+def set_bg_photo(filename):
+    """Active une photo de fond (fichier dans assets/backgrounds/)."""
+    global BG_PHOTO, BG_PHOTO_B64, COMMON_CSS
+    BG_PHOTO = ASSETS / "backgrounds" / filename
+    BG_PHOTO_B64 = b64(BG_PHOTO, "image/jpeg")
+    COMMON_CSS = COMMON_CSS + _photo_css()
+
+def _photo_css():
+    """CSS qui pose la photo en fond (~50%) sous un voile navy."""
+    return (
+        ".bg{background:none !important;}"
+        ".bg::before{background-image:url(" + BG_PHOTO_B64 + ") !important;"
+        "background-size:cover !important;background-position:center bottom !important;"
+        "-webkit-mask-image:none !important;mask-image:none !important;opacity:0.50;}"
+        ".bg::after{background:"
+        "linear-gradient(135deg, rgba(10,14,39,0.80), rgba(10,14,39,0.86)),"
+        "linear-gradient(180deg, rgba(10,14,39,0.55) 0%, rgba(10,14,39,0) 34%) !important;}"
+    )
+
+
 def font_face(weight):
     data = b64(FONTS / f"montserrat-latin-{weight}-normal.woff2", "font/woff2")
     return (f"@font-face{{font-family:'Montserrat';font-style:normal;"
