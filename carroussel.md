@@ -739,6 +739,82 @@ Martin le fait tourner sur son Mac.
 - **Seedance** : base URL https://api.seedance2.ai, auth Bearer, génération async
   (orienté vidéo ; vérifier l'endpoint AI Image pour les photos de fond).
 
+## 📦 LIVRAISON AUTOMATIQUE vers le Claude du Mac (27/07/2026) — EN PLACE
+Martin ne télécharge plus les ZIP à la main. Chaque carrousel fini est poussé sur
+GitHub dans `livraison/`, et le Claude de son Mac vient les chercher le vendredi.
+
+### Pourquoi GitHub et rien d'autre (testé le 27/07)
+- `git push` fonctionne (via le proxy local) et **atterrit sur le vrai GitHub** :
+  vérifié en relisant le dépôt depuis l'internet public
+  (`raw.githubusercontent.com` → HTTP 200 + contenu correct).
+- ⛔ **Google Drive : piège.** Le connecteur existe en session interactive, mais une
+  Routine créée via MCP **ne transporte aucun connecteur** : le lundi matin, Drive
+  serait absent. Ça marcherait en test et casserait en production.
+- ⛔ transfer.sh, 0x0.st : bloqués. catbox.moe, file.io : hébergeurs temporaires
+  (liens expirables, pas de dossiers) → inadaptés à un rendez-vous hebdomadaire.
+- ⛔ `api.metricool.com` : bloqué. `api.github.com` : 403 sur les endpoints repo.
+- ✅ Avantage décisif de git : un push dépose les 20 images **d'un seul coup**.
+  Le Mac ne peut jamais tomber sur un dossier à moitié rempli.
+
+### Format EXACT (validé par Martin, le Mac s'aligne dessus)
+```
+livraison/
+└── <marque>-<AAAA-MM-JJ>-<sujet>/
+    ├── 01.jpg ... 10.jpg          (1080x1350, prêtes pour Metricool)
+    └── description.txt            (légende Instagram)
+```
+- marque = **`lesousloueur`** ou **`guestlucky`** (jamais « guettelucky », jamais de majuscule)
+- date = le **lundi** de la semaine → tri alphabétique = tri chronologique
+- images renommées **`01.jpg` → `10.jpg`** (le préfixe `slide_` disparaît)
+- ⛔ **les images de fond ne sont PAS livrées** (déjà incrustées, 2,9 Mo pièce)
+- poids réel : **~1,2 Mo par carrousel**, soit ~2,5 Mo/semaine, ~130 Mo/an. OK pour GitHub.
+
+### L'outil : `pipeline/engine/livraison.py`
+`python3 livraison.py <slug> [--date AAAA-MM-JJ] [--sujet mot-cle]`
+- marque déduite du préfixe du slug (`lsl_` → lesousloueur, `gl_` → guestlucky)
+- date par défaut = lundi de la semaine en cours
+- **refuse de livrer** s'il n'y a pas exactement 10 slides ou si `description.txt`
+  manque → mieux vaut rien livrer qu'un carrousel incomplet
+- re-livrer le même dossier l'écrase proprement (jamais de mélange d'anciennes images)
+- ✅ testé sur les 4 carrousels existants : 44 fichiers, format conforme.
+
+### Adresses à donner au Claude du Mac
+- dépôt : `https://github.com/xSARRASx/CARROUSSEL-`
+- branche : `claude/carrousel-instagram-robot-hk4743`
+- dossier : `livraison/`
+
+## 🛑 RÈGLES GRAVÉES — MARQUES METRICOOL (Martin, 27/07/2026, vérifié à l'écran)
+Orthographe EXACTE relevée par Martin dans sa liste de marques Metricool.
+**Un piège volontaire existe : deux marques au nom presque identique.**
+
+| Marque (orthographe exacte) | Réseaux | Usage | Autorisation |
+|---|---|---|---|
+| **`Sebastien More`** (SANS accent) | Instagram + TikTok + YouTube (**3 icônes**) | **SHORTS** | ✅ LA BONNE |
+| `Sébastien More` (AVEC é accentué) | Instagram seul (**1 icône**) | — | ⛔ **INTERDITE** |
+| `guestlucky.off` | Instagram seul | Carrousels Guestlucky (plus tard) | ⚠️ jamais pour les shorts |
+| `Marque vide` (x2) | — | — | ⛔ **INTERDITES** |
+
+### Procédure obligatoire avant toute action sur une marque
+Vérifier **LES DEUX** critères, jamais un seul :
+1. le nom est exactement **`Sebastien More`**, **sans accent** sur le e ;
+2. la marque affiche bien **les 3 icônes de réseaux** (Instagram + TikTok + YouTube).
+Si l'un des deux critères manque → **ne rien faire et demander à Martin**.
+Le critère des 3 réseaux est le plus fiable : un accent se lit mal à l'écran,
+trois icônes se comptent sans ambiguïté.
+
+### ⚠️ Point à clarifier avec Martin (non bloquant tant que Metricool est manuel)
+La ligne « Le Sous Loueur (compte « Sebastien More ») : blogId = 3968518 » date du
+24/07. Il faut confirmer que les **carrousels Le Sous Loueur** partent bien sur la
+même marque `Sebastien More` (3 réseaux) que les shorts, et pas sur la marque
+accentuée. **Ne pas le supposer.** Sans réponse : demander avant toute publication.
+
+### ❌ Ce que ce robot n'a JAMAIS fait, et ne peut pas faire
+**Aucun calendrier Metricool n'a jamais été lu depuis cet environnement.**
+`api.metricool.com` est **bloqué** par la politique réseau (revérifié le 27/07 :
+aucune réponse). `app.metricool.com` répond 200 mais ce n'est que la page de
+connexion, sans session : illisible. Si un calendrier a été consulté, c'est par le
+**Claude du Mac**, pas ici. Ne jamais affirmer avoir vu un planning Metricool.
+
 ## Workflow cible (précisé par Martin, 24/07/2026)
 Cadence **hebdomadaire, 100% autonome** :
 - Une vidéo sort **chaque dimanche** sur une chaîne YouTube (URL à fournir par Martin).
