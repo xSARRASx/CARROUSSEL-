@@ -938,6 +938,27 @@ navy/violet/magenta, zone haute vide). Écrans toujours éteints, zéro texte li
 
 ---
 
+### Session robot — lundi 27 juillet 2026 (1er run automatique RÉUSSI)
+- Déclencheur du lundi 8h07 : premier réveil automatique, déroulé complet sans Martin.
+- Vidéo du dimanche 26/07 détectée : « 220 000 € : le jugement qui fait trembler les
+  concierges » (id YiAaGhoimhA, 27min50, transcription 30 008 car.). Sujets : conciergerie
+  condamnée 220 000 € (autant que la propriétaire, 4 logements Paris 7e/8e, pas
+  d'autorisation de changement d'usage, 410 000 € de recettes 2022-2024), loi Le Meur
+  (intermédiaires sanctionnables jusqu'à 100 000 €), téléservice national/API meublés
+  (mai 2026), 2 étages de sanctions (usage + enregistrement 12 500/50 000 ; loueur
+  10 000/50 000, 120 jours/90 Paris), mythe de la carte G (défaut de vérification, pas
+  de statut ; modèle prestation de services), 3 briques (contrat/doc, mode opératoire,
+  outils/preuves), module conformité/gouvernance Guestlucky (fiche par bien, badges,
+  rapport mensuel auto, accès propriétaire avancé, compteur de nuitées).
+- 2 carrousels produits : `lsl_conciergerie_220k` (alerte/coaching, CTA LEMEUR) et
+  `gl_conformite_lemeur` (produit module conformité, CTA DEMO). 20 slides, 0 débordement,
+  0 tiret, montants en espaces insécables (leçon : le « € » seul en bout de ligne).
+- 2 descriptions + 2 prompts Seedance (3984 et 4005 car.) + 2 ZIP livrés à Martin.
+- ⚠️ Incident technique réglé : `curl_cffi` (installé pour un test jeudi) faisait planter
+  les téléchargements yt-dlp derrière le proxy (Connection reset). → désinstallé.
+  **Ne jamais installer curl_cffi dans cet environnement.**
+- En attente : photos Seedance de Martin (optionnel) → re-rendu fonds ; sinon publiable tel quel.
+
 ## 🛡️ Règles de sauvegarde
 - Mettre à jour ce fichier à chaque grosse étape / nouvelle règle apprise.
 - Commit + push fréquents sur `claude/salut-af8y9u`.

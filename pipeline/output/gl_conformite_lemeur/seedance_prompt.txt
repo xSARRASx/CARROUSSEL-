@@ -1,0 +1,58 @@
+═══════════════════════════════════════════════════════
+PREMIUM TECH STILL-LIFE PHOTOGRAPH, STRICT VERTICAL 4:5
+THEME: ORDER AND CONTROL, MODERN SAAS GOVERNANCE, NIGHT OFFICE
+═══════════════════════════════════════════════════════
+
+CONCEPT
+Cinematic premium still-life photograph of a perfectly ordered modern desk at night, seen from a slightly elevated three-quarter angle. The mood evokes a high-end SaaS brand like Stripe, Linear or Notion, and the feeling of everything being under control: dark, sophisticated, calm, with violet and magenta ambient glows dissolving into deep navy darkness. This image will be used as a dark BACKGROUND layer under white text on Instagram slides, so it must stay sober, dark and breathable, with a large empty zone at the top.
+
+SCENE AND OBJECTS (lower two thirds of the frame ONLY)
+- A small neat stack of dark folders perfectly aligned, completely BLANK covers
+- A few white paper documents squared up in a tidy pile, completely BLANK pages
+- One smartphone laying flat on the desk, screen COMPLETELY OFF, dark glass catching a soft violet reflection along one edge
+- One elegant dark pen placed perfectly parallel to the papers
+- One small dark ceramic cup, matte finish
+- Background elements dissolve into soft dark bokeh: hints of the desk edge, nothing recognizable
+
+LAYOUT (VERTICAL 4:5, THINK 1080 x 1350)
+- TOP 40%: nearly black-navy EMPTY space with only a very soft gradient glow, this zone stays clear because a big white title will be placed over it
+- MIDDLE 25%: soft out-of-focus transition, the desk horizon line sits here
+- BOTTOM 35%: the objects, sharp and elegant, arranged with strict order and generous negative space, everything aligned like a brand photoshoot
+- Comfortable margins on left and right, no object awkwardly cropped
+
+COLOR PALETTE (STRICT, DO NOT DEVIATE)
+- Base: very deep navy blue #0F1A35 and #0A1228, close to black in the corners
+- Primary glow accent: violet #7B4FE0 and deeper violet #8B3FD9, coming from the left side
+- Secondary glow accent: magenta pink #E84A8C and #C13FBE, softer, coming from the right side
+- White #FFFFFF only for the blank papers and faint highlights on edges
+- NO orange, NO yellow, NO green, NO teal, NO red anywhere in the image
+
+LIGHTING
+- Ambient LED-style glow from OFF-FRAME sources only: soft violet wash from the left, softer magenta wash from the right, both blending smoothly into the darkness
+- Soft reflections on glass and matte surfaces, deep shadows everywhere else
+- Cinematic falloff, corners darker than the center bottom
+- NO visible light rays, NO halos, NO light beams, NO light shafts
+
+STYLE AND RENDERING
+- Photorealistic cinematic still-life photography, premium tech editorial mood: Stripe, Linear, Vercel
+- Shot on Sony A7 with a 35mm lens at f/2.8, shallow depth of field, foreground objects sharp, background melting into bokeh
+- Natural fine film grain, subtle
+- Deep controlled blacks, gentle highlights, sophisticated color grading, no crushed shadows
+- Matte and glass textures rendered realistically, no plastic feeling
+
+ABSOLUTE EXCLUSIONS
+- NO readable text, NO letters, NO numbers, NO typography anywhere: folders and papers are completely blank
+- NO screens turned on, NO user interface, NO app icons, NO floating UI cards, NO charts
+- NO logos, NO brand marks, DO NOT draw any logo from memory
+- NO people, NO hands, NO body parts
+- NO visible light rays, NO halos, NO light beams
+- NO HDR over-processing, NO exaggerated contrast, NO oversaturation
+- NO artificial AI rendering look, NO cheap plastic 3D look
+- NO emoji, NO watermark, NO duplicate objects, NO browser frame, NO screenshot artifacts
+
+FINAL CHECKLIST BEFORE GENERATING
+- Strict vertical 4:5 composition
+- Top 40% almost empty, near-black navy, ready for white text overlay
+- Violet glow from the left, softer magenta glow from the right, deep navy base
+- Everything perfectly ordered and aligned, screens off, zero readable characters
+- Photorealistic, cinematic, premium, natural film grain
