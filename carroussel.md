@@ -5,7 +5,58 @@
 > des marques de Sébastien More.
 > Pour reprendre : "lis le carroussel.md et continuons".
 >
-> Repo : `xSARRASx/CARROUSSEL-` — branche de dev : `claude/salut-af8y9u`
+> Repo : `xSARRASx/CARROUSSEL-` — branche de dev ACTUELLE :
+> `claude/carrousel-instagram-robot-hk4743` (l'ancienne `claude/salut-af8y9u` n'est plus utilisée)
+
+---
+
+# 🚦 À LIRE EN PREMIER — état du projet au 27/07/2026
+
+**Le robot tourne déjà.** Chaîne complète, testée, en production :
+
+| Brique | Fichier | État |
+|---|---|---|
+| Transcription YouTube (vraies vidéos, pas les shorts) | `pipeline/engine/fetch_transcript.py` | ✅ |
+| Mise en page V2 par SCHÉMAS (le style actuel) | `pipeline/engine/design_v2.py` | ✅ |
+| Rendu PNG/JPEG + contrôles | `pipeline/engine/render.py` | ✅ |
+| Fonds photo automatiques (Nano Banana Pro / Google) | `pipeline/engine/gemini_bg.py` | ✅ (clé requise) |
+| Déclencheur hebdo lundi 8h | Routine `trig_01BJ9PpUqznmkYP7XwEfUyG3` | ✅ |
+| Publication Metricool par API | — | ⛔ en pause (forfait Starter, API non incluse) |
+
+**Exemples à copier pour un nouveau carrousel** (design V2, la référence) :
+`pipeline/engine/v2_lsl_conciergerie_220k.py` et `v2_gl_conformite_lemeur.py`.
+Les anciens `build_guestlucky.py` / `build_lesousloueur.py` sont l'ANCIEN style (V1),
+gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
+
+## ⚠️ LES 10 RÈGLES DE MARTIN (non négociables, apprises au fil des sessions)
+1. **TOUJOURS afficher le rendu de chaque slide** (SendUserFile `display:"render"`,
+   10 JPEG par marque) AVANT/EN PLUS des ZIP. Jamais les ZIP seuls.
+2. **Design V2 uniquement** : chaque slide de contenu est un SCHÉMA (stats, timeline,
+   flow, mindmap, compare, checklist, layers, pincer) + une phrase d'intro `lead=`.
+   Jamais de simples listes de texte.
+3. **Aucun grand vide** dans une slide, et aucun bloc démesuré : hauteurs maîtrisées.
+4. **Montants avec espaces insécables** (`220&nbsp;000&nbsp;€`) : jamais un « € » seul
+   en bout de ligne.
+5. **Descriptions Instagram** : CTA en haut avec `↓` et `😉`, signature Le Sous Loueur,
+   et **PAS d'emoji clé 🔑 à la fin** (Martin l'a fait retirer).
+6. **Vraies vidéos** de l'onglet `/videos`, **jamais les shorts**.
+7. **Deux carrousels ADAPTÉS** depuis la même vidéo : jamais les mêmes slides.
+8. **Zéro emoji et zéro tiret long dans les slides**, acronymes expliqués,
+   mots bannis Guestlucky (beds24, mandat de gestion, garantie financière),
+   aucun dénigrement frontal de concurrent.
+9. **Martin ne fait plus que programmer dans Metricool** (vendredi 18h, 2 comptes).
+   Tout le reste est automatique, y compris les fonds photo.
+10. **Honnêteté** : si une brique échoue (clé, quota, réseau), le dire clairement et
+    livrer avec le fond de secours. Jamais improviser ni prétendre avoir vérifié.
+
+## 🚫 PIÈGES TECHNIQUES DÉJÀ PAYÉS (ne pas refaire)
+- **NE JAMAIS installer `curl_cffi`** : casse yt-dlp derrière le proxy.
+- **NE PAS faire `playwright install`** : Chromium est déjà là
+  (`/opt/pw-browsers/chromium-1194/chrome-linux/chrome`). Seul `pip install playwright` est utile.
+- **Piloter un navigateur est IMPOSSIBLE ici** (réseau bloqué pour Chromium, prouvé).
+- **L'API Seedance ne génère pas d'images** (401) : uniquement de la vidéo.
+- **Sonder une API en envoyant une requête valide coûte de l'argent** : toujours
+  `--dry-run` ou un corps volontairement invalide pour tester.
 
 ---
 
