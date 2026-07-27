@@ -28,7 +28,7 @@
 Les anciens `build_guestlucky.py` / `build_lesousloueur.py` sont l'ANCIEN style (V1),
 gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
 
-## ⚠️ LES 10 RÈGLES DE MARTIN (non négociables, apprises au fil des sessions)
+## ⚠️ LES 11 RÈGLES DE MARTIN (non négociables, apprises au fil des sessions)
 1. **TOUJOURS afficher le rendu de chaque slide** (SendUserFile `display:"render"`,
    10 JPEG par marque) AVANT/EN PLUS des ZIP. Jamais les ZIP seuls.
 2. **Design V2 uniquement** : chaque slide de contenu est un SCHÉMA (stats, timeline,
@@ -48,6 +48,18 @@ gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
    Tout le reste est automatique, y compris les fonds photo.
 10. **Honnêteté** : si une brique échoue (clé, quota, réseau), le dire clairement et
     livrer avec le fond de secours. Jamais improviser ni prétendre avoir vérifié.
+11. **JAMAIS DE GÉNÉRATION POUR RIEN** (règle confirmée par Martin le 27/07/2026).
+    Toute image payante (`gemini_bg`, ~0,134 $) doit servir un carrousel réellement
+    livré. **Interdits** : les répétitions générales, les tests « pour voir », les
+    régénérations parce qu'une image plaît moyennement, les essais en double.
+    - Une seule génération de validation a été autorisée, le 27/07/2026 : c'est fait,
+      la chaîne est prouvée, on ne la refait pas.
+    - Pour tester du code sans dépenser : `--dry-run` (affiche le prompt, 0 $), ou
+      réutiliser une image déjà générée dans `pipeline/assets/backgrounds/`.
+    - **La validation d'un changement se fait sur la première VRAIE exécution du
+      lundi**, jamais sur un tir d'essai payant.
+    - Si tu penses vraiment qu'une génération de test est nécessaire : demander à
+      Martin AVANT, en annonçant le coût. Ne jamais décider seul.
 
 ## 🚫 PIÈGES TECHNIQUES DÉJÀ PAYÉS (ne pas refaire)
 - **NE JAMAIS installer `curl_cffi`** : casse yt-dlp derrière le proxy.
@@ -734,8 +746,10 @@ Martin le fait tourner sur son Mac.
 ## Repères comptes (fournis par Martin, 24/07/2026 — identifiants, PAS des secrets)
 - **Chaîne YouTube (source du dimanche)** : https://www.youtube.com/@moresebastien
 - **Metricool** : userId = 3122469
-  - Le Sous Loueur (compte « Sebastien More ») : blogId = 3968518
+  - Le Sous Loueur (compte « Sebastien More », SANS accent, 3 réseaux) : blogId = 3968518
   - Guestlucky (compte « guestlucky.off ») : blogId = 4001072
+  ⚠️ Voir plus bas « RÈGLES GRAVÉES — MARQUES METRICOOL » : une marque « Sébastien More »
+  AVEC accent existe aussi et est INTERDITE partout.
 - **Seedance** : base URL https://api.seedance2.ai, auth Bearer, génération async
   (orienté vidéo ; vérifier l'endpoint AI Image pour les photos de fond).
 
@@ -802,11 +816,19 @@ Si l'un des deux critères manque → **ne rien faire et demander à Martin**.
 Le critère des 3 réseaux est le plus fiable : un accent se lit mal à l'écran,
 trois icônes se comptent sans ambiguïté.
 
-### ⚠️ Point à clarifier avec Martin (non bloquant tant que Metricool est manuel)
-La ligne « Le Sous Loueur (compte « Sebastien More ») : blogId = 3968518 » date du
-24/07. Il faut confirmer que les **carrousels Le Sous Loueur** partent bien sur la
-même marque `Sebastien More` (3 réseaux) que les shorts, et pas sur la marque
-accentuée. **Ne pas le supposer.** Sans réponse : demander avant toute publication.
+### ✅ TRANCHÉ par Martin le 27/07/2026 — plus aucune ambiguïté
+Les **carrousels Le Sous Loueur** partent sur **`Sebastien More` SANS accent**, la
+marque aux 3 réseaux — **la même que les shorts**. Publication sur **son Instagram**.
+La marque accentuée `Sébastien More` est **interdite PARTOUT** : shorts, carrousels,
+tout. Elle n'a aucun usage légitime dans ce projet.
+
+Récapitulatif complet des destinations :
+| Contenu | Marque Metricool | Réseau |
+|---|---|---|
+| Shorts | `Sebastien More` (sans accent, 3 réseaux) | Instagram + TikTok + YouTube |
+| Carrousels **Le Sous Loueur** | `Sebastien More` (sans accent, 3 réseaux) | Instagram |
+| Carrousels **Guestlucky** | `guestlucky.off` | Instagram |
+| — | `Sébastien More` (accentuée) | ⛔ **JAMAIS, nulle part** |
 
 ### ❌ Ce que ce robot n'a JAMAIS fait, et ne peut pas faire
 **Aucun calendrier Metricool n'a jamais été lu depuis cet environnement.**
