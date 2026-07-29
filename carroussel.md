@@ -1076,6 +1076,27 @@ Processus **strictement identique**. Le jeudi, il n'y a PAS toujours de vidéo :
 dans ce cas le robot s'arrête sans rien produire ni dépenser, et le dit en une ligne.
 Créneaux de publication (gérés par le Mac) : vendredi 18h et samedi 14h par marque.
 
+### 🌍 PIÈGE DU TITRE TRADUIT (Martin, 29/07/2026) — RÈGLE GRAVÉE
+**NE JAMAIS juger la langue ni le sujet d'une vidéo d'après son TITRE.**
+YouTube renvoie les titres **traduits automatiquement selon la localisation du
+serveur**. Depuis cet environnement (serveur à l'étranger), un titre français
+arrive souvent en anglais. **Les vidéos sont TOUJOURS parlées en français.**
+
+Cas réel du 29/07 : yt-dlp a renvoyé « Your HOA can block your Airbnb | Here's why ».
+J'ai cru à une vidéo anglaise hors sujet et j'ai alerté Martin. **C'était faux** :
+le vrai titre est « Ta copropriété peut te bloquer sur Airbnb | Voici pourquoi »,
+vidéo française, en plein dans le thème.
+
+**Ce qu'il faut faire à la place** : juger sur **la TRANSCRIPTION**, jamais sur le
+titre. C'est sans risque, car `fetch_transcript.py` demande explicitement
+`SUB_LANGS = "fr-orig,fr"` — la piste française d'origine, jamais une traduction.
+La ligne « Titre : … » en tête du fichier transcript peut elle aussi être traduite :
+**ne pas s'y fier non plus**, lire le corps du texte.
+
+⛔ Ne JAMAIS bloquer ni questionner une vidéo à cause d'un titre en anglais.
+✅ Ne s'arrêter pour demander que si le **corps de la transcription** n'est pas en
+français, ou parle clairement d'autre chose que location courte durée / conciergerie.
+
 ### 🔴 BUG GRAVE TROUVÉ ET CORRIGÉ LE 29/07/2026 — l'anti-doublon ne marchait pas
 `fetch_transcript.py` **écrit le transcript sans jamais vérifier s'il existe déjà**.
 La consigne des robots était : « lance fetch_transcript.py puis compare l'identifiant
