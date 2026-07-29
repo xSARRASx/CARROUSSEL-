@@ -20,7 +20,8 @@
 | Mise en page V2 par SCHÉMAS (le style actuel) | `pipeline/engine/design_v2.py` | ✅ |
 | Rendu PNG/JPEG + contrôles | `pipeline/engine/render.py` | ✅ |
 | Fonds photo automatiques (Nano Banana Pro / Google) | `pipeline/engine/gemini_bg.py` | ✅ testé en vrai le 27/07 (0,134 $/image) |
-| Déclencheur hebdo lundi 8h | Routine `trig_01GTc5qL9sFLY2ZZ5tkcCTNh` | ✅ (recréée 27/07) |
+| Déclencheurs **lundi 8h + jeudi 8h** | `trig_01GTc5qL9sFLY2ZZ5tkcCTNh` (dimanche) et `trig_01RsQkR98YD4J7LvMNMKq79S` (mercredi) | ✅ (jeudi ajouté 29/07) |
+| Anti-doublon `fetch_transcript.py --verifier` | codes 0 / 1 / 2 | ✅ corrigé 29/07 |
 | Publication Metricool par API | — | ⛔ en pause (forfait Starter, API non incluse) |
 
 **Exemples à copier pour un nouveau carrousel** (design V2, la référence) :
@@ -1062,6 +1063,43 @@ s'en charge. Section gardée pour l'historique — voir « CHAÎNE 100% AUTOMATI
 - L'Étape 4 (publication Metricool par API depuis CET environnement) reste inutile :
   c'est le Claude du Mac qui programme, et `api.metricool.com` est de toute façon
   bloqué ici. Ne pas relancer ce chantier.
+
+## 📅 DEUX VIDÉOS PAR SEMAINE (Martin, 29/07/2026) — DEUX RÉVEILS
+Sébastien publie maintenant **2 vidéos/semaine** : dimanche + **mercredi 18h**.
+
+| Réveil | Cron (UTC) | Heure Paris | Vidéo visée | Trigger |
+|---|---|---|---|---|
+| Lundi | `0 6 * * 1` | lundi 8h | celle du dimanche | `trig_01GTc5qL9sFLY2ZZ5tkcCTNh` |
+| **Jeudi** | `0 6 * * 4` | jeudi 8h | celle du mercredi | `trig_01RsQkR98YD4J7LvMNMKq79S` |
+
+Processus **strictement identique**. Le jeudi, il n'y a PAS toujours de vidéo :
+dans ce cas le robot s'arrête sans rien produire ni dépenser, et le dit en une ligne.
+Créneaux de publication (gérés par le Mac) : vendredi 18h et samedi 14h par marque.
+
+### 🔴 BUG GRAVE TROUVÉ ET CORRIGÉ LE 29/07/2026 — l'anti-doublon ne marchait pas
+`fetch_transcript.py` **écrit le transcript sans jamais vérifier s'il existe déjà**.
+La consigne des robots était : « lance fetch_transcript.py puis compare l'identifiant
+avec les fichiers de transcripts/ ». Or **après avoir lancé le script, l'identifiant
+est TOUJOURS présent** — puisque le script vient de créer le fichier. Le robot aurait
+donc conclu « déjà traitée » à CHAQUE fois, y compris pour une vraie nouvelle vidéo,
+et n'aurait plus jamais rien produit. Le bug était invisible tant qu'il n'y avait
+qu'une vidéo par semaine ; il devenait certain avec le réveil du jeudi.
+
+**Correctif : nouveau mode `--verifier`** dans `fetch_transcript.py` :
+```
+python3 pipeline/engine/fetch_transcript.py --verifier
+```
+- ne télécharge rien, **n'écrit aucun fichier** → peut se relancer sans fausser le test
+- cherche un fichier `*_<identifiant>.txt` dans `transcripts/`
+- **code 0** = nouvelle vidéo à traiter
+- **code 1** = déjà traitée → ne rien produire, ne rien dépenser
+- **code 2** = PANNE (yt-dlp absent, réseau) → surtout NE PAS conclure « déjà traitée » :
+  on ne SAIT PAS. Corriger et relancer.
+⚠️ Les 3 codes sont distincts exprès : confondre une panne avec « rien à faire »
+ferait taire le robot en silence pendant des semaines.
+⚠️ Règle gravée dans les 2 prompts : **interdit de lancer `fetch_transcript.py`
+sans `--verifier` tant qu'on n'a pas obtenu le code 0.**
+✅ Testé en vrai le 29/07 : détection correcte, aucun fichier écrit, code panne validé.
 
 ## ✅ CHAÎNE 100% AUTOMATIQUE (Martin, 27/07/2026) — Martin ne fait PLUS RIEN
 Le dernier maillon manuel a sauté. Répartition définitive du travail :

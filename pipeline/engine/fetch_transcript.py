@@ -205,7 +205,66 @@ def save_transcript(video, transcript):
 # Point d'entree : pour tester a la main
 # --------------------------------------------------------------------------
 
+def transcript_existant(video_id):
+    """Renvoie le chemin du transcript deja range pour cette video, sinon None.
+
+    Les fichiers sont nommes <date>_<identifiant>.txt : on cherche donc un nom
+    qui se termine par _<identifiant>.txt.
+    """
+    if not os.path.isdir(TRANSCRIPTS_DIR):
+        return None
+    suffixe = "_" + video_id + ".txt"
+    for nom in sorted(os.listdir(TRANSCRIPTS_DIR)):
+        if nom.endswith(suffixe):
+            return os.path.join(TRANSCRIPTS_DIR, nom)
+    return None
+
+
+def verifier():
+    """Mode --verifier : dit si la derniere video est NOUVELLE, sans rien ecrire.
+
+    A appeler AVANT la transcription. C'est le garde-fou anti-doublon : il ne
+    telecharge rien et ne cree aucun fichier, donc il peut etre lance autant de
+    fois qu'on veut sans fausser la comparaison.
+
+    Code de sortie : 0 = nouvelle video (il faut la traiter),
+                     1 = deja traitee (ne rien produire, ne rien depenser),
+                     2 = PANNE (yt-dlp absent, reseau...) -- surtout ne pas
+                         confondre avec "deja traitee" : la, on ne SAIT PAS.
+    """
+    try:
+        video = get_latest_video()
+    except Exception as err:
+        print("PANNE pendant la verification :", err)
+        print()
+        print("VERDICT : impossible de savoir s'il y a une nouvelle video.")
+        print("          NE PAS conclure 'deja traitee'. Corrige la panne")
+        print("          (souvent : pip install yt-dlp) puis relance --verifier.")
+        return 2
+
+    deja = transcript_existant(video["id"])
+
+    print("Derniere video de la chaine :")
+    print("  - Titre       :", video["title"])
+    print("  - Identifiant :", video["id"])
+    print("  - Lien        :", video["url"])
+    if deja:
+        print("  - Etat        : DEJA TRAITEE (" + os.path.basename(deja) + ")")
+        print()
+        print("VERDICT : rien a faire. Ne produis AUCUN carrousel et ne genere")
+        print("          AUCUNE image. Previens Martin en une seule ligne.")
+        return 1
+
+    print("  - Etat        : NOUVELLE (aucun transcript pour cet identifiant)")
+    print()
+    print("VERDICT : video a traiter. Lance la transcription, puis les 2 carrousels.")
+    return 0
+
+
 def main():
+    if "--verifier" in sys.argv[1:]:
+        return verifier()
+
     print("Etape 2 -- transcription de la derniere VRAIE video YouTube")
     print("Chaine :", VIDEOS_TAB_URL)
     print()
