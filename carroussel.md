@@ -29,7 +29,7 @@
 Les anciens `build_guestlucky.py` / `build_lesousloueur.py` sont l'ANCIEN style (V1),
 gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
 
-## ⚠️ LES 11 RÈGLES DE MARTIN (non négociables, apprises au fil des sessions)
+## ⚠️ LES 12 RÈGLES DE MARTIN (non négociables, apprises au fil des sessions)
 1. **TOUJOURS afficher le rendu de chaque slide** (SendUserFile `display:"render"`,
    10 JPEG par marque) AVANT/EN PLUS des ZIP. Jamais les ZIP seuls.
 2. **Design V2 uniquement** : chaque slide de contenu est un SCHÉMA (stats, timeline,
@@ -52,6 +52,13 @@ gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
    dire à Martin de télécharger ou de programmer.
 10. **Honnêteté** : si une brique échoue (clé, quota, réseau), le dire clairement et
     livrer avec le fond de secours. Jamais improviser ni prétendre avoir vérifié.
+12. **UN CONTRÔLE VÉRIFIE TOUJOURS LE RÉSULTAT FINAL, JAMAIS UNE ÉTAPE
+    INTERMÉDIAIRE** (règle posée par Martin le 30/07/2026, après trois pannes
+    silencieuses de suite). Ne jamais déduire « c'est fait » de la présence d'un
+    fichier de travail : un run peut s'interrompre juste après. Une vidéo n'est
+    traitée que si **ses carrousels sont livrés dans `livraison/` et poussés**.
+    Corollaire : un registre ou un journal ne prouve rien tout seul, il sert
+    seulement d'annuaire — le contrôle relit toujours les fichiers réels.
 11. **JAMAIS DE GÉNÉRATION POUR RIEN** (règle confirmée par Martin le 27/07/2026).
     Toute image payante (`gemini_bg`, ~0,134 $) doit servir un carrousel réellement
     livré. **Interdits** : les répétitions générales, les tests « pour voir », les
@@ -1096,6 +1103,29 @@ La ligne « Titre : … » en tête du fichier transcript peut elle aussi être 
 ⛔ Ne JAMAIS bloquer ni questionner une vidéo à cause d'un titre en anglais.
 ✅ Ne s'arrêter pour demander que si le **corps de la transcription** n'est pas en
 français, ou parle clairement d'autre chose que location courte durée / conciergerie.
+
+### 🔴 ANTI-DOUBLON, 2e CORRECTION (30/07/2026) — il regardait la mauvaise chose
+Le `--verifier` du 29/07 comparait l'identifiant de la vidéo aux fichiers de
+`transcripts/`. Ça a lâché dès le premier vrai réveil : le jeudi 30/07, une erreur
+529 de Google a interrompu le run **après** l'écriture de la transcription. Au
+redémarrage, `--verifier` a répondu « DÉJÀ TRAITÉE » alors que **rien n'avait été
+produit**. Sans l'intervention de Martin, le robot se serait tu pour toujours.
+
+**Correction : le verdict se base désormais sur la LIVRAISON RÉELLE.**
+- `livraison.py` gagne `video_livree(video_id)` : le contrôle qui fait autorité.
+- Un registre `pipeline/output/traite.json` relie un identifiant de vidéo aux
+  dossiers livrés. **Ce registre ne prouve rien tout seul** : pour chaque dossier
+  annoncé, la fonction relit le disque et exige 10 images + `description.txt`,
+  et exige que les DEUX marques soient présentes.
+- `livraison.py <slug> --video <id> --titre "<titre>"` alimente le registre.
+- Trois verdicts pour `--verifier` :
+  - **DÉJÀ LIVRÉE** (code 1) : les carrousels existent et sont complets → stop.
+  - **À REPRENDRE** (code 0) : transcription présente mais carrousels absents →
+    reprendre à l'écriture, sans retélécharger la transcription.
+  - **NOUVELLE** (code 0) : rien nulle part → run complet.
+- ✅ 5 cas testés le 30/07 : livrée, transcript seul, une marque sur deux,
+  registre qui annonce un dossier fantôme, dossier réel amputé d'une image.
+  Les quatre derniers renvoient bien « à reprendre ».
 
 ### 🔴 BUG GRAVE TROUVÉ ET CORRIGÉ LE 29/07/2026 — l'anti-doublon ne marchait pas
 `fetch_transcript.py` **écrit le transcript sans jamais vérifier s'il existe déjà**.

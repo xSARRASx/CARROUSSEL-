@@ -244,20 +244,34 @@ def verifier():
 
     deja = transcript_existant(video["id"])
 
+    # LE controle qui fait autorite : les carrousels sont-ils REELLEMENT livres ?
+    # On ne se fie PAS a l'existence de la transcription : un run peut planter
+    # juste apres l'avoir ecrite, et la video serait alors declaree "traitee"
+    # alors que Martin n'a rien recu. On verifie le RESULTAT FINAL.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from livraison import video_livree
+    livree, detail = video_livree(video["id"])
+
     print("Derniere video de la chaine :")
     print("  - Titre       :", video["title"])
     print("  - Identifiant :", video["id"])
     print("  - Lien        :", video["url"])
-    if deja:
-        print("  - Etat        : DEJA TRAITEE (" + os.path.basename(deja) + ")")
+    print("  - Transcript  :", os.path.basename(deja) if deja else "aucun")
+    print("  - Livraison   :", detail)
+    if livree:
         print()
-        print("VERDICT : rien a faire. Ne produis AUCUN carrousel et ne genere")
-        print("          AUCUNE image. Previens Martin en une seule ligne.")
+        print("VERDICT : DEJA LIVREE. Rien a faire. Ne produis AUCUN carrousel")
+        print("          et ne genere AUCUNE image. Previens Martin en une ligne.")
         return 1
 
-    print("  - Etat        : NOUVELLE (aucun transcript pour cet identifiant)")
     print()
-    print("VERDICT : video a traiter. Lance la transcription, puis les 2 carrousels.")
+    if deja:
+        print("VERDICT : A REPRENDRE. La transcription existe mais les carrousels")
+        print("          ne sont PAS livres : un run precedent s'est interrompu.")
+        print("          Inutile de retelecharger la transcription : reprends")
+        print("          directement a l'ecriture des 2 carrousels.")
+    else:
+        print("VERDICT : NOUVELLE video. Lance la transcription, puis les 2 carrousels.")
     return 0
 
 

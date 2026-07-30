@@ -29,6 +29,7 @@ Usage :
 import argparse
 import datetime
 import filecmp
+import json
 import pathlib
 import re
 import shutil
@@ -36,6 +37,12 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 LIVRAISON = ROOT.parent / "livraison"
+
+# Registre qui relie un identifiant de video aux dossiers livres.
+# Il vit HORS de livraison/ pour ne pas polluer ce que lit le Mac.
+# ⚠️ Ce fichier n'est qu'un ANNUAIRE : il ne prouve rien tout seul. Toute
+# verification relit les fichiers reels sur le disque (voir video_livree()).
+JOURNAL = ROOT / "output" / "traite.json"
 
 # Jetons reconnus dans un slug -> nom de marque exact attendu par le Mac.
 # On accepte les alias pour ne JAMAIS perdre un carrousel a cause d'un nom :
@@ -91,6 +98,72 @@ def devine_marque_et_sujet(slug):
     )
 
 
+def _charger_journal():
+    if not JOURNAL.is_file():
+        return {"videos": {}}
+    try:
+        return json.loads(JOURNAL.read_text(encoding="utf-8"))
+    except (ValueError, OSError):
+        return {"videos": {}}
+
+
+def _noter_livraison(video_id, dossier, titre=None):
+    """Note qu'un dossier a ete livre pour cette video. Simple annuaire."""
+    if not video_id:
+        return
+    j = _charger_journal()
+    fiche = j["videos"].setdefault(video_id, {"titre": titre or "", "dossiers": []})
+    if titre:
+        fiche["titre"] = titre
+    if dossier not in fiche["dossiers"]:
+        fiche["dossiers"].append(dossier)
+        fiche["dossiers"].sort()
+    JOURNAL.parent.mkdir(parents=True, exist_ok=True)
+    JOURNAL.write_text(json.dumps(j, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def dossier_valide(nom):
+    """Vrai si le dossier livre existe VRAIMENT et est complet sur le disque."""
+    d = LIVRAISON / nom
+    if not d.is_dir():
+        return False
+    if not (d / "description.txt").is_file():
+        return False
+    return len(list(d.glob("[0-9][0-9].jpg"))) == NB_SLIDES
+
+
+def video_livree(video_id):
+    """La video a-t-elle REELLEMENT ete livree ? Renvoie (bool, message).
+
+    C'est LE controle qui fait autorite. Il ne se contente pas de lire le
+    registre : pour chaque dossier annonce, il verifie sur le disque qu'il
+    existe, qu'il contient 10 images et une description.
+    Une video n'est traitee que si les DEUX marques sont livrees et valides.
+
+    ⚠️ Regle du projet : un controle verifie toujours le RESULTAT FINAL,
+    jamais une etape intermediaire. L'existence d'une transcription ne prouve
+    RIEN : le run a pu planter juste apres.
+    """
+    fiche = _charger_journal()["videos"].get(video_id)
+    if not fiche:
+        return False, "aucune livraison enregistree pour cette video"
+
+    annonces = fiche.get("dossiers", [])
+    if not annonces:
+        return False, "fiche presente mais aucun dossier livre"
+
+    manquants = [n for n in annonces if not dossier_valide(n)]
+    if manquants:
+        return False, "dossier(s) annonce(s) mais absent(s) ou incomplet(s) : " + ", ".join(manquants)
+
+    marques = {n.split("-", 1)[0] for n in annonces}
+    absentes = [m for m in MARQUES_ATTENDUES if m not in marques]
+    if absentes:
+        return False, "marque(s) jamais livree(s) : " + ", ".join(absentes)
+
+    return True, "%d dossier(s) verifie(s) sur le disque : %s" % (len(annonces), ", ".join(annonces))
+
+
 def _memes_dossiers(a, b):
     """Vrai si deux dossiers contiennent exactement les memes fichiers."""
     noms = sorted(f.name for f in a.iterdir())
@@ -100,7 +173,7 @@ def _memes_dossiers(a, b):
     return not differents and not erreurs
 
 
-def livrer(slug, date=None, sujet=None, remplacer=False):
+def livrer(slug, date=None, sujet=None, remplacer=False, video=None, titre=None):
     """Copie un carrousel fini dans livraison/. Renvoie le dossier cree."""
     src = ROOT / "output" / slug
     jpg_dir = src / "jpg"
@@ -137,6 +210,7 @@ def livrer(slug, date=None, sujet=None, remplacer=False):
     if dest.exists():
         if _memes_dossiers(dest, provisoire):
             shutil.rmtree(provisoire)
+            _noter_livraison(video, dest.name, titre)
             print(f"  deja livre a l'identique : livraison/{dest.name} (rien a faire)")
             return dest
         if not remplacer:
@@ -151,6 +225,7 @@ def livrer(slug, date=None, sujet=None, remplacer=False):
         print(f"  (remplacement demande : ancienne version de {dest.name} supprimee)")
 
     provisoire.rename(dest)
+    _noter_livraison(video, dest.name, titre)
     poids = sum(f.stat().st_size for f in dest.iterdir()) / 1024 / 1024
     print(f"  livre : livraison/{dest.name}  ({NB_SLIDES} images + description.txt, {poids:.1f} Mo)")
     return dest
@@ -211,6 +286,8 @@ def main():
     ap.add_argument("--sujet", help="mot-cle du sujet (defaut : deduit du slug)")
     ap.add_argument("--remplacer", action="store_true", help="autorise l'ecrasement d'une livraison differente")
     ap.add_argument("--controle", action="store_true", help="verifie que les 2 marques sont livrees pour la semaine")
+    ap.add_argument("--video", help="identifiant YouTube de la video source (pour l'anti-doublon)")
+    ap.add_argument("--titre", help="titre de la video, pour memoire dans le registre")
     args = ap.parse_args()
 
     if args.date:
@@ -225,7 +302,8 @@ def main():
     if not args.slug:
         ap.error("indique un slug a livrer, ou utilise --controle.")
 
-    livrer(args.slug, date=args.date, sujet=args.sujet, remplacer=args.remplacer)
+    livrer(args.slug, date=args.date, sujet=args.sujet, remplacer=args.remplacer,
+           video=args.video, titre=args.titre)
     return 0
 
 
