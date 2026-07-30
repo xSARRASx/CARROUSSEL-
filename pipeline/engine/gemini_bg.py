@@ -173,7 +173,10 @@ def _post(url, payload):
         url, data=json.dumps(payload).encode("utf-8"),
         headers={"Content-Type": "application/json", "x-goog-api-key": _key()},
         method="POST")
-    with urllib.request.urlopen(req, timeout=180) as r:
+    # 180 s ne suffisait pas quand les serveurs Google sont charges : on a vu des
+    # TimeoutError alors que l'image etait peut-etre deja facturee. On attend
+    # donc largement plutot que de risquer de repayer une generation.
+    with urllib.request.urlopen(req, timeout=600) as r:
         return json.loads(r.read().decode("utf-8"))
 
 
