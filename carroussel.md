@@ -29,7 +29,7 @@
 Les anciens `build_guestlucky.py` / `build_lesousloueur.py` sont l'ANCIEN style (V1),
 gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
 
-## ⚠️ LES 12 RÈGLES DE MARTIN (non négociables, apprises au fil des sessions)
+## ⚠️ LES 13 RÈGLES DE MARTIN (non négociables, apprises au fil des sessions)
 1. **TOUJOURS afficher le rendu de chaque slide** (SendUserFile `display:"render"`,
    10 JPEG par marque) AVANT/EN PLUS des ZIP. Jamais les ZIP seuls.
 2. **Design V2 uniquement** : chaque slide de contenu est un SCHÉMA (stats, timeline,
@@ -52,6 +52,18 @@ gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
    dire à Martin de télécharger ou de programmer.
 10. **Honnêteté** : si une brique échoue (clé, quota, réseau), le dire clairement et
     livrer avec le fond de secours. Jamais improviser ni prétendre avoir vérifié.
+13. **AUCUN APPEL À COMMENTER CÔTÉ GUESTLUCKY** (règle posée par Martin le
+    30/07/2026). Les légendes ET les slides Guestlucky ne doivent JAMAIS dire
+    « Commente MOT et je t'envoie… », ni promettre quoi que ce soit qui
+    obligerait Martin à répondre ou à envoyer un fichier à la main après la
+    publication. **Les 4 seules actions autorisées pour Guestlucky** :
+    s'abonner au compte, enregistrer le post, le partager, visiter le site
+    (guestlucky.com). Côté slides, utiliser `d.cta_sans_commentaire(...)` au
+    lieu de `d.cta(...)` : la brique `cta()` affiche le mot COMMENTE en dur.
+    ⚠️ **Le Sous Loueur ne change PAS** : le « Commente LEMEUR ↓ » reste, c'est
+    le système de Sébastien, et lui répond à ses commentaires.
+    Raison : tout ce qui promet un envoi crée du travail manuel pour Martin,
+    or le projet vise le zéro action manuelle après publication.
 12. **UN CONTRÔLE VÉRIFIE TOUJOURS LE RÉSULTAT FINAL, JAMAIS UNE ÉTAPE
     INTERMÉDIAIRE** (règle posée par Martin le 30/07/2026, après trois pannes
     silencieuses de suite). Ne jamais déduire « c'est fait » de la présence d'un
@@ -342,16 +354,19 @@ Commente "MOT" ↓ et [ce qu'ils reçoivent] 😉
 Commente "MOT" ↓ et je t'explique tout 🔑
 ```
 
-**GuestLucky :**
+**GuestLucky — FORMAT CHANGÉ LE 30/07/2026, voir la règle 13 :**
 ```
-Commente "MOT" ↓ et [ce qu'ils reçoivent] 😉
+[Accroche qui pose le problème, 1 phrase]
 
 [Contexte en 2-3 phrases]
 
 [Valeur / fonctionnalité clé]
 
-Commente "MOT" ↓ et [CTA final] 🔑
+[CTA final SANS commentaire : enregistre ce post / partage-le /
+ abonne-toi / rendez-vous sur guestlucky.com]
 ```
+⛔ **INTERDIT pour Guestlucky** : « Commente MOT ↓ et je t'envoie… », ou toute
+promesse qui obligerait Martin à répondre ou à envoyer quelque chose à la main.
 
 **Leapway Instagram :**
 ```
@@ -390,13 +405,10 @@ Inscris-toi sur leapwayapp.com et abonne-toi à @leapwayoff sur Instagram, c'est
 - ATELIER → lien inscription live gratuit
 - BOOTCAMP → rejoindre la communauté
 
-**GuestLucky :**
-- OUTIL → lien tester gratuitement
-- HOGUET → checklist conformité 12 points
-- CAUTION → guide caution + checklist
-- IA → 10 scénarios Auto Actions
-- DEMO → démo gratuite 30 minutes
-- AUDIT → audit gratuit annonce Airbnb
+**GuestLucky — ⛔ CES MOTS-CLÉS NE SONT PLUS UTILISÉS (règle 13, 30/07/2026).**
+Ils sont gardés pour mémoire seulement. Plus aucun « Commente MOT » côté Guestlucky :
+OUTIL, HOGUET, CAUTION, IA, DEMO, AUDIT. Utiliser à la place les 4 actions
+autorisées : s'abonner, enregistrer le post, le partager, visiter guestlucky.com.
 
 **Leapway :**
 - LANCEMENT → liste d'accès prioritaire

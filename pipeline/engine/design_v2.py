@@ -500,6 +500,26 @@ class Deck:
                 '<div class="qv">%s</div></div>' % (eyebrow, title, sub, keyword, value) +
                 self._logo())
 
+    def cta_sans_commentaire(self, eyebrow, title, action, value, subtitle=None):
+        """Appel a l'action qui ne demande AUCUN commentaire (Guestlucky).
+
+        Regle Martin du 30/07/2026 : les legendes et les slides Guestlucky ne
+        doivent jamais promettre un envoi en reponse a un commentaire, sinon
+        Martin doit repondre a la main apres publication. Actions autorisees :
+        s'abonner, enregistrer le post, le partager, visiter le site.
+
+        `action` est le petit label du cadre (ex. "RENDEZ-VOUS SUR"), et le gros
+        mot affiche est l'adresse du site de la marque.
+        """
+        sub = '<div class="qs">%s</div>' % subtitle if subtitle else ""
+        return (self._open() +
+                '<div class="cta"><div class="qe">%s</div><div class="qt">%s</div>%s'
+                '<div class="box"><div class="bk">%s</div>'
+                '<div class="bw">%s</div></div>'
+                '<div class="qv">%s</div></div>'
+                % (eyebrow, title, sub, action, self.b["site"], value) +
+                self._logo())
+
     def closing(self, message, eyebrow="Rejoignez-nous sur"):
         return (self._open() +
                 '<div class="end"><div class="ee">%s</div>'
