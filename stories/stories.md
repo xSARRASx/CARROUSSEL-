@@ -374,9 +374,31 @@ stories de valeur dense (étapes numérotées, idée forte chiffrée, à faire /
 à éviter) → fin avec UN CTA (mot-clé, GO, ou renvoi vidéo). Une séquence = un
 jour de stories. Martin pioche dans la banque, dans l'ordre qu'il veut.
 
-**V4 (04/08/2026) — « il faut de tout » : DEUX familles de gabarits, mixées
-dans chaque séquence** (retour de Martin : des schémas qui remplissent la
-story + le thème Le Sous Loueur + garder aussi le style photo) :
+### 🚦 RÈGLE V5 (04/08/2026, ordre de Martin) : 1 SUJET = 1 SEUL THÈME VISUEL
+
+⚠️ Le MIX de styles à l'intérieur d'une même séquence (V4 : mer + couleurs
+LSL mélangés) est REFUSÉ par Martin. Désormais : **toutes les stories d'une
+séquence partagent le même thème visuel**, du début à la fin (même fond ou
+même univers graphique). On varie les thèmes ENTRE les séquences, jamais
+dedans. Autre retour V4 : les couleurs LSL sont bien, mais la mise en page
+« marque » V4 (kicker + titre + logo haut + lignes réparties) ne lui plaît
+pas → nouvelles mises en page proposées dans le CATALOGUE DE THÈMES
+(`build_themes.py`, sortie `catalogue-themes`, 7 thèmes × 3 stories) :
+1. **Mer** (photo fait main, tout sur bg_mer_calme)
+2. **Ciel doré** (photo fait main, tout sur bg_ciel_dore)
+3. **Navy gros titres** (couleurs LSL, poster centré, chiffres géants,
+   halos orange/bleu, logo discret en bas)
+4. **Carnet** (papier crème ligné, encre navy, surligneur orange, marge rouge)
+5. **Orange poster** (fond orange plein, typo massive navy/blanc)
+6. **Bleu poster** (fond bleu LSL, compte à rebours de chiffres géants)
+7. **Nuit fine** (noir bleuté, cadre fin, serif élégante, orange discret)
+⏳ EN ATTENTE du choix de Martin → ensuite regénérer la banque avec UN thème
+par séquence (piocher parmi les thèmes validés).
+
+**V4 (04/08/2026) — ARCHIVE (mix refusé, voir règle V5 ci-dessus). DEUX
+familles de gabarits, mixées dans chaque séquence** (retour de Martin : des
+schémas qui remplissent la story + le thème Le Sous Loueur + garder aussi le
+style photo) :
 - **Famille MARQUE** (fond navy #0d1b2e + dégradés orange/bleu de la charte
   carrousels, topbar dégradée, logo LSL en haut, Montserrat) — schémas pleine
   hauteur : `b_steps` (étapes numérotées), `b_timeline` (frise à points),
