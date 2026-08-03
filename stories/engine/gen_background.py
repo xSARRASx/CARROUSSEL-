@@ -47,6 +47,10 @@ CATALOG = {
                         "style": STYLE_WARM},
     "bg_salon_cosy":   {"subject": "Cozy dim living room in the evening, warm floor lamp glow, armchair and plant softly blurred, muted calm tones, slightly out of focus.",
                         "style": STYLE_WARM},
+    "bg_ville_doree":  {"subject": "European city rooftops at golden hour seen from above, warm haze, soft sun flare, buildings small in the lower third, calm warm sky above.",
+                        "style": STYLE_WARM},
+    "bg_mer_calme":    {"subject": "Calm sea at sunset, gentle waves, warm pastel sky with a few soft clouds filling most of the frame, peaceful.",
+                        "style": STYLE_WARM},
 }
 
 def call_gemini(body, key):
