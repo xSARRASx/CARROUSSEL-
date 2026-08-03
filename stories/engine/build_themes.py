@@ -33,12 +33,14 @@ LOGO_B64 = b64(LOGO, "image/png")                                  # version bla
 LOGO_DARK_B64 = b64(LOGO.parent / "lesousloueur.png", "image/png")  # version navy (fonds clairs)
 
 def logo_top(light_bg=False, height=50):
-    """DESACTIVE le 04/08 au soir : Martin ne veut finalement PAS de logo
-    ("simple, efficace"). Helper conserve au cas ou il rechange d'avis."""
+    """Logo sur TOUTES les stories. Historique : demande par Martin (04/08),
+    retire sur l'avis de son frere Pierre (vocal), puis REACTIVE par Martin
+    (decision finale : « avec notre logo »). Version navy sur fonds clairs."""
     src = LOGO_DARK_B64 if light_bg else LOGO_B64
+    shadow = "" if light_bg else "filter:drop-shadow(0 2px 10px rgba(0,0,0,0.35));"
     return (f'<div class="abs" style="left:0;right:0;top:106px;display:flex;'
             f'justify-content:center;z-index:8;"><img src="{src}" style="height:{height}px;'
-            f'opacity:0.95;"/></div>')
+            f'opacity:0.95;{shadow}"/></div>')
 
 def font_face(family, file, weight):
     data = b64(FONTS / file, "font/woff2")
@@ -83,7 +85,8 @@ def nb(text):
 
 def photo_open(bg):
     img = b64(BGS / f"{bg}.jpg", "image/jpeg")
-    return f'<div class="story"><div class="bgimg" style="background-image:url({img});"></div>'
+    return (f'<div class="story"><div class="bgimg" style="background-image:url({img});"></div>'
+            + logo_top())
 
 def underline(width, color, x, y):
     w = width
@@ -179,7 +182,7 @@ def navy_open():
             'right:-200px;top:180px;"></div>'
             '<div class="abs" style="width:520px;height:520px;border-radius:50%;'
             f'background:radial-gradient(circle, rgba(32,134,200,0.22) 0%, rgba(32,134,200,0) 70%);'
-            'left:-160px;bottom:320px;"></div>')
+            'left:-160px;bottom:320px;"></div>' + logo_top())
 
 STORIES["theme3_navy_01"] = (
     navy_open() + '<div class="pad" style="justify-content:center;align-items:center;text-align:center;">'
@@ -230,7 +233,7 @@ def carnet_open():
             '<div class="abs" style="inset:0;background:repeating-linear-gradient('
             '0deg, rgba(28,42,62,0.045) 0px, rgba(28,42,62,0.045) 1px, transparent 1px, transparent 64px);"></div>'
             f'<div class="abs" style="left:110px;top:0;bottom:0;width:3px;background:rgba(232,86,31,0.35);"></div>'
-)
+            + logo_top(light_bg=True))
 
 def surligne(w):
     return (f'<span style="background:linear-gradient(180deg, transparent 55%, '
@@ -277,7 +280,7 @@ STORIES["theme4_carnet_03"] = (
 # ============================================================================
 def orange_open():
     return (f'<div class="story" style="background:linear-gradient(165deg, #f0662e 0%, {ORANGE} 60%, #cf4514 100%);">'
-)
+            + logo_top())
 
 STORIES["theme5_orange_01"] = (
     orange_open() + '<div class="pad" style="justify-content:center;">'
@@ -320,7 +323,7 @@ STORIES["theme5_orange_03"] = (
 # ============================================================================
 def bleu_open():
     return (f'<div class="story" style="background:linear-gradient(165deg, #2e97d8 0%, {BLUE} 55%, #16639a 100%);">'
-)
+            + logo_top())
 
 STORIES["theme6_bleu_01"] = (
     bleu_open() + '<div class="pad" style="justify-content:center;">'
@@ -368,7 +371,7 @@ STORIES["theme6_bleu_03"] = (
 def nuit_open():
     return (f'<div class="story" style="background:{NUIT};">'
             '<div class="abs" style="inset:70px;border:2px solid rgba(255,255,255,0.14);'
-            'border-radius:8px;"></div>')
+            'border-radius:8px;"></div>' + logo_top())
 
 STORIES["theme7_nuit_01"] = (
     nuit_open() + '<div class="pad" style="justify-content:center;align-items:center;text-align:center;">'

@@ -397,10 +397,12 @@ par séquence (piocher parmi les thèmes validés).
 
 ### 📣 Retours du 04/08 au soir (vocal, avec un « bravo c'est tout ce que
 j'attendais » — le catalogue plaît) :
-- **LOGO : demandé par message… puis ANNULÉ par vocal le même jour**
-  (« pas besoin de logo, faut que ce soit simple, efficace »). Le helper
-  `logo_top()` existe dans `build_themes.py` mais est DÉSACTIVÉ. Ne pas
-  remettre de logo sans nouvelle demande explicite.
+- **LOGO : saga tranchée.** Demandé par Martin, retiré sur le vocal (qui
+  était en fait l'avis de son FRÈRE Pierre : « pas besoin de logo »), puis
+  **RÉACTIVÉ définitivement par Martin** (« avec notre logo, comme ça je lui
+  envoie tout »). → Le logo est sur TOUTES les stories : version blanche
+  (ombre douce) sur fonds foncés/photo, version navy sur fonds clairs
+  (carnet). Décision de Martin = décision finale.
 - **CTA légers** : « pas toujours des trucs à répondre ». Règle : maximum
   1 CTA fort (mot-clé / GO) par séquence, et des séquences SANS CTA du tout
   (quiz, sondages, témoignages). Ne jamais finir chaque story par une demande.
