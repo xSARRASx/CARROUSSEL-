@@ -395,6 +395,29 @@ pas → nouvelles mises en page proposées dans le CATALOGUE DE THÈMES
 ⏳ EN ATTENTE du choix de Martin → ensuite regénérer la banque avec UN thème
 par séquence (piocher parmi les thèmes validés).
 
+### 📣 Retours du 04/08 au soir (vocal, avec un « bravo c'est tout ce que
+j'attendais » — le catalogue plaît) :
+- **LOGO : demandé par message… puis ANNULÉ par vocal le même jour**
+  (« pas besoin de logo, faut que ce soit simple, efficace »). Le helper
+  `logo_top()` existe dans `build_themes.py` mais est DÉSACTIVÉ. Ne pas
+  remettre de logo sans nouvelle demande explicite.
+- **CTA légers** : « pas toujours des trucs à répondre ». Règle : maximum
+  1 CTA fort (mot-clé / GO) par séquence, et des séquences SANS CTA du tout
+  (quiz, sondages, témoignages). Ne jamais finir chaque story par une demande.
+- **Formats interactifs ajoutés** (`build_interactifs.py`, sortie
+  `interactifs-01`, 14 stories) :
+  - **QUIZ** (thème navy) : la story pose la question (vrai/faux ou QCM) et
+    laisse la moitié basse libre → Martin ajoute le sticker sondage
+    Instagram ; la story SUIVANTE révèle la réponse + l'explication (contenu
+    tiré des vidéos). Cover + 3 paires Q/R + story de clôture.
+  - **SONDAGES diagnostic** (thème ciel doré) : questions pures avec zone
+    sticker, aucun mot-clé.
+  - **TÉMOIGNAGES à case vide** (thème mer) : les SEULS gabarits avec
+    placeholder, voulus par Martin (« la dernière annonce de nos élèves,
+    case vide pour les photos ») : « + 1 pour [Prénom] », « la dernière
+    annonce », « le message reçu ». Le screenshot réel est collé dans
+    Instagram par-dessus la zone en pointillés. Jamais de faux témoignage.
+
 **V4 (04/08/2026) — ARCHIVE (mix refusé, voir règle V5 ci-dessus). DEUX
 familles de gabarits, mixées dans chaque séquence** (retour de Martin : des
 schémas qui remplissent la story + le thème Le Sous Loueur + garder aussi le

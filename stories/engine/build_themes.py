@@ -29,7 +29,16 @@ ENCRE  = "#1c2a3e"
 
 def b64(path, mime):
     return f"data:{mime};base64," + base64.b64encode(pathlib.Path(path).read_bytes()).decode()
-LOGO_B64 = b64(LOGO, "image/png")
+LOGO_B64 = b64(LOGO, "image/png")                                  # version blanche (fonds fonces)
+LOGO_DARK_B64 = b64(LOGO.parent / "lesousloueur.png", "image/png")  # version navy (fonds clairs)
+
+def logo_top(light_bg=False, height=50):
+    """DESACTIVE le 04/08 au soir : Martin ne veut finalement PAS de logo
+    ("simple, efficace"). Helper conserve au cas ou il rechange d'avis."""
+    src = LOGO_DARK_B64 if light_bg else LOGO_B64
+    return (f'<div class="abs" style="left:0;right:0;top:106px;display:flex;'
+            f'justify-content:center;z-index:8;"><img src="{src}" style="height:{height}px;'
+            f'opacity:0.95;"/></div>')
 
 def font_face(family, file, weight):
     data = b64(FONTS / file, "font/woff2")
@@ -172,9 +181,6 @@ def navy_open():
             f'background:radial-gradient(circle, rgba(32,134,200,0.22) 0%, rgba(32,134,200,0) 70%);'
             'left:-160px;bottom:320px;"></div>')
 
-NAVY_LOGO = (f'<div class="abs" style="left:0;right:0;bottom:395px;display:flex;'
-             f'justify-content:center;"><img src="{LOGO_B64}" style="height:44px;opacity:0.85;"/></div>')
-
 STORIES["theme3_navy_01"] = (
     navy_open() + '<div class="pad" style="justify-content:center;align-items:center;text-align:center;">'
     f'<div style="font-weight:800;font-size:30px;letter-spacing:8px;color:{ORANGE};'
@@ -186,7 +192,7 @@ STORIES["theme3_navy_01"] = (
     '<div style="font-weight:600;font-size:36px;line-height:1.45;color:rgba(255,255,255,0.92);max-width:820px;">'
     'Il ne montre plus les «&nbsp;meilleurs&nbsp;» logements. Il montre le plus '
     f'<span style="color:{ORANGE};font-weight:800;">adapté</span> à chaque voyageur.</div>'
-    '</div>' + NAVY_LOGO + '</div>')
+    '</div>' + '</div>')
 
 STORIES["theme3_navy_02"] = (
     navy_open() + '<div class="pad" style="justify-content:center;align-items:center;text-align:center;">'
@@ -199,7 +205,7 @@ STORIES["theme3_navy_02"] = (
     '<div style="font-weight:600;font-size:33px;line-height:1.5;color:rgba(255,255,255,0.85);'
     'max-width:800px;margin-top:44px;">Ta photo&nbsp;? 8&nbsp;%. Réservations, avis, zéro problème : '
     'c\'est ça que l\'algorithme regarde en premier.</div>'
-    '</div>' + NAVY_LOGO + '</div>')
+    '</div>' + '</div>')
 
 STORIES["theme3_navy_03"] = (
     navy_open() + '<div class="pad" style="justify-content:center;align-items:center;text-align:center;">'
@@ -212,7 +218,7 @@ STORIES["theme3_navy_03"] = (
     f'<div style="width:150px;height:8px;background:{ORANGE};border-radius:4px;margin:26px auto 0;"></div></div>'
     f'<div style="color:{ORANGE};font-weight:600;font-style:italic;font-size:32px;margin-top:44px;">'
     'guide + checklist + plan 30 jours, en DM</div>'
-    '</div>' + NAVY_LOGO + '</div>')
+    '</div>' + '</div>')
 
 # ============================================================================
 # THEME 4 — CARNET (fond papier creme, encre navy, surligneur orange,
@@ -223,7 +229,8 @@ def carnet_open():
             f'linear-gradient(180deg, {CREME} 0%, #efe7d8 100%);color:{ENCRE};">'
             '<div class="abs" style="inset:0;background:repeating-linear-gradient('
             '0deg, rgba(28,42,62,0.045) 0px, rgba(28,42,62,0.045) 1px, transparent 1px, transparent 64px);"></div>'
-            f'<div class="abs" style="left:110px;top:0;bottom:0;width:3px;background:rgba(232,86,31,0.35);"></div>')
+            f'<div class="abs" style="left:110px;top:0;bottom:0;width:3px;background:rgba(232,86,31,0.35);"></div>'
+)
 
 def surligne(w):
     return (f'<span style="background:linear-gradient(180deg, transparent 55%, '
@@ -269,7 +276,8 @@ STORIES["theme4_carnet_03"] = (
 # Sujet : la caution
 # ============================================================================
 def orange_open():
-    return (f'<div class="story" style="background:linear-gradient(165deg, #f0662e 0%, {ORANGE} 60%, #cf4514 100%);">')
+    return (f'<div class="story" style="background:linear-gradient(165deg, #f0662e 0%, {ORANGE} 60%, #cf4514 100%);">'
+)
 
 STORIES["theme5_orange_01"] = (
     orange_open() + '<div class="pad" style="justify-content:center;">'
@@ -311,7 +319,8 @@ STORIES["theme5_orange_03"] = (
 # Sujet : trouver des clients
 # ============================================================================
 def bleu_open():
-    return (f'<div class="story" style="background:linear-gradient(165deg, #2e97d8 0%, {BLUE} 55%, #16639a 100%);">')
+    return (f'<div class="story" style="background:linear-gradient(165deg, #2e97d8 0%, {BLUE} 55%, #16639a 100%);">'
+)
 
 STORIES["theme6_bleu_01"] = (
     bleu_open() + '<div class="pad" style="justify-content:center;">'
