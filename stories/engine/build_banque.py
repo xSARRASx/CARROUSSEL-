@@ -134,9 +134,9 @@ def cover(bg, hand_top, title, sub=None, hand_bottom="la suite juste après"):
          if sub else '')
     return (open_story(bg) + '<div class="pad" style="justify-content:center;">'
             + h + f'<div class="serif t1">{nb(title)}</div>' + s
-            + f'<div class="hand" style="font-size:50px;position:absolute;right:110px;bottom:420px;">'
+            + f'<div class="hand" style="font-size:50px;position:absolute;right:230px;bottom:430px;">'
             f'{nb(hand_bottom)}</div>'
-            + arrow_down(880, 1330, 130, 170, BLANC)
+            + arrow_down(940, 1330, 120, 170, BLANC)
             + '</div></div>')
 
 def steps(bg, title, items, start=1, title_size="t2"):
@@ -182,7 +182,8 @@ def fin(bg, title, hand, keyword=None):
     """Fin de sequence : CTA."""
     kw = ''
     if keyword:
-        kw = (f'<div class="serif" style="font-size:84px;margin-top:34px;">'
+        kw = (f'<div class="serif" style="font-size:50px;margin-top:44px;">Réponds</div>'
+              f'<div class="serif" style="font-size:84px;margin-top:8px;">'
               f'«&nbsp;{acc(keyword)}&nbsp;»</div>')
     return (open_story(bg) + '<div class="pad" style="justify-content:center;">'
             f'<div class="serif t2">{nb(title)}</div>' + kw
@@ -191,9 +192,309 @@ def fin(bg, title, hand, keyword=None):
             + '</div></div>')
 
 # ------------------------------------------------------- les sequences (contenu)
-# REMPLI a partir des extractions de transcriptions (agents du 03/08/2026).
+# Contenu 100 % tire des transcriptions YouTube de Sebastien (rien d'invente).
 
-SEQUENCES = {}   # rempli plus bas par un Edit une fois les extractions recues
+SEQUENCES = {
+
+# ============================================================================
+# SEQUENCE A — Remplir son Airbnb sans baisser les prix (video URH12GYwAuc)
+# ============================================================================
+"A_remplir_sans_baisser": [
+    cover("bg_mer_calme", "aide gratuite",
+          f'Remplir ton Airbnb {acc("sans baisser")} tes prix.',
+          sub="Airbnb ne classe pas par prix : il met en avant ce qui convertit. "
+              "Voici les leviers concrets.",
+          hand_bottom="du concret, juste après"),
+    focus("bg_mer_calme", "levier 1 : le tarif par voyageur",
+          f'Affiche {acc("95 € pour 2")}, pas 120 € pour tous.',
+          body="La majorité des recherches se font avec le réglage par défaut, 1-2 "
+               "voyageurs. Un T3 affiché 95 € pour 2 + 12 € par voyageur en plus passe "
+               "devant les concurrents à 120 €. Le couple paie 95 €, la famille de 4 "
+               "paie 119 €. Tu n'as rien bradé."),
+    focus("bg_ciel_dore", "levier 2 : ignoré par 90 % des hôtes",
+          f'Le tarif {acc("non remboursable")} à -10 %.',
+          body="Ton annonce s'affiche moins chère dans les résultats, donc mieux "
+               "classée. Et la remise ne s'applique qu'aux voyageurs qui acceptent le "
+               "non remboursable : ceux qui n'auraient jamais annulé de toute façon."),
+    steps("bg_mer_calme",
+          f'Les équipements sont des {acc("filtres de recherche")}',
+          [("Coche TOUT ce que tu as", "Non coché = invisible pour celui qui filtre. Pense au sèche-cheveux, au fer, au détecteur de fumée."),
+           ("Le combo famille", "Lit parapluie + chaise haute : tu ressors dans les filtres famille plusieurs fois."),
+           ("Le canal télétravail", "Un vrai espace de travail, et le débit wifi mesuré écrit dans l'annonce.")]),
+    steps("bg_ciel_dore",
+          f'Ta vitrine : la {acc("photo")} et le {acc("titre")}',
+          [("La couverture, jamais le salon", "Montre le distinctif : la vue, le jacuzzi, la terrasse. En miniature, un salon ressemble à tous les salons."),
+           ("Le titre en 50 caractères", "Capacité + atout star + lieu : « 6 personnes, jacuzzi, 5 min de la plage »."),
+           ("Les avis à mots-clés", "L'algorithme lit le texte des avis. Invite tes voyageurs à citer le jacuzzi, le check-in... pendant 6 mois.")]),
+    fin("bg_mer_calme",
+        "Tu veux savoir ce que vaut TON annonce ?",
+        "et on t'envoie l'outil d'audit gratuit", keyword="AUDIT"),
+],
+
+# ============================================================================
+# SEQUENCE B — Trouver des proprios : les 5 canaux (video Kjml8l9gNwg)
+# ============================================================================
+"B_trouver_clients": [
+    cover("bg_ciel_dore", "la méthode des pros",
+          f'Trouver des proprios : les {acc("5 canaux")}, classés.',
+          sub="Du moins au plus efficace. Ce que font les property managers "
+              "américains, adapté à la France.",
+          hand_bottom="le classement arrive"),
+    steps("bg_ciel_dore",
+          f'Du moins au plus {acc("puissant")}',
+          [("La prospection ciblée", "Airbnb affiche la région où habite l'hôte : vise les proprios loin de leur bien."),
+           ("Les apporteurs d'affaires", "Ménage, artisans, gardiens d'immeuble : liste 10 entreprises locales, propose un vrai deal."),
+           ("Les agents immobiliers", "Échange gagnant-gagnant : tes proprios vendeurs contre ses investisseurs."),
+           ("La référence locale", "Fiche Google + avis de PROPRIOS. 15 avis et tu écrases la concurrence."),
+           ("L'audit chiffré", "Le canal le plus redoutable. Détail juste après.")],
+          title_size="t3"),
+    focus("bg_ville_doree", "le canal n°1",
+          f'Fais un {acc("audit")}, pas un pitch.',
+          body="Repère une annonce qui sous-performe : mauvaises notes, trous en "
+               "juillet, prix qui ne bougent jamais. Chiffre son manque à gagner avec "
+               "un outil de data : « tu perds peut-être 8 000 € par an ». Tu offres "
+               "l'info, tu ne vends rien : le proprio voit le chiffre tout seul."),
+    duo("bg_ciel_dore", f'Deux {acc("pièges")} à éviter',
+        "Jamais", ["Prospecter via la messagerie Airbnb : bannissement possible",
+                   "Le pitch commercial direct : valeur perçue zéro"],
+        "À la place", ["Retrouve le proprio ailleurs : son site, sa fiche Google, Le Bon Coin",
+                       "Offre l'audit et laisse les chiffres parler"]),
+    focus("bg_ville_doree", "l'astuce que personne ne fait",
+          f'Demande des avis Google à tes {acc("proprios")}, pas à tes voyageurs.',
+          body="Celui qui tape « conciergerie + ta ville » est un prospect chaud. "
+               "15 avis de propriétaires satisfaits et tu écrases la concurrence "
+               "locale. Bonus : crée une page par quartier, même par rue. Sur "
+               "« conciergerie + nom de ta rue », il n'y a personne."),
+    fin("bg_ciel_dore",
+        "On regarde ensemble ton plan pour trouver des proprios ?",
+        "réponds à cette story", keyword="GO"),
+],
+
+# ============================================================================
+# SEQUENCE C — Recuperer les proprios decus (video t_sxyIULJEQ)
+# ============================================================================
+"C_proprios_decus": [
+    cover("bg_ville_doree", "aide gratuite du jour",
+          f'Ton meilleur client&nbsp;? Le proprio {acc("déçu")} d\'une autre conciergerie.',
+          sub="Comment le trouver avant tout le monde, légalement.",
+          hand_bottom="la méthode juste après"),
+    steps("bg_ville_doree",
+          f'Les {acc("5 phases")} d\'un proprio qui va quitter sa conciergerie',
+          [("Mois 1 à 3 : la lune de miel", "Il vient de déléguer, il est soulagé, tout va bien."),
+           ("Mois 4 à 8 : le doute", "Communication lente, tarifs qui semblent bas, avis moyens."),
+           ("Mois 8 à 12 : la comparaison", "Il regarde les autres conciergeries et parle aux voisins proprios."),
+           ("Mois 12 à 18 : la frustration", "Il fait ses comptes : la rentabilité promise n'est pas là."),
+           ("La rupture", "Lettre recommandée, ou il attend la fin de saison et il part.")],
+          title_size="t3"),
+    focus("bg_ville_doree", "le vrai secret, c'est le timing",
+          f'Tout se joue entre le {acc("mois 4")} et le {acc("mois 12")}.',
+          body="En phase de doute, il tape déjà ses questions sur Google. Si ton contenu "
+               "répond à ses douleurs à ce moment-là, tu deviens sa référence. Une fois la "
+               "rupture décidée, tout le monde se bat pour lui : c'est la guerre du moins cher."),
+    steps("bg_ville_doree",
+          f'3 {acc("aimants")} qui font venir les proprios déçus à toi',
+          [("L'audit gratuit en 48 h", "Il t'envoie son annonce, tu réponds sous 48 h. Bonus : tu vois le bien et la gestion AVANT de t'engager."),
+           ("Le calculateur de revenus", "Il entre son adresse et découvre ce que son bien devrait vraiment rapporter."),
+           ("La checklist des 10 questions", "« Les 10 questions à poser à votre conciergerie. » Tu éduques, tu ne vends pas.")]),
+    duo("bg_ville_doree", f'Côté légal, la ligne est {acc("claire")}',
+        "Jamais", ["Dénigrer un concurrent par son nom",
+                   "Démarcher les clients d'un concurrent au téléphone",
+                   "Récupérer des emails sur les annonces (RGPD)"],
+        "Toujours", ["Éduquer avec du contenu qui répond à leurs douleurs",
+                     "Une transition clé en main, comme un changement d'opérateur",
+                     "Des avant/après chiffrés de proprios qui ont changé"]),
+    fin("bg_ville_doree",
+        "Tu veux qu'on regarde ensemble ta stratégie d'acquisition ?",
+        "réponds à cette story", keyword="GO"),
+],
+
+# ============================================================================
+# SEQUENCE D — De 0 a 30 logements en 1 an (video Mq4pGuah050)
+# ============================================================================
+"D_30_logements": [
+    cover("bg_prairie", "la méthode complète 2026",
+          f'De {acc("0 à 30 logements")} en 1 an.',
+          sub="Les 4 piliers, et les 3 erreurs qui condamnent 90 % des conciergeries.",
+          hand_bottom="c'est cadeau, juste après"),
+    steps("bg_prairie",
+          f'Les {acc("3 erreurs")} qui plafonnent 90 % des conciergeries',
+          [("Le mode bricolage", "Contrat trouvé sur internet, annonces sur TON compte Airbnb. À 10 logements, tout est à refaire."),
+           ("Vendre de la « gestion »", "« Gérer », « mandat » : ces mots te font tomber sous la loi Hoguet. Dis pilotage, coordination, prestation."),
+           ("Empiler les contrats", "À 8-10 contrats sans système, tu es devenu le salarié de ta propre boîte.")]),
+    steps("bg_prairie",
+          f'La roadmap des {acc("4 piliers")}',
+          [("Contrats 1 à 5 : les fondations", "Contrat conforme, UNE ville et 30 km max, des prix jamais bradés."),
+           ("5 à 12 : le système", "Channel manager, messages automatiques, onboarding standardisé, ménage sous-traité."),
+           ("10 à 20 : les leviers", "Parrainage structuré, proprios déçus, référencement local. Premier city manager."),
+           ("20 à 30 : l'industrialisation", "Tu pilotes aux chiffres : occupation, prix moyen par nuit, satisfaction proprio.")],
+          title_size="t3"),
+    focus("bg_prairie", "la règle qui change tout en 2026",
+          f'Tout au nom du {acc("propriétaire")}.',
+          body="Comptes Airbnb et Booking, revenue management : c'est le proprio qui pilote "
+               "et qui valide. En 2025, des conciergeries ont été condamnées pour avoir géré "
+               "les prix sans validation. Et les juges vérifient l'opérationnel, pas juste le contrat."),
+    focus("bg_prairie", "le canal que personne ne structure",
+          f'Le bouche à oreille, ça se {acc("fabrique")}.',
+          body="Offre 1 mois de prestation au proprio qui t'amène un nouveau client. Même "
+               "mécanique avec les agents immobiliers et les experts-comptables LMNP. "
+               "C'est un canal d'acquisition, pas de la chance."),
+    fin("bg_prairie",
+        "La méthode complète est en vidéo sur la chaîne.",
+        "et pour en parler, réponds GO"),
+],
+
+# ============================================================================
+# SEQUENCE E — L'algorithme Airbnb 2026 (video 9pTFTNPkf-g)
+# ============================================================================
+"E_algo_2026": [
+    cover("bg_ville_doree", "info chaude 2026",
+          f'L\'algorithme Airbnb a {acc("changé")}. Voici les nouvelles règles.',
+          sub="Airbnb ne montre plus les « meilleurs » logements : il montre le plus "
+              "adapté à chaque voyageur.",
+          hand_bottom="les vrais chiffres arrivent"),
+    focus("bg_ville_doree", "ce qui pèse vraiment",
+          f'Ton séjour pèse {acc("50 %")}. Ta photo, {acc("8 %")}.',
+          body="Haut du tunnel (photo, titre, prix) : 20 %. Milieu (clics, messages, "
+               "favoris) : 30 %. Bas (réservation, séjour réel, avis, problèmes) : "
+               "50 %. La plupart optimisent dans le mauvais sens : un séjour en béton "
+               "d'abord, la photo ensuite."),
+    steps("bg_ville_doree",
+          f'Les nouveaux {acc("poids")} du classement',
+          [("Guest Favorite : 25 %", "Le nouveau Graal, le Superhost est obsolète. Critères : 4,9+ et au moins 5 avis en 2 ans."),
+           ("Les avis récents : 20 %", "L'algorithme lit le TEXTE. Un 4,8 enthousiaste bat un 5 étoiles « correct »."),
+           ("Propreté, exactitude, check-in", "Pondérés 2 fois plus. Un seul mauvais avis propreté = 10 à 20 places perdues."),
+           ("La réponse : moins d'1 h", "Les meilleurs répondent en moins de 30 minutes.")],
+          title_size="t3"),
+    duo("bg_mer_calme", f'Ce qui ne {acc("marche plus")} en 2026',
+        "Oublie", ["Le boost nouvelle annonce : quasi nul désormais",
+                   "Tes bons avis de 2023 : seuls les 30-60 derniers jours comptent",
+                   "Le Superhost et la course aux 5 étoiles"],
+        "À la place", ["Instant Book activé : 15 à 25 % de boost",
+                       "Une photo qui tranche : couleurs vives, photo saisonnière",
+                       "Viser TES voyageurs, pas tous les voyageurs"]),
+    focus("bg_ville_doree", "le levier le plus rapide",
+          f'Changer la photo de couverture : jusqu\'à {acc("+35 %")}.',
+          body="80 % des voyageurs décident en 2 ou 3 secondes. Démarque-toi de la "
+               "concurrence locale : des couleurs vives quand tout le monde est en gris "
+               "pastel, une photo de Noël dès fin novembre. Une annonce qui vit, "
+               "l'algorithme le voit."),
+    fin("bg_ville_doree",
+        "Le plan d'action complet sur 30 jours est en vidéo.",
+        "et pour le guide, réponds", keyword="ALGO"),
+],
+
+# ============================================================================
+# SEQUENCE F — Le piege de la caution (video 4Dlw1_c593k)
+# ============================================================================
+"F_caution": [
+    cover("bg_salon_cosy", "l'erreur qui coûte cher",
+          f'La {acc("caution")} : le piège que 80 % découvrent trop tard.',
+          sub="Caution, assurance, loi Hoguet : ce qu'il faut savoir AVANT l'incident.",
+          hand_bottom="explication simple juste après"),
+    focus("bg_salon_cosy", "la base que tout le monde confond",
+          f'Caution et assurance, ce n\'est {acc("pas pareil")}.',
+          body="La caution récupère l'argent DU voyageur : montant limité, litige "
+               "possible. L'assurance fait payer un tiers : c'est l'assureur qui gère "
+               "le sinistre. La vraie protection, c'est les deux couches empilées."),
+    focus("bg_salon_cosy", "conciergeries : le test en une question",
+          f'Qui {acc("déclenche")} le débit&nbsp;?',
+          body="Si c'est la conciergerie, c'est du maniement de fonds pour le compte "
+               "de tiers : illégal au sens de la loi Hoguet, même avec des "
+               "sous-comptes. La solution propre : la caution part du compte de "
+               "paiement DU propriétaire, jamais du tien."),
+    steps("bg_salon_cosy",
+          f'Les règles qui {acc("sauvent")}',
+          [("Chèque, virement, espèces : terminé", "On ne demande plus jamais ça à un voyageur."),
+           ("L'empreinte bancaire expire vite", "7 jours de garantie sur une empreinte classique : un dégât découvert tard, et il n'y a plus rien."),
+           ("Débiter ne règle rien", "Le voyageur peut contester. Un sinistre bien documenté, photos à l'appui, change tout."),
+           ("AirCover ne couvre qu'Airbnb", "Sur Booking et les résas en direct, sans solution dédiée, tu n'es couvert par rien.")],
+          title_size="t3"),
+    focus("bg_salon_cosy", "la stratégie des pros",
+          f'Le {acc("double filet")} : caution + assurance.',
+          body="La caution dissuade et couvre les petits dégâts. L'assurance prend le "
+               "relais sur les gros sinistres et quand le débit échoue. Une assurance "
+               "dédiée coûte environ 100 € par an, pour jusqu'à 50 000 € couverts."),
+    fin("bg_salon_cosy",
+        "Et toi, tu gères les cautions comment ?",
+        "raconte en réponse, on te dit si c'est carré"),
+],
+
+# ============================================================================
+# SEQUENCE G — Pourquoi ta conciergerie ne decolle pas (video CREH-yTwa1s)
+# ============================================================================
+"G_pourquoi_ca_bloque": [
+    cover("bg_chemin_aube", "la vérité qui pique",
+          f'{acc("90 %")} des conciergeries ferment en moins de 2 ans.',
+          sub="Les 5 erreurs qui les tuent, et comment être dans les 10 %.",
+          hand_bottom="check les 5, honnêtement"),
+    steps("bg_chemin_aube",
+          f'Les {acc("5 erreurs")} fatales',
+          [("Pas de positionnement", "« Je fais de la conciergerie » = généraliste choisi sur le prix. Le spécialiste, lui, fixe ses tarifs."),
+           ("Tout à la main", "Tableurs, messages copiés-collés, prix fixes toute l'année. Les pros automatisent et gèrent 3 fois plus."),
+           ("Croire que le client, c'est le voyageur", "Le vrai client, c'est le proprio : c'est lui qui donne les clés, et qui peut les reprendre."),
+           ("Ignorer ses chiffres", "Certains paient plus de ménage qu'ils n'encaissent, et le découvrent au bilan."),
+           ("Tout faire tout seul", "Mois 1-3 : facile. Mois 7-9 : plus de vie. Mois 10-12 : j'arrête.")],
+          title_size="t3"),
+    focus("bg_chemin_aube", "le mythe du volume",
+          f'50 biens à 15 %, c\'est travailler {acc("gratuitement")}.',
+          body="Le volume est une vanité : ménage mal maîtrisé, occupation à 30-40 %, "
+               "prix bradés... il ne reste rien. 10 logements bien choisis rapportent "
+               "autant que 50 subis, avec beaucoup moins de stress."),
+    focus("bg_chemin_aube", "la formule que personne ne calcule",
+          f'Ton {acc("coût par nuitée")}, tu le connais&nbsp;?',
+          body="Coût par nuitée = (ménage + linge + consommables + ton temps) divisé "
+               "par le nombre de nuitées. Si ta commission est en dessous, tu refuses "
+               "le bien. Savoir dire non, c'est la clé de la survie."),
+    steps("bg_chemin_aube",
+          f'Le reporting mensuel qui {acc("retient")} les proprios',
+          [("Les revenus du mois", "Avec la variation vs le mois dernier et vs l'an dernier."),
+           ("Le taux d'occupation", "Comparé au marché local."),
+           ("La note voyageurs", "La moyenne, et le nombre d'avis."),
+           ("Le prix moyen, expliqué", "« On a fait mieux que le marché grâce au pricing dynamique. »")]),
+    fin("bg_chemin_aube",
+        "« Un propriétaire bien informé ne part jamais. »",
+        "la vidéo complète est sur la chaîne"),
+],
+
+# ============================================================================
+# SEQUENCE H — Le plan de relance de zero (video N7aN4jh9ebw)
+# ============================================================================
+"H_plan_de_zero": [
+    cover("bg_prairie", "s'il repartait de zéro",
+          f'Le {acc("plan exact")} de Sébastien pour relancer une conciergerie.',
+          sub="12 mois, 3 phases, objectifs chiffrés. Après 10 ans de terrain et près "
+              "de 100 biens pilotés.",
+          hand_bottom="phase par phase, juste après"),
+    steps("bg_prairie",
+          f'Phase 1 : les {acc("fondations")} (semaines 1 à 4)',
+          [("Une zone de 15-20 minutes", "Une seule. Tu deviens la référence locale, pas un généraliste dispersé."),
+           ("Le 1er client = preuve sociale", "1 ou 2 biens pilotés gratuitement 2 mois (le ménage reste payé) contre témoignages et photos."),
+           ("Des process dès le début", "Checklists, protocoles, modèles de messages : structure comme si tu avais déjà une équipe.")]),
+    steps("bg_mer_calme",
+          f'Phase 2 : l\'{acc("accélération")} (mois 2 à 6)',
+          [("Les outils au 5e bien", "Channel manager + logiciel de pilotage : environ 50 h par mois gagnées à 10 biens."),
+           ("2-3 agents de ménage + 1 artisan", "La qualité de ton réseau, c'est ta réputation."),
+           ("Le pricing dynamique", "Environ +15 % de revenus en moyenne."),
+           ("Ta fiche Google", "43 % des proprios choisissent leur conciergerie via un avis Google.")],
+          title_size="t3"),
+    focus("bg_prairie", "phase 3 : la montée en gamme",
+          f'À 30 € la nuit, tu gagnes {acc("6 €")}.',
+          body="Vise les beaux biens : 400 à 500 € de gain par mois et par bien, et 10 "
+               "biens font 5 000 € par mois. Une maison à 3 000 € de chiffre "
+               "d'affaires demande le même travail qu'un appart à 700 €."),
+    duo("bg_mer_calme", f'Ce qu\'il ne {acc("referait plus")}',
+        "Fini", ["Accepter tous les biens, même les galères",
+                 "Casser les prix à 12-15 % de commission",
+                 "Le local et le site web dès le départ"],
+        "À la place", ["L'audit gratuit sous 48 h : conversion triplée",
+                       "3 offres au lieu d'un tarif unique",
+                       "Un nouveau bien par semaine après le mois 3"]),
+    fin("bg_prairie",
+        "Objectif à 12 mois : 30 biens, 4 500 à 7 500 € par mois.",
+        "et pour TON plan à toi, réponds GO"),
+],
+
+}
 
 SLUG = "banque-01"
 DASHES = "—–‒―⎯﹣－─"

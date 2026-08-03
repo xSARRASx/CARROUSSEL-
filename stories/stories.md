@@ -348,6 +348,47 @@ reste vrai.
 Prérequis : `pip install pillow playwright` (Chromium préinstallé dans
 l'environnement, chemin dans `render_stories.py`).
 
+### ⭐⭐ LE FORMAT PRINCIPAL = la BANQUE DE SÉQUENCES « aide gratuite » (V3, 03/08/2026)
+
+Précision de Martin après la V2 : les exemples de Pierre n'étaient QUE des
+exemples ; ce qu'il veut avant tout, ce sont des stories **complètes, prêtes à
+poster** (RIEN à rajouter de son côté, pas de zones à screenshots) qui donnent
+de **la vraie aide gratuite** : des infos, des conseils, des chiffres. La
+matière première : **les vidéos YouTube de Sébastien** (2/semaine + tout le
+catalogue).
+
+**La chaîne de production (rodée le 03/08)** :
+1. Lister les vidéos du catalogue : recette yt-dlp de la section 6.
+2. Télécharger les transcriptions des vidéos choisies (mêmes commandes).
+3. Extraire le contenu concret de chaque transcription (conseils, chiffres,
+   exemples, citations) — en parallèle avec des agents si plusieurs vidéos.
+   RÈGLE ABSOLUE : rien inventer, tout vient de la transcription.
+4. Écrire les séquences dans `stories/engine/build_banque.py` (gabarits
+   `cover` / `steps` / `focus` / `duo` / `fin`, style natif fait main de la
+   section précédente, fonds chauds variés DANS une même séquence).
+5. Rendre : `python3 render_stories.py banque-01` → JPEG dans
+   `stories/output/banque-01/jpg/`.
+
+**Structure d'une séquence (4 à 6 stories)** : cover (la promesse) → 2 à 4
+stories de valeur dense (étapes numérotées, idée forte chiffrée, à faire /
+à éviter) → fin avec UN CTA (mot-clé, GO, ou renvoi vidéo). Une séquence = un
+jour de stories. Martin pioche dans la banque, dans l'ordre qu'il veut.
+
+**La banque actuelle (`banque-01`, 48 stories, 8 séquences)** :
+| Séquence | Vidéo source | CTA final |
+|---|---|---|
+| A_remplir_sans_baisser (6) | « 10 techniques pour remplir sans baisser les prix » (URH12GYwAuc) | AUDIT |
+| B_trouver_clients (6) | « La seule façon de trouver des clients en 2026 » (Kjml8l9gNwg) | GO |
+| C_proprios_decus (6) | « Attirer les proprios déçus de la concurrence » (t_sxyIULJEQ) | GO |
+| D_30_logements (6) | « 30 logements en 1 an : la méthode » (Mq4pGuah050) | renvoi vidéo + GO |
+| E_algo_2026 (6) | « Les changements de l'algorithme Airbnb 2026 » (9pTFTNPkf-g) | ALGO |
+| F_caution (6) | « Le piège de la caution » (4Dlw1_c593k) | question ouverte |
+| G_pourquoi_ca_bloque (6) | « Ta conciergerie ne décolle pas ? » (CREH-yTwa1s) | renvoi vidéo |
+| H_plan_de_zero (6) | « Mon plan exact si je repartais de zéro » (N7aN4jh9ebw) | GO |
+
+⚠️ Terme banni respecté : jamais « Beds24 » dans les stories (dire channel
+manager), jamais de dénigrement nominatif de concurrent.
+
 ---
 
 ## 11. 🔁 Production (process hebdo)
@@ -380,6 +421,8 @@ But : [ce que la story doit déclencher]
 | Semaine | Mot-clé tournant | Notes |
 |---|---|---|
 | Semaine 01 (2026-08-03) | ARGUMENTAIRE | Ressource déjà créée côté LinkedIn |
+| Banque-01 | AUDIT | Ressource = l'outil d'audit d'annonce gratuit (lien en description de la vidéo « remplir sans baisser les prix ») — lien exact à fournir par Martin à la closeuse |
+| Banque-01 | ALGO | Ressource = le pack « Airbnb 2026 » de la vidéo algo (guide + checklist + analyse + plan 30 jours) — fichiers à fournir par Martin à la closeuse |
 
 ---
 
@@ -398,10 +441,20 @@ But : [ce que la story doit déclencher]
   (vide, pas de mise en page) et a envoyé en ZIP les stories historiques de
   Pierre. Nouveau style officiel « natif Instagram fait main » documenté en
   section 10 bis, moteur `build_semaine01_v2.py`, 4 fonds chauds générés,
-  **5 stories V2 témoins rendues** dans `stories/output/semaine-01-v2/jpg/`
-  (sondage lundi, 4 réactions, CTA ARGUMENTAIRE, parcours, gabarit RESULT).
-  Zip envoyé à Martin. ⏳ EN ATTENTE : validation de Martin sur la V2 →
-  ensuite regénérer TOUTE la semaine 01 dans ce style (remplacer les 15 V1).
+  **5 stories V2 témoins rendues** dans `stories/output/semaine-01-v2/jpg/`.
+- **2026-08-03 (suite 2) : PIVOT CONTENU → LA BANQUE V3.** Retour de Martin
+  sur la V2 : les exemples de Pierre n'étaient que des exemples ; il veut des
+  stories COMPLÈTES (rien à rajouter) pleines d'aide gratuite, fabriquées
+  depuis les vidéos YouTube du père. Fait : 8 transcriptions téléchargées,
+  contenu extrait par 4 agents en parallèle, **banque-01 construite : 48
+  stories / 8 séquences** (`build_banque.py`, gabarits cover/steps/focus/
+  duo/fin, 6 fonds chauds). Zip envoyé à Martin. ⏳ EN ATTENTE : son retour
+  sur la banque. ENSUITE : produire banque-02 avec d'autres vidéos du
+  catalogue (30 listées, 8 utilisées), et caler le rythme de publication
+  (1 séquence = 1 jour).
+- **À fournir par Martin (pour la closeuse)** : le lien exact de l'outil
+  d'audit (mot-clé AUDIT) et les fichiers du pack « Airbnb 2026 » (mot-clé
+  ALGO) — voir section 12.
 - **À fournir par Martin :**
   - les screenshots de témoignages réels pour le jeudi (gabarit prêt en attendant) ;
   - la confirmation de ce qu'est exactement le SIMULATEUR (fichier ? outil en
