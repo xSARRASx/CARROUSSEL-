@@ -455,6 +455,68 @@ manager), jamais de dénigrement nominatif de concurrent.
 
 ---
 
+## 10 ter. 🤖 ROBOT STORIES — production automatique (depuis le 03/08/2026)
+
+> Martin a automatisé la création des stories : deux réveils programmés
+> (Routines) reviennent dans CETTE conversation et produisent les stories
+> sans qu'il ait à demander. Ce protocole est LA référence des réveils.
+
+### Les deux Routines (self-bind dans cette conversation)
+| Routine | ID | Cron (UTC) | Heure Paris | Rôle |
+|---|---|---|---|---|
+| Robot Stories — lundi | `trig_01Gc7ut7Pr21ShZKGqMm3MFr` | `0 6 * * 1` | lundi 8h (été) | Stories de la vidéo du dimanche |
+| Robot Stories — jeudi | `trig_01AyZxoVL43NQUk3sYRriKgt` | `0 6 * * 4` | jeudi 8h (été) | CONDITIONNEL : vidéo du mercredi s'il y en a une |
+
+⚠️ Crons en UTC : 8h Paris = 6h UTC en heure d'été. Au passage à l'heure
+d'hiver (fin octobre), passer les crons à `0 7 * * 1` et `0 7 * * 4`.
+
+### Le protocole d'un réveil (dans l'ordre, sans sauter d'étape)
+1. `git pull` sur CARROUSSEL- (branche `claude/instagram-stories-strategy-ni1w08`).
+2. Lister les **3 dernières vidéos longues** de
+   https://www.youtube.com/@moresebastien (recette yt-dlp section 6, onglet
+   /videos qui exclut les Shorts). ⛔ Ne JAMAIS juger une vidéo par son titre
+   (YouTube les traduit automatiquement en anglais) : seule la transcription
+   française fait foi.
+3. Charger `stories/robot/traite.json` et prendre la **plus ancienne vidéo
+   pas encore traitée** parmi les 3 (= RATTRAPAGE : si un réveil a planté, le
+   suivant récupère la vidéo manquée). **Une seule vidéo par réveil.**
+   Verdict « déjà traitée » = stories réellement produites ET livrées
+   (le fichier le dit : une transcription téléchargée ne compte pas).
+4. **S'il n'y a rien à traiter** : répondre en UNE seule ligne, zéro dépense
+   (cas normal du jeudi quand aucune vidéo n'est sortie le mercredi).
+5. Sinon : télécharger la transcription, extraire la valeur.
+   **Règle qualité/stock de Martin** : tirer le MAXIMUM de chaque vidéo
+   (objectif = constituer du stock de stories) — une vidéo riche peut donner
+   PLUSIEURS formats : séquence d'aide complète + quiz Q/R + sondage lié.
+   Mais JAMAIS de remplissage : si la vidéo est pauvre, peu de stories et
+   c'est très bien. Uniquement des infos cruciales qui aident vraiment.
+6. Produire les visuels : 1 séquence = 1 SEUL thème visuel (rotation des
+   thèmes du catalogue), **logo sur toutes les stories**, CTA légers (pas un
+   mot-clé partout ; quiz et sondages sans CTA). Étendre `build_banque.py` /
+   `build_interactifs.py` ou créer un build dédié, rendre via
+   `render_stories.py`.
+7. Commit + push (le conteneur est éphémère : rien ne reste local).
+8. **Livraison dans la conversation** : zip des JPEG via SendUserFile, et la
+   livraison BIEN EN ÉVIDENCE en haut du message (Martin transfère tel quel
+   à son frère Pierre, sans retouche). Indiquer quelles stories attendent un
+   sticker Instagram (sondage/quiz).
+9. Mettre à jour `stories/robot/traite.json` APRÈS la livraison, jamais avant.
+10. **En cas d'échec** (réseau, Gemini surchargé, rendu...) : le dire
+    franchement dans la conversation. Jamais de faux « c'est fait ».
+
+### 🔴 Bouton d'arrêt
+Si Martin écrit **STOP** dans la conversation : mettre les DEUX Routines en
+pause immédiatement (`update_trigger` avec `enabled=false` sur les deux IDs
+ci-dessus) et confirmer. S'il écrit **START** : les réactiver
+(`enabled=true`) et confirmer. Un réveil qui se déclenche alors que Martin a
+écrit STOP (et pas encore START) ne fait rien.
+
+### Registre anti-doublon
+`stories/robot/traite.json` — semé le 03/08/2026 avec les 9 vidéos déjà
+transformées en stories (les 8 de banque-01 + « parler d'argent »).
+
+---
+
 ## 11. 🔁 Production (process hebdo)
 
 1. **Le dimanche** (ou lundi matin) : préparer le plan de la semaine dans

@@ -1,0 +1,14 @@
+{
+  "_regle": "Une video n'est TRAITEE que si ses stories ont ete produites ET livrees a Martin dans la conversation. Une transcription telechargee ne compte pas. Mettre a jour ce fichier APRES la livraison, jamais avant.",
+  "videos": [
+    {"id": "_OOxN_7bZWI", "sujet": "Parler d'argent (7 choses a ne jamais dire)", "traite_le": "2026-08-03", "livrable": "semaines/semaine-01 (recyclage lundi) + banque via themes"},
+    {"id": "URH12GYwAuc", "sujet": "Remplir son Airbnb sans baisser les prix", "traite_le": "2026-08-03", "livrable": "banque-01/A_remplir_sans_baisser"},
+    {"id": "Kjml8l9gNwg", "sujet": "Trouver des clients : les 5 canaux", "traite_le": "2026-08-03", "livrable": "banque-01/B_trouver_clients"},
+    {"id": "t_sxyIULJEQ", "sujet": "Attirer les proprios decus de la concurrence", "traite_le": "2026-08-03", "livrable": "banque-01/C_proprios_decus"},
+    {"id": "Mq4pGuah050", "sujet": "Conciergerie 30 logements en 1 an", "traite_le": "2026-08-03", "livrable": "banque-01/D_30_logements"},
+    {"id": "9pTFTNPkf-g", "sujet": "Algorithme Airbnb 2026", "traite_le": "2026-08-03", "livrable": "banque-01/E_algo_2026 + quiz interactifs-01"},
+    {"id": "4Dlw1_c593k", "sujet": "Le piege de la caution", "traite_le": "2026-08-03", "livrable": "banque-01/F_caution"},
+    {"id": "CREH-yTwa1s", "sujet": "Ta conciergerie ne decolle pas", "traite_le": "2026-08-03", "livrable": "banque-01/G_pourquoi_ca_bloque"},
+    {"id": "N7aN4jh9ebw", "sujet": "Le plan exact s'il repartait de zero", "traite_le": "2026-08-03", "livrable": "banque-01/H_plan_de_zero"}
+  ]
+}
