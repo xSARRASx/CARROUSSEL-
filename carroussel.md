@@ -29,7 +29,7 @@
 Les anciens `build_guestlucky.py` / `build_lesousloueur.py` sont l'ANCIEN style (V1),
 gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
 
-## ⚠️ LES 13 RÈGLES DE MARTIN (non négociables, apprises au fil des sessions)
+## ⚠️ LES 14 RÈGLES DE MARTIN (non négociables, apprises au fil des sessions)
 1. **TOUJOURS afficher le rendu de chaque slide** (SendUserFile `display:"render"`,
    10 JPEG par marque) AVANT/EN PLUS des ZIP. Jamais les ZIP seuls.
 2. **Design V2 uniquement** : chaque slide de contenu est un SCHÉMA (stats, timeline,
@@ -52,6 +52,22 @@ gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
    dire à Martin de télécharger ou de programmer.
 10. **Honnêteté** : si une brique échoue (clé, quota, réseau), le dire clairement et
     livrer avec le fond de secours. Jamais improviser ni prétendre avoir vérifié.
+14. **VIDÉO HORS THÈME : TOUJOURS PRODUIRE LE SOUS LOUEUR** (décision de Martin
+    le 03/08/2026). La chaîne évolue vers le business, le développement personnel
+    et l'investissement : Sébastien l'annonce lui-même en fin de vidéo. Quand la
+    vidéo ne parle pas de location courte durée :
+    - **Le Sous Loueur → on produit TOUJOURS.** La marque parle à des
+      entrepreneurs : argent, mental, organisation, tout cela lui va.
+    - **Guestlucky → on saute quand le sujet ne s'y prête vraiment pas.** Ne
+      jamais forcer un angle produit artificiel sur un outil de gestion locative.
+      ⚠️ Chercher d'abord un pont HONNÊTE : le 03/08, « ne dis pas combien tu
+      gagnes » est devenu « le cloisonnement des accès » (interface propriétaire,
+      application prestataires). Ne sauter que si aucun pont réel n'existe.
+    - Dans ce cas, le contrôle dira « SEMAINE INCOMPLETE » : c'est normal et
+      voulu. Le dire clairement à Martin en première ligne, sans s'excuser.
+    ⛔ Ne JAMAIS inventer une fonctionnalité Guestlucky pour faire tenir un angle.
+       La banque d'infos produit de la section A2 fait foi.
+
 13. **AUCUN APPEL À COMMENTER CÔTÉ GUESTLUCKY** (règle posée par Martin le
     30/07/2026). Les légendes ET les slides Guestlucky ne doivent JAMAIS dire
     « Commente MOT et je t'envoie… », ni promettre quoi que ce soit qui
