@@ -374,6 +374,23 @@ stories de valeur dense (étapes numérotées, idée forte chiffrée, à faire /
 à éviter) → fin avec UN CTA (mot-clé, GO, ou renvoi vidéo). Une séquence = un
 jour de stories. Martin pioche dans la banque, dans l'ordre qu'il veut.
 
+**V4 (04/08/2026) — « il faut de tout » : DEUX familles de gabarits, mixées
+dans chaque séquence** (retour de Martin : des schémas qui remplissent la
+story + le thème Le Sous Loueur + garder aussi le style photo) :
+- **Famille MARQUE** (fond navy #0d1b2e + dégradés orange/bleu de la charte
+  carrousels, topbar dégradée, logo LSL en haut, Montserrat) — schémas pleine
+  hauteur : `b_steps` (étapes numérotées), `b_timeline` (frise à points),
+  `b_bars` (barres de pourcentages), `b_bigstat` (chiffre géant + points),
+  `b_duo` (rouge/vert à éviter/à faire), `b_vs` (2 cartes côte à côte),
+  `b_formula` (formule dans un cadre), `b_cta` (carte blanche RÉPONDS).
+- **Famille PHOTO** (fonds chauds Gemini, serif Playfair, fait main) :
+  `cover`, `focus`, `fin`.
+- **Photos de Sébastien (à venir)** : Martin va envoyer des photos en ZIP →
+  les déposer dans `stories/assets/photos/` ; le paramètre `photo=` de
+  `cover()` et `b_cta()` les intègre en médaillon rond (bord blanc, ombre).
+  Elles pourront aussi servir de fonds pleine page. Tant que le fichier
+  n'existe pas, les gabarits s'affichent sans médaillon.
+
 **La banque actuelle (`banque-01`, 48 stories, 8 séquences)** :
 | Séquence | Vidéo source | CTA final |
 |---|---|---|
@@ -448,10 +465,16 @@ But : [ce que la story doit déclencher]
   depuis les vidéos YouTube du père. Fait : 8 transcriptions téléchargées,
   contenu extrait par 4 agents en parallèle, **banque-01 construite : 48
   stories / 8 séquences** (`build_banque.py`, gabarits cover/steps/focus/
-  duo/fin, 6 fonds chauds). Zip envoyé à Martin. ⏳ EN ATTENTE : son retour
-  sur la banque. ENSUITE : produire banque-02 avec d'autres vidéos du
-  catalogue (30 listées, 8 utilisées), et caler le rythme de publication
-  (1 séquence = 1 jour).
+  duo/fin, 6 fonds chauds). Zip envoyé à Martin.
+- **2026-08-04 : V4 « il faut de tout ».** Retour de Martin sur la V3 : mieux,
+  mais il faut des SCHÉMAS pleine story + le THÈME Le Sous Loueur + de la
+  variété. Fait : famille MARQUE ajoutée (8 gabarits schémas charte LSL avec
+  logo) et les 48 stories de banque-01 regénérées en MIX marque/photo
+  (~4 marque + 2 photo par séquence). Support des photos de Sébastien prêt
+  (`assets/photos/` + paramètre `photo=`). Zip V4 envoyé. ⏳ EN ATTENTE :
+  (a) le retour de Martin sur la V4, (b) SES PHOTOS en ZIP pour les médaillons
+  et fonds. ENSUITE : banque-02 avec d'autres vidéos du catalogue (30 listées,
+  8 utilisées) et caler le rythme de publication (1 séquence = 1 jour).
 - **À fournir par Martin (pour la closeuse)** : le lien exact de l'outil
   d'audit (mot-clé AUDIT) et les fichiers du pack « Airbnb 2026 » (mot-clé
   ALGO) — voir section 12.

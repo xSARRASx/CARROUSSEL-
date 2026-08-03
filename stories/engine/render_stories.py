@@ -34,7 +34,7 @@ def render(slug):
             over = pg.evaluate(f"""() => {{
                 const s = document.querySelector('.story');
                 const bad = [];
-                document.querySelectorAll('.pad *').forEach(el => {{
+                document.querySelectorAll('.pad *, .bpad *').forEach(el => {{
                     const r = el.getBoundingClientRect();
                     if (r.bottom > {H - BOTTOM_SAFE + 20} || r.top < {TOP_SAFE - 20} ||
                         r.right > {W} || r.left < 0) bad.push(el.className||el.tagName);
