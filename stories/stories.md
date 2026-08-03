@@ -282,6 +282,41 @@ donné, on ajuste la semaine suivante.
 
 ---
 
+## 10 bis. 🎨 La machine à visuels (Gemini + moteur maison)
+
+Les visuels « texte sur fond » sont GÉNÉRÉS automatiquement, prêts à poster
+(1080x1920). Deux étages, dans `stories/engine/` :
+
+1. **Les fonds** : `gen_background.py` appelle Gemini (`gemini-2.5-flash-image`,
+   clé dans la variable d'environnement `GEMINI_API_KEY`, JAMAIS dans le code)
+   et génère des fonds photo dans la charte (navy #0d1b2e dominant, lueur orange
+   #E8561F, sombres, sans texte). Catalogue actuel dans
+   `stories/assets/backgrounds/` : `bg_navy` (abstrait), `bg_immobilier`
+   (immeuble de nuit), `bg_mindset` (bureau lampe ville), `bg_conversation`
+   (téléphone qui luit). Réutilisables toutes les semaines ; en ajouter au
+   catalogue si besoin d'une nouvelle ambiance.
+2. **Le texte par-dessus** : `build_semaine01.py` (un fichier par semaine)
+   assemble le HTML 1080x1920 (Montserrat du pipeline carrousels, gabarits
+   basic / liste / citation / carte CTA blanche « RÉPONDS [MOT] ») puis
+   `render_stories.py` rend en JPEG via Playwright dans
+   `stories/output/<semaine>/jpg/`. Le texte n'est PAS généré par l'IA image :
+   zéro faute possible, typographie française propre (espaces insécables avant
+   ? ! : ;), contrôle automatique de débordement.
+
+**Zones libres respectées** : haut ~240 px (profil Instagram) et bas ~360 px
+(barre de réponse) sans texte. Les stories `top=True` laissent toute la moitié
+basse vide pour le sticker (sondage, question, lien, compte à rebours), que
+Martin ajoute dans Instagram au moment de poster.
+
+**Ce qui n'est PAS généré** (et ne doit pas l'être) : les faces caméra, les
+screenshots de témoignages, les captures d'outil, les extraits vidéo. Le vrai
+reste vrai.
+
+Prérequis : `pip install pillow playwright` (Chromium préinstallé dans
+l'environnement, chemin dans `render_stories.py`).
+
+---
+
 ## 11. 🔁 Production (process hebdo)
 
 1. **Le dimanche** (ou lundi matin) : préparer le plan de la semaine dans
@@ -321,6 +356,11 @@ But : [ce que la story doit déclencher]
   **semaine 01 prête** : `stories/semaines/semaine-01_2026-08-03.md`, avec le
   recyclage réel de la vidéo du dimanche 2 août (« parler d'argent », ID
   `_OOxN_7bZWI`, transcription récupérée et vérifiée).
+- **2026-08-03 : machine à visuels en place** (section 10 bis, demande de
+  Martin : « créer les stories avec Gemini »). 4 fonds Gemini générés +
+  **15 visuels de la semaine 01 rendus**, prêts à poster dans
+  `stories/output/semaine-01/jpg/` (mapping dans le fichier semaine). Zip
+  envoyé à Martin dans la conversation.
 - **À fournir par Martin :**
   - les screenshots de témoignages réels pour le jeudi (gabarit prêt en attendant) ;
   - la confirmation de ce qu'est exactement le SIMULATEUR (fichier ? outil en
