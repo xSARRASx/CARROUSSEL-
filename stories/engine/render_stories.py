@@ -30,8 +30,7 @@ def render(slug):
         for h in htmls:
             pg.goto(h.as_uri())
             pg.wait_for_function("document.fonts.ready.then(()=>true)")
-            pg.wait_for_function("document.fonts.check('900 66px Montserrat')")
-            pg.wait_for_timeout(250)
+            pg.wait_for_timeout(350)
             over = pg.evaluate(f"""() => {{
                 const s = document.querySelector('.story');
                 const bad = [];

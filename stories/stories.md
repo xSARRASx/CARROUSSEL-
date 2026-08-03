@@ -288,25 +288,58 @@ Les visuels « texte sur fond » sont GÉNÉRÉS automatiquement, prêts à post
 (1080x1920). Deux étages, dans `stories/engine/` :
 
 1. **Les fonds** : `gen_background.py` appelle Gemini (`gemini-2.5-flash-image`,
-   clé dans la variable d'environnement `GEMINI_API_KEY`, JAMAIS dans le code)
-   et génère des fonds photo dans la charte (navy #0d1b2e dominant, lueur orange
-   #E8561F, sombres, sans texte). Catalogue actuel dans
-   `stories/assets/backgrounds/` : `bg_navy` (abstrait), `bg_immobilier`
-   (immeuble de nuit), `bg_mindset` (bureau lampe ville), `bg_conversation`
-   (téléphone qui luit). Réutilisables toutes les semaines ; en ajouter au
-   catalogue si besoin d'une nouvelle ambiance.
-2. **Le texte par-dessus** : `build_semaine01.py` (un fichier par semaine)
-   assemble le HTML 1080x1920 (Montserrat du pipeline carrousels, gabarits
-   basic / liste / citation / carte CTA blanche « RÉPONDS [MOT] ») puis
-   `render_stories.py` rend en JPEG via Playwright dans
-   `stories/output/<semaine>/jpg/`. Le texte n'est PAS généré par l'IA image :
-   zéro faute possible, typographie française propre (espaces insécables avant
-   ? ! : ;), contrôle automatique de débordement.
+   clé dans la variable d'environnement `GEMINI_API_KEY`, JAMAIS dans le code).
+   Réessai automatique sur 429/500/503. Catalogue dans
+   `stories/assets/backgrounds/`.
+2. **Le texte par-dessus** : `build_semaine01_v2.py` (un fichier par semaine)
+   assemble le HTML 1080x1920, puis `render_stories.py` rend en JPEG via
+   Playwright dans `stories/output/<semaine>/jpg/`. Le texte n'est PAS généré
+   par l'IA image : zéro faute possible, typographie française propre (espaces
+   insécables avant ? ! : ;), contrôle automatique de débordement.
+
+### ⭐ LE STYLE OFFICIEL = « natif Instagram fait main » (V2, 03/08/2026)
+
+⚠️ La 1re version (gabarits sombres navy « corporate », `build_semaine01.py`,
+fonds bg_navy/bg_immobilier/bg_mindset/bg_conversation) a été JUGÉE POURRIE
+par Martin (« vide, pas de mise en page »). Elle reste dans le repo comme
+archive mais NE PLUS produire dans ce style.
+
+Le style retenu est calibré sur les stories historiques du compte
+@moresebastien (exemples de Pierre envoyés par Martin en ZIP le 03/08 —
+captures NON commitées : elles contiennent des données perso, numéros et noms
+d'élèves). Ce que montrent ces exemples :
+
+- **Stories RESULT** (résultats d'élèves) : fond photo chaud (ciel doré,
+  prairie), screenshots WhatsApp réels d'annonces d'élèves posés dessus,
+  texte serif blanc « + 1 pour [Prénom] », flèches bleues/blanches dessinées
+  à la main, annotation « Bravo [Prénom] ! ».
+- **Stories STRAT** (conseil) : titre serif blanc avec chiffre/mot-clé en
+  bleu, liste à tirets en NOIR gras avec mots-clés bleus (souvent sur un
+  voile blanc translucide), soulignements ondulés dessinés, CTA
+  « Swipe ou reste » ou question.
+- Typos = celles d'Instagram : une serif élégante + un sans-serif noir gras +
+  de la fausse écriture manuscrite pour les annotations.
+
+**Traduction dans le moteur (`build_semaine01_v2.py`)** :
+- Titres : **Playfair Display** 800 blanche (équivalent de la serif
+  Instagram), mots-clés en bleu ciel `#4E9FE0`.
+- Listes : **Montserrat** 700 noire sur voile blanc translucide arrondi
+  (`rgba(255,255,255,0.68)` + blur), mots-clés en bleu `#2F7EC4`.
+- Annotations manuscrites : **Caveat** 600 blanche.
+- Flèches courbes + soulignements ondulés « dessinés à la main » : SVG
+  générés par les helpers `arrow_down()` / `underline()`.
+- Fonds chauds Gemini (style `STYLE_WARM` du catalogue) : `bg_ciel_dore`,
+  `bg_prairie`, `bg_chemin_aube`, `bg_salon_cosy`. En ajouter si besoin.
+- Les polices Playfair/Caveat sont dans `pipeline/assets/fonts/` (woff2,
+  téléchargées depuis jsdelivr/fontsource).
+- Gabarit RESULT : le moteur génère fond + « + 1 pour [Prénom] » + flèche +
+  zone en pointillés ; le screenshot RÉEL de l'élève est collé par Martin
+  dans Instagram (sticker photo) par-dessus la zone.
 
 **Zones libres respectées** : haut ~240 px (profil Instagram) et bas ~360 px
-(barre de réponse) sans texte. Les stories `top=True` laissent toute la moitié
-basse vide pour le sticker (sondage, question, lien, compte à rebours), que
-Martin ajoute dans Instagram au moment de poster.
+(barre de réponse). Les stories à sticker laissent la moitié basse libre :
+le sticker (sondage, question, lien, compte à rebours) s'ajoute DANS
+Instagram au moment de poster.
 
 **Ce qui n'est PAS généré** (et ne doit pas l'être) : les faces caméra, les
 screenshots de témoignages, les captures d'outil, les extraits vidéo. Le vrai
@@ -361,6 +394,14 @@ But : [ce que la story doit déclencher]
   **15 visuels de la semaine 01 rendus**, prêts à poster dans
   `stories/output/semaine-01/jpg/` (mapping dans le fichier semaine). Zip
   envoyé à Martin dans la conversation.
+- **2026-08-03 (suite) : REFONTE DU STYLE.** Martin a jugé la V1 « pourrie »
+  (vide, pas de mise en page) et a envoyé en ZIP les stories historiques de
+  Pierre. Nouveau style officiel « natif Instagram fait main » documenté en
+  section 10 bis, moteur `build_semaine01_v2.py`, 4 fonds chauds générés,
+  **5 stories V2 témoins rendues** dans `stories/output/semaine-01-v2/jpg/`
+  (sondage lundi, 4 réactions, CTA ARGUMENTAIRE, parcours, gabarit RESULT).
+  Zip envoyé à Martin. ⏳ EN ATTENTE : validation de Martin sur la V2 →
+  ensuite regénérer TOUTE la semaine 01 dans ce style (remplacer les 15 V1).
 - **À fournir par Martin :**
   - les screenshots de témoignages réels pour le jeudi (gabarit prêt en attendant) ;
   - la confirmation de ce qu'est exactement le SIMULATEUR (fichier ? outil en
