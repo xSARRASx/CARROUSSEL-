@@ -6,6 +6,10 @@
 > Pour reprendre : "lis le carroussel.md et continuons".
 >
 > Repo : `xSARRASx/CARROUSSEL-` — branche de dev : `claude/salut-af8y9u`
+>
+> 📱 Le repo héberge aussi le projet **Stories Instagram** (Le Sous Loueur) :
+> stratégie et semaines produites dans `stories/` (mémoire : `stories/stories.md`,
+> branche : `claude/instagram-stories-strategy-ni1w08`).
 
 ---
 
