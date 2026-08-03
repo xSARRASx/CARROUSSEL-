@@ -51,6 +51,26 @@ CATALOG = {
                         "style": STYLE_WARM},
     "bg_mer_calme":    {"subject": "Calm sea at sunset, gentle waves, warm pastel sky with a few soft clouds filling most of the frame, peaceful.",
                         "style": STYLE_WARM},
+    # Vague 2 (03/08/2026) : Martin veut des fonds VRAIMENT varies -> 9 fonds
+    # chauds supplementaires, meme famille golden hour.
+    "bg_plage_aube":   {"subject": "Quiet empty sandy beach at sunrise, soft pastel peach sky filling most of the frame, gentle foam line at the bottom.",
+                        "style": STYLE_WARM},
+    "bg_montagne":     {"subject": "Soft rolling mountain ridges fading into golden haze at sunset, layers of warm tones, sky filling the upper half.",
+                        "style": STYLE_WARM},
+    "bg_lac":          {"subject": "Perfectly still mountain lake at golden hour, mirror reflection of a warm sky, thin mist, very calm and empty.",
+                        "style": STYLE_WARM},
+    "bg_terrasse":     {"subject": "Cozy apartment balcony terrace at sunset with a few plants and string lights softly blurred, warm golden light, calm sky visible.",
+                        "style": STYLE_WARM},
+    "bg_village":      {"subject": "Charming quiet European village street at golden hour, warm stone facades softly blurred, empty street, soft sun flare.",
+                        "style": STYLE_WARM},
+    "bg_ble":          {"subject": "Golden wheat field swaying at sunset, warm backlight, soft focus, big calm warm sky filling the upper two thirds.",
+                        "style": STYLE_WARM},
+    "bg_ciel_rose":    {"subject": "Dreamy pastel pink and orange cloudy sky at dusk, only sky and clouds, very soft and calm.",
+                        "style": STYLE_WARM},
+    "bg_immeuble_dore":{"subject": "Modern residential apartment building facade bathed in warm golden hour light, a few plants on balconies, soft blur, warm sky above.",
+                        "style": STYLE_WARM},
+    "bg_bureau_matin": {"subject": "Bright desk near a large window in warm morning sunlight, notebook and coffee cup softly blurred, golden glow, mostly calm bright surfaces.",
+                        "style": STYLE_WARM},
 }
 
 def call_gemini(body, key):

@@ -297,6 +297,43 @@ Les visuels « texte sur fond » sont GÉNÉRÉS automatiquement, prêts à post
    par l'IA image : zéro faute possible, typographie française propre (espaces
    insécables avant ? ! : ;), contrôle automatique de débordement.
 
+### 🎨 STYLE DÉFINITIF — DÉCISION FINALE DE MARTIN (03/08/2026, sur capture)
+
+> Martin a envoyé la capture de la cover « Remplir ton Airbnb sans baisser
+> tes prix » (fond mer au coucher de soleil, serif blanche, accent bleu) :
+> **« on fait absolument toutes les stories dans ce style-là, pas avec nos
+> couleurs »**. Cette décision REMPLACE le catalogue de thèmes et le mix
+> marque/photo. C'est LA référence, ne plus en dévier sans un ordre de Martin.
+
+1. **UN SEUL STYLE pour toutes les stories** : « photo fait main » — fond
+   photo chaud plein écran, titres Playfair serif blanche avec mots-clés en
+   bleu ciel `#4E9FE0`, annotations Caveat, flèches/soulignés dessinés à la
+   main, contenu dense sur voile blanc translucide (Montserrat sombre,
+   accents bleus `#2F7EC4`). Plus AUCUNE story aux couleurs de la charte
+   navy/orange (la charte reste celle des CARROUSSELS uniquement).
+2. **LE LOGO SUR TOUTES LES STORIES, sans exception** (« absolument partout,
+   même les stories comme ça ») : version blanche, ombre douce, en haut au
+   centre. Quiz, sondages et témoignages inclus.
+3. **FONDS TOUS DIFFÉRENTS** (« je veux vraiment de tous les fonds
+   différents ») : jamais deux fois le même fond dans une même séquence.
+   15 fonds chauds golden hour en rotation (`gen_background.py`, vague 2 du
+   03/08 : plage_aube, montagne, lac, terrasse, village, ble, ciel_rose,
+   immeuble_dore, bureau_matin en plus des 6 d'origine). En générer d'autres
+   si la variété s'épuise. Les 4 fonds sombres (navy, immobilier, mindset,
+   conversation) ne servent PLUS pour les stories.
+4. **Le socle technique est `stories/engine/photo_style.py`** : CSS commun,
+   logo automatique dans `open_photo()`, gabarits pleine page (cover, focus,
+   fin, p_steps, p_timeline, p_bars, p_bigstat, p_duo, p_vs, p_formula,
+   p_cta) + `write_lot()`. Tous les builds (banque, interactifs, semaine)
+   passent par lui. Tout nouveau gabarit se code LÀ, dans ce style.
+5. Le reste ne change pas : zones libres Instagram (haut ~240 px / bas
+   ~360 px), CTA légers (max 1 mot-clé fort par séquence, quiz/sondages sans
+   CTA), témoignages = seuls gabarits à case vide, rien d'inventé, aucun
+   tiret long.
+
+Les sections qui suivent (style V2, catalogue V5, familles V4) restent comme
+HISTORIQUE du cheminement — le style ci-dessus a le dernier mot.
+
 ### ⭐ LE STYLE OFFICIEL = « natif Instagram fait main » (V2, 03/08/2026)
 
 ⚠️ La 1re version (gabarits sombres navy « corporate », `build_semaine01.py`,
@@ -392,8 +429,11 @@ pas → nouvelles mises en page proposées dans le CATALOGUE DE THÈMES
 5. **Orange poster** (fond orange plein, typo massive navy/blanc)
 6. **Bleu poster** (fond bleu LSL, compte à rebours de chiffres géants)
 7. **Nuit fine** (noir bleuté, cadre fin, serif élégante, orange discret)
-⏳ EN ATTENTE du choix de Martin → ensuite regénérer la banque avec UN thème
-par séquence (piocher parmi les thèmes validés).
+✅ TRANCHÉ le 03/08 (tard) : Martin a choisi sur capture le style « photo
+fait main » pour TOUT (voir la section 🎨 STYLE DÉFINITIF plus haut). Le
+catalogue de thèmes est un ARCHIVE ; la règle « 1 séquence = 1 thème » est
+remplacée par « 1 seul style pour tout, fonds tous différents dans la
+séquence ».
 
 ### 📣 Retours du 04/08 au soir (vocal, avec un « bravo c'est tout ce que
 j'attendais » — le catalogue plaît) :
@@ -490,11 +530,13 @@ d'hiver (fin octobre), passer les crons à `0 7 * * 1` et `0 7 * * 4`.
    PLUSIEURS formats : séquence d'aide complète + quiz Q/R + sondage lié.
    Mais JAMAIS de remplissage : si la vidéo est pauvre, peu de stories et
    c'est très bien. Uniquement des infos cruciales qui aident vraiment.
-6. Produire les visuels : 1 séquence = 1 SEUL thème visuel (rotation des
-   thèmes du catalogue), **logo sur toutes les stories**, CTA légers (pas un
-   mot-clé partout ; quiz et sondages sans CTA). Étendre `build_banque.py` /
-   `build_interactifs.py` ou créer un build dédié, rendre via
-   `render_stories.py`.
+6. Produire les visuels : **LE style unique « photo fait main » de
+   `photo_style.py`** (voir la section 🎨 STYLE DÉFINITIF — décision finale
+   de Martin), **logo sur toutes les stories**, **fonds tous différents dans
+   la séquence** (15 fonds chauds en rotation, en générer si besoin via
+   `gen_background.py`), CTA légers (pas un mot-clé partout ; quiz et
+   sondages sans CTA). Étendre `build_banque.py` / `build_interactifs.py` ou
+   créer un build dédié, rendre via `render_stories.py`.
 7. Commit + push (le conteneur est éphémère : rien ne reste local).
 8. **Livraison dans la conversation** : zip des JPEG via SendUserFile, et la
    livraison BIEN EN ÉVIDENCE en haut du message (Martin transfère tel quel
@@ -584,6 +626,16 @@ But : [ce que la story doit déclencher]
   (a) le retour de Martin sur la V4, (b) SES PHOTOS en ZIP pour les médaillons
   et fonds. ENSUITE : banque-02 avec d'autres vidéos du catalogue (30 listées,
   8 utilisées) et caler le rythme de publication (1 séquence = 1 jour).
+- **2026-08-03 (tard) : STYLE DÉFINITIF + REGÉNÉRATION TOTALE.** Martin a
+  tranché sur capture (cover séquence A) : TOUTES les stories dans le style
+  « photo fait main », plus de stories aux couleurs de la charte, LOGO
+  absolument partout, et des fonds tous différents. Fait : socle commun
+  `photo_style.py` (logo automatique, 11 gabarits photo), 9 nouveaux fonds
+  chauds Gemini (15 au total), et les 3 lots ENTIÈREMENT regénérés dans ce
+  style : banque-01 (48), interactifs-01 (14, renommés quiz_/sondage_/
+  temoin_), semaine-01 (15). Les anciens rendus navy/marque sont remplacés ;
+  `build_themes.py` et `build_semaine01_v2.py` restent en archive du
+  cheminement. Zips renvoyés à Martin dans la conversation.
 - **À fournir par Martin (pour la closeuse)** : le lien exact de l'outil
   d'audit (mot-clé AUDIT) et les fichiers du pack « Airbnb 2026 » (mot-clé
   ALGO) — voir section 12.
