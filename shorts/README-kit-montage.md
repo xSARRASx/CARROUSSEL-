@@ -8,6 +8,28 @@ Tout est dans **`assets-montage/`**, en PNG.
 
 ---
 
+## Deux styles dans le dossier
+
+Depuis le 3 août 2026, chaque sujet existe en **deux versions** :
+
+| Fichier | Style |
+|---|---|
+| `icone-menage.png` | **icône flat** dessinée (le style demandé au départ dans le tableau de Kilian) |
+| `icone-menage-2.png` | **photo réelle** façon packshot studio, fond blanc, ombre douce |
+
+**La règle de nommage : le même nom, avec `-2` juste avant le `.png`.**
+Jamais `icone-menage2.png` collé, jamais `2-icone-menage.png` — sinon Kilian ne
+retrouve plus le sujet automatiquement.
+
+Martin a tranché le 3 août : **il préfère nettement le style réaliste**. Les
+fichiers `-2` sont donc ceux à utiliser en priorité ; les icônes flat restent
+dans le dossier au cas où un montage s'y prête mieux.
+
+Quatre fichiers n'ont **pas** de version `-2`, parce qu'ils sont déjà au bon
+format : les cartons à texte (`logo-booking`, `logo-abritel`, `icone-lmnp`,
+`icone-experience`) — un texte ne se photographie pas — ainsi que la capture
+`capture-annonce-airbnb.png` et les 5 photos d'intérieur, déjà réelles.
+
 ## La règle qui compte : ne jamais laisser ça « faire IA »
 
 Demande de Martin (03/08/2026) : *« je ne veux pas que ça fasse IA, je veux

@@ -587,6 +587,37 @@ transformées en stories (les 8 de banque-01 + « parler d'argent »).
   home-staging, photo-appartement, impots, comptable, france-carte,
   saisonnalite, objectif, experience. La fin du tableau Mindset était
   peut-être tronquée : s'il manque des lignes, Martin renverra la suite.
+### 📸 STYLE DES ASSETS DE MONTAGE : PHOTO RÉELLE (choix de Martin, 03/08/2026)
+
+Après avoir vu un comparatif icône flat / photo, Martin a tranché :
+**« je préfère largement le style réaliste, on refait tout »**. Le kit existe
+donc en deux versions, et **la version photo est celle à utiliser**.
+
+**Règle de nommage (exigée par Martin, à ne pas improviser)** : le même nom de
+fichier, avec **`-2` juste avant le `.png`**.
+- ✅ `icone-cashflow-2.png`, `icone-mairie-2.png`, `photo-salon-2.png`
+- ❌ `icone-cashflow2.png` (collé), ❌ `2-icone-cashflow.png`
+C'est comme ça que Kilian reconnaît le sujet automatiquement.
+
+**La recette photo qui marche** (script `shorts/gen_kit_realiste.py`) :
+sujet + « Photographie de produit en studio, objet réel photographié au reflex,
+fond blanc pur uniforme, éclairage doux de studio, ombre portée douce, très
+haute définition, textures réelles, couleurs naturelles, rendu photographique
+de catalogue. Surtout PAS d'illustration, PAS de dessin, PAS de rendu 3D.
+Aucun texte lisible, aucun logo de marque, aucun watermark. »
+Pour une scène (mairie, agence, poignée de main) : variante « photographie
+réaliste au reflex, lumière naturelle, ombres réelles, faible profondeur de
+champ, grain fin ».
+
+**Astuce sujets abstraits** : « rentabilité », « changement d'usage »,
+« saisonnalité » n'ont pas d'objet à photographier. On leur trouve un
+équivalent concret : piles de pièces en escalier, maison miniature + clés +
+plan, calendrier mural annoté.
+
+**Astuce documents** : demander « texte volontairement flou et illisible »
+plutôt que « aucun texte » — une page blanche fait vide, un texte flou est
+crédible et évite les fautes.
+
 ### 🚫 RÈGLE ANTI-IA (ordre de Martin, 03/08/2026) : « je ne veux pas que ça fasse IA »
 
 Apprentissage majeur du 1er lot, à appliquer à TOUT asset de montage :
