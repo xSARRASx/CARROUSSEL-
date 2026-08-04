@@ -1,0 +1,358 @@
+[
+  {
+    "file": "icone-mairie.png",
+    "verdict": "garder",
+    "raison": "Illustration flat propre d'une mairie francaise, geometrie et perspective correctes, drapeau tricolore juste, fond blanc net, aucun texte residuel.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-autorisation-proprietaire.png",
+    "verdict": "refaire",
+    "raison": "La poignee de main a des doigts fusionnes et ambigus (tell IA classique) et le cadre du document est casse par plusieurs trous de trace sur le bord droit.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone d'autorisation du proprietaire : un document contractuel rectangulaire au trace ferme et continu, avec quelques lignes de texte suggerees par de simples barres grises abstraites, et un stylo pose en diagonale sur la feuille. Sous le document, une poignee de main simplifiee et tres schematique, vue de profil, avec exactement cinq doigts nettement separes par main, aucun doigt fusionne, silhouettes lisibles et espacees. Style icone flat vectoriel minimaliste, aplats unis, contours nets, fond blanc uni pur. Aucun texte, aucune lettre, aucun chiffre, aucun watermark. Formes simples et geometriquement correctes."
+  },
+  {
+    "file": "icone-numero-enregistrement.png",
+    "verdict": "garder",
+    "raison": "Document officiel avec sceau bleu, trace vectoriel net, lignes de texte reduites a des barres grises abstraites donc aucun caractere a mal ecrire, fond blanc propre.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-changement-usage.png",
+    "verdict": "garder",
+    "raison": "Maison vers commerce avec fleche de transition, lecture immediate, formes geometriques correctes et fond blanc propre.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-cashflow.png",
+    "verdict": "garder",
+    "raison": "Liasse de billets avec fleche ascendante en aplats verts mats, sans brillance ni faux realisme, lisible et sur fond blanc.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-rentabilite.png",
+    "verdict": "garder",
+    "raison": "Symbole pourcentage et fleche ascendante en aplats unis, formes nettes et geometriquement correctes, fond blanc pur avec une ombre portee douce acceptable.",
+    "texte_visible": "%",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-calculatrice.png",
+    "verdict": "garder",
+    "raison": "Calculatrice et pile de pieces en aplats vectoriels coherents, touches alignees, empilement des pieces logique, fond blanc pur sans bruit.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-loyer.png",
+    "verdict": "refaire",
+    "raison": "Le symbole dollar du billet est bave et casse, des fragments noirs orphelins flottent au-dessus des billets et coupent le symbole euro, et les billets en dollars contredisent l'euro affiche a cote.",
+    "texte_visible": "$ (sur le billet, deforme) et €",
+    "defauts": [
+      "lettres_deformees",
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Une enveloppe ouverte vue de face, de laquelle depassent trois billets de banque verts parfaitement rectangulaires et vierges, sans aucun symbole ni motif imprime dessus, accompagnee d'un unique symbole euro bleu place a droite, entier et bien detache de l'enveloppe. Contours continus et fermes, aucun trait noir isole, aucun fragment flottant, aucune forme coupee. Style icone flat vectoriel minimaliste, aplats unis, contours nets, fond blanc uni pur. Aucun texte, aucune lettre, aucun chiffre, aucun watermark. Formes simples et geometriquement correctes."
+  },
+  {
+    "file": "icone-etoiles-avis.png",
+    "verdict": "garder",
+    "raison": "Cinq etoiles jaunes en aplat plein, branches regulieres et alignement horizontal propre sur fond blanc pur.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-menage.png",
+    "verdict": "garder",
+    "raison": "Spray et eponge en trace ligne claire et aplats unis, proportions et perspective coherentes, fond blanc pur avec une tache bleue decorative aux bords nets qui fait partie de l'illustration.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-checkin.png",
+    "verdict": "garder",
+    "raison": "Boitier a code avec coffre a cles ouvert, trace flat propre, geometrie coherente, fond blanc net, et le seul texte present (SELF CHECK-IN) est correctement orthographie et parfaitement lisible.",
+    "texte_visible": "SELF CHECK-IN",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-linge.png",
+    "verdict": "garder",
+    "raison": "Pile de trois linges pliee, aplats unis, contours nets et reguliers, aucune deformation, fond blanc parfaitement propre.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-serrure.png",
+    "verdict": "garder",
+    "raison": "Serrure connectee flat lisible, clavier numerique aux chiffres nets et bien formes, ecran avec asterisques propres, fond blanc uni sans bruit.",
+    "texte_visible": "1 2 3 4 5 6 7 8 9 (clavier) et **** (ecran)",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-proprietaire.png",
+    "verdict": "refaire",
+    "raison": "Des taches vert turquoise parasites bavent aux jonctions des deux mains (haut du pouce jaune, bas de la manche droite, bout de doigt en bas), un artefact de generation qui trahit immediatement l IA sur un aplat deux couleurs.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone d une poignee de main entre deux personnes, vue de trois quarts, symbolisant un accord entre un proprietaire et un gestionnaire. Deux couleurs seulement : une main et sa manche en bleu doux, l autre main et sa manche en jaune sable, separees par un fin liseret blanc net. Chaque main a exactement quatre doigts visibles plus le pouce, doigts bien separes, aucune fusion, aucune couleur parasite ni tache d une troisieme teinte, aucun degrade, aucun aplat sale aux jonctions. Style icone flat vectoriel minimaliste, aplats unis, contours nets, fond blanc uni pur. Aucun texte, aucune lettre, aucun chiffre, aucun watermark. Formes simples et geometriquement correctes."
+  },
+  {
+    "file": "icone-agence.png",
+    "verdict": "garder",
+    "raison": "Devanture d agence flat symetrique et bien construite, store, vitrine et porte alignes proprement, fond blanc uni sans degrade ni bruit.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-contrat.png",
+    "verdict": "garder",
+    "raison": "Icone flat propre : document a lignes grises, stylo bien construit et signature rouge lisible, la main tenant le stylo reste anatomiquement plausible et le fond est blanc uni.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-telephone.png",
+    "verdict": "garder",
+    "raison": "Smartphone flat parfaitement geometrique avec ondes vertes symetriques, ecran vide sans texte et fond blanc impeccable.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-meuble.png",
+    "verdict": "garder",
+    "raison": "Canape, plante et lampadaire en aplats unis avec contours nets, proportions coherentes et fond blanc pur, aucun defaut de forme.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-home-staging.png",
+    "verdict": "garder",
+    "raison": "Comparaison avant/apres lisible en deux panneaux flat, mobilier et plante correctement dessines, fond blanc propre autour des cadres.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-jacuzzi.png",
+    "verdict": "refaire",
+    "raison": "Les quatre personnages sont des masses blanches aux bras fondus et fusionnes avec le rebord, et l'escalier en bois presente une perspective impossible qui casse le volume de la cuve : le rendu sent immediatement l'IA.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone d'un jacuzzi spa rond en bois clair vu de trois quarts, habillage en lattes verticales regulieres, eau bleu clair avec quelques bulles rondes en surface, un petit escalier de deux marches droit devant, sans aucun personnage ni silhouette humaine, sans element coupe, perspective simple et coherente. Style icone flat vectoriel minimaliste, aplats unis, contours nets, fond blanc uni pur. Aucun texte, aucune lettre, aucun chiffre, aucun watermark. Formes simples et geometriquement correctes."
+  },
+  {
+    "file": "icone-impots.png",
+    "verdict": "garder",
+    "raison": "Document flat parfaitement geometrique, symbole euro et case a cocher nets, fond blanc pur, aucun texte mal ecrit.",
+    "texte_visible": "€",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-comptable.png",
+    "verdict": "refaire",
+    "raison": "Les avant-bras ont des zones blanches non remplies et les jambes descendent tout droit sans genou ni pied en traversant la chaise, ce qui donne une assise impossible.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone d'un comptable vu de face en plan buste seulement, coupe au niveau du bureau, aucune jambe ni chaise visible. Personnage simple et symetrique : tete, buste avec pull uni, deux bras entiers d'une seule couleur allant de l'epaule aux mains posees a plat sur le bureau, silhouette fermee sans zone vide. Sur le bureau, une calculatrice et une pile de feuilles. Anatomie simplifiee et coherente, quatre doigts visibles par main, aucun trou blanc dans les bras. Style icone flat vectoriel minimaliste, aplats unis, contours nets, fond blanc uni pur. Aucun texte, aucune lettre, aucun chiffre, aucun watermark. Formes simples et geometriquement correctes."
+  },
+  {
+    "file": "icone-france-carte.png",
+    "verdict": "garder",
+    "raison": "Silhouette de la France avec la Corse immediatement reconnaissable, aplat bleu uni sur fond blanc avec une ombre portee douce et acceptable.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-saisonnalite.png",
+    "verdict": "garder",
+    "raison": "Grille de carres arrondis orange et bleus parfaitement alignee avec soleil et flocon, aplats propres et fond blanc impeccable.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-objectif.png",
+    "verdict": "garder",
+    "raison": "Cible concentrique reguliere avec centre rouge et fleche lisible plantee au milieu, style flat coherent sur fond blanc.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "capture-annonce-airbnb.png",
+    "verdict": "garder",
+    "raison": "Faux screenshot d'annonce propre et credible : logo Airbnb exact, hierarchie typographique nette, fond blanc impeccable et tous les textes francais correctement orthographies (cœur, Superhote, dedie, hesiter).",
+    "texte_visible": "airbnb | Coup de cœur voyageurs | Appartement lumineux et moderne, hypercentre | Bordeaux, France | 4,92 · 358 commentaires · Superhôte | 120 € par nuit | Wifi rapide, 200 Mb/s | Espace de travail dédié | Lave-linge | Climatisation | C | Camille | Juillet 2026 | « Appartement impeccable, très bien situé et arrivée autonome parfaite. On reviendra sans hésiter. » | Réserver",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "logo-booking.png",
+    "verdict": "refaire",
+    "raison": "Le mot-symbole Booking.com est surmonte d'un pictogramme de maison qui n'existe pas dans la marque et double d'un slogan invente, ce qui en fait un logotype inexact.",
+    "texte_visible": "Booking.com | Réservation en ligne",
+    "defauts": [
+      "logo_faux"
+    ],
+    "prompt_corrige": "Bloc logotype pour la marque Booking.com destine a un montage video : uniquement le mot-symbole de la marque, seul, centre, en bleu marine profond, pose sur une ligne unique. Supprimer entierement le pictogramme de maison au-dessus, qui n'appartient pas a la marque, et supprimer la ligne de slogan ajoutee sous le nom. Aucun symbole decoratif, aucun encadrement, aucune ombre : le mot-symbole occupe seul la composition, avec des marges laterales genereuses et regulieres. Style icone flat vectoriel minimaliste, aplats unis, contours nets, fond blanc uni pur. Aucun texte, aucune lettre, aucun chiffre, aucun watermark. Formes simples et geometriquement correctes."
+  },
+  {
+    "file": "logo-abritel.png",
+    "verdict": "refaire",
+    "raison": "Meme pictogramme de maison generique que le logo Booking et meme slogan ajoute : deux marques differentes ne peuvent pas partager le meme symbole, le logotype est donc invente.",
+    "texte_visible": "Abritel | Location de vacances",
+    "defauts": [
+      "logo_faux"
+    ],
+    "prompt_corrige": "Bloc logotype pour la marque Abritel destine a un montage video : uniquement le mot-symbole de la marque, seul, centre, en bleu, pose sur une ligne unique. Supprimer le pictogramme de maison place au-dessus, identique a celui utilise pour une autre marque du kit, et supprimer la ligne de slogan ajoutee dessous. Aucun symbole decoratif, aucun encadrement, aucune ombre : le mot-symbole occupe seul la composition, avec des marges laterales genereuses et regulieres, et un traitement visuel distinct des autres logos du kit. Style icone flat vectoriel minimaliste, aplats unis, contours nets, fond blanc uni pur. Aucun texte, aucune lettre, aucun chiffre, aucun watermark. Formes simples et geometriquement correctes."
+  },
+  {
+    "file": "icone-lmnp.png",
+    "verdict": "garder",
+    "raison": "Composition typographique flat, sobre et parfaitement lisible, fond blanc propre, et l'intitule francais du statut est correctement orthographie.",
+    "texte_visible": "LMNP | Loueur meublé non professionnel",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-experience.png",
+    "verdict": "garder",
+    "raison": "Medaille en trait plat correctement dessinee, contraste bleu nuit sur or lisible, fond blanc propre et texte francais juste avec l'apostrophe et l'accent bien places.",
+    "texte_visible": "11 ans | d'expérience sur le terrain",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "photo-appartement.png",
+    "verdict": "garder",
+    "raison": "Sejour haussmannien photoréaliste et parfaitement lisible : perspective du parquet chevron, ferronneries des balcons, canapé modulaire et cadres muraux sont tous géométriquement corrects, sans anomalie ni texte parasite.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "photo-salon.png",
+    "verdict": "garder",
+    "raison": "Salon parisien très naturel : lumière du jour crédible, reflets du miroir doré cohérents, plantes, canapé et tapis correctement construits, aucun élément fondu ni texte residuel.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "photo-cuisine.png",
+    "verdict": "refaire",
+    "raison": "Rendu clairement en image de synthèse 3D (lumière plate et uniforme, surfaces lisses sans grain, ombres quasi absentes, propreté artificielle) qui tranche visuellement avec les quatre autres photos photoréalistes du lot et fait immédiatement \"image générée\", ce que le client refuse.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "style_incoherent",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Photographie d'intérieur authentique d'une petite cuisine d'appartement lumineuse : façades blanches mates, plan de travail en chêne clair, crédence en carrelage métro blanc, évier de ferme, plaque à induction, four encastré, deux étagères en bois avec vaisselle simple, petite table ronde en bois et deux chaises, suspension métallique, fenêtre à gauche donnant sur des toits. Vraie photo prise au reflex, objectif 24 mm, lumière naturelle douce du matin entrant par la fenêtre, ombres réelles et dégradées, légère profondeur de champ, grain photographique fin, micro-textures visibles (veinage du bois, joints du carrelage, reflets discrets sur l'inox, infimes traces d'usage). Rendu photographique de reportage de décoration, surtout PAS de rendu 3D ni d'image de synthèse : pas de surfaces plastiques, pas d'éclairage plat et uniforme, pas de perfection artificielle. Aucun texte, aucune lettre, aucun chiffre, aucun watermark. Perspective juste, mobilier et objets géométriquement cohérents. NE PAS appliquer de style icône flat ni de fond blanc uni : le livrable attendu est une photographie d'intérieur."
+  },
+  {
+    "file": "photo-chambre.png",
+    "verdict": "garder",
+    "raison": "Chambre photoréaliste et chaleureuse : literie, chevet, cadre abstrait, voilages et moquette sont bien construits, la lumière traversant les rideaux est crédible et aucun texte lisible n'apparaît.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "photo-salle-de-bain.png",
+    "verdict": "garder",
+    "raison": "Salle de bain nette et naturelle : baignoire îlot, meuble suspendu en bois, vasque et robinetterie murale sont correctement proportionnés, le reflet du miroir reste géométriquement plausible et aucun texte n'est présent.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  }
+]

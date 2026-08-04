@@ -80,6 +80,27 @@ python3 build_captures.py
 La clé Gemini vient de la variable d'environnement `GEMINI_API_KEY` — **jamais
 dans le code**, le dépôt est public.
 
+## Ce qui s'est passé sur le premier kit (35 assets)
+
+| Étape | Résultat |
+|---|---|
+| Génération v1 | 35 assets |
+| **Audit visuel n°1** | **23 recalés sur 29** — texte faux, objets déformés |
+| Régénération v2 (prompts anti-texte) + captures HTML | |
+| **Audit visuel n°2** | **8 recalés sur 35** — mains fusionnées, taches parasites, faux logos, une photo au rendu 3D |
+| Correction v3 | **0 défaut restant** |
+
+Les défauts les plus tenaces : **les mains et les personnages**. L'IA fusionne
+les doigts, laisse des zones non remplies, dépose des taches parasites. Deux
+parades : supprimer les mains du prompt quand le sujet s'en passe, ou imposer
+« deux aplats de couleur franche séparés par un liseré blanc, cinq doigts
+distincts, aucun dégradé ».
+
+Pour les photos, le piège est le rendu « image de synthèse » (lumière plate,
+surfaces lisses, aucune ombre). Le contre-prompt qui marche : « vraie photo
+prise au reflex, objectif 24 mm, ombres réelles et dégradées, grain
+photographique fin, micro-textures visibles, surtout PAS de rendu 3D ».
+
 ## Contrôle qualité (obligatoire avant livraison)
 
 Chaque image doit être **regardée** avant d'être livrée. À traquer :

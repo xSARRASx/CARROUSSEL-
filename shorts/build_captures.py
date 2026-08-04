@@ -186,22 +186,19 @@ def capture_airbnb():
   <div class="cta">Réserver</div>
 </div>"""
 
-def badge_plateforme(nom, sous_titre, couleur):
-    """Badge plateforme PROPRE, en remplacement d'un faux logo genere par IA.
+def badge_plateforme(nom, couleur, taille=104):
+    """Carton NOM DE PLATEFORME, en remplacement d'un faux logo genere par IA.
 
-    ⚠️ Ce n'est PAS le logo officiel de la marque : c'est un badge lisible,
-    sans faute, utilisable en montage. Pour le vrai logotype, telecharger le
-    fichier du kit presse de la marque.
+    ⚠️ Ce n'est PAS le logotype officiel de la marque, et il ne cherche pas a
+    en avoir l'air : juste le nom ecrit proprement dans la couleur de la
+    marque. L'audit v2 a recale la version precedente parce qu'elle ajoutait
+    un pictogramme maison et une baseline inventes, IDENTIQUES pour deux
+    marques differentes : ca fabriquait un faux logo.
+    Pour le vrai logotype : telecharger le fichier de l'espace presse.
     """
-    maison = (f'<svg viewBox="0 0 24 24" width="86" height="86" fill="none" stroke="{couleur}" '
-              'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
-              '<path d="M3 11.2 12 4l9 7.2"/><path d="M5.4 12.6V20h13.2v-7.4"/>'
-              '<path d="M10 20v-4.6h4V20"/></svg>')
     return f"""<div class="shot shot-carre">
   <div class="badgebox">
-    {maison}
-    <div class="bnom" style="color:{couleur};">{nom}</div>
-    <div class="bsous">{nb(sous_titre)}</div>
+    <div class="bnom" style="color:{couleur};font-size:{taille}px;">{nom}</div>
   </div>
 </div>"""
 
@@ -227,8 +224,8 @@ def badge_texte(pictogramme, gros, sous_titre, couleur, taille_gros=112):
 
 SHOTS = {
     "capture-annonce-airbnb": capture_airbnb(),
-    "logo-abritel": badge_plateforme("Abritel", "Location de vacances", "#1E4C9A"),
-    "logo-booking": badge_plateforme("Booking.com", "Réservation en ligne", "#003580"),
+    "logo-abritel": badge_plateforme("Abritel", "#1E4C9A", 130),
+    "logo-booking": badge_plateforme("Booking.com", "#003580", 104),
     "icone-lmnp": badge_texte("", "LMNP", "Loueur meublé non professionnel", "#1E4C9A", 150),
     "icone-experience": badge_texte(MEDAILLE, "11 ans", "d'expérience sur le terrain", "#0d1b2e", 128),
 }
