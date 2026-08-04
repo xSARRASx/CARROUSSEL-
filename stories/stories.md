@@ -618,6 +618,20 @@ plan, calendrier mural annoté.
 plutôt que « aucun texte » — une page blanche fait vide, un texte flou est
 crédible et évite les fautes.
 
+**Les 3 pièges de la photo générée** (relevés par l'audit du 03/08) :
+1. **Les claviers.** Serrure à code, calculatrice : l'IA invente les chiffres
+   (4-8-9 au lieu de 7-8-9, deux touches 0, le 2 et le 5 qui disparaissent).
+   Parade : « touches vues en biais, aucun chiffre lisible », ou cadrer de
+   façon à exclure le pavé.
+2. **Le rendu 3D qui revient.** Bois trop lisse, bulles figées, tissu sans
+   grain, aucune ombre de contact. Parade : exiger les IMPERFECTIONS — grain
+   du bois et nœuds, micro-rayures, plis naturels, poussière, reflets
+   irréguliers, ombre portée franche.
+3. **L'anatomie des mains en gros plan.** Doigts fusionnés, moignon sans
+   ongle, doigts qui grandissent vers l'auriculaire. Parade : cadrer plus
+   large (avant-bras et buste) et exiger « cinq doigts, ongles visibles,
+   doigts bien séparés ».
+
 ### 🚫 RÈGLE ANTI-IA (ordre de Martin, 03/08/2026) : « je ne veux pas que ça fasse IA »
 
 Apprentissage majeur du 1er lot, à appliquer à TOUT asset de montage :

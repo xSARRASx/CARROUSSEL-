@@ -1,0 +1,231 @@
+[
+  {
+    "file": "icone-mairie-2.png",
+    "verdict": "garder",
+    "raison": "Façade de mairie française crédible et nette, drapeau tricolore, pierre et pavés bien texturés, ombres cohérentes avec la lumière du jour ; le texte du fronton est volontairement flou donc sans faute lisible.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-autorisation-proprietaire-2.png",
+    "verdict": "garder",
+    "raison": "Vraie photo de contrat et stylo sur bureau bois, faible profondeur de champ naturelle et texte volontairement illisible, rendu photographique convaincant.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-numero-enregistrement-2.png",
+    "verdict": "refaire",
+    "raison": "Rendu typique image de synthèse : bois lisse sans grain réel, lumière plate, arêtes du tampon trop parfaites, manche fixé de travers en bord de bloc et « texte » du document réduit à des gribouillis ondulés.",
+    "defauts": [
+      "pas_photo_realiste",
+      "objet_deforme"
+    ],
+    "prompt_corrige": "Gros plan macro d'un tampon encreur en bois usé posé à côté d'un formulaire administratif imprimé sur une table en chêne, manche du tampon bien centré sur le bloc, grain du bois visible, légères marques d'encre sur le caoutchouc, lumière de fenêtre latérale douce, faible profondeur de champ. Photographie réelle prise au reflex, lumière naturelle douce, ombres réelles, textures visibles, couleurs naturelles. PAS d'illustration, PAS de rendu 3D. Aucun texte lisible, aucun logo de marque."
+  },
+  {
+    "file": "icone-changement-usage-2.png",
+    "verdict": "garder",
+    "raison": "Packshot studio propre sur fond blanc, maisonnette en bois au grain visible, plan roulé et trousseau de clés en métal réellement usé avec ombres douces cohérentes.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-cashflow-2.png",
+    "verdict": "garder",
+    "raison": "Packshot studio net sur fond blanc, billets de 50 euros correctement orthographiés et piles de pièces avec relief et ombres réalistes.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-rentabilite-2.png",
+    "verdict": "garder",
+    "raison": "Vraie photo studio : piles de pieces en euros avec usure, reliefs et rayures visibles, plante grasse texturee, ombres portees coherentes sur fond blanc propre.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-calculatrice-2.png",
+    "verdict": "garder",
+    "raison": "Packshot credible : clavier coherent en perspective, pieces en euros finement detaillees, ombre douce reelle sur fond blanc, les rares micro-inscriptions restent illisibles donc non fautives.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-loyer-2.png",
+    "verdict": "garder",
+    "raison": "Enveloppe kraft et billets de 50 euros en eventail parfaitement lisibles et correctement orthographies, papier texture et ombre naturelle sur fond blanc.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-etoiles-avis-2.png",
+    "verdict": "refaire",
+    "raison": "Rendu 3D evident : cinq etoiles strictement identiques, matiere doree lisse et plastique, eclairage plat et ombres quasi inexistantes, aucune imperfection de vraie photo.",
+    "defauts": [
+      "pas_photo_realiste"
+    ],
+    "prompt_corrige": "Cinq petites etoiles en metal dore, veritables objets poses cote a cote sur une feuille de papier blanc mat, legerement inclinees et non alignees au millimetre, avec de fines rayures et traces d'usure sur le metal, reflets irreguliers, ombres portees nettes et douces vers la droite. Prise de vue rapprochee legerement en plongee, faible profondeur de champ. Photographie reelle prise au reflex, lumiere naturelle douce, ombres reelles, textures visibles, couleurs naturelles. PAS d'illustration, PAS de rendu 3D. Aucun texte lisible, aucun logo de marque."
+  },
+  {
+    "file": "icone-menage-2.png",
+    "verdict": "garder",
+    "raison": "Photo produit tres credible : plastique blanc mat avec vraies nuances, eponge jaune aux alveoles irregulieres, ombre douce reelle sur fond blanc, aucun texte ni logo.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-contrat-2.png",
+    "verdict": "refaire",
+    "raison": "Le titre du document en haut a gauche est net et lisible mais deforme : il affiche \"CCONTRACT\" au lieu d'un mot correct, ce qui trahit immediatement l'IA sur un gros plan.",
+    "defauts": [
+      "texte_lisible_fautif"
+    ],
+    "prompt_corrige": "Gros plan sur une main d'adulte qui signe un contrat papier pose sur une table en bois, stylo bille noir, montre discrete au poignet, seconde main posee a plat sur la feuille, fenetre lumineuse floue en arriere-plan. Le document est vu en biais et son texte reste totalement flou et illisible, sans aucun titre ni en-tete net. Profondeur de champ courte, mise au point sur la pointe du stylo. Photographie reelle prise au reflex, lumiere naturelle douce, ombres reelles, textures visibles, couleurs naturelles. PAS d'illustration, PAS de rendu 3D. Aucun texte lisible, aucun logo de marque."
+  },
+  {
+    "file": "icone-telephone-2.png",
+    "verdict": "garder",
+    "raison": "Packshot studio propre sur fond blanc, smartphone bien proportionne avec boutons et encoche coherents et ombre de contact credible.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-meuble-2.png",
+    "verdict": "refaire",
+    "raison": "Le canape a un rendu de synthese 3D : tissu parfaitement uniforme sans grain ni fibres, aretes trop parfaites, lumiere plate et ombre diffuse artificielle.",
+    "defauts": [
+      "pas_photo_realiste"
+    ],
+    "prompt_corrige": "Canape trois places en tissu gris clair, pieds en bois fonce, deux coussins d'appoint, photographie en studio sur fond blanc uni, vue trois quarts. Le tissu montre son grain et ses fibres, de legers plis naturels sur les assises, une ombre portee franche au sol et de subtiles variations de lumiere sur les accoudoirs. Photographie reelle prise au reflex, lumiere naturelle douce, ombres reelles, textures visibles, couleurs naturelles. PAS d'illustration, PAS de rendu 3D. Aucun texte lisible, aucun logo de marque."
+  },
+  {
+    "file": "icone-home-staging-2.png",
+    "verdict": "garder",
+    "raison": "Scene d'interieur en lumiere naturelle tres credible : grain photo, degrade de lumiere de la fenetre, parquet et tapis textures, aucun defaut visible.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-jacuzzi-2.png",
+    "verdict": "refaire",
+    "raison": "Rendu clairement 3D : lattes de bois parfaitement identiques, bulles d'eau figees facon plastique, absence totale de reflets, de vapeur et de vraies ombres.",
+    "defauts": [
+      "pas_photo_realiste"
+    ],
+    "prompt_corrige": "Bain nordique rond en bois clair avec cerclages metalliques, rempli d'eau chaude en mouvement avec de la mousse et quelques gouttes sur le bord, photographie en studio sur fond blanc. Le bois montre ses veines, ses noeuds et de legeres differences de teinte entre les lattes, l'eau presente des reflets et une fine vapeur, une ombre portee nette au sol. Photographie reelle prise au reflex, lumiere naturelle douce, ombres reelles, textures visibles, couleurs naturelles. PAS d'illustration, PAS de rendu 3D. Aucun texte lisible, aucun logo de marque."
+  },
+  {
+    "file": "icone-checkin-2.png",
+    "verdict": "refaire",
+    "raison": "Le packshot est beau et credible, mais les chiffres du clavier sont nets et lisibles et forment une sequence incoherente (1-3, 4-6, 6-0, 7-8 : le 6 est duplique, il manque le 2, le 5 et le 9).",
+    "defauts": [
+      "texte_lisible_fautif"
+    ],
+    "prompt_corrige": "Boite a cles securisee murale en metal gris martele, posee sur fond blanc studio, avec un trousseau de trois cles argentees pose a cote. Le clavier a code est vu de trois quarts et ses touches sont lisses et vierges, sans aucun chiffre grave ni lisible. Ombre portee douce sur le fond blanc. Photographie reelle prise au reflex, lumiere naturelle douce, ombres reelles, textures visibles, couleurs naturelles. PAS d'illustration, PAS de rendu 3D. Aucun texte lisible, aucun logo de marque."
+  },
+  {
+    "file": "icone-linge-2.png",
+    "verdict": "garder",
+    "raison": "Pile de serviettes blanches parfaitement credible : boucles d'eponge visibles, plis irreguliers naturels, ombre portee reelle sur un fond blanc propre.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-serrure-2.png",
+    "verdict": "refaire",
+    "raison": "Le pave numerique affiche un charabia bien lisible (4 8 9 au lieu de 7 8 9, deux touches 0, une touche + incongrue) et l'objet a un rendu de synthese 3D : plastique parfaitement lisse, lumiere plate, quasiment aucune ombre de contact.",
+    "defauts": [
+      "texte_lisible_fautif",
+      "pas_photo_realiste"
+    ],
+    "prompt_corrige": "Serrure electronique noire a clavier, installee sur une porte d'entree en bois clair, photographiee de trois quarts en lumiere du jour. Les touches sont vues en biais et legerement en contre-jour, aucun chiffre n'est lisible. Micro-rayures et poussiere legere sur le plastique, reflet doux d'une fenetre, ombre de contact marquee sur la porte. Photographie reelle prise au reflex, lumiere naturelle douce, ombres reelles, textures visibles, couleurs naturelles. PAS d'illustration, PAS de rendu 3D. Aucun texte lisible, aucun logo de marque."
+  },
+  {
+    "file": "icone-proprietaire-2.png",
+    "verdict": "refaire",
+    "raison": "Gros plan sur les mains avec une anatomie fautive : le premier doigt qui enveloppe est un moignon sans ongle, les doigts suivants fusionnent en une masse molle et leur taille augmente au lieu de diminuer vers l'auriculaire.",
+    "defauts": [
+      "anatomie_fausse"
+    ],
+    "prompt_corrige": "Poignee de main entre deux personnes en tenue professionnelle, chemise bleu clair et veste grise, cadrage un peu plus large qui montre les avant-bras et le haut du buste dans un bureau lumineux en arriere-plan flou. Mains nettes et anatomiquement exactes : cinq doigts par main, ongles visibles sur chaque doigt, doigts bien separes, pouces correctement places. Photographie reelle prise au reflex, lumiere naturelle douce, ombres reelles, textures visibles, couleurs naturelles. PAS d'illustration, PAS de rendu 3D. Aucun texte lisible, aucun logo de marque."
+  },
+  {
+    "file": "icone-agence-2.png",
+    "verdict": "garder",
+    "raison": "Vitrine d'agence immobiliere tres credible : lumiere du jour rasante, reflets et sale de la vitre, trottoir realiste, et les annonces sont volontairement floues donc sans texte fautif.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-impots-2.png",
+    "verdict": "refaire",
+    "raison": "La calculatrice nette a droite a un pavé numérique impossible : les touches 5 et 2 sont absentes et les libellés de fonction sont du charabia.",
+    "defauts": [
+      "objet_deforme",
+      "texte_lisible_fautif"
+    ],
+    "prompt_corrige": "Gros plan sur un formulaire de declaration fiscale francaise pose sur un bureau en bois clair, un stylo noir pose en travers du document, une paire de lunettes repliee a cote, lumiere de fenetre laterale en fin de journee. Le texte du formulaire reste totalement flou et illisible, hors de la zone de nettete. Pas de calculatrice ni d'appareil a touches dans le cadre. Cadrage en plongee legere, faible profondeur de champ. Photographie reelle prise au reflex, lumiere naturelle douce, ombres reelles, textures visibles, couleurs naturelles. PAS d'illustration, PAS de rendu 3D. Aucun texte lisible, aucun logo de marque."
+  },
+  {
+    "file": "icone-comptable-2.png",
+    "verdict": "refaire",
+    "raison": "La calculatrice, sujet principal et parfaitement nette, a un clavier faux (chiffres 5 et 2 manquants) et des touches portant des mots inventes lisibles.",
+    "defauts": [
+      "objet_deforme",
+      "texte_lisible_fautif"
+    ],
+    "prompt_corrige": "Coin de bureau de comptable vu en plongee : une pile de documents comptables sur une table en bois clair, un stylo a bille pose dessus, une tasse de cafe noir a cote, une paire de lunettes et un carnet ferme. Lumiere naturelle de fenetre, ombres portees longues et douces. Le texte des documents reste flou et illisible. Aucune calculatrice, aucun clavier, aucun appareil a touches visible dans le cadre. Photographie reelle prise au reflex, lumiere naturelle douce, ombres reelles, textures visibles, couleurs naturelles. PAS d'illustration, PAS de rendu 3D. Aucun texte lisible, aucun logo de marque."
+  },
+  {
+    "file": "icone-france-carte-2.png",
+    "verdict": "garder",
+    "raison": "Vraie photo de carte routiere pliee sur une table en bois : plis, grain du papier et profondeur de champ credibles, silhouette de la France reconnaissable avec la Corse.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-saisonnalite-2.png",
+    "verdict": "garder",
+    "raison": "Agenda ouvert avec dates entourees au feutre, lumiere de fenetre douce et ombres coherentes, textes volontairement flous donc conformes.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-objectif-2.png",
+    "verdict": "garder",
+    "raison": "Packshot propre sur fond blanc, texture de paille tressee tres realiste, couleurs de cible conformes et fleche correctement formee avec son ombre de contact.",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  }
+]
