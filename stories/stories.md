@@ -559,6 +559,53 @@ transformées en stories (les 8 de banque-01 + « parler d'argent »).
 
 ---
 
+## 10 quater. 🎬 KIT D'ASSETS MONTAGE SHORTS (03/08/2026)
+
+> Demande de Martin : des petites icônes / images générées avec la clé Gemini
+> pour le MONTAGE DES SHORTS, nommées EXACTEMENT comme les fichiers de
+> **Kilian** (le monteur) — c'est par le nom de fichier qu'il reconnaît le
+> sujet automatiquement.
+
+- **Script** : `shorts/gen_assets_shorts.py` (mêmes API/clé que
+  `gen_background.py`). **Sortie** : `shorts/assets-montage/*.png`.
+- **Les 2 règles de Kilian (via Martin)** :
+  1. toujours « fond blanc » ou « style icône flat » dans le prompt → rendu
+     net qui s'intègre dans les cartes du montage ;
+  2. nom de fichier EXACT : minuscules, tirets, sans espaces (ex.
+     `icone-cashflow.png`) — ne jamais renommer autrement.
+- 31 assets dans le kit v1 : administratif (mairie, autorisation proprio,
+  numéro d'enregistrement, changement d'usage), argent (cashflow,
+  rentabilité, calculatrice, loyer), plateformes (logo-booking,
+  logo-abritel, capture-annonce-airbnb en 9:16, étoiles avis), conciergerie
+  (ménage, checkin, linge, serrure), prospection (proprietaire, agence,
+  contrat, telephone), ameublement (meuble, home-staging, jacuzzi,
+  photo-appartement en 9:16), fiscalité (lmnp, impots, comptable), marché
+  (france-carte, saisonnalite), mindset (objectif, experience).
+- ⚠️ Le tableau de Martin est arrivé COUPÉ à droite : les noms suivants ont
+  été complétés/déduits (à confirmer avec Kilian si un nom ne matche pas) :
+  menage, checkin, linge, serrure, proprietaire, agence, contrat, telephone,
+  home-staging, photo-appartement, impots, comptable, france-carte,
+  saisonnalite, objectif, experience. La fin du tableau Mindset était
+  peut-être tronquée : s'il manque des lignes, Martin renverra la suite.
+### 🚫 RÈGLE ANTI-IA (ordre de Martin, 03/08/2026) : « je ne veux pas que ça fasse IA »
+
+Apprentissage majeur du 1er lot, à appliquer à TOUT asset de montage :
+
+| Type d'asset | Comment le fabriquer | Pourquoi |
+|---|---|---|
+| **Texte lisible dans l'image** (capture d'interface, badge avec phrase) | **HTML + Playwright** (`shorts/build_captures.py`) | L'IA image écrit FAUX. La capture Airbnb générée sortait « Appartement Lumiuxeux », « Espace de trovail dédié », « Vous ne paieer quaprèts la confirmation », dates « 10 /Uin ». Ça se voit en une seconde. |
+| **Logo d'une vraie marque** | Le **vrai fichier** du kit presse de la marque | L'IA invente le logotype. Le « logo Abritel » généré était faux + fautif (« Trouviez votre location »). Remplacé par un badge propre fabriqué en HTML, qui ne prétend pas être le logo officiel. |
+| **Icône / illustration / photo** | Gemini (`gen_assets_shorts.py`) | C'est là que l'IA est bonne — à condition d'interdire le texte. |
+
+Prompt-type anti-IA pour les icônes : sujet + « style icône flat minimaliste,
+fond blanc uni, contours nets, **sans texte, sans lettres**, sans watermark ».
+Pour les photos : « photographie immobilière professionnelle, lumière
+naturelle du jour, photo réaliste, couleurs naturelles, aucun texte ».
+
+Contrôle qualité obligatoire : **regarder chaque image générée** avant
+livraison (fautes d'orthographe, lettres déformées, objets déformés, fond
+sale). Un audit en parallèle par agents est la méthode rodée.
+
 ## 11. 🔁 Production (process hebdo)
 
 1. **Le dimanche** (ou lundi matin) : préparer le plan de la semaine dans
@@ -626,6 +673,11 @@ But : [ce que la story doit déclencher]
   (a) le retour de Martin sur la V4, (b) SES PHOTOS en ZIP pour les médaillons
   et fonds. ENSUITE : banque-02 avec d'autres vidéos du catalogue (30 listées,
   8 utilisées) et caler le rythme de publication (1 séquence = 1 jour).
+- **2026-08-03 (tard, 2) : KIT ASSETS MONTAGE SHORTS.** Martin a envoyé la
+  liste des assets de Kilian (prompts + noms de fichiers) : 31 icônes/images
+  générées via Gemini (`shorts/gen_assets_shorts.py`), noms exacts de
+  Kilian (voir section 10 quater — noms tronqués complétés, à confirmer).
+  Zip envoyé à Martin dans la conversation.
 - **2026-08-03 (tard) : STYLE DÉFINITIF + REGÉNÉRATION TOTALE.** Martin a
   tranché sur capture (cover séquence A) : TOUTES les stories dans le style
   « photo fait main », plus de stories aux couleurs de la charte, LOGO

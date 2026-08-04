@@ -1,0 +1,326 @@
+[
+  {
+    "file": "icone-loyer.png",
+    "verdict": "refaire",
+    "raison": "Les billets sont des faux euros fondus les uns dans les autres avec des chiffres tronques (\"50\", \"00\"), rendu semi-realiste incompatible avec une icone flat et petite maison qui traverse l'enveloppe.",
+    "texte_visible": "1200 / LOYER / (sur les billets, chiffres tronques : \"50\", \"00\", \"00\", \"00\") / symbole €",
+    "defauts": [
+      "lettres_deformees",
+      "objet_deforme",
+      "style_incoherent",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone d'une enveloppe ouverte vue de face contenant trois billets stylises simples et un symbole euro, une petite maison posee a cote, palette bleu et vert doux, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "logo-booking.png",
+    "verdict": "refaire",
+    "raison": "Ce n'est pas le vrai logo Booking.com : degrade bleu invente, double lettre B superposee et vague decorative inexistante sur la marque officielle.",
+    "texte_visible": "Booking.com",
+    "defauts": [
+      "logo_faux",
+      "lettres_deformees",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Ne pas generer ce logo par IA : telecharger le logo officiel Booking.com depuis la mediatheque de marque. A defaut, icone generique de plateforme de reservation : petit ecran de smartphone bleu marine affichant une carte de logement et une coche, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "logo-abritel.png",
+    "verdict": "refaire",
+    "raison": "Faute d'orthographe dans la baseline (\"Trouviez\" au lieu de \"Trouvez\") et marque inventee : le vrai logo Abritel/Vrbo n'a ni ce toit-vague ni cette typographie.",
+    "texte_visible": "Abritel Vrbo / Trouviez votre location de vacances",
+    "defauts": [
+      "faute_orthographe",
+      "logo_faux",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Ne pas generer ce logo par IA : utiliser le logo officiel Abritel (Vrbo) fourni par la marque. A defaut, icone generique de location de vacances : maison simple bleu marine avec un toit orange et une petite valise, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "capture-annonce-airbnb.png",
+    "verdict": "refaire",
+    "raison": "Fausse capture truffee de fautes (\"Lumiuxeux\", \"trovail\", \"paieer quaprès\"), dates baragouinees (\"10 /Uin\", \"20 Un\") et bouton Reserver bleu alors qu'Airbnb est rouge.",
+    "texte_visible": "airbnb / Appartement Lumiuxeux & Moderne - Centre-Ville / Paris, France / .95 (358 évaluations) • Superhôte / 120 € par nuit / 10 /Uin - 20 /24 / 20 Un - 20 /24 / Ce que propose ce logement / Wi≤i/Fi / Espace de trovail dédié / Lave-linge / Réserver / Vous ne paieer quaprès la confirmation",
+    "defauts": [
+      "faute_orthographe",
+      "lettres_deformees",
+      "objet_deforme",
+      "logo_faux",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Ne pas generer cette capture par IA : faire une vraie capture d'ecran d'une annonce sur l'application Airbnb, ou reconstituer la maquette dans un outil de design pour maitriser chaque mot. A defaut, illustration d'un ecran de smartphone montrant une fiche de logement : grande photo d'appartement, une ligne de note en etoiles, un prix et un bouton d'action rouge arrondi, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-etoiles-avis.png",
+    "verdict": "refaire",
+    "raison": "Rendu medaille 3D doree ultra brillante facon banque d'images au lieu d'une icone flat d'etoiles d'avis, avec couronne de laurier baveuse et badge \"SUPERHOST\" en anglais.",
+    "texte_visible": "SUPERHOST / AVIS CLIENT",
+    "defauts": [
+      "style_incoherent",
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone de cinq etoiles pleines alignees horizontalement, toutes exactement de la meme taille, couleur jaune dore uni sans reflet, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-mairie.png",
+    "verdict": "refaire",
+    "raison": "Le drapeau du mat est casse en deux morceaux detaches (bande bleu-blanc puis rectangle rouge flottant dans le vide) et le second drapeau chevauche l'horloge de facon impossible.",
+    "texte_visible": "MAIRIE",
+    "defauts": [
+      "objet_deforme"
+    ],
+    "prompt_corrige": "Facade d'une mairie francaise vue de face, symetrique, toit en ardoise fonce, petit clocheton central avec horloge ronde bien visible et non masquee, UN SEUL drapeau tricolore bleu blanc rouge d'un seul tenant, entierement attache au mat, sans morceau detache, fenetres en arcade regulieres, formes geometriques simples et epurees, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-autorisation-proprietaire.png",
+    "verdict": "refaire",
+    "raison": "Le titre est mal orthographie : \"PROPRIETERE\" au lieu de \"PROPRIETAIRE\", et les doigts de la poignee de main fusionnent.",
+    "texte_visible": "ACCORD DU PROPRIÉTERE",
+    "defauts": [
+      "faute_orthographe",
+      "objet_deforme"
+    ],
+    "prompt_corrige": "Document contractuel rectangulaire avec quelques lignes bleues abstraites, stylo plume pose en diagonale sur le document, poignee de main stylisee en dessous avec deux mains simples a cinq doigts distincts et bien separes, composition centree, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-numero-enregistrement.png",
+    "verdict": "refaire",
+    "raison": "Le formulaire est couvert de texte baragouine (\"D'ENBEGRTEMENT\", \"Cgrfeelnttez\", tampon illisible), avec la faute \"Personelles\" et un placeholder anglais \"[CITY]\".",
+    "texte_visible": "FORMULAIRE OFFICIEL DE LA VILLE DE [CITY] / NUMÉRO D'ENBEGRTEMENT : 12345/2023 / Cgrfeelnttez: / Informations Personelles / Objet de Demande / Signature / Date: ___/___ / (tampon) MAIRIE DE |PIEL| OFFICIEL",
+    "defauts": [
+      "faute_orthographe",
+      "lettres_deformees",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Feuille de formulaire administratif vierge vue de face, cadre bleu fin, lignes horizontales grises abstraites suggerant des champs a remplir, un cartouche rectangulaire en haut a gauche, un tampon rond bleu et rouge parfaitement lisse et vide, une petite signature manuscrite stylisee, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-cashflow.png",
+    "verdict": "refaire",
+    "raison": "Les billets sont fondus et incoherents (motifs baveux, \"200 EURO\" bricole, billet 100 coupe) et la fleche traverse la liasse avec une perspective impossible.",
+    "texte_visible": "CASHFLOW / 200 EURO / 100",
+    "defauts": [
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Liasse de billets de banque stylisee vue en legere perspective isometrique, billets vert clair uniformes sans motif ni inscription, entourage de bandeau papier blanc, grande fleche verte montante placee derriere la liasse sans la traverser, geometrie simple et coherente, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-calculatrice.png",
+    "verdict": "refaire",
+    "raison": "Touche inventee \"CAC\", touche egal fondue en tache floue, melange francais/anglais (\"Return\") et inscriptions illisibles sur les pieces de monnaie.",
+    "texte_visible": "CALCUL DE RENTABILITÉ / + 1,250.00 → 1,500.00 / Return: 20% / = 250.00 / CAC + M+ − ÷ / 7 8 9 × / / 4 5 6 / 0 00 . = / OK / 50 CENT / 20 / 1",
+    "defauts": [
+      "lettres_deformees",
+      "objet_deforme",
+      "style_incoherent"
+    ],
+    "prompt_corrige": "Calculatrice de bureau vue de face, corps bleu pastel, ecran rectangulaire vide de couleur claire, grille reguliere de touches arrondies unies et parfaitement nettes sans aucune inscription, une seule touche accent orange en haut a gauche, trois pieces de monnaie rondes lisses et vierges posees en bas, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-menage.png",
+    "verdict": "garder",
+    "raison": "Icone flat propre et lisible sur fond blanc, aucun texte donc aucun risque de faute, contours nets et coherents (la tache bleue derriere est un aplat decoratif volontaire, pas un fond sale).",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-checkin.png",
+    "verdict": "garder",
+    "raison": "Boitier a cle avec clavier et coche verte : rendu flat coherent, fond blanc propre, et le seul texte present, SELF CHECK-IN, est correctement orthographie et parfaitement lisible.",
+    "texte_visible": "SELF CHECK-IN",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-linge.png",
+    "verdict": "refaire",
+    "raison": "La pile de linge est peinte en blanc casse sur fond blanc : les serviettes se fondent les unes dans les autres et dans le fond, les bords du bas se dissolvent, on ne lit plus la forme, ce qui est typiquement le rendu flou d'une image IA et sera invisible au montage.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Pile de cinq serviettes et draps blancs plies, empiles bien droits les uns sur les autres, chaque piece nettement separee par un contour sombre epais et un liseré bleu, forte lisibilite et fort contraste avec le fond, une petite goutte d'eau bleue posee a cote, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-serrure.png",
+    "verdict": "garder",
+    "raison": "Serrure connectee en aplat vectoriel : contours nets, fond blanc propre, chiffres du clavier bien formes et lisibles, aucun mot donc aucune faute possible.",
+    "texte_visible": "**** / 1 2 3 4 5 6 7 8 9",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-proprietaire.png",
+    "verdict": "refaire",
+    "raison": "Le titre affiche PROPRIETOIRE au lieu de PROPRIETAIRE : mot inexistant en francais, faute qui trahit immediatement l'IA et qui sera lue en plein ecran dans le short.",
+    "texte_visible": "ACCORD PROPRIÉTOIRE",
+    "defauts": [
+      "faute_orthographe"
+    ],
+    "prompt_corrige": "Poignee de main entre deux personnes en costume, symbole d'un accord entre un gestionnaire et un proprietaire, deux mains completes avec cinq doigts chacune, anatomie correcte et bien lisible, manches de veste bleue et grise, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-jacuzzi.png",
+    "verdict": "garder",
+    "raison": "Icone flat propre au trait regulier, fond blanc net, aucun texte donc aucun risque de faute, sujet immediatement lisible (jacuzzi avec baigneurs et palmiers).",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "photo-appartement.png",
+    "verdict": "refaire",
+    "raison": "Rendu tres lisse facon image generee (lumiere uniforme, matieres plastifiees), le fauteuil de gauche est coupe au bord avec une masse blanche informe posee dessus et un tiers de l image est un plafond vide inutilisable en format short.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Photographie d interieur naturelle d un salon d appartement lumineux : canape gris avec meridienne, table basse ronde en bois clair, tapis a motif discret, grande plante verte, bibliotheque en chene, grande fenetre a gauche avec lumiere du jour laterale. Cadrage a hauteur d oeil centre sur le coin salon, plafond a peine visible, aucun animal, aucun personnage, aucun objet coupe au bord du cadre, mains et objets parfaitement definis. Rendu photo reelle grain fin, ombres douces mais franches, imperfections naturelles des matieres, sans effet 3D brillant, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-lmnp.png",
+    "verdict": "garder",
+    "raison": "Le texte est orthographie sans faute (LMNP, LOUEUR MEUBLE NON PROFESSIONNEL avec accent correct), lettres nettes et regulieres, fond blanc propre avec une simple ombre douce.",
+    "texte_visible": "LMNP / LOUEUR MEUBLÉ NON PROFESSIONNEL",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-impots.png",
+    "verdict": "refaire",
+    "raison": "Le sceau officiel en haut a gauche est un faux emblème de la Republique francaise dont le texte circulaire est un baragouin illisible, et le drapeau francais a cote est mal construit (deux barres separees, bande blanche absente).",
+    "texte_visible": "DÉCLARATION DES REVENUS / FORMULAIRE 2042 / texte circulaire du sceau illisible (lettres baragouinées)",
+    "defauts": [
+      "lettres_deformees",
+      "objet_deforme",
+      "logo_faux"
+    ],
+    "prompt_corrige": "Icone d un formulaire de declaration de revenus : une feuille de papier verticale vue de face, remplie de blocs et de lignes stylises figurant des champs a remplir, quelques cases a cocher et un curseur de souris, palette bleu et blanc. Aucun sceau, aucun emblème, aucun drapeau, aucun logo officiel. Style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-comptable.png",
+    "verdict": "refaire",
+    "raison": "Faute d orthographe flagrante dans le mot principal : EXPERT-COMPCTABLE au lieu de EXPERT-COMPTABLE, et un boulier flotte tout seul derriere la calculatrice, coupe et sans support.",
+    "texte_visible": "EXPERT-COMPCTABLE / 123.45 (écran de la calculatrice)",
+    "defauts": [
+      "faute_orthographe",
+      "objet_deforme"
+    ],
+    "prompt_corrige": "Icone d un expert-comptable : homme en costume sombre, chemise bleu clair et cravate rouge, souriant, tenant d une main une feuille de calcul avec une pastille de validation et de l autre main une calculatrice grise. Deux mains completes a cinq doigts, un seul instrument de calcul, aucun objet flottant ni coupe. Style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-france-carte.png",
+    "verdict": "garder",
+    "raison": "Silhouette de la France propre et reconnaissable, Corse presente, fond blanc, aucun texte donc aucun risque de faute.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "aucun"
+    ],
+    "prompt_corrige": ""
+  },
+  {
+    "file": "icone-saisonnalite.png",
+    "verdict": "refaire",
+    "raison": "Texte massivement fautif et invente (JUNIE, FEBRUER, AUNIL, MUNE, JUY, JULT, LOW SEASEN, DEEMBER SEASON) avec des mois qui ne correspondent pas a leur etiquette.",
+    "texte_visible": "JUNIE / MARCH / APRIL / AUNIL ; JUNIE / FEBRUER / MAI / JULY ; MUNE / MAI / JUY / JULT ; LOW SEASON / LOW SEASON / LOW SEASEN / LOW SEASON ; SEPTEMBER / SEPTEMBER / NOVEMBER / DECEMBER ; HIGH SEASON / LOW SEASON / LOW SEASON / DEEMBER SEASON ; Haute Saison / Basse Saison / Orange / Blue",
+    "defauts": [
+      "faute_orthographe",
+      "lettres_deformees",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone de saisonnalite touristique : un calendrier stylise simplifie dont les cases sont colorees en orange pour la haute saison et en bleu pour la basse saison, accompagne d un petit soleil orange et d une vague bleue comme symboles, composition symetrique et epuree, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-objectif.png",
+    "verdict": "refaire",
+    "raison": "La pastille verte de validation chevauche et ampute le T final du mot ATTEINT, rendant la fin du texte illisible, et les anneaux de la cible suivent un ordre de couleurs incoherent.",
+    "texte_visible": "OBJECTIF ATTEINT",
+    "defauts": [
+      "lettres_deformees",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone d objectif atteint : une cible d archerie vue de face avec des anneaux concentriques reguliers du bleu fonce exterieur vers le rouge central, une fleche noire plantee exactement dans le mille en diagonale, geometrie parfaitement circulaire, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-experience.png",
+    "verdict": "refaire",
+    "raison": "Fond gris beige degrade au lieu de blanc, ombre diffuse baveuse, rendu 3D dore brillant facon banque d images, cercle ovalise irregulier et couronne de lauriers asymetrique.",
+    "texte_visible": "11 ANS D'EXPERIENCE / 11 ANS",
+    "defauts": [
+      "fond_pas_blanc",
+      "style_incoherent",
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone de badge d anciennete : un medaillon parfaitement circulaire bleu marine borde d un liseré dore mat, encadre par deux branches de laurier strictement symetriques, portant en son centre le nombre 11 en gros chiffres, aplats de couleur unis sans degrade ni effet metallique, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-agence.png",
+    "verdict": "refaire",
+    "raison": "Le mot IMMOBILIER est bien orthographie et le fond est blanc propre, mais chaque affiche de vitrine contient un element parasite non identifiable (un crochet orange sortant du toit relie a une etiquette bleue, plus un rectangle bleu flottant detache en dessous), duplique a l'identique dans les deux vitrines, ce qui trahit immediatement la generation IA.",
+    "texte_visible": "IMMOBILIER",
+    "defauts": [
+      "objet_deforme"
+    ],
+    "prompt_corrige": "Icone d'une devanture d'agence immobiliere vue de face, facade symetrique avec auvent et enseigne rectangulaire vierge portant seulement une petite cle stylisee, deux vitrines identiques et propres montrant chacune une affiche avec une maison simple et deux barres de legende, porte d'entree sur la droite, palette bleu et orange en aplats unis sans degrade, chaque forme fermee et reliee a l'ensemble, aucun element flottant, detache ou coupe, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-contrat.png",
+    "verdict": "refaire",
+    "raison": "Aucun texte donc aucune faute, mais le paraphe est trace en dehors de la feuille, flottant sur le fond blanc, la seconde feuille en arriere-plan est un fantome translucide dont les lignes se dissolvent, et un anneau gris pale entoure toute l'image : l'ensemble sent l'IA.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone d'un contrat signe : une seule feuille de papier vue de trois quarts, lignes de texte representees par des barres pleines regulieres, une croix et un trait de signature traces DIRECTEMENT sur la feuille et entierement contenus dans ses bords, un stylo plume pose dessus dont la pointe touche la ligne de signature, aplats de couleur unis sans degrade ni transparence, aucune feuille fantome en arriere-plan, aucun cercle ni cadre autour du sujet, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-telephone.png",
+    "verdict": "refaire",
+    "raison": "Le libelle PROSPECT CALL est en anglais et le symbole monetaire est un dollar americain alors que le montage est francais, et la bulle bleue est posee a cheval sur le cadre du telephone en debordant hors de l'appareil, ce qui cree un empilement impossible.",
+    "texte_visible": "PROSPECT CALL",
+    "defauts": [
+      "style_incoherent",
+      "objet_deforme"
+    ],
+    "prompt_corrige": "Icone d'un smartphone vu de face montrant un appel entrant : un combine telephonique stylise au centre de l'ecran, une bulle de discussion avec un casque micro entierement contenue A L'INTERIEUR de l'ecran, une petite fleche montante portant un symbole euro, palette bleu et vert en aplats unis, aucun element ne depasse du cadre de l'appareil, ombre portee douce et nette sous le telephone, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-meuble.png",
+    "verdict": "refaire",
+    "raison": "Fond blanc propre et aucun texte, mais les deux fauteuils gris s'interpenetrent et fusionnent, plusieurs pieds sont flottants ou coupes en l'air, le socle du lampadaire est detache de son mat, l'accoudoir droit du canape est duplique et le meuble TV suit une perspective opposee au reste.",
+    "texte_visible": "aucun",
+    "defauts": [
+      "objet_deforme",
+      "aspect_ia_evident"
+    ],
+    "prompt_corrige": "Icone d'un salon meuble vu de face en elevation simple : un canape trois places, une table basse ovale devant, UN seul fauteuil nettement separe du canape, un meuble TV bas avec un televiseur, un lampadaire complet dont le pied repose au sol, chaque meuble entier, distinct et pose au sol, aucun chevauchement ni pied flottant, meme perspective frontale pour tous les objets, palette bleu et gris en aplats unis, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  },
+  {
+    "file": "icone-home-staging.png",
+    "verdict": "refaire",
+    "raison": "Faute d'orthographe flagrante en bas de l'image : APPARTAMENT au lieu de APPARTEMENT, et le rendu est une illustration croquis detaillee au lieu d'une icone flat, incoherent avec le reste du lot.",
+    "texte_visible": "AVANT / APRÈS | HOME STAGING | AVANT | APRÈS | APPARTAMENT",
+    "defauts": [
+      "faute_orthographe",
+      "style_incoherent"
+    ],
+    "prompt_corrige": "Icone avant/apres de home staging : un cadre carre divise en deux moities par une ligne verticale nette, a gauche un salon terne et encombre (canape fatigue, objets au sol) en gris desatures, a droite exactement le meme salon range et lumineux (canape clair, coussins, plante, tapis) en couleurs douces, meme cadrage et meme mobilier des deux cotes, une simple fleche au centre indiquant la transformation, aplats de couleur unis sans texture ni ombrage sale, style icone flat, fond blanc uni, minimaliste, contours nets, sans texte, sans lettres, sans watermark"
+  }
+]
