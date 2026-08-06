@@ -553,10 +553,24 @@ d'hiver (fin octobre), passer les crons à `0 7 * * 1` et `0 7 * * 4`.
    sondages sans CTA). Étendre `build_banque.py` / `build_interactifs.py` ou
    créer un build dédié, rendre via `render_stories.py`.
 7. Commit + push (le conteneur est éphémère : rien ne reste local).
-8. **Livraison dans la conversation** : zip des JPEG via SendUserFile, et la
-   livraison BIEN EN ÉVIDENCE en haut du message (Martin transfère tel quel
-   à son frère Pierre, sans retouche). Indiquer quelles stories attendent un
-   sticker Instagram (sondage/quiz).
+8. **DOUBLE LIVRAISON** (demande de Martin, 06/08/2026) :
+   **(a) Dans la conversation** : zip des JPEG via SendUserFile, livraison BIEN
+   EN ÉVIDENCE en haut du message (Martin transfère tel quel à son frère
+   Pierre, sans retouche). Indiquer quelles stories attendent un sticker
+   Instagram (sondage/quiz).
+   **(b) Sur GitHub, dans `livraison/`**, pour le robot Mac de Martin qui vient
+   les chercher tout seul et les programme sur Instagram :
+   ```
+   python3 stories/engine/livraison.py <lot> [<lot>...] --sujet <mot-cle> \
+       --video <id> --titre "<titre francais>"
+   python3 stories/engine/livraison.py --controle     # OBLIGATOIRE avant le push
+   ```
+   Format produit : `livraison/stories-<AAAA-MM-JJ>-<sujet>/` avec `01.jpg`,
+   `02.jpg`... dans **l'ordre de publication**, plus `description.txt`.
+   ⚠️ Si `--controle` sort en code 1 (fournée incomplète) : **ne PAS pousser en
+   silence.** Corriger, relancer. Si ça ne passe toujours pas, pousser ce qui
+   existe MAIS le dire à Martin **en première ligne**, en nommant ce qui manque
+   et pourquoi. Une story perdue en silence est la pire faute possible.
 9. Mettre à jour `stories/robot/traite.json` APRÈS la livraison, jamais avant.
 10. **En cas d'échec** (réseau, Gemini surchargé, rendu...) : le dire
     franchement dans la conversation. Jamais de faux « c'est fait ».
@@ -571,6 +585,23 @@ ci-dessus) et confirmer. S'il écrit **START** : les réactiver
 ### Registre anti-doublon
 `stories/robot/traite.json` — semé le 03/08/2026 avec les 9 vidéos déjà
 transformées en stories (les 8 de banque-01 + « parler d'argent »).
+
+### 📬 Coordonnées pour le robot Mac (données par Martin le 06/08/2026)
+
+| | |
+|---|---|
+| **Dépôt** | `https://github.com/xSARRASx/CARROUSSEL-` |
+| **Branche** | `claude/instagram-stories-strategy-ni1w08` |
+| **Dossier** | `livraison/` |
+| **Nom des fournées** | `stories-<AAAA-MM-JJ>-<sujet>/` |
+| **Contenu** | `01.jpg`, `02.jpg`... (ordre de publication) + `description.txt` |
+| **Format des images** | JPEG, 1080 × 1920, sans métadonnées |
+| **Volume moyen** | 15 à 30 stories par fournée |
+
+⚠️ À ne pas confondre avec le robot carrousels, qui livre lui aussi dans
+`livraison/` mais sur une AUTRE branche (`claude/carrousel-instagram-robot-hk4743`)
+et avec le préfixe `lsl-` / `gl-`. Les stories utilisent le préfixe
+`stories-` : les deux robots ne se marchent jamais dessus.
 
 ---
 
