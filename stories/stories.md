@@ -825,8 +825,18 @@ Les **samedis sont réservés aux quiz et sondages** : ils réclament un sticker
 de vote qu'Instagram interdit sur une story programmée. Un seul moment manuel
 par semaine.
 
-Les créneaux témoignages de Pierre (mercredi et dimanche) s'ajoutent en plus,
-il les poste quand il veut dans la journée.
+### ⚠️ TROIS personnes postent, à TROIS moments différents
+
+| Qui | Quand | Quoi | Comment |
+|---|---|---|---|
+| **Le robot Mac** | tous les jours, **12h00** | la séquence du jour | programmé depuis `auto/` |
+| **Martin** | **samedi 12h00** | quiz et sondages | à la main, depuis `manuel/` |
+| **Pierre** | **mercredi et dimanche, 19h00** | ses témoignages + la story GO | à la main, depuis son pack |
+
+**Les créneaux ne se croisent jamais.** Deux publications au même moment se
+mélangeraient dans la même bulle de stories : le témoignage de Pierre
+s'intercalerait au milieu de la séquence programmée, et la logique de lecture
+serait cassée. D'où le décalage à 19h pour Pierre.
 
 ### Programmer tout le stock d'avance
 

@@ -7,7 +7,14 @@
 
 ## Ton rôle, en deux minutes
 
-Tu postes **deux fois par semaine** : **le mercredi** et **le dimanche**.
+Tu postes **deux fois par semaine** : **le mercredi** et **le dimanche**,
+**vers 19h**.
+
+⚠️ **Pas avant 19h, et surtout pas à midi.** Une séquence de stories est déjà
+programmée tous les jours à 12h : si tu postes au même moment, ton témoignage
+s'intercale au milieu et les deux se mélangent. Le soir, la séquence de midi a
+été vue, et les gens sont disponibles pour répondre au « Réponds GO ».
+
 À chaque fois, deux stories à la suite :
 
 **1. Ton témoignage** — tu prends un des modèles du zip, tu le postes en story,
