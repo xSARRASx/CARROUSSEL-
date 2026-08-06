@@ -11,10 +11,15 @@ programmer les stories sur Instagram.
 FORMAT PRODUIT (aligné sur le robot carrousels déjà en place) :
 
     livraison/stories-<AAAA-MM-JJ>-<sujet>/
-        01.jpg, 02.jpg, 03.jpg ...   <- ORDRE DE PUBLICATION
-        description.txt              <- texte associé + mémo de publication
+        auto/       <- LE ROBOT MAC NE PROGRAMME QUE CE DOSSIER
+                       jeudi-0800-01.jpg : jour, heure de Paris, rang dans la vague
+        manuel/     <- stories a poster A LA MAIN, le samedi, regroupees
+                       samedi-1100-01-SONDAGE.jpg : le nom dit le sticker a poser
+        reserve/    <- surplus de la fournee, sans creneau cette semaine
+                       sert de stock pour les semaines sans video
+        description.txt
 
-La numérotation EST l'ordre de publication : 01 se poste en premier.
+Le nom du fichier PORTE son creneau : <jour>-<HHMM>-<rang>.jpg
 
 Usage :
     python3 livraison.py <lot> [<lot> ...] --sujet <mot-cle> [--date AAAA-MM-JJ]
@@ -26,6 +31,18 @@ pousse PAS en silence : on alerte Martin en première ligne.
 """
 import argparse, datetime, json, pathlib, shutil, sys
 from PIL import Image
+from planning import GRILLE, jours_de_la_fournee, besoin_sticker
+
+def creneaux_auto(jours):
+    """Déroule la grille en une liste plate (jour, heure, rang dans la vague)."""
+    plan = []
+    for j in jours:
+        for heure, n, _, mode in GRILLE[j]:
+            if mode != "auto":
+                continue
+            for r in range(1, n + 1):
+                plan.append((j, heure, r))
+    return plan
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]     # stories/
 REPO = ROOT.parent                                      # CARROUSSEL-/
@@ -52,8 +69,9 @@ def jpgs_du_lot(lot):
         return []
     return sorted(d.glob("*.jpg"))
 
-def livrer(lots, sujet, date, video=None, titre=None, note=None):
+def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi'):
     lots = trier_lots(lots)
+    jours = jours_de_la_fournee(reveil)
     fichiers = []
     for lot in lots:
         f = jpgs_du_lot(lot)
@@ -67,10 +85,35 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None):
     dossier = LIVRAISON / f"{PREFIXE}{date}-{sujet}"
     if dossier.exists():
         shutil.rmtree(dossier)
-    dossier.mkdir(parents=True)
+    (dossier / "auto").mkdir(parents=True)
+    (dossier / "manuel").mkdir(parents=True)
 
-    for i, src in enumerate(fichiers, 1):
-        shutil.copy2(src, dossier / f"{i:02d}.jpg")
+    # SÉPARATION AUTO / MANUEL (exigence de Martin, 06/08/2026) :
+    # une story qui promet un vote ne doit JAMAIS partir en programmation
+    # sans son sticker, ce serait pire que de ne rien poster.
+    auto, manuel = [], []
+    for src in fichiers:
+        besoin, sticker = besoin_sticker(src.stem)
+        (manuel if besoin else auto).append((src, sticker))
+
+    # Les stories automatiques suivent la grille : jour et heure dans le nom.
+    # Une fournée riche produit souvent PLUS que ce que la semaine peut
+    # absorber : le surplus part en `reserve/` (c'est le stock qui couvrira
+    # les semaines sans vidéo). Le robot Mac ne programme QUE `auto/`.
+    plan = creneaux_auto(jours)
+    reserve = auto[len(plan):]
+    for i, (src, _) in enumerate(auto[:len(plan)]):
+        jour, heure, rang = plan[i]
+        shutil.copy2(src, dossier / "auto" / f"{jour}-{heure.replace(':', '')}-{rang:02d}.jpg")
+    if reserve:
+        (dossier / "reserve").mkdir(exist_ok=True)
+        for i, (src, _) in enumerate(reserve, 1):
+            shutil.copy2(src, dossier / "reserve" / f"{i:02d}-{src.stem}.jpg")
+
+    # Les stories manuelles sont toutes regroupées sur le samedi, et le nom
+    # dit quel sticker poser.
+    for i, (src, sticker) in enumerate(manuel, 1):
+        shutil.copy2(src, dossier / "manuel" / f"samedi-1100-{i:02d}-{sticker}.jpg")
 
     lignes = [
         f"Fournée de stories du {date}",
@@ -82,15 +125,18 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None):
         lignes.append(f"Identifiant YouTube : {video}")
     lignes += [
         "",
-        f"{len(fichiers)} stories, à publier dans l'ordre des numéros (01 en premier).",
-        "Format : JPEG 1080x1920, prêtes à poster telles quelles.",
+        f"{len(fichiers)} stories au total. Format : JPEG 1080x1920.",
         "",
-        "À SAVOIR AVANT DE PROGRAMMER :",
-        "- Les stories de type quiz et sondage attendent un sticker de vote Instagram,",
-        "  qui ne peut pas être ajouté à une story programmée : celles-là se postent",
-        "  à la main. Elles laissent volontairement la moitié basse libre.",
-        "- Les stories de témoignage ont un cadre en pointillés : c'est Pierre qui y",
-        "  colle son screenshot réel. Elles ne partent jamais en programmation auto.",
+        "COMMENT LIRE CE DOSSIER :",
+        "- auto/     : A PROGRAMMER. Le nom du fichier porte son creneau, en heure",
+        "              de Paris : <jour>-<HHMM>-<rang>.jpg. Exemple jeudi-0800-01.jpg",
+        "              = jeudi 8h00, premiere story de la vague.",
+        "- manuel/   : NE JAMAIS PROGRAMMER. Ces stories promettent un vote et le",
+        "              sticker de sondage Instagram ne peut pas etre pose sur une",
+        "              story programmee. Elles sont toutes regroupees le samedi 11h,",
+        "              et le nom dit quel sticker poser : SONDAGE ou QUESTIONS.",
+        "- reserve/  : surplus sans creneau cette semaine. Ne pas programmer, c'est",
+        "              le stock qui couvrira les semaines sans video.",
     ]
     if note:
         lignes += ["", note]
@@ -99,7 +145,9 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None):
         lignes.append(f"- {lot} ({len(jpgs_du_lot(lot))} stories)")
 
     (dossier / "description.txt").write_text("\n".join(lignes) + "\n", encoding="utf-8")
-    print(f"Livré : livraison/{dossier.name}  ({len(fichiers)} stories)", flush=True)
+    nres = len(list((dossier / "reserve").glob("*.jpg"))) if (dossier / "reserve").is_dir() else 0
+    print(f"Livré : livraison/{dossier.name}  "
+          f"({len(auto) - nres} programmables, {len(manuel)} manuel, {nres} en reserve)", flush=True)
     return dossier
 
 def controle():
@@ -115,18 +163,20 @@ def controle():
 
     alertes = []
     for d in dossiers:
-        images = sorted(d.glob("*.jpg"))
+        images = (sorted(d.glob("auto/*.jpg")) + sorted(d.glob("manuel/*.jpg"))
+                  + sorted(d.glob("reserve/*.jpg")))
         if not images:
             alertes.append(f"{d.name} : aucune image")
             continue
         if not (d / "description.txt").is_file():
             alertes.append(f"{d.name} : description.txt manquant")
         # numérotation continue, sans trou
-        attendus = [f"{i:02d}.jpg" for i in range(1, len(images) + 1)]
-        reels = [p.name for p in images]
-        if reels != attendus:
-            alertes.append(f"{d.name} : numérotation incorrecte "
-                           f"(attendu 01..{len(images):02d})")
+        if not (d / "auto").is_dir() or not (d / "manuel").is_dir():
+            alertes.append(f"{d.name} : sous-dossiers auto/ et manuel/ attendus")
+        for p in d.glob("manuel/*.jpg"):
+            if not any(p.stem.endswith(s) for s in ("SONDAGE", "QUESTIONS")):
+                alertes.append(f"{d.name}/manuel/{p.name} : le nom doit finir par "
+                               f"le sticker a poser (SONDAGE ou QUESTIONS)")
         for p in images:
             if p.stat().st_size == 0:
                 alertes.append(f"{d.name}/{p.name} : fichier vide")
@@ -138,7 +188,10 @@ def controle():
                                        f"au lieu de {W_ATTENDU}x{H_ATTENDU}")
             except Exception as e:
                 alertes.append(f"{d.name}/{p.name} : illisible ({e})")
-        print(f"OK  {d.name}  ({len(images)} stories)", flush=True)
+        na = len(list(d.glob("auto/*.jpg")))
+        nm = len(list(d.glob("manuel/*.jpg")))
+        nr = len(list(d.glob("reserve/*.jpg")))
+        print(f"OK  {d.name}  ({na} auto, {nm} manuel, {nr} reserve)", flush=True)
 
     if alertes:
         print("\nFOURNEE INCOMPLETE — ne pas pousser en silence :", flush=True)
@@ -156,6 +209,8 @@ def main():
     ap.add_argument("--video", help="identifiant YouTube de la video source")
     ap.add_argument("--titre", help="titre francais de la video")
     ap.add_argument("--note", help="texte libre ajoute a description.txt")
+    ap.add_argument("--reveil", choices=["lundi", "jeudi"], default="lundi",
+                    help="quelle fournee : lundi (lun-mer) ou jeudi (jeu-dim)")
     ap.add_argument("--controle", action="store_true")
     a = ap.parse_args()
 
@@ -164,7 +219,7 @@ def main():
     if not a.lots or not a.sujet:
         ap.error("il faut au moins un lot et --sujet (ou alors --controle)")
     date = a.date or datetime.date.today().isoformat()
-    d = livrer(a.lots, a.sujet, date, a.video, a.titre, a.note)
+    d = livrer(a.lots, a.sujet, date, a.video, a.titre, a.note, a.reveil)
     sys.exit(0 if d else 1)
 
 if __name__ == "__main__":

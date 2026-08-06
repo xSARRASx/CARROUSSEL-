@@ -790,3 +790,65 @@ But : [ce que la story doit déclencher]
 - **Prochaine étape :** mercredi 5 août, récupérer la transcription de la vidéo
   du soir et compléter la séquence du jeudi 6 août (placeholder posé dans le
   fichier semaine 01).
+
+---
+
+## 🕐 LA GRILLE DE DIFFUSION (06/08/2026) — jour par jour, heure par heure
+
+> Demandée par Martin avant de brancher la programmation automatique dans
+> Metricool. Le code fait foi : `stories/engine/planning.py`.
+
+**Deux principes qui commandent tout :**
+1. **Une séquence ne se coupe pas en rondelles.** Elle se lit d'une traite.
+   On poste par VAGUES de 2 à 3 stories qui s'enchaînent, jamais story par
+   story éparpillée sur la journée.
+2. **Une story qui promet un vote ne part jamais sans son sticker.** Instagram
+   interdit de poser un sticker sur une story programmée — aucun outil ne peut
+   le faire. Ces stories vont dans `manuel/` et sont **toutes regroupées le
+   samedi 11h**, pour un seul moment manuel par semaine.
+
+| Jour | Heure (Paris) | Stories | Contenu | Mode |
+|---|---|---|---|---|
+| Lundi | 08:00 | 3 | Séquence d'aide (vidéo du dimanche) : couverture + 2 | auto |
+| Lundi | 18:30 | 3 | Fin de séquence, sans CTA | auto |
+| Mardi | 08:00 | 2 | Conseil terrain | auto |
+| Mardi | 18:30 | 2 | Cadeau + mot-clé | auto |
+| Mercredi | 08:00 | 2 | Coulisses, parcours | auto |
+| Mercredi | 18:30 | 1 | Annonce de la vidéo de 18h | auto |
+| Mercredi | libre | — | **Témoignages de Pierre** | Pierre |
+| Jeudi | 08:00 | 3 | Séquence d'aide (vidéo du mercredi) | auto |
+| Jeudi | 18:30 | 3 | Fin de séquence, sans CTA | auto |
+| Vendredi | 08:00 | 2 | Rappel de valeur | auto |
+| Vendredi | 18:30 | 2 | Cadeau, mot-clé SIMULATEUR | auto |
+| **Samedi** | **11:00** | **5** | **QUIZ ET SONDAGES** | **MANUEL** |
+| Dimanche | 11:00 | 2 | Bilan, mise en bouche | auto |
+| Dimanche | 18:30 | 2 | Teaser + sortie vidéo 18h | auto |
+| Dimanche | libre | — | **Témoignages de Pierre** | Pierre |
+
+**Total : 32 stories par semaine**, dont 5 manuelles (le samedi) et 2 créneaux
+laissés à Pierre.
+
+### Les deux fournées ne se chevauchent jamais
+
+| Fournée | Couvre | Capacité |
+|---|---|---|
+| **Lundi** (vidéo du dimanche) | lundi, mardi, mercredi | 13 stories |
+| **Jeudi** (vidéo du mercredi) | jeudi, vendredi, samedi, dimanche | 19 stories |
+
+Chaque fournée alimente la période qui la sépare de la suivante. Aucun jour
+servi deux fois, aucun jour vide.
+
+⚠️ **Le jeudi est conditionnel.** Sans vidéo le mercredi, on pioche dans
+`reserve/` pour couvrir jeudi → dimanche.
+
+### Les trois dossiers de chaque livraison
+
+| Dossier | Le robot Mac | Contenu |
+|---|---|---|
+| `auto/` | **programme** | `<jour>-<HHMM>-<rang>.jpg`, le créneau est dans le nom |
+| `manuel/` | **ne touche jamais** | `samedi-1100-<NN>-<STICKER>.jpg` |
+| `reserve/` | **ne touche jamais** | surplus sans créneau, stock pour les semaines creuses |
+
+Une fournée riche dépasse souvent la capacité de la semaine : le surplus part
+en réserve plutôt que d'être posté n'importe quand. La fournée du 6 août :
+14 programmables, 5 manuelles, 8 en réserve.

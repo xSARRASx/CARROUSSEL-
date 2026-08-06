@@ -1,17 +1,20 @@
 Fournée de stories du 2026-08-06
 Sujet : condamnation-220k
-Vidéo source : Conciergerie condamnee a 220 000 EUR avec le proprietaire (10 juillet 2026)
+Vidéo source : Conciergerie condamnee a 220 000 EUR (10 juillet 2026)
 Identifiant YouTube : YiAaGhoimhA
 
-27 stories, à publier dans l'ordre des numéros (01 en premier).
-Format : JPEG 1080x1920, prêtes à poster telles quelles.
+27 stories au total. Format : JPEG 1080x1920.
 
-À SAVOIR AVANT DE PROGRAMMER :
-- Les stories de type quiz et sondage attendent un sticker de vote Instagram,
-  qui ne peut pas être ajouté à une story programmée : celles-là se postent
-  à la main. Elles laissent volontairement la moitié basse libre.
-- Les stories de témoignage ont un cadre en pointillés : c'est Pierre qui y
-  colle son screenshot réel. Elles ne partent jamais en programmation auto.
+COMMENT LIRE CE DOSSIER :
+- auto/     : A PROGRAMMER. Le nom du fichier porte son creneau, en heure
+              de Paris : <jour>-<HHMM>-<rang>.jpg. Exemple jeudi-0800-01.jpg
+              = jeudi 8h00, premiere story de la vague.
+- manuel/   : NE JAMAIS PROGRAMMER. Ces stories promettent un vote et le
+              sticker de sondage Instagram ne peut pas etre pose sur une
+              story programmee. Elles sont toutes regroupees le samedi 11h,
+              et le nom dit quel sticker poser : SONDAGE ou QUESTIONS.
+- reserve/  : surplus sans creneau cette semaine. Ne pas programmer, c'est
+              le stock qui couvrira les semaines sans video.
 
 Détail des lots inclus :
 - banque-02 (17 stories)
