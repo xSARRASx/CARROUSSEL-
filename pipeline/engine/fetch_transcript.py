@@ -24,6 +24,7 @@ On avance en 3 morceaux :
   - Morceau 3 : ranger dans un fichier (texte + fiche d'infos)
 """
 
+import datetime
 import json
 import os
 import re
@@ -104,16 +105,32 @@ def get_transcript(video_id):
     dictionnaire : text (transcription propre) + info (titre, date, duree...)."""
     with tempfile.TemporaryDirectory() as tmp:
         template = os.path.join(tmp, "sub")
-        _run_ytdlp([
+        url = "https://www.youtube.com/watch?v=" + video_id
+        commun = [
             "--skip-download",          # on ne veut pas la video, juste le texte
-            "--write-auto-subs",        # sous-titres generes automatiquement
-            "--write-subs",             # sous-titres manuels s'ils existent
             "--sub-langs", SUB_LANGS,
             "--sub-format", "json3",
-            "--write-info-json",        # + une fiche d'infos (titre, date...)
             "-o", template,
-            "https://www.youtube.com/watch?v=" + video_id,
-        ])
+        ]
+        # ⚠️ PIEGE PAYE LE 06/08/2026 : "--write-subs" (sous-titres MANUELS)
+        # declenche une requete que YouTube refuse depuis ce serveur, avec
+        # "Sign in to confirm you're not a bot". "--write-auto-subs" seul passe
+        # parfaitement. Verifie par elimination sur la video URH12GYwAuc :
+        #   auto-subs seul                       -> OK
+        #   auto-subs + write-subs               -> BLOQUE
+        #   auto-subs + write-subs + info-json   -> BLOQUE
+        # On tente donc la version complete, et on se rabat sur les sous-titres
+        # automatiques seuls si YouTube refuse. Le texte obtenu est le meme :
+        # c'est la piste fr-orig dans les deux cas.
+        complet = commun + ["--write-auto-subs", "--write-subs", "--write-info-json", url]
+        replis = commun + ["--write-auto-subs", url]
+        try:
+            _run_ytdlp(complet)
+        except RuntimeError as err:
+            if "not a bot" not in str(err) and "Sign in" not in str(err):
+                raise
+            print("      (YouTube refuse les sous-titres manuels, repli sur les automatiques)")
+            _run_ytdlp(replis)
 
         files = os.listdir(tmp)
 
@@ -180,7 +197,9 @@ def save_transcript(video, transcript):
     os.makedirs(TRANSCRIPTS_DIR, exist_ok=True)
 
     info = transcript["info"]
-    date = info.get("upload_date") or "date-inconnue"
+    # Sans fiche d'infos (voir le piege --write-info-json ci-dessus), on se
+    # rabat sur la date du jour : l'identifiant suffit a rendre le nom unique.
+    date = info.get("upload_date") or datetime.date.today().strftime("%Y%m%d")
     base = date + "_" + video["id"]
     txt_path = os.path.join(TRANSCRIPTS_DIR, base + ".txt")
 
@@ -204,6 +223,39 @@ def save_transcript(video, transcript):
 # --------------------------------------------------------------------------
 # Point d'entree : pour tester a la main
 # --------------------------------------------------------------------------
+
+def get_video_par_id(video_id):
+    """Renvoie les infos d'une video precise, designee par son identifiant.
+
+    Sert a rattraper une ANCIENNE video du catalogue quand la semaine n'a pas
+    apporte de nouveaute (demande de Martin le 06/08/2026). Meme forme de
+    dictionnaire que get_latest_video().
+    """
+    # ⚠️ NE PAS interroger l'URL de la video directement : YouTube repond
+    # "Sign in to confirm you're not a bot" depuis ce serveur. En revanche, le
+    # listing de l'onglet /videos passe sans probleme. On cherche donc la video
+    # dans ce listing (verifie le 06/08/2026).
+    out = _run_ytdlp([
+        "--flat-playlist",
+        "--playlist-items", "1-60",
+        "--print", "%(id)s\t%(title)s\t%(duration)s",
+        VIDEOS_TAB_URL,
+    ])
+    for ligne in out.strip().splitlines():
+        vid, titre, duree = ligne.split("\t")
+        if vid == video_id:
+            return {
+                "id": vid,
+                "title": titre,
+                "duration": int(float(duree)) if duree not in ("", "NA") else None,
+                "url": "https://www.youtube.com/watch?v=" + vid,
+            }
+    raise SystemExit(
+        "ERREUR : la video '%s' est introuvable dans les 60 dernieres de la chaine.\n"
+        "Verifie l'identifiant, ou qu'il s'agit bien d'une vraie video (pas un short)."
+        % video_id
+    )
+
 
 def transcript_existant(video_id):
     """Renvoie le chemin du transcript deja range pour cette video, sinon None.
@@ -279,12 +331,24 @@ def main():
     if "--verifier" in sys.argv[1:]:
         return verifier()
 
+    # --id <identifiant> : cible une video precise au lieu de la plus recente.
+    cible = None
+    if "--id" in sys.argv:
+        i = sys.argv.index("--id")
+        if i + 1 >= len(sys.argv):
+            raise SystemExit("ERREUR : --id attend un identifiant de video.")
+        cible = sys.argv[i + 1]
+
     print("Etape 2 -- transcription de la derniere VRAIE video YouTube")
     print("Chaine :", VIDEOS_TAB_URL)
     print()
 
-    print("[1/3] Recherche de la derniere vraie video (sans shorts)...")
-    video = get_latest_video()
+    if cible:
+        print("[1/3] Video ciblee explicitement :", cible)
+        video = get_video_par_id(cible)
+    else:
+        print("[1/3] Recherche de la derniere vraie video (sans shorts)...")
+        video = get_latest_video()
     dur = video.get("duration")
     dur_txt = ("%dmin%02ds" % (dur // 60, dur % 60)) if dur else "?"
     print("      - Titre :", video["title"])
