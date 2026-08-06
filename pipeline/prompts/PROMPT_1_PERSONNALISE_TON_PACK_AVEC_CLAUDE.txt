@@ -1,0 +1,70 @@
+==============================================================
+  PROMPT 1 : PERSONNALISE UN VISUEL DU PACK AVEC TON CLAUDE
+  (2 minutes par visuel, aucun logiciel a installer)
+==============================================================
+
+COMMENT FAIRE (une seule fois par visuel) :
+
+  1. Ouvre claude.ai (ou l'application Claude) et demarre une conversation
+  2. JOINS a ton message :
+       - le visuel du pack que tu veux personnaliser (l'image JPG)
+       - ton logo (PNG, fond transparent si possible)
+       - (optionnel) ta photo ou une photo de ta region si le visuel en demande une
+  3. Colle le texte ci-dessous en remplacant tout ce qui est entre [CROCHETS]
+  4. Claude te fabrique le visuel a TES couleurs, avec TES infos : tu
+     l'exportes et tu le postes. C'est tout.
+
+Astuce : garde cette conversation ouverte, tu peux enchainer les visuels
+en disant juste "pareil avec ce visuel" + la nouvelle image jointe.
+
+-------------------- COPIE A PARTIR D'ICI --------------------
+
+Tu es mon graphiste. Je dirige une conciergerie de location courte durée déjà
+lancée, et mes posts Instagram ont un seul objectif : donner envie à des
+PROPRIÉTAIRES de me confier leur bien.
+
+Je te joins :
+- une image MODÈLE : un visuel Instagram template (fond crème, avec des zones
+  en pointillés marquées « à personnaliser » et des textes « Exemple : »)
+- mon logo
+- (parfois) une photo à moi
+
+Mes informations :
+- Nom de ma conciergerie : [NOM]
+- Compte Instagram : [@MONCOMPTE]
+- Ville et zone d'intervention : [VILLE + ALENTOURS]
+- Site internet ou contact : [SITE / TÉLÉPHONE / « message privé Instagram »]
+- Mes couleurs : [CODES HEX si je les connais, sinon écris « reprends les
+  couleurs dominantes de mon logo »]
+- Les infos demandées par les zones « Exemple : » de CE visuel (mon histoire,
+  mes services, mes chiffres, mon témoignage... selon le cas) :
+  [ÉCRIS-LES ICI, NATUREL, CLAUDE MET EN FORME]
+
+Ta mission : recrée EXACTEMENT ce visuel en HTML/CSS dans un artifact, au
+format 1080 x 1350 pixels (portrait Instagram), adapté à ma marque :
+
+1. Remplace la couleur d'accent terracotta du modèle par MA couleur principale.
+2. Remplace « TON LOGO ICI » par mon logo (sinon mon nom stylisé), le
+   « @ta.conciergerie » par mon compte, et les deux zones du bas par ma ville
+   et mon contact.
+3. Remplace toutes les zones en pointillés et les textes « Exemple : » par MES
+   informations, joliment reformulées si besoin. Supprime les bordures en
+   pointillés et l'encadré « À PERSONNALISER » : le visuel doit être FINI,
+   prêt à poster, sans aucune trace de gabarit.
+4. Ne change RIEN d'autre : même mise en page, mêmes tailles de texte, police
+   Montserrat partout, fond crème clair (#F6F3EC), texte encre (#17222F).
+
+Règles absolues :
+- N'utilise JAMAIS le mot « gestion » ni ses dérivés. Dis : s'occuper de,
+  prendre en charge, accompagner, confier.
+- Aucun emoji sur le visuel. Aucun tiret long (remplace par deux-points ou
+  virgule). Français impeccable, tous les accents.
+- N'invente AUCUNE information sur mon activité : si une info te manque,
+  pose-moi la question avant de faire le visuel.
+
+Quand le visuel est prêt : explique-moi en 2 lignes comment l'exporter en
+image pour Instagram, puis propose-moi une description Instagram de 3 à 5
+lignes pour ce post, qui se termine par une question ou un appel à l'action
+(les emojis sont autorisés dans la description, pas sur le visuel).
+
+-------------------- FIN DU PROMPT --------------------

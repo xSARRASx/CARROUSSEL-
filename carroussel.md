@@ -812,8 +812,21 @@ de leur confier leur bien. 30 visuels = 30 posts différents = 3 mois de contenu
   textes, photos). Pour du 100% éditable (couleurs comprises), il faudrait
   recréer les 30 une fois à la main dans Canva et partager des liens modèles :
   pas d'API pour automatiser ça.
-- En attente : retour de Martin/frère sur les formats préférés avant de
-  produire les visuels restants.
+- **PACK COMPLET LIVRÉ (06/08/2026)** : les 30 visuels rendus dans
+  `pipeline/output/pack_30/` (ordre du plan, ~15 structures différentes) +
+  ZIP envoyé à Martin.
+- **DÉCISION du frère (06/08/2026, vocal) : PAS de Canva.** Les élèves donnent
+  un prompt à LEUR Claude (claude.ai) avec leur logo/photos/couleurs, et Claude
+  fait les visuels pour eux. Livré dans `pipeline/prompts/` :
+  - `PROMPT_1_PERSONNALISE_TON_PACK_AVEC_CLAUDE.txt` : l'élève joint un visuel
+    du pack + son logo + ses infos, son Claude recrée le visuel fini à sa
+    marque (artifact HTML 1080x1350).
+  - `PROMPT_2_CREE_TES_PROPRES_VISUELS_AVEC_CLAUDE.txt` : le gros prompt
+    « studio permanent » pour créer ses propres visuels après le pack (charte
+    complète, familles de posts, process de validation, règles anti-gestion).
+  - Testé avec une fausse marque (« Conciergerie des Cimes », vert sapin) :
+    `TEST_PROMPT_1_conciergerie_des_cimes.jpg`, rendu conforme.
+- En attente : retours éventuels sur des visuels précis du pack 30.
 
 ### Session 1 — 24 juillet 2026
 - Création du repo `CARROUSSEL-` et du fichier mémoire `carroussel.md`.
