@@ -97,12 +97,19 @@ sortie, recyclage des idées fortes le lendemain (voir section 6).
 ## 4. 📅 La semaine type
 
 > ⚠️ **MISE À JOUR du 06/08/2026 — voir `stories/trame-semaine.md`.**
-> Après l'échange vocal Pierre / Martin : Martin produit et poste TOUT (stories
-> tous les jours + 3 carrousels par semaine), Pierre garde **2 créneaux
-> témoignages** (mercredi et dimanche) avec un CTA **GO** derrière. Objectif de
-> Pierre, dit mot pour mot : « mon but, c'est de plus m'en occuper ».
+> Après l'échange vocal Pierre / Martin. Attention au vocabulaire : quand
+> Pierre parle de « gérer les postés », il parle de **POSTER les stories**,
+> pas des publications au feed (précision de Martin).
+> Ce qui change : **Martin reprend la publication** ; on programme la semaine
+> en UNE session dans Meta Business Suite au lieu de poster tous les jours.
+> Pierre garde **2 créneaux témoignages** (mercredi et dimanche) avec un CTA
+> **GO** derrière. Son objectif, mot pour mot : « mon but, c'est de plus m'en
+> occuper ».
 > Règle demandée : **un seul témoignage par personne à la suite**, on alterne
-> les profils. Le tableau ci-dessous reste la base des thèmes de chaque jour.
+> les profils.
+> ⚠️ Quiz et sondages se postent À LA MAIN : le sticker de sondage Instagram
+> ne peut pas être ajouté à une story programmée.
+> Le tableau ci-dessous reste la base des thèmes de chaque jour.
 
 Le père de Martin (Sébastien) sort **2 vidéos YouTube par semaine : dimanche 18h et
 mercredi 18h** (chaîne https://www.youtube.com/@moresebastien). La semaine de
