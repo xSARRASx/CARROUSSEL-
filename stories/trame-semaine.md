@@ -73,11 +73,18 @@ les jours où l'audience est la plus active. Il y poste :
 2. **Juste derrière, la story CTA** : « Réponds **GO** à cette story pour qu'on
    échange ensemble sur ton projet ».
 
-### Les gabarits sont déjà prêts
-Trois modèles avec une **zone en pointillés** où Pierre colle son screenshot
-(sticker photo Instagram), dans `output/interactifs-01/jpg/` :
-`temoin_01` (« + 1 pour [Prénom] »), `temoin_02` (« La dernière annonce de nos
-élèves »), `temoin_03` (« Ce qu'on a reçu de [Prénom] »).
+### Son pack lui est PRÉPARÉ et ENVOYÉ
+On ne se contente pas de lui dire que les gabarits existent : on lui envoie
+son pack tout prêt. **10 modèles de témoignage + 3 stories « Réponds GO »**
+dans `output/temoignages-pierre/jpg/`, avec son mode d'emploi
+(`stories/pack-pierre.md`).
+
+Dix modèles, parce qu'à deux par semaine, trois se répéteraient au bout de dix
+jours. Là, il tourne plus d'un mois sans jamais reposter la même mise en page.
+
+Chaque modèle a une **zone en pointillés** où il colle son screenshot réel
+(sticker photo Instagram) : un message WhatsApp, une annonce d'élève, un
+résultat chiffré, un premier contrat, un calendrier qui se remplit...
 
 ### La règle demandée
 > *« Parfois tu mettais plusieurs témoignages d'une seule personne à la
