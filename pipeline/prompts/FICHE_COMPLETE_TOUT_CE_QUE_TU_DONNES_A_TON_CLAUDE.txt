@@ -1,0 +1,180 @@
+======================================================================
+  FICHE COMPLÈTE : TOUT CE QUE TU DONNES À TON CLAUDE
+  (la liste de TOUT ce qu'il faut préparer pour tes visuels Instagram)
+======================================================================
+
+Prépare cette fiche UNE FOIS, garde-la dans tes notes, et copie-colle les
+infos dans ta conversation Claude (avec le Prompt 1 ou le Prompt 2).
+Plus ta fiche est complète, plus tes visuels sont uniques et professionnels.
+
+----------------------------------------------------------------------
+ 1. LES FICHIERS À JOINDRE (images à envoyer dans la conversation)
+----------------------------------------------------------------------
+
+  OBLIGATOIRE :
+  [ ] Ton LOGO en PNG, idéalement sur fond transparent
+      (sinon envoie ce que tu as : Claude s'adapte, ou utilisera ton nom stylisé)
+  [ ] Le VISUEL DU PACK que tu veux personnaliser (l'image JPG du modèle)
+
+  FORTEMENT CONSEILLÉ (selon les visuels) :
+  [ ] Une photo de TOI ou de ton ÉQUIPE (souriants, en situation, lumineuse)
+  [ ] Une belle photo de ta RÉGION / ta ville (paysage, format horizontal)
+  [ ] 1 ou 2 photos d'un de tes LOGEMENTS (les plus belles)
+  [ ] Une capture d'écran d'un AVIS 5 étoiles reçu (Airbnb ou Google)
+  [ ] Si tu veux : 2-3 visuels du pack que tu aimes, comme référence de style
+
+----------------------------------------------------------------------
+ 2. TON IDENTITÉ (à copier-coller tel quel dans le prompt)
+----------------------------------------------------------------------
+
+  - Nom EXACT de ta conciergerie (avec les majuscules comme tu les veux) :
+  - Ton compte Instagram (avec le @) :
+  - Ta ville principale :
+  - Tes autres zones d'intervention (communes, rayon en minutes) :
+  - Ton site internet OU ton téléphone OU « message privé Instagram » :
+  - Ton slogan si tu en as un (sinon Claude peut t'en proposer) :
+  - Ton ton de communication : chaleureux et pro / premium / familial /
+    dynamique... (choisis ce qui TE ressemble)
+
+----------------------------------------------------------------------
+ 3. TES COULEURS
+----------------------------------------------------------------------
+
+  - Ta couleur PRINCIPALE en code hexadécimal (exemple : #2D5A4A).
+    Tu ne le connais pas ? Deux solutions :
+      a) écris à Claude : « reprends la couleur dominante de mon logo joint »
+      b) va sur le site de ta banque d'images / ton logo et utilise une
+         pipette à couleur (ou demande à Claude de te dire le code)
+  - Une couleur SECONDAIRE si tu en as une (optionnel) :
+  - Si tu n'as pas de couleur : dis-le, Claude t'en proposera une élégante
+    et tu la gardes ensuite PARTOUT (la régularité fait la marque)
+
+----------------------------------------------------------------------
+ 4. TES TEXTES PERSONNELS (les réponses aux zones « Exemple : » du pack)
+----------------------------------------------------------------------
+
+  Réponds naturellement, en langage parlé : Claude met en forme.
+  Tu n'as besoin de préparer que les lignes des visuels que tu utilises.
+
+  TON HISTOIRE (visuel « Pourquoi j'ai créé ma conciergerie ») :
+  [ ] Ton déclic (l'événement qui t'a lancé) :
+  [ ] Ton premier logement (comment ça s'est passé) :
+  [ ] Où tu en es aujourd'hui et ce qui te rend fier :
+
+  TOI / TON ÉQUIPE (visuel « Qui veille sur votre bien ») :
+  [ ] Ton prénom + ton rôle (exemple : Julie, fondatrice) :
+  [ ] Ton parcours en une phrase (exemple : 8 ans dans l'hôtellerie) :
+
+  TES VALEURS (visuel « Nos valeurs ») :
+  [ ] Tes 3 valeurs + une phrase chacune (ou garde celles du modèle) :
+  [ ] Ta promesse en une phrase :
+
+  TA JOURNÉE TYPE (visuel « Les coulisses ») :
+  [ ] 4-5 moments de ta vraie journée avec les horaires :
+
+  TES SERVICES (visuels « Nos services » + zooms) :
+  [ ] Tes 4 services principaux, avec une phrase d'explication chacun :
+  [ ] Ton fonctionnement d'accueil : autonome, en personne, les deux ?
+  [ ] Ton process ménage : qui, quoi, linge fourni ou pas :
+
+  TES ZONES (visuel « Zone d'intervention ») :
+  [ ] Ta ville principale + 2-3 communes + ton rayon (« 30 min autour de... ») :
+
+  TES CHIFFRES (visuels « Chiffres clés », « Temps récupéré », « Calcul ») :
+  [ ] Nombre de logements accompagnés :
+  [ ] Ta note moyenne :
+  [ ] Un 3e chiffre fier (taux de remplissage, années, avis 5 étoiles...) :
+  [ ] Ton tarif de nuit moyen + ta commission (pour le visuel calcul) :
+  ⚠️ UNIQUEMENT des vrais chiffres : c'est ta crédibilité.
+
+  TON TÉMOIGNAGE (visuel « Ce que disent les propriétaires ») :
+  [ ] Un vrai avis copié-collé (propriétaire ou voyageur) :
+  [ ] Le prénom de la personne + sa ville + depuis combien de temps :
+
+  TES RÉPONSES (visuel « Les 4 questions à nous poser ») :
+  [ ] Qui entre chez moi, et quand ? →
+  [ ] Comment sont fixés mes prix ? →
+  [ ] Que se passe-t-il en cas de casse ? →
+  [ ] Comment je suis mes revenus ? →
+
+  TON AVANT/APRÈS (visuel « Une annonce reprise en main ») :
+  [ ] Un vrai bien repris : ce qui n'allait pas avant / ce que tu as changé /
+      le résultat chiffré (occupation, revenus, note) :
+
+  LES ÉTAPES (visuel « En 4 étapes ») :
+  [ ] Ton délai moyen pour mettre un bien en ligne :
+
+----------------------------------------------------------------------
+ 5. LA CHARTE TECHNIQUE (à donner à Claude s'il ne l'a pas déjà)
+----------------------------------------------------------------------
+
+  Le Prompt 1 et le Prompt 2 contiennent déjà l'essentiel. Voici le détail
+  complet, si ton Claude pose des questions ou si tu veux tout donner :
+
+  FORMAT
+  - Visuel en HTML/CSS dans un artifact : 1080 x 1350 pixels exactement
+    (format portrait Instagram 4:5)
+  - Export final en JPG ou PNG de 1080 x 1350
+
+  COULEURS DE BASE (identiques pour tous les élèves)
+  - Fond : crème clair #F6F3EC
+  - Texte principal : encre foncée #17222F
+  - Texte secondaire : gris #6E7683
+  - Cartes : blanc #FFFFFF, coins arrondis 16 px, fine bordure gris très clair
+  - Accent : TA couleur (remplace le terracotta #C4633C des modèles)
+  - Barre fine en haut du visuel : 8 px de haut, dans TA couleur
+  - Rouge (pour les croix, erreurs, « avant ») : #B94A44
+  - Vert (pour les coches, solutions, « après ») : #2F7D57
+
+  POLICE (une seule, toujours)
+  - Montserrat, pour absolument tout
+  - Grands titres : graisse 900 (Black), MAJUSCULES, 46 à 58 px,
+    interlignage serré, UN mot-clé dans ta couleur
+  - Petit surtitre au-dessus du titre : 24 px, graisse 800, MAJUSCULES,
+    lettres espacées, dans ta couleur
+  - Titres de blocs : 24 à 29 px, graisse 800
+  - Texte courant : 21 à 27 px, graisse 500-600 (JAMAIS moins de 20 px :
+    ça doit rester lisible sur un téléphone)
+  - Textes du bas de page (ville, contact) : 20 px, graisse 700
+
+  MISE EN PAGE
+  - Marges : environ 64 px en haut, 76 px sur les côtés, 150 px en bas
+  - En haut à gauche : ton logo (hauteur 60-80 px) ou ton nom dans un
+    bloc de ta couleur · en haut à droite : ton @compte
+  - En bas : ta ville/zone à gauche, ton site/contact à droite
+  - Beaucoup d'air entre les blocs, style éditorial épuré
+  - Pas d'ombres lumineuses, pas de dégradés criards, pas d'effets 3D
+
+  STRUCTURES POSSIBLES (varier d'un post à l'autre)
+  - Liste numérotée en cartes · checklist à coches vertes · cases à cocher
+  - Avant/après (rouge/vert) · timeline avec horaires · étapes en escalier
+  - Carte mentale · entonnoir · gros chiffres · citation témoignage
+  - Vrai/faux avec badges · question géante · objections/réponses
+  - Grille de tuiles avec petits pictos dessinés (pas d'emojis)
+
+----------------------------------------------------------------------
+ 6. LES RÈGLES ABSOLUES (à faire respecter par ton Claude)
+----------------------------------------------------------------------
+
+  - Le mot « GESTION » est INTERDIT, ainsi que ses dérivés.
+    On dit : s'occuper de, prendre en charge, accompagner, confier.
+  - AUCUN emoji sur les visuels (autorisés dans les descriptions Instagram)
+  - AUCUN tiret long (—) : deux-points ou virgule à la place
+  - Français impeccable, TOUS les accents (y compris sur les majuscules)
+  - Claude ne doit JAMAIS inventer : chiffres, avis, faits sur ton activité.
+    S'il lui manque une info, il doit te la demander.
+  - Toujours parler aux PROPRIÉTAIRES (jamais à des gens qui veulent créer
+    une conciergerie)
+
+----------------------------------------------------------------------
+ 7. CE QUE TU N'AS PAS BESOIN DE PRÉPARER
+----------------------------------------------------------------------
+
+  - Les textes des posts CONSEILS (photos, prix, avis, algorithme...) :
+    ils sont déjà écrits dans le pack, ils se postent tels quels
+  - Les structures et la mise en page : les modèles + la charte s'en chargent
+  - Les descriptions Instagram : ton Claude te les propose à chaque visuel
+
+  EN RÉSUMÉ : 1 logo + 3-4 photos + tes couleurs + les réponses de la
+  partie 4. Avec ça, ton Claude peut te faire TOUS tes visuels.
+======================================================================
