@@ -793,62 +793,52 @@ But : [ce que la story doit déclencher]
 
 ---
 
-## 🕐 LA GRILLE DE DIFFUSION (06/08/2026) — jour par jour, heure par heure
+## 🕐 LA GRILLE DE DIFFUSION (06/08/2026) — UN rendez-vous par jour, à 12h00
 
-> Demandée par Martin avant de brancher la programmation automatique dans
-> Metricool. Le code fait foi : `stories/engine/planning.py`.
+> Décision de Martin : « les stories c'est à 12h, une seule fois par jour ».
+> Le code fait foi : `stories/engine/planning.py` et `programmation.py`.
 
-**Deux principes qui commandent tout :**
-1. **Une séquence ne se coupe pas en rondelles.** Elle se lit d'une traite.
-   On poste par VAGUES de 2 à 3 stories qui s'enchaînent, jamais story par
-   story éparpillée sur la journée.
-2. **Une story qui promet un vote ne part jamais sans son sticker.** Instagram
-   interdit de poser un sticker sur une story programmée — aucun outil ne peut
-   le faire. Ces stories vont dans `manuel/` et sont **toutes regroupées le
-   samedi 11h**, pour un seul moment manuel par semaine.
+**Un seul créneau : 12h00, heure de Paris, tous les jours.** Ce rendez-vous
+contient la **séquence entière du jour** (5 à 6 stories qui s'enchaînent).
 
-| Jour | Heure (Paris) | Stories | Contenu | Mode |
+**Pourquoi la séquence entière et pas une image par jour** : une séquence est
+écrite pour se lire d'une traite. Sa couverture promet (« du concret, juste
+après »), les suivantes livrent, la dernière conclut. Coupée en six, la
+couverture promettrait une suite qui n'arriverait que le lendemain : le
+contenu ne tiendrait plus debout.
+
+| Jour | Heure | Stories | Contenu | Mode |
 |---|---|---|---|---|
-| Lundi | 08:00 | 3 | Séquence d'aide (vidéo du dimanche) : couverture + 2 | auto |
-| Lundi | 18:30 | 3 | Fin de séquence, sans CTA | auto |
-| Mardi | 08:00 | 2 | Conseil terrain | auto |
-| Mardi | 18:30 | 2 | Cadeau + mot-clé | auto |
-| Mercredi | 08:00 | 2 | Coulisses, parcours | auto |
-| Mercredi | 18:30 | 1 | Annonce de la vidéo de 18h | auto |
-| Mercredi | libre | — | **Témoignages de Pierre** | Pierre |
-| Jeudi | 08:00 | 3 | Séquence d'aide (vidéo du mercredi) | auto |
-| Jeudi | 18:30 | 3 | Fin de séquence, sans CTA | auto |
-| Vendredi | 08:00 | 2 | Rappel de valeur | auto |
-| Vendredi | 18:30 | 2 | Cadeau, mot-clé SIMULATEUR | auto |
-| **Samedi** | **11:00** | **5** | **QUIZ ET SONDAGES** | **MANUEL** |
-| Dimanche | 11:00 | 2 | Bilan, mise en bouche | auto |
-| Dimanche | 18:30 | 2 | Teaser + sortie vidéo 18h | auto |
-| Dimanche | libre | — | **Témoignages de Pierre** | Pierre |
+| Lundi | 12:00 | 6 | Séquence d'aide (vidéo du dimanche), en entier | auto |
+| Mardi | 12:00 | 5 | Conseil terrain, ou cadeau de la semaine | auto |
+| Mercredi | 12:00 | 5 | Coulisses + annonce de la vidéo de 18h | auto |
+| Jeudi | 12:00 | 6 | Séquence d'aide (vidéo du mercredi), en entier | auto |
+| Vendredi | 12:00 | 5 | Cadeau, mot-clé SIMULATEUR | auto |
+| **Samedi** | **12:00** | **6** | **Quiz et sondages** | **MANUEL** |
+| Dimanche | 12:00 | 5 | Bilan + teaser de la vidéo de 18h | auto |
 
-**Total : 32 stories par semaine**, dont 5 manuelles (le samedi) et 2 créneaux
-laissés à Pierre.
+Les **samedis sont réservés aux quiz et sondages** : ils réclament un sticker
+de vote qu'Instagram interdit sur une story programmée. Un seul moment manuel
+par semaine.
 
-### Les deux fournées ne se chevauchent jamais
+Les créneaux témoignages de Pierre (mercredi et dimanche) s'ajoutent en plus,
+il les poste quand il veut dans la journée.
 
-| Fournée | Couvre | Capacité |
-|---|---|---|
-| **Lundi** (vidéo du dimanche) | lundi, mardi, mercredi | 13 stories |
-| **Jeudi** (vidéo du mercredi) | jeudi, vendredi, samedi, dimanche | 19 stories |
+### Programmer tout le stock d'avance
 
-Chaque fournée alimente la période qui la sépare de la suivante. Aucun jour
-servi deux fois, aucun jour vide.
+```
+python3 stories/engine/programmation.py --debut AAAA-MM-JJ
+```
 
-⚠️ **Le jeudi est conditionnel.** Sans vidéo le mercredi, on pioche dans
-`reserve/` pour couvrir jeudi → dimanche.
+Produit `livraison/programmation-<date>/` où **chaque fichier porte sa date de
+publication** : `2026-08-07-12h00-01.jpg`. Les fichiers qui partagent une date
+forment UNE publication : ils s'enchaînent le même jour à 12h00.
 
-### Les trois dossiers de chaque livraison
+| Dossier | Le robot Mac |
+|---|---|
+| `auto/` | programme tel quel |
+| `manuel/` | n'y touche jamais (tombe toujours un samedi, le nom dit le sticker) |
+| `calendrier.txt` | le planning complet, lisible |
 
-| Dossier | Le robot Mac | Contenu |
-|---|---|---|
-| `auto/` | **programme** | `<jour>-<HHMM>-<rang>.jpg`, le créneau est dans le nom |
-| `manuel/` | **ne touche jamais** | `samedi-1100-<NN>-<STICKER>.jpg` |
-| `reserve/` | **ne touche jamais** | surplus sans créneau, stock pour les semaines creuses |
-
-Une fournée riche dépasse souvent la capacité de la semaine : le surplus part
-en réserve plutôt que d'être posté n'importe quand. La fournée du 6 août :
-14 programmables, 5 manuelles, 8 en réserve.
+**Première programmation (07/08/2026)** : 101 stories, **du 7 au 29 août**,
+soit 23 jours d'avance. Et deux fournées se rajoutent chaque semaine.

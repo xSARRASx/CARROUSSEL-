@@ -1,0 +1,40 @@
+CALENDRIER DE PROGRAMMATION DES STORIES
+Rendez-vous quotidien : 12h00, heure de Paris. Un seul par jour.
+
+Chaque fichier porte SA DATE de publication :
+    AAAA-MM-JJ-12h00-NN.jpg
+Les stories qui partagent la meme date forment UNE seule publication :
+elles s'enchainent dans l'ordre des numeros, le meme jour a 12h00.
+
+auto/    : a programmer tel quel.
+manuel/  : NE JAMAIS PROGRAMMER. Ces stories promettent un vote, et le
+           sticker de sondage Instagram ne peut pas etre pose sur une
+           story programmee. Elles tombent toujours un SAMEDI, et le nom
+           du fichier dit quel sticker poser (SONDAGE ou QUESTIONS).
+
+--------------------------------------------------------------
+
+vendredi  2026-08-07  6 stories  — banque-01/A_remplir_sans_baisser
+samedi    2026-08-08  8 stories  [A LA MAIN]  — interactifs-01/quiz
+dimanche  2026-08-09  6 stories  — banque-01/B_trouver_clients
+lundi     2026-08-10  6 stories  — banque-01/C_proprios_decus
+mardi     2026-08-11  6 stories  — banque-01/D_30_logements
+mercredi  2026-08-12  6 stories  — banque-01/E_algo_2026
+jeudi     2026-08-13  6 stories  — banque-01/F_caution
+vendredi  2026-08-14  6 stories  — banque-01/G_pourquoi_ca_bloque
+samedi    2026-08-15  8 stories  [A LA MAIN]  — interactifs-02/quiz02
+dimanche  2026-08-16  6 stories  — banque-01/H_plan_de_zero
+lundi     2026-08-17  6 stories  — banque-02/I_condamnation_220k
+mardi     2026-08-18  6 stories  — banque-02/J_checklist_conformite
+mercredi  2026-08-19  5 stories  — banque-02/K_mythe_carte_g
+jeudi     2026-08-20  3 stories  — melange-1
+vendredi  2026-08-21  3 stories  — melange-2
+samedi    2026-08-22  4 stories  [A LA MAIN]  — lundi_02_sondage + lundi_03_questions + mercredi_03_question + samedi_01_radar
+dimanche  2026-08-23  3 stories  — melange-3
+lundi     2026-08-24  2 stories  — melange-4
+samedi    2026-08-29  5 stories  [A LA MAIN]  — sondage + sondage02
+
+--------------------------------------------------------------
+
+101 stories, du 2026-08-07 au 2026-08-29.
+Soit 23 jours de contenu programmes d'avance.

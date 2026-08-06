@@ -9,10 +9,11 @@ automatique dans Metricool.
 DEUX PRINCIPES QUI COMMANDENT TOUT LE RESTE
 -------------------------------------------
 1. UNE SÉQUENCE NE SE COUPE PAS EN RONDELLES. Une séquence d'aide se lit
-   d'une traite : la couverture donne envie, les stories suivantes livrent,
-   la dernière conclut. Si on éparpille ses 6 stories sur 4 moments de la
-   journée, la logique se casse et les gens décrochent. On poste donc par
-   VAGUES de 2 à 3 stories qui s'enchaînent, pas story par story.
+   d'une traite : la couverture promet (« du concret, juste après »), les
+   stories suivantes livrent, la dernière conclut. Si on la coupait pour en
+   poster une par jour, la couverture promettrait une suite qui n'arriverait
+   que le lendemain. D'où UN rendez-vous quotidien à 12h00 qui contient la
+   séquence ENTIÈRE du jour.
 
 2. UNE STORY QUI DIT « VOTE JUSTE EN DESSOUS » NE PART JAMAIS SANS SON
    STICKER. Instagram ne permet pas de poser un sticker de vote sur une
@@ -30,47 +31,27 @@ Chaque fournée alimente la période qui la sépare de la suivante. Aucun jour
 n'est servi deux fois, aucun jour n'est laissé vide.
 
 ⚠️ Le jeudi est conditionnel : s'il n'y a pas eu de vidéo le mercredi, on
-pioche dans le stock (104 stories d'avance au 06/08/2026) pour couvrir
-jeudi -> dimanche.
+pioche dans le stock pour couvrir jeudi -> dimanche.
+
+POUR PROGRAMMER TOUT LE STOCK D'AVANCE : `programmation.py`, qui date chaque
+story (AAAA-MM-JJ-12h00-NN.jpg) et écrit le calendrier complet.
 """
 
-# Créneaux horaires, heure de Paris. Deux vagues par jour : le matin quand
-# les gens ouvrent Instagram en se levant, le soir quand ils décompressent.
-MATIN = "08:00"
-SOIR = "18:30"
-MIDI_WE = "11:00"     # le week-end, les gens se lèvent plus tard
+# UN SEUL rendez-vous par jour, à 12h00 heure de Paris.
+# Décision de Martin (06/08/2026) : « les stories c'est à 12h, une seule fois
+# par jour ». Ce rendez-vous contient la séquence complète du jour : les
+# stories s'y enchaînent, elles ne sont pas éparpillées sur la journée.
+MIDI = "12:00"
 
 GRILLE = {
     # jour: [(heure, nombre de stories, ce qu'on y met, mode)]
-    "lundi": [
-        (MATIN, 3, "Séquence d'aide de la vidéo du dimanche : couverture + 2 premières", "auto"),
-        (SOIR,  3, "Fin de la séquence + la conclusion (sans CTA : on donne)", "auto"),
-    ],
-    "mardi": [
-        (MATIN, 2, "Conseil terrain", "auto"),
-        (SOIR,  2, "Le cadeau de la semaine + son mot-clé", "auto"),
-    ],
-    "mercredi": [
-        (MATIN, 2, "Coulisses, histoire, parcours", "auto"),
-        (SOIR,  1, "Annonce de la vidéo qui sort à 18h", "auto"),
-        # + créneau témoignages de Pierre, qu'il poste quand il veut
-    ],
-    "jeudi": [
-        (MATIN, 3, "Séquence d'aide de la vidéo du mercredi : couverture + 2", "auto"),
-        (SOIR,  3, "Fin de la séquence (sans CTA : on donne)", "auto"),
-    ],
-    "vendredi": [
-        (MATIN, 2, "Rappel de valeur", "auto"),
-        (SOIR,  2, "Le cadeau de la semaine, mot-clé SIMULATEUR", "auto"),
-    ],
-    "samedi": [
-        (MIDI_WE, 5, "QUIZ ET SONDAGES — le seul moment manuel de la semaine", "manuel"),
-    ],
-    "dimanche": [
-        (MIDI_WE, 2, "Bilan de la semaine, mise en bouche", "auto"),
-        (SOIR,    2, "Teaser + sortie de la vidéo à 18h", "auto"),
-        # + créneau témoignages de Pierre
-    ],
+    "lundi":    [(MIDI, 6, "Séquence d'aide de la vidéo du dimanche, en entier", "auto")],
+    "mardi":    [(MIDI, 5, "Séquence conseil terrain, ou cadeau de la semaine", "auto")],
+    "mercredi": [(MIDI, 5, "Coulisses, parcours, puis annonce de la vidéo de 18h", "auto")],
+    "jeudi":    [(MIDI, 6, "Séquence d'aide de la vidéo du mercredi, en entier", "auto")],
+    "vendredi": [(MIDI, 5, "Cadeau de la semaine, mot-clé SIMULATEUR", "auto")],
+    "samedi":   [(MIDI, 6, "QUIZ ET SONDAGES — le seul moment manuel de la semaine", "manuel")],
+    "dimanche": [(MIDI, 5, "Bilan, teaser de la vidéo qui sort à 18h", "auto")],
 }
 
 # Quels jours chaque fournée alimente
