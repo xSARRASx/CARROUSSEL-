@@ -856,7 +856,31 @@ forment UNE publication : ils s'enchaînent le même jour à 12h00.
 |---|---|
 | `auto/` | programme tel quel |
 | `manuel/` | n'y touche jamais (tombe toujours un samedi, le nom dit le sticker) |
+| `manuel/_STICKERS.txt` | le texte EXACT à taper dans chaque sticker |
 | `calendrier.txt` | le planning complet, lisible |
+
+### ⚠️ Le texte des stickers voyage AVEC les images
+
+Manque signalé par Martin le 06/08 : la livraison disait quelles images
+réclament un sticker, mais pas **quoi taper dedans**. Il devait redemander à
+chaque fois.
+
+**Source de vérité : `stories/engine/stickers.py`.** Chaque story à sticker y
+a son entrée : type (Quiz / Sondage / Questions), question exacte, options
+exactes, et la bonne réponse pour un Quiz. Le fichier `manuel/_STICKERS.txt`
+en est généré automatiquement et part avec les images.
+
+**RÈGLE : toute nouvelle story qui promet un vote doit avoir son entrée dans
+`stickers.py` au moment où elle est écrite.** Sans entrée, `_STICKERS.txt`
+signale le trou et le contrôle de livraison échoue. C'est gravé dans les deux
+Routines.
+
+Les trois stickers Instagram, à ne pas confondre :
+| Sticker | Options | Usage |
+|---|---|---|
+| **Sondage** | 2 à 4, sans bonne réponse | les diagnostics |
+| **Quiz** | 2 à 4, avec une bonne réponse à cocher | les quiz |
+| **Questions** | aucune, boîte ouverte | « raconte-moi » |
 
 **Première programmation (07/08/2026)** : 101 stories, **du 7 au 29 août**,
 soit 23 jours d'avance. Et deux fournées se rajoutent chaque semaine.

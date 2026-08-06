@@ -1,0 +1,52 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-08-08-12h00-01-QUIZ.jpg
+    Sticker  : Quiz
+    Question : Avoir la carte G aurait évité la condamnation de la conciergerie.
+    Option 1 : Vrai
+    Option 2 : Faux
+    Bonne reponse a cocher : Faux
+
+--- 2026-08-08-12h00-02-QUIZ.jpg
+    Sticker  : Quiz
+    Question : Qui a été condamné à 220 000 € ?
+    Option 1 : Le propriétaire
+    Option 2 : La conciergerie
+    Option 3 : Les deux
+    Bonne reponse a cocher : Les deux
+
+--- 2026-08-08-12h00-03-QUIZ.jpg
+    Sticker  : Quiz
+    Question : Le numéro d'enregistrement dispense de l'autorisation de changement d'usage.
+    Option 1 : Vrai
+    Option 2 : Faux
+    Bonne reponse a cocher : Faux
+
+--- 2026-08-08-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tu vérifies l'autorisation de changement d'usage avant de publier ?
+    Option 1 : Toujours
+    Option 2 : Parfois
+    Option 3 : Jamais
+    Option 4 : C'est quoi ?
+
+--- 2026-08-08-12h00-05-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Ton contrat conciergerie, il date de quand ?
+    Option 1 : Moins d'un an
+    Option 2 : 1 à 3 ans
+    Option 3 : Plus de 3 ans
+    Option 4 : Je n'en ai pas
+

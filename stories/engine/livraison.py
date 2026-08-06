@@ -34,6 +34,7 @@ pousse PAS en silence : on alerte Martin en première ligne.
 import argparse, datetime, json, pathlib, shutil, sys
 from PIL import Image
 from planning import GRILLE, jours_de_la_fournee, besoin_sticker
+from stickers import bloc_texte
 
 JOURS_SEMAINE = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
 
@@ -128,8 +129,18 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi')
     import datetime as _dt
     d0 = _dt.date.fromisoformat(date)
     samedi = d0 + _dt.timedelta(days=(5 - d0.weekday()) % 7)
+    entrees = []
     for i, (src, sticker) in enumerate(manuel, 1):
-        shutil.copy2(src, dossier / "manuel" / f"{samedi}-12h00-{i:02d}-{sticker}.jpg")
+        nom = f"{samedi}-12h00-{i:02d}-{sticker}.jpg"
+        shutil.copy2(src, dossier / "manuel" / nom)
+        entrees.append((nom, src.stem))
+    # Le texte exact de chaque sticker voyage AVEC les images (Martin, 06/08) :
+    # sans ca, il faut redemander la question et les options a chaque fois.
+    if entrees:
+        txt, manquants = bloc_texte(entrees)
+        (dossier / "manuel" / "_STICKERS.txt").write_text(txt, encoding="utf-8")
+        for m in manquants:
+            print(f"  ALERTE : texte de sticker manquant pour {m}", flush=True)
 
     lignes = [
         f"Fournée de stories du {date}",
@@ -190,10 +201,13 @@ def controle():
         # numérotation continue, sans trou
         if not (d / "auto").is_dir() or not (d / "manuel").is_dir():
             alertes.append(f"{d.name} : sous-dossiers auto/ et manuel/ attendus")
+        if list(d.glob("manuel/*.jpg")) and not (d / "manuel" / "_STICKERS.txt").is_file():
+            alertes.append(f"{d.name} : manuel/_STICKERS.txt manquant "
+                           f"(le texte des stickers doit voyager avec les images)")
         for p in d.glob("manuel/*.jpg"):
-            if not any(p.stem.endswith(s) for s in ("SONDAGE", "QUESTIONS")):
+            if not any(p.stem.endswith(s) for s in ("QUIZ", "SONDAGE", "QUESTIONS")):
                 alertes.append(f"{d.name}/manuel/{p.name} : le nom doit finir par "
-                               f"le sticker a poser (SONDAGE ou QUESTIONS)")
+                               f"le sticker a poser (QUIZ, SONDAGE ou QUESTIONS)")
         for p in images:
             if p.stat().st_size == 0:
                 alertes.append(f"{d.name}/{p.name} : fichier vide")

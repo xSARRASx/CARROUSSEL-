@@ -87,7 +87,20 @@ def capacite(jours):
 MOTIFS_MANUELS = ("sondage", "radar", "questions", "question")
 
 def besoin_sticker(nom):
-    """(bool, type de sticker) pour une story donnée, d'après son nom."""
+    """(bool, type de sticker) pour une story donnée.
+
+    La source de vérité est `stickers.py`, qui porte le texte exact de chaque
+    sticker : le suffixe du fichier livré reflète donc le VRAI type Instagram
+    (QUIZ, SONDAGE ou QUESTIONS), pas une approximation.
+    Le repli par mot-clé ne sert qu'aux stories pas encore documentées.
+    """
+    try:
+        from stickers import fiche
+        f = fiche(nom)
+        if f:
+            return True, f["type"].upper()
+    except ImportError:
+        pass
     n = nom.lower()
     # Dans une séquence de quiz, SEULE la question a besoin du sticker :
     # la couverture, les réponses et la clôture se programment normalement.

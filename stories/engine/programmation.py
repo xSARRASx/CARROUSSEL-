@@ -40,6 +40,7 @@ Usage :
 import argparse, datetime, pathlib, shutil, sys
 from collections import OrderedDict
 from planning import besoin_sticker
+from stickers import bloc_texte
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 REPO = ROOT.parent
@@ -138,13 +139,23 @@ def programmer(debut, nom_dossier):
     samedi = debut
     while samedi.weekday() != 5:
         samedi += datetime.timedelta(days=1)
+    entrees = []
     for nom, fichiers in blocs:
         for i, src in enumerate(fichiers, 1):
-            _, sticker = besoin_sticker(src.stem)
+            besoin, sticker = besoin_sticker(src.stem)
             suffixe = f"-{sticker}" if sticker else ""
-            shutil.copy2(src, dossier / "manuel" / f"{samedi}-{HEURE}-{i:02d}{suffixe}.jpg")
+            fnom = f"{samedi}-{HEURE}-{i:02d}{suffixe}.jpg"
+            shutil.copy2(src, dossier / "manuel" / fnom)
+            if besoin:
+                entrees.append((fnom, src.stem))
         calendrier.append((samedi, "manuel", nom, len(fichiers)))
         samedi += datetime.timedelta(days=7)
+    # Le texte exact de chaque sticker voyage AVEC les images (Martin, 06/08).
+    if entrees:
+        txt, manquants = bloc_texte(entrees)
+        (dossier / "manuel" / "_STICKERS.txt").write_text(txt, encoding="utf-8")
+        for m in manquants:
+            print(f"  ALERTE : texte de sticker manquant pour {m}", flush=True)
 
     calendrier.sort(key=lambda x: (x[0], x[1]))
     ecrire_calendrier(dossier, calendrier, debut)
