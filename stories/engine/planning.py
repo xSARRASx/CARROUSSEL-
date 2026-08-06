@@ -15,12 +15,13 @@ DEUX PRINCIPES QUI COMMANDENT TOUT LE RESTE
    que le lendemain. D'où UN rendez-vous quotidien à 12h00 qui contient la
    séquence ENTIÈRE du jour.
 
-1 bis. TROIS PERSONNES POSTENT, À TROIS MOMENTS DIFFÉRENTS.
-   - le robot Mac programme les séquences, tous les jours à 12h00 ;
-   - Martin poste à la main les quiz et sondages, le samedi à 12h00 ;
-   - Pierre poste ses témoignages, mercredi et dimanche à 19h00.
-   Les créneaux ne se croisent jamais : deux publications au même moment se
-   mélangeraient dans la même bulle de stories.
+1 bis. UN SEUL RENDEZ-VOUS PAR JOUR, À 12H00 — ET LES JOURS SONT RÉPARTIS.
+   Tout le monde poste à 12h00 : on ne partage pas une journée à deux, sinon
+   deux publications se mélangeraient dans la même bulle de stories. On
+   partage donc les JOURS, pas les heures.
+   - le robot Mac : lundi, mardi, jeudi, vendredi (les séquences d'aide) ;
+   - Pierre : MERCREDI et DIMANCHE (ses témoignages + la story GO) ;
+   - Martin : SAMEDI (quiz et sondages, à la main, à cause du sticker).
 
 2. UNE STORY QUI DIT « VOTE JUSTE EN DESSOUS » NE PART JAMAIS SANS SON
    STICKER. Instagram ne permet pas de poser un sticker de vote sur une
@@ -31,8 +32,11 @@ DEUX PRINCIPES QUI COMMANDENT TOUT LE RESTE
 
 LES DEUX FOURNÉES NE SE CHEVAUCHENT PAS
 ---------------------------------------
-    Fournée du LUNDI  (vidéo du dimanche) -> couvre lundi, mardi, mercredi
-    Fournée du JEUDI  (vidéo du mercredi) -> couvre jeudi, vendredi, samedi, dimanche
+    Fournée du LUNDI  (vidéo du dimanche) -> alimente lundi et mardi
+    Fournée du JEUDI  (vidéo du mercredi) -> alimente jeudi et vendredi
+
+    Le mercredi et le dimanche appartiennent à Pierre, le samedi à Martin :
+    la production automatique ne les alimente pas.
 
 Chaque fournée alimente la période qui la sépare de la suivante. Aucun jour
 n'est servi deux fois, aucun jour n'est laissé vide.
@@ -50,23 +54,15 @@ story (AAAA-MM-JJ-12h00-NN.jpg) et écrit le calendrier complet.
 # stories s'y enchaînent, elles ne sont pas éparpillées sur la journée.
 MIDI = "12:00"
 
-# Le créneau de Pierre : le SOIR, jamais à 12h00.
-# Sinon son témoignage s'intercalerait au milieu de la séquence programmée et
-# les deux se mélangeraient. Le soir, la séquence de midi a été vue, et les
-# gens sont disponibles pour répondre en DM au « Réponds GO » qui suit.
-SOIR_PIERRE = "19:00"
-
 GRILLE = {
     # jour: [(heure, nombre de stories, ce qu'on y met, mode)]
     "lundi":    [(MIDI, 6, "Séquence d'aide de la vidéo du dimanche, en entier", "auto")],
     "mardi":    [(MIDI, 5, "Séquence conseil terrain, ou cadeau de la semaine", "auto")],
-    "mercredi": [(MIDI, 5, "Coulisses, parcours, puis annonce de la vidéo de 18h", "auto"),
-                 (SOIR_PIERRE, 2, "Témoignage de Pierre + la story Réponds GO", "pierre")],
+    "mercredi": [(MIDI, 2, "Témoignage de Pierre + la story Réponds GO", "pierre")],
     "jeudi":    [(MIDI, 6, "Séquence d'aide de la vidéo du mercredi, en entier", "auto")],
     "vendredi": [(MIDI, 5, "Cadeau de la semaine, mot-clé SIMULATEUR", "auto")],
     "samedi":   [(MIDI, 6, "QUIZ ET SONDAGES — le seul moment manuel de la semaine", "manuel")],
-    "dimanche": [(MIDI, 5, "Bilan, teaser de la vidéo qui sort à 18h", "auto"),
-                 (SOIR_PIERRE, 2, "Témoignage de Pierre + la story Réponds GO", "pierre")],
+    "dimanche": [(MIDI, 2, "Témoignage de Pierre + la story Réponds GO", "pierre")],
 }
 
 # Quels jours chaque fournée alimente

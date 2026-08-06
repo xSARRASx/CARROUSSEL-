@@ -16,25 +16,25 @@ manuel/  : NE JAMAIS PROGRAMMER. Ces stories promettent un vote, et le
 
 vendredi  2026-08-07  6 stories  — banque-01/A_remplir_sans_baisser
 samedi    2026-08-08  8 stories  [A LA MAIN]  — interactifs-01/quiz
-dimanche  2026-08-09  6 stories  — banque-01/B_trouver_clients
-lundi     2026-08-10  6 stories  — banque-01/C_proprios_decus
-mardi     2026-08-11  6 stories  — banque-01/D_30_logements
-mercredi  2026-08-12  6 stories  — banque-01/E_algo_2026
-jeudi     2026-08-13  6 stories  — banque-01/F_caution
-vendredi  2026-08-14  6 stories  — banque-01/G_pourquoi_ca_bloque
+lundi     2026-08-10  6 stories  — banque-01/B_trouver_clients
+mardi     2026-08-11  6 stories  — banque-01/C_proprios_decus
+jeudi     2026-08-13  6 stories  — banque-01/D_30_logements
+vendredi  2026-08-14  6 stories  — banque-01/E_algo_2026
 samedi    2026-08-15  8 stories  [A LA MAIN]  — interactifs-02/quiz02
-dimanche  2026-08-16  6 stories  — banque-01/H_plan_de_zero
-lundi     2026-08-17  6 stories  — banque-02/I_condamnation_220k
-mardi     2026-08-18  6 stories  — banque-02/J_checklist_conformite
-mercredi  2026-08-19  5 stories  — banque-02/K_mythe_carte_g
-jeudi     2026-08-20  3 stories  — melange-1
-vendredi  2026-08-21  3 stories  — melange-2
+lundi     2026-08-17  6 stories  — banque-01/F_caution
+mardi     2026-08-18  6 stories  — banque-01/G_pourquoi_ca_bloque
+jeudi     2026-08-20  6 stories  — banque-01/H_plan_de_zero
+vendredi  2026-08-21  6 stories  — banque-02/I_condamnation_220k
 samedi    2026-08-22  4 stories  [A LA MAIN]  — lundi_02_sondage + lundi_03_questions + mercredi_03_question + samedi_01_radar
-dimanche  2026-08-23  3 stories  — melange-3
-lundi     2026-08-24  2 stories  — melange-4
+lundi     2026-08-24  6 stories  — banque-02/J_checklist_conformite
+mardi     2026-08-25  5 stories  — banque-02/K_mythe_carte_g
+jeudi     2026-08-27  3 stories  — melange-1
+vendredi  2026-08-28  3 stories  — melange-2
 samedi    2026-08-29  5 stories  [A LA MAIN]  — sondage + sondage02
+lundi     2026-08-31  3 stories  — melange-3
+mardi     2026-09-01  2 stories  — melange-4
 
 --------------------------------------------------------------
 
-101 stories, du 2026-08-07 au 2026-08-29.
-Soit 23 jours de contenu programmes d'avance.
+101 stories, du 2026-08-07 au 2026-09-01.
+Soit 26 jours de contenu programmes d'avance.

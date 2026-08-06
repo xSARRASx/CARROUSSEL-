@@ -25,10 +25,14 @@ UN POINT IMPORTANT SUR LE DÉCOUPAGE
     séquence complète du jour (3 à 6 stories qui s'enchaînent). C'est le
     format habituel d'Instagram, et c'est ce que le contenu exige.
 
-LES SAMEDIS SONT RÉSERVÉS
-    Les quiz et sondages réclament un sticker de vote qu'Instagram interdit
-    sur une story programmée. Ils sont donc placés uniquement les SAMEDIS,
-    dans `manuel/`, pour que Martin n'ait qu'un moment par semaine à y passer.
+TROIS JOURS SONT RÉSERVÉS, LA PROGRAMMATION LES SAUTE
+    - MERCREDI et DIMANCHE : ce sont les créneaux de Pierre. Il y poste ses
+      témoignages à 12h00, avec la story « Réponds GO » derrière.
+    - SAMEDI : les quiz et sondages, que Martin poste à la main parce qu'ils
+      réclament un sticker de vote qu'Instagram interdit sur une story
+      programmée.
+    La production automatique n'alimente donc que LUNDI, MARDI, JEUDI et
+    VENDREDI.
 
 Usage :
     python3 programmation.py [--debut AAAA-MM-JJ] [--dossier <nom>]
@@ -101,8 +105,12 @@ def programmer(debut, nom_dossier):
     jour = debut
     # Les séquences programmables prennent les jours ordinaires ; on saute les
     # samedis, qui sont réservés aux quiz et sondages.
+    # 2 = mercredi et 6 = dimanche appartiennent a Pierre (ses temoignages),
+    # 5 = samedi a Martin (quiz et sondages, a la main). La production
+    # automatique ne prend que lundi, mardi, jeudi, vendredi.
+    RESERVES = {2, 5, 6}
     for nom, fichiers in groupes.items():
-        while jour.weekday() == 5:            # 5 = samedi
+        while jour.weekday() in RESERVES:
             jour += datetime.timedelta(days=1)
         for i, src in enumerate(fichiers, 1):
             shutil.copy2(src, dossier / "auto" / f"{jour}-{HEURE}-{i:02d}.jpg")
