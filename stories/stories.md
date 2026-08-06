@@ -793,10 +793,14 @@ But : [ce que la story doit déclencher]
 
 ---
 
-## 🕐 LA GRILLE DE DIFFUSION (06/08/2026) — UN rendez-vous par jour, à 12h00
+## 🕐 LA GRILLE DE DIFFUSION — UN rendez-vous par jour, à 12h00
 
-> Décision de Martin : « les stories c'est à 12h, une seule fois par jour ».
+> ✅ **VALIDÉE PAR MARTIN LE 06/08/2026, NE CHANGE PLUS** : « un seul
+> rendez-vous par jour à 12h, avec la séquence entière dedans. On garde ça,
+> ne réécris rien. Continue avec cette grille pour toutes les prochaines
+> fournées. »
 > Le code fait foi : `stories/engine/planning.py` et `programmation.py`.
+> Les deux Routines portent cette règle dans leur prompt.
 
 **Un seul créneau : 12h00, heure de Paris, tous les jours.** Ce rendez-vous
 contient la **séquence entière du jour** (5 à 6 stories qui s'enchaînent).

@@ -12,14 +12,16 @@ FORMAT PRODUIT (aligné sur le robot carrousels déjà en place) :
 
     livraison/stories-<AAAA-MM-JJ>-<sujet>/
         auto/       <- LE ROBOT MAC NE PROGRAMME QUE CE DOSSIER
-                       jeudi-0800-01.jpg : jour, heure de Paris, rang dans la vague
+                       2026-08-10-12h00-01.jpg : DATE de publication, 12h00,
+                       rang dans la sequence du jour
         manuel/     <- stories a poster A LA MAIN, le samedi, regroupees
-                       samedi-1100-01-SONDAGE.jpg : le nom dit le sticker a poser
+                       2026-08-15-12h00-01-SONDAGE.jpg : le nom dit le sticker
         reserve/    <- surplus de la fournee, sans creneau cette semaine
                        sert de stock pour les semaines sans video
         description.txt
 
-Le nom du fichier PORTE son creneau : <jour>-<HHMM>-<rang>.jpg
+Le nom du fichier PORTE sa date : <AAAA-MM-JJ>-12h00-<rang>.jpg
+UN SEUL rendez-vous par jour, a 12h00, avec la sequence entiere dedans.
 
 Usage :
     python3 livraison.py <lot> [<lot> ...] --sujet <mot-cle> [--date AAAA-MM-JJ]
@@ -33,15 +35,26 @@ import argparse, datetime, json, pathlib, shutil, sys
 from PIL import Image
 from planning import GRILLE, jours_de_la_fournee, besoin_sticker
 
-def creneaux_auto(jours):
-    """Déroule la grille en une liste plate (jour, heure, rang dans la vague)."""
+JOURS_SEMAINE = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
+
+def creneaux_auto(jours, date_fournee):
+    """Déroule la grille en (date réelle, rang), un rendez-vous par jour à 12h.
+
+    Les fichiers portent leur DATE de publication, exactement comme
+    programmation.py : une seule convention pour le robot Mac.
+    """
+    import datetime
+    d0 = datetime.date.fromisoformat(date_fournee)
     plan = []
     for j in jours:
-        for heure, n, _, mode in GRILLE[j]:
+        # la date réelle de ce jour de la semaine, à partir de la fournée
+        delta = (JOURS_SEMAINE.index(j) - d0.weekday()) % 7
+        date = d0 + datetime.timedelta(days=delta)
+        for _, n, _, mode in GRILLE[j]:
             if mode != "auto":
                 continue
             for r in range(1, n + 1):
-                plan.append((j, heure, r))
+                plan.append((date, r))
     return plan
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]     # stories/
@@ -100,11 +113,11 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi')
     # Une fournée riche produit souvent PLUS que ce que la semaine peut
     # absorber : le surplus part en `reserve/` (c'est le stock qui couvrira
     # les semaines sans vidéo). Le robot Mac ne programme QUE `auto/`.
-    plan = creneaux_auto(jours)
+    plan = creneaux_auto(jours, date)
     reserve = auto[len(plan):]
     for i, (src, _) in enumerate(auto[:len(plan)]):
-        jour, heure, rang = plan[i]
-        shutil.copy2(src, dossier / "auto" / f"{jour}-{heure.replace(':', '')}-{rang:02d}.jpg")
+        date_pub, rang = plan[i]
+        shutil.copy2(src, dossier / "auto" / f"{date_pub}-12h00-{rang:02d}.jpg")
     if reserve:
         (dossier / "reserve").mkdir(exist_ok=True)
         for i, (src, _) in enumerate(reserve, 1):
@@ -112,8 +125,11 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi')
 
     # Les stories manuelles sont toutes regroupées sur le samedi, et le nom
     # dit quel sticker poser.
+    import datetime as _dt
+    d0 = _dt.date.fromisoformat(date)
+    samedi = d0 + _dt.timedelta(days=(5 - d0.weekday()) % 7)
     for i, (src, sticker) in enumerate(manuel, 1):
-        shutil.copy2(src, dossier / "manuel" / f"samedi-1100-{i:02d}-{sticker}.jpg")
+        shutil.copy2(src, dossier / "manuel" / f"{samedi}-12h00-{i:02d}-{sticker}.jpg")
 
     lignes = [
         f"Fournée de stories du {date}",
@@ -128,12 +144,13 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi')
         f"{len(fichiers)} stories au total. Format : JPEG 1080x1920.",
         "",
         "COMMENT LIRE CE DOSSIER :",
-        "- auto/     : A PROGRAMMER. Le nom du fichier porte son creneau, en heure",
-        "              de Paris : <jour>-<HHMM>-<rang>.jpg. Exemple jeudi-0800-01.jpg",
-        "              = jeudi 8h00, premiere story de la vague.",
+        "- auto/     : A PROGRAMMER. Le nom du fichier porte SA DATE de",
+        "              publication : <AAAA-MM-JJ>-12h00-<rang>.jpg.",
+        "              Les fichiers qui partagent une date forment UNE publication :",
+        "              ils s'enchainent le meme jour a 12h00 (heure de Paris).",
         "- manuel/   : NE JAMAIS PROGRAMMER. Ces stories promettent un vote et le",
         "              sticker de sondage Instagram ne peut pas etre pose sur une",
-        "              story programmee. Elles sont toutes regroupees le samedi 11h,",
+        "              story programmee. Elles sont toutes regroupees le SAMEDI,",
         "              et le nom dit quel sticker poser : SONDAGE ou QUESTIONS.",
         "- reserve/  : surplus sans creneau cette semaine. Ne pas programmer, c'est",
         "              le stock qui couvrira les semaines sans video.",
