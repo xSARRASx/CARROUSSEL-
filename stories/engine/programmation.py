@@ -40,7 +40,7 @@ Usage :
 import argparse, datetime, pathlib, shutil, sys
 from collections import OrderedDict
 from planning import besoin_sticker
-from stickers import bloc_texte
+from stickers import bloc_texte, est_doublon
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 REPO = ROOT.parent
@@ -63,6 +63,10 @@ def sequences():
             continue
         for f in sorted(d.glob("*.jpg")):
             if any(x in f.stem.lower() for x in EXCLUS):
+                continue
+            # Une question deja posee ailleurs ne repart pas une 2e fois
+            # (Martin, 08/08/2026 : deux samedis posaient la meme question).
+            if est_doublon(f.stem):
                 continue
             # A_remplir_sans_baisser_03 -> A_remplir_sans_baisser
             # quiz02_04 -> quiz02 ; lundi_02_sondage -> jour isolé
@@ -134,7 +138,14 @@ def programmer(debut, nom_dossier):
             blocs.append((" + ".join(noms), tampon))
             tampon, noms = [], []
     if tampon:
-        blocs.append((" + ".join(noms), tampon))
+        # Un samedi qui ne recevrait que 1 ou 2 stories gache le creneau :
+        # on recolle ce reste au bloc precedent plutot que d'ouvrir un samedi
+        # pour si peu (Martin, 08/08/2026).
+        if len(tampon) < 3 and blocs:
+            nom_prec, contenu = blocs[-1]
+            blocs[-1] = (f"{nom_prec} + {' + '.join(noms)}", contenu + tampon)
+        else:
+            blocs.append((" + ".join(noms), tampon))
 
     samedi = debut
     while samedi.weekday() != 5:

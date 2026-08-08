@@ -16,6 +16,17 @@ LES TROIS STICKERS INSTAGRAM
     "Sondage"   : 2 à 4 options, pas de bonne réponse. Pour les diagnostics.
     "Quiz"      : 2 à 4 options AVEC une bonne réponse à cocher. Pour les quiz.
     "Questions" : boîte à questions ouverte, sans option. Pour « raconte-moi ».
+
+⚠️ POURQUOI NOS QUIZ UTILISENT LE STICKER "SONDAGE" ET NON "QUIZ"
+(erreur repérée par Martin le 08/08/2026, corrigée le jour même)
+    Le sticker "Quiz" d'Instagram révèle la bonne réponse À L'INSTANT du vote.
+    Or nos séquences de quiz sont construites autrement : la question est une
+    story, et la RÉPONSE est la story suivante — l'image dit d'ailleurs
+    « vote avec le sondage, la réponse arrive ». Avec un sticker Quiz, la
+    réponse serait donnée deux fois et la story suivante n'aurait plus
+    d'intérêt : le suspense tombe.
+    Donc : question de quiz -> sticker SONDAGE. Le champ `reponse` reste noté
+    ici pour mémoire, mais il ne se coche nulle part.
 """
 
 # nom du fichier source (sans .jpg) -> ce qu'il faut taper dans le sticker
@@ -23,19 +34,19 @@ STICKERS = {
 
     # ===================== interactifs-01 : le quiz Airbnb 2026 ==============
     "quiz_02": {
-        "type": "Quiz",
+        "type": "Sondage",
         "question": "Le badge Superhost booste ton classement en 2026.",
         "options": ["Vrai", "Faux"],
         "reponse": "Faux",
     },
     "quiz_04": {
-        "type": "Quiz",
+        "type": "Sondage",
         "question": "Combien pèse ta photo de couverture dans ton classement ?",
         "options": ["8 %", "15 %", "30 %"],
         "reponse": "8 %",
     },
     "quiz_06": {
-        "type": "Quiz",
+        "type": "Sondage",
         "question": "Ta conciergerie peut débiter elle-même la caution du voyageur.",
         "options": ["Vrai", "Faux"],
         "reponse": "Faux",
@@ -61,19 +72,19 @@ STICKERS = {
 
     # ===================== interactifs-02 : le quiz condamnation =============
     "quiz02_02": {
-        "type": "Quiz",
+        "type": "Sondage",
         "question": "Avoir la carte G aurait évité la condamnation de la conciergerie.",
         "options": ["Vrai", "Faux"],
         "reponse": "Faux",
     },
     "quiz02_04": {
-        "type": "Quiz",
+        "type": "Sondage",
         "question": "Qui a été condamné à 220 000 € ?",
         "options": ["Le propriétaire", "La conciergerie", "Les deux"],
         "reponse": "Les deux",
     },
     "quiz02_06": {
-        "type": "Quiz",
+        "type": "Sondage",
         "question": "Le numéro d'enregistrement dispense de l'autorisation de changement d'usage.",
         "options": ["Vrai", "Faux"],
         "reponse": "Faux",
@@ -92,6 +103,11 @@ STICKERS = {
     },
 
     # ===================== semaine-01 : les diagnostics isolés ===============
+    # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
+    # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les
+    # programmait a une semaine d'intervalle, on posait deux fois la meme
+    # question a la communaute. Ils restent ici (l'image existe, elle peut
+    # servir de rechange) mais `DOUBLONS` les tient hors de la programmation.
     "lundi_02_sondage": {
         "type": "Sondage",
         "question": "Ta plus grosse galère en ce moment ?",
@@ -115,9 +131,20 @@ STICKERS = {
     },
 }
 
+# Stories qui posent la MEME question qu'une autre : on n'en programme qu'une.
+# La valeur dit de quelle story elle est le doublon (celle qu'on garde).
+DOUBLONS = {
+    "lundi_02_sondage":   "sondage_02",
+    "lundi_03_questions": "sondage_03",
+}
+
 def fiche(nom_source):
     """Renvoie la fiche du sticker, ou None si la story n'en a pas besoin."""
     return STICKERS.get(nom_source)
+
+def est_doublon(nom_source):
+    """Vrai si cette story repete une question deja posee ailleurs."""
+    return nom_source in DOUBLONS
 
 def bloc_texte(entrees):
     """Compose le contenu de `manuel/_STICKERS.txt`.
@@ -153,7 +180,12 @@ def bloc_texte(entrees):
             for i, o in enumerate(f["options"], 1):
                 lignes.append(f"    Option {i} : {o}")
         if f.get("reponse"):
-            lignes.append(f"    Bonne reponse a cocher : {f['reponse']}")
+            if f["type"] == "Quiz":
+                lignes.append(f"    Bonne reponse a cocher : {f['reponse']}")
+            else:
+                # Sondage : rien a cocher. La reponse est la story SUIVANTE.
+                lignes.append(f"    (La bonne reponse est \"{f['reponse']}\", mais ne la")
+                lignes.append(f"     coche PAS : elle est revelee dans la story suivante.)")
         lignes.append("")
     if manquants:
         lignes += [

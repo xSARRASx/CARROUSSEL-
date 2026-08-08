@@ -83,6 +83,23 @@ def jpgs_du_lot(lot):
         return []
     return sorted(d.glob("*.jpg"))
 
+def samedis_deja_pris(sauf=None):
+    """Les dates de samedi deja occupees par une livraison manuelle.
+
+    Chaque fichier de `manuel/` porte sa date en tete (AAAA-MM-JJ-12h00-...).
+    On relit TOUS les dossiers de `livraison/`, y compris la programmation du
+    stock, pour ne jamais poser deux paquets manuels le meme jour.
+    """
+    pris = set()
+    if not LIVRAISON.is_dir():
+        return pris
+    for d in LIVRAISON.iterdir():
+        if not d.is_dir() or (sauf is not None and d == sauf):
+            continue
+        for p in d.glob("manuel/*.jpg"):
+            pris.add(p.name[:10])
+    return pris
+
 def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi'):
     lots = trier_lots(lots)
     jours = jours_de_la_fournee(reveil)
@@ -126,9 +143,17 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi')
 
     # Les stories manuelles sont toutes regroupées sur le samedi, et le nom
     # dit quel sticker poser.
+    # ⚠️ On prend le premier samedi ENCORE LIBRE : un samedi deja reserve par
+    # une autre fournee (ou par la programmation du stock) recevrait deux
+    # paquets de stories a la fois, et Martin ne saurait pas lequel poster.
+    # Erreur reperee par Martin le 08/08/2026.
     import datetime as _dt
     d0 = _dt.date.fromisoformat(date)
     samedi = d0 + _dt.timedelta(days=(5 - d0.weekday()) % 7)
+    pris = samedis_deja_pris(sauf=dossier)
+    while samedi.isoformat() in pris:
+        print(f"  Samedi {samedi} deja pris par une autre fournee, on decale.", flush=True)
+        samedi += _dt.timedelta(days=7)
     entrees = []
     for i, (src, sticker) in enumerate(manuel, 1):
         nom = f"{samedi}-12h00-{i:02d}-{sticker}.jpg"
@@ -183,31 +208,58 @@ def controle():
     if not LIVRAISON.is_dir():
         print("ALERTE : le dossier livraison/ n'existe pas.", flush=True)
         return 1
+    # On controle TOUT ce que le robot Mac peut voir : les fournees de la
+    # semaine (stories-...) ET la programmation du stock (programmation-...).
     dossiers = sorted(d for d in LIVRAISON.iterdir()
-                      if d.is_dir() and d.name.startswith(PREFIXE))
+                      if d.is_dir() and not d.name.startswith("."))
     if not dossiers:
         print("ALERTE : aucune fournée dans livraison/.", flush=True)
         return 1
 
-    alertes = []
+    # Deux dossiers ne doivent JAMAIS revendiquer la meme journee : le robot
+    # programmerait deux paquets de stories le meme jour a 12h00, et Martin ne
+    # saurait pas lequel poster. (Erreur reperee par Martin le 08/08/2026.)
+    par_jour = {}
+    for d in dossiers:
+        for p in list(d.glob("auto/*.jpg")) + list(d.glob("manuel/*.jpg")):
+            par_jour.setdefault(p.name[:10], set()).add(d.name)
+    collisions = {j: sorted(s) for j, s in par_jour.items() if len(s) > 1}
+
+    alertes = [f"le {j} est revendique par DEUX dossiers a la fois : {', '.join(s)}"
+               for j, s in sorted(collisions.items())]
     for d in dossiers:
         images = (sorted(d.glob("auto/*.jpg")) + sorted(d.glob("manuel/*.jpg"))
                   + sorted(d.glob("reserve/*.jpg")))
         if not images:
             alertes.append(f"{d.name} : aucune image")
             continue
-        if not (d / "description.txt").is_file():
-            alertes.append(f"{d.name} : description.txt manquant")
+        if not (d / "description.txt").is_file() and not (d / "calendrier.txt").is_file():
+            alertes.append(f"{d.name} : description.txt ou calendrier.txt manquant")
         # numérotation continue, sans trou
         if not (d / "auto").is_dir() or not (d / "manuel").is_dir():
             alertes.append(f"{d.name} : sous-dossiers auto/ et manuel/ attendus")
         if list(d.glob("manuel/*.jpg")) and not (d / "manuel" / "_STICKERS.txt").is_file():
             alertes.append(f"{d.name} : manuel/_STICKERS.txt manquant "
                            f"(le texte des stickers doit voyager avec les images)")
+        # Dans une sequence manuelle, seules les QUESTIONS portent un sticker :
+        # la couverture, les reponses et la cloture n'en ont pas, et c'est
+        # normal. On verifie donc deux choses :
+        #   - un suffixe present est un vrai nom de sticker ;
+        #   - chaque journee manuelle compte au moins UNE story a sticker,
+        #     sinon elle n'avait aucune raison d'echapper a la programmation.
+        VALIDES = ("QUIZ", "SONDAGE", "QUESTIONS")
+        avec_sticker = {}
         for p in d.glob("manuel/*.jpg"):
-            if not any(p.stem.endswith(s) for s in ("QUIZ", "SONDAGE", "QUESTIONS")):
-                alertes.append(f"{d.name}/manuel/{p.name} : le nom doit finir par "
-                               f"le sticker a poser (QUIZ, SONDAGE ou QUESTIONS)")
+            suffixe = p.stem.rsplit("-", 1)[-1]
+            porte = suffixe in VALIDES
+            avec_sticker[p.name[:10]] = avec_sticker.get(p.name[:10], False) or porte
+            if not porte and suffixe.isalpha() and suffixe.isupper():
+                alertes.append(f"{d.name}/manuel/{p.name} : suffixe '{suffixe}' inconnu "
+                               f"(attendu QUIZ, SONDAGE ou QUESTIONS)")
+        for jour, porte in sorted(avec_sticker.items()):
+            if not porte:
+                alertes.append(f"{d.name}/manuel : le {jour} ne contient aucune story "
+                               f"a sticker, elle aurait du partir en programmation")
         for p in images:
             if p.stat().st_size == 0:
                 alertes.append(f"{d.name}/{p.name} : fichier vide")

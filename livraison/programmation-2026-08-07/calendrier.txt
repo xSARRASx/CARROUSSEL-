@@ -25,16 +25,15 @@ lundi     2026-08-17  6 stories  — banque-01/F_caution
 mardi     2026-08-18  6 stories  — banque-01/G_pourquoi_ca_bloque
 jeudi     2026-08-20  6 stories  — banque-01/H_plan_de_zero
 vendredi  2026-08-21  6 stories  — banque-02/I_condamnation_220k
-samedi    2026-08-22  4 stories  [A LA MAIN]  — lundi_02_sondage + lundi_03_questions + mercredi_03_question + samedi_01_radar
+samedi    2026-08-22  7 stories  [A LA MAIN]  — mercredi_03_question + samedi_01_radar + sondage + sondage02
 lundi     2026-08-24  6 stories  — banque-02/J_checklist_conformite
 mardi     2026-08-25  5 stories  — banque-02/K_mythe_carte_g
 jeudi     2026-08-27  3 stories  — melange-1
 vendredi  2026-08-28  3 stories  — melange-2
-samedi    2026-08-29  5 stories  [A LA MAIN]  — sondage + sondage02
 lundi     2026-08-31  3 stories  — melange-3
 mardi     2026-09-01  2 stories  — melange-4
 
 --------------------------------------------------------------
 
-101 stories, du 2026-08-07 au 2026-09-01.
+99 stories, du 2026-08-07 au 2026-09-01.
 Soit 26 jours de contenu programmes d'avance.
