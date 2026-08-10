@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .ad.paysage { display: flex; background: var(--blanc); }
+    .col-txt { width: 690px; flex: none; padding: 52px 50px; display: flex;
+               flex-direction: column; justify-content: space-between; }
+    .col-img { flex: 1; position: relative; overflow: hidden; }
+    .logo { width: 208px; }
+    .badge { font-size: 15px; padding: 13px 21px; margin-bottom: 22px; }
+    .titre.sombre { font-size: 46px; }
+    .sous.sombre { font-size: 20px; margin-top: 16px; max-width: 570px; }
+    .bas { display: flex; align-items: center; gap: 24px; }
+    .cta { font-size: 22px; padding: 21px 34px; gap: 13px; }
+    .url { font-size: 17px; color: var(--gris); }
+</style>
+</head>
+<body>
+<div class="ad paysage">
+    <div class="col-txt">
+        <img class="logo" src="../assets/logos/logo-lucky-conciergerie.png" alt="">
+
+        <div>
+            <div class="badge">Mise en relation 100 % gratuite</div>
+            <div class="titre sombre">Vous cherchez une conciergerie Airbnb <em>sérieuse&nbsp;?</em></div>
+            <div class="sous sombre">On vous présente une conciergerie <b>certifiée par nos équipes</b>,
+                près de chez vous.</div>
+        </div>
+
+        <div class="bas">
+            <div class="cta">Trouver ma conciergerie <svg class="fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+            <div class="url">luckyconciergerie.fr</div>
+        </div>
+    </div>
+
+    <div class="col-img">
+        <img class="photo" src="../assets/backgrounds/premium_paysage.png" alt="">
+    </div>
+</div>
+</body>
+</html>

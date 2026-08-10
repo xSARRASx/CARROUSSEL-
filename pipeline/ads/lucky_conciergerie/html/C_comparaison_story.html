@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .ad.story { background: var(--creme); }
+    .photo { height: 680px; bottom: auto; }
+    .fondu { position: absolute; top: 0; left: 0; right: 0; height: 680px;
+             background: linear-gradient(180deg, rgba(244,236,223,.20) 0%,
+                         rgba(244,236,223,.55) 52%, var(--creme) 100%); }
+    .pad { padding: 82px 66px 76px; justify-content: space-between; }
+    .logo { width: 300px; }
+    .corps { margin-top: auto; }
+    .titre.sombre { font-size: 86px; }
+    .cols { display: flex; gap: 32px; margin-top: 54px; }
+    .col { flex: 1; padding: 46px 34px; }
+    .col-titre { font-size: 29px; margin-bottom: 34px; line-height: 1.2; }
+    .col-mauvais .col-titre { color: var(--gris); }
+    .col-bon .col-titre { color: var(--or-vif); }
+    .puce { gap: 19px; margin-bottom: 28px; }
+    .puce:last-child { margin-bottom: 0; }
+    .ico { width: 46px; height: 46px; margin-top: 2px; }
+    .puce-txt { font-size: 25px; line-height: 1.34; }
+    .cta { font-size: 35px; padding: 35px 56px; gap: 18px; margin-top: 58px; }
+    .url { font-size: 26px; color: var(--gris); margin-top: 44px; }
+</style>
+</head>
+<body>
+<div class="ad story">
+    <img class="photo" src="../assets/backgrounds/clair_story.png" alt="">
+    <div class="fondu"></div>
+
+    <div class="pad">
+        <img class="logo" src="../assets/logos/logo-lucky-conciergerie.png" alt="">
+
+        <div class="corps">
+            <div class="titre sombre">Toutes les conciergeries<br>ne se valent <em>pas.</em></div>
+
+            <div class="cols">
+                <div class="col col-mauvais">
+                    <div class="col-titre">Une conciergerie<br>au hasard</div>
+                    <div class="puce">
+                        <div class="ico ico-non"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+                        <div class="puce-txt sur-clair">Vous ne savez pas comment elle travaille</div>
+                    </div>
+                    <div class="puce">
+                        <div class="ico ico-non"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+                        <div class="puce-txt sur-clair">Aucune visibilité sur vos revenus</div>
+                    </div>
+                    <div class="puce">
+                        <div class="ico ico-non"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+                        <div class="puce-txt sur-clair">Peu de recours en cas de problème</div>
+                    </div>
+                </div>
+
+                <div class="col col-bon">
+                    <div class="col-titre">Une conciergerie<br>certifiée Lucky</div>
+                    <div class="puce">
+                        <div class="ico ico-oui"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l5 5L19 7"/></svg></div>
+                        <div class="puce-txt sur-navy">Sélectionnée et suivie par nos équipes</div>
+                    </div>
+                    <div class="puce">
+                        <div class="ico ico-oui"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l5 5L19 7"/></svg></div>
+                        <div class="puce-txt sur-navy">Vos revenus visibles en temps réel</div>
+                    </div>
+                    <div class="puce">
+                        <div class="ico ico-oui"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l5 5L19 7"/></svg></div>
+                        <div class="puce-txt sur-navy">Des outils pros et une assurance dédiée</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta">Trouver ma conciergerie <svg class="fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+            <div class="url">luckyconciergerie.fr</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
