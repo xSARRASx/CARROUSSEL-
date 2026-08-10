@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .ad.paysage { background: var(--creme); }
+    .pad { padding: 44px 50px 40px; justify-content: space-between; }
+    .haut { display: flex; align-items: center; justify-content: space-between; }
+    .logo { width: 200px; }
+    .badge { font-size: 14px; padding: 11px 19px; }
+    .titre.sombre { font-size: 40px; margin-top: 20px; }
+    .etapes { gap: 16px; margin-top: 20px; align-items: stretch; }
+    .etape { background: var(--blanc); border-radius: 18px; padding: 20px 18px; }
+    .etape:last-child { background: var(--navy); }
+    .etape-num { font-size: 30px; margin-bottom: 10px; }
+    .etape:last-child .etape-num { color: var(--or-vif); }
+    .etape-tit { font-size: 16px; margin-bottom: 6px; line-height: 1.2; }
+    .etape-txt { font-size: 13px; line-height: 1.35; }
+    .bas { display: flex; align-items: center; gap: 22px; margin-top: 20px; }
+    .cta { font-size: 19px; padding: 18px 30px; gap: 11px; }
+    .url { font-size: 15px; color: var(--gris); }
+</style>
+</head>
+<body>
+<div class="ad paysage">
+    <div class="pad">
+        <div class="haut">
+            <img class="logo" src="../assets/logos/logo-lucky-conciergerie.png" alt="">
+            <div class="badge">Gratuit et sans engagement</div>
+        </div>
+
+        <div>
+            <div class="titre sombre">Trouver la bonne conciergerie, <em>en 3 étapes.</em></div>
+
+            <div class="etapes">
+                <div class="etape">
+                    <div class="etape-num">01</div>
+                    <div class="etape-tit">Vous remplissez le formulaire</div>
+                    <div class="etape-txt">Deux minutes : votre code postal et vos coordonnées.</div>
+                </div>
+                <div class="etape">
+                    <div class="etape-num">02</div>
+                    <div class="etape-tit">On vous appelle</div>
+                    <div class="etape-txt">On comprend votre logement et vos attentes.</div>
+                </div>
+                <div class="etape sur-navy">
+                    <div class="etape-num">03</div>
+                    <div class="etape-tit">On vous présente la bonne conciergerie</div>
+                    <div class="etape-txt">Certifiée par nos équipes, près de chez vous.</div>
+                </div>
+            </div>
+
+            <div class="bas">
+                <div class="cta">Trouver ma conciergerie <svg class="fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+                <div class="url">luckyconciergerie.fr</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

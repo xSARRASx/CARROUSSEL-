@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .ad.paysage { background: var(--creme); display: flex; }
+    .col-gauche { width: 520px; flex: none; padding: 50px 24px 46px 54px;
+                  display: flex; flex-direction: column; justify-content: space-between; }
+    .col-droite { flex: 1; padding: 50px 54px 46px 20px; display: flex;
+                  flex-direction: column; justify-content: center; }
+    .logo { width: 206px; }
+    .titre.sombre { font-size: 44px; margin-top: 24px; }
+    .cta { font-size: 21px; padding: 20px 32px; gap: 12px; }
+    .url { font-size: 16px; color: var(--gris); margin-top: 15px; }
+    .villes { gap: 11px; }
+    .ville { font-size: 17px; padding: 11px 19px; }
+    .sous.sombre { font-size: 17px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="ad paysage">
+    <div class="col-gauche">
+        <div>
+            <img class="logo" src="../assets/logos/logo-lucky-conciergerie.png" alt="">
+            <div class="titre sombre">Une conciergerie certifiée <em>près de chez vous.</em></div>
+        </div>
+        <div>
+            <div class="cta">Trouver ma conciergerie <svg class="fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+            <div class="url">luckyconciergerie.fr</div>
+        </div>
+    </div>
+
+    <div class="col-droite">
+        <div class="villes">
+            <div class="ville claire">Paris</div>
+            <div class="ville claire">Lyon</div>
+            <div class="ville claire">Marseille</div>
+            <div class="ville claire">Bordeaux</div>
+            <div class="ville claire">Lille</div>
+            <div class="ville claire">Toulouse</div>
+            <div class="ville claire">Nantes</div>
+            <div class="ville claire">Nice</div>
+            <div class="ville claire">Montpellier</div>
+            <div class="ville or">et partout ailleurs</div>
+        </div>
+        <div class="sous sombre">Donnez-nous votre code postal :
+            <b>on vous présente la conciergerie de votre secteur.</b></div>
+    </div>
+</div>
+</body>
+</html>

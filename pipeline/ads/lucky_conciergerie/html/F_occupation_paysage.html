@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .ad.paysage { background: linear-gradient(150deg, #041C4E 0%, var(--navy) 52%, #010F2E 100%); }
+    .halo { position: absolute; width: 620px; height: 620px; left: -180px; top: 200px;
+            background: radial-gradient(circle, rgba(176,138,62,.18) 0%, rgba(176,138,62,0) 66%); }
+    .pad { padding: 50px 54px 46px; flex-direction: row; gap: 44px; align-items: stretch; }
+    .txt { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .logo { width: 206px; }
+    .kicker { font-size: 15px; margin-bottom: 15px; }
+    .titre { font-size: 45px; }
+    .stats { gap: 22px; align-items: center; margin-top: 20px; }
+    .stat-n { font-size: 34px; }
+    .stat-l { font-size: 14px; margin-top: 5px; max-width: 130px; }
+    .sep { width: 2px; height: 50px; }
+    .bas { display: flex; align-items: center; gap: 22px; }
+    .cta { font-size: 21px; padding: 20px 32px; gap: 12px; }
+    .url { font-size: 16px; color: rgba(255,255,255,.60); }
+    .droite { width: 250px; flex: none; align-self: center; }
+    .cal { gap: 8px; }
+    .cal-legende { gap: 18px; margin-top: 16px; }
+    .cal-legende > div { display: flex; align-items: center; gap: 8px; }
+    .cal-pastille { width: 13px; height: 13px; }
+    .cal-txt { font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="ad paysage">
+    <div class="halo"></div>
+
+    <div class="pad">
+        <div class="txt">
+            <img class="logo logo-blanc" src="../assets/logos/logo-lucky-conciergerie.png" alt="">
+
+            <div>
+                <div class="kicker">Taux d'occupation</div>
+                <div class="titre">Un calendrier <em>rempli</em>, pas un logement qui dort.</div>
+                <div class="stats">
+                    <div>
+                        <div class="stat-n">+40 %</div>
+                        <div class="stat-l">de nuits réservées</div>
+                    </div>
+                    <div class="sep"></div>
+                    <div>
+                        <div class="stat-n">0 &euro;</div>
+                        <div class="stat-l">pour vous</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bas">
+                <div class="cta">Trouver ma conciergerie <svg class="fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+                <div class="url">luckyconciergerie.fr</div>
+            </div>
+        </div>
+
+        <div class="droite">
+            <div class="cal">
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case vide"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div>
+
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case vide"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div>
+
+                <div class="cal-case pleine"></div><div class="cal-case vide"></div>
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div>
+
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div><div class="cal-case vide"></div>
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div>
+            </div>
+            <div class="cal-legende">
+                <div><div class="cal-pastille" style="background: linear-gradient(150deg,#D9B978,#B08A3E);"></div>
+                     <div class="cal-txt">réservées</div></div>
+                <div><div class="cal-pastille" style="background: rgba(255,255,255,.09);"></div>
+                     <div class="cal-txt">vides</div></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

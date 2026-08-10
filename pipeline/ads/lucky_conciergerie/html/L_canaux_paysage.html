@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .ad.paysage { background: linear-gradient(150deg, #041C4E 0%, var(--navy) 50%, #010F2E 100%); }
+    .halo { position: absolute; width: 640px; height: 640px; left: -170px; top: 180px;
+            background: radial-gradient(circle, rgba(176,138,62,.17) 0%, rgba(176,138,62,0) 66%); }
+    .pad { padding: 50px 54px 46px; flex-direction: row; gap: 40px; align-items: stretch; }
+    .txt { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .logo { width: 206px; }
+    .kicker { font-size: 15px; margin-bottom: 14px; }
+    .titre { font-size: 44px; }
+    .sous { font-size: 17px; margin-top: 13px; max-width: 470px; }
+    .bas { display: flex; align-items: center; gap: 22px; }
+    .cta { font-size: 21px; padding: 20px 32px; gap: 12px; }
+    .url { font-size: 16px; color: rgba(255,255,255,.60); }
+    .canaux { width: 300px; flex: none; flex-direction: column; gap: 14px;
+              align-self: center; align-items: stretch; }
+    .canal { padding: 18px 22px; height: 74px; }
+    .canal img { max-width: 92%; width: auto; max-height: 42px; }
+</style>
+</head>
+<body>
+<div class="ad paysage">
+    <div class="halo"></div>
+
+    <div class="pad">
+        <div class="txt">
+            <img class="logo logo-blanc" src="../assets/logos/logo-lucky-conciergerie.png" alt="">
+
+            <div>
+                <div class="kicker">Diffusion multi-plateformes</div>
+                <div class="titre">Votre logement visible <em>partout où ça compte.</em></div>
+                <div class="sous">Annonce diffusée et calendriers synchronisés.
+                    <b>Plus de visibilité, plus de réservations.</b></div>
+            </div>
+
+            <div class="bas">
+                <div class="cta">Trouver ma conciergerie <svg class="fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+                <div class="url">luckyconciergerie.fr</div>
+            </div>
+        </div>
+
+        <div class="canaux">
+            <div class="canal"><img src="../assets/logos/logo-airbnb.png" alt="Airbnb"></div>
+            <div class="canal"><img src="../assets/logos/logo-booking.png" alt="Booking.com"></div>
+            <div class="canal"><img src="../assets/logos/logo-abritel.png" alt="Abritel"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -79,7 +79,10 @@ def render(motif=""):
                 const tronques = [];
                 ad.querySelectorAll('.titre, .sous, .puce-txt, .cta, .col-titre, .stat-l')
                   .forEach(el => {
-                    const marge = Math.max(6, el.clientHeight * 0.10);
+                    // 25 % : jambages et accents debordent naturellement d'une
+                    // ligne serree (line-height 1.02). Une VRAIE ligne masquee
+                    // depasserait ce seuil de tres loin.
+                    const marge = Math.max(8, el.clientHeight * 0.25);
                     if (el.scrollHeight > el.clientHeight + marge ||
                         el.scrollWidth > el.clientWidth + 6) {
                         tronques.push(el.className);

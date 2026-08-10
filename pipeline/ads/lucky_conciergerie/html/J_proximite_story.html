@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .ad.story { background: var(--creme); }
+    .photo { height: 660px; bottom: auto; }
+    .fondu { position: absolute; top: 0; left: 0; right: 0; height: 660px;
+             background: linear-gradient(180deg, rgba(244,236,223,.20) 0%,
+                         rgba(244,236,223,.55) 52%, var(--creme) 100%); }
+    .pad { padding: 82px 66px 76px; justify-content: space-between; }
+    .logo { width: 300px; }
+    .corps { margin-top: auto; }
+    .titre.sombre { font-size: 88px; }
+    .villes { gap: 18px; margin-top: 52px; }
+    .ville { font-size: 26px; padding: 18px 30px; }
+    .sous.sombre { font-size: 30px; margin-top: 46px; max-width: 860px; }
+    .cta { font-size: 35px; padding: 35px 56px; gap: 18px; margin-top: 54px; }
+    .url { font-size: 26px; color: var(--gris); margin-top: 44px; }
+</style>
+</head>
+<body>
+<div class="ad story">
+    <img class="photo" src="../assets/backgrounds/clair_story.png" alt="">
+    <div class="fondu"></div>
+
+    <div class="pad">
+        <img class="logo" src="../assets/logos/logo-lucky-conciergerie.png" alt="">
+
+        <div class="corps">
+            <div class="titre sombre">Une conciergerie certifiée <em>près de chez vous.</em></div>
+
+            <div class="villes">
+                <div class="ville claire">Paris</div>
+                <div class="ville claire">Lyon</div>
+                <div class="ville claire">Marseille</div>
+                <div class="ville claire">Bordeaux</div>
+                <div class="ville claire">Lille</div>
+                <div class="ville claire">Toulouse</div>
+                <div class="ville claire">Nantes</div>
+                <div class="ville claire">Nice</div>
+                <div class="ville claire">Montpellier</div>
+                <div class="ville claire">Strasbourg</div>
+                <div class="ville or">et partout ailleurs</div>
+            </div>
+
+            <div class="sous sombre">Donnez-nous le code postal de votre logement :
+                <b>on vous présente la conciergerie de votre secteur.</b></div>
+
+            <div class="cta">Trouver ma conciergerie <svg class="fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+            <div class="url">luckyconciergerie.fr</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

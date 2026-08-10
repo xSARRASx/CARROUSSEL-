@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .ad.carre { background: linear-gradient(160deg, #041C4E 0%, var(--navy) 48%, #010F2E 100%); }
+    .halo { position: absolute; width: 780px; height: 780px; right: -250px; top: 340px;
+            background: radial-gradient(circle, rgba(176,138,62,.17) 0%, rgba(176,138,62,0) 66%); }
+    .pad { padding: 70px 66px 62px; justify-content: space-between; }
+    .logo { width: 262px; }
+    .corps { display: flex; align-items: center; gap: 46px; }
+    .txt { flex: 1; }
+    .kicker { font-size: 21px; margin-bottom: 22px; }
+    .titre { font-size: 62px; }
+    .sous { font-size: 23px; margin-top: 22px; }
+    .kpis { width: 400px; flex: none; gap: 18px; }
+    .kpi { padding: 26px 24px; }
+    .kpi-lab { font-size: 17px; margin-bottom: 11px; }
+    .kpi-val { font-size: 42px; }
+    .bas { display: flex; align-items: center; justify-content: space-between; margin-top: 46px; }
+    .cta { font-size: 30px; padding: 29px 46px; gap: 16px; }
+    .url { font-size: 23px; color: rgba(255,255,255,.60); }
+</style>
+</head>
+<body>
+<div class="ad carre">
+    <div class="halo"></div>
+
+    <div class="pad">
+        <img class="logo logo-blanc" src="../assets/logos/logo-lucky-conciergerie.png" alt="">
+
+        <div>
+            <div class="corps">
+                <div class="txt">
+                    <div class="kicker">Votre espace propriétaire</div>
+                    <div class="titre">Vos revenus, en direct, <em>à tout moment.</em></div>
+                    <div class="sous">Vous voyez tout, sans rien demander.</div>
+                </div>
+
+                <div class="kpis">
+                    <div class="kpi">
+                        <div class="kpi-lab">Taux d'occupation</div>
+                        <div class="kpi-val or">82 %</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-lab">Prix moyen / nuit</div>
+                        <div class="kpi-val">118 &euro;</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-lab">Réservations</div>
+                        <div class="kpi-val">14</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-lab">Incidents</div>
+                        <div class="kpi-val">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bas">
+                <div class="cta">Trouver ma conciergerie <svg class="fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+                <div class="url">luckyconciergerie.fr</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

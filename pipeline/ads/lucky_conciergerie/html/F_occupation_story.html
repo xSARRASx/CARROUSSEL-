@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .ad.story { background: linear-gradient(168deg, #041C4E 0%, var(--navy) 50%, #010F2E 100%); }
+    .halo { position: absolute; width: 1000px; height: 1000px; left: -320px; top: 780px;
+            background: radial-gradient(circle, rgba(176,138,62,.18) 0%, rgba(176,138,62,0) 66%); }
+    .pad { padding: 92px 84px 84px; justify-content: space-between; }
+    .logo { width: 310px; }
+    .kicker { font-size: 25px; margin-bottom: 30px; }
+    .titre { font-size: 100px; }
+    .cal { gap: 16px; margin-top: 66px; }
+    .cal-legende { gap: 34px; margin-top: 34px; }
+    .cal-legende > div { display: flex; align-items: center; gap: 14px; }
+    .cal-pastille { width: 22px; height: 22px; }
+    .cal-txt { font-size: 23px; }
+    .stats { gap: 40px; align-items: center; margin-top: 62px; }
+    .stat-n { font-size: 64px; }
+    .stat-l { font-size: 23px; margin-top: 10px; max-width: 230px; }
+    .sep { width: 2px; height: 92px; }
+    .cta { font-size: 36px; padding: 36px 58px; gap: 20px; margin-top: 66px; }
+    .url { font-size: 27px; color: rgba(255,255,255,.60); margin-top: 52px; }
+</style>
+</head>
+<body>
+<div class="ad story">
+    <div class="halo"></div>
+
+    <div class="pad">
+        <img class="logo logo-blanc" src="../assets/logos/logo-lucky-conciergerie.png" alt="">
+
+        <div>
+            <div class="kicker">Taux d'occupation</div>
+            <div class="titre">Un calendrier <em>rempli</em>, pas un logement qui dort.</div>
+
+            <div class="cal">
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case vide"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div>
+
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case vide"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div>
+
+                <div class="cal-case pleine"></div><div class="cal-case vide"></div>
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div>
+
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div><div class="cal-case vide"></div>
+                <div class="cal-case pleine"></div><div class="cal-case pleine"></div>
+                <div class="cal-case pleine"></div>
+            </div>
+
+            <div class="cal-legende">
+                <div><div class="cal-pastille" style="background: linear-gradient(150deg,#D9B978,#B08A3E);"></div>
+                     <div class="cal-txt">nuits réservées</div></div>
+                <div><div class="cal-pastille" style="background: rgba(255,255,255,.09);"></div>
+                     <div class="cal-txt">nuits vides</div></div>
+            </div>
+
+            <div class="stats">
+                <div>
+                    <div class="stat-n">+40 %</div>
+                    <div class="stat-l">de nuits réservées</div>
+                </div>
+                <div class="sep"></div>
+                <div>
+                    <div class="stat-n">0 &euro;</div>
+                    <div class="stat-l">pour trouver votre conciergerie</div>
+                </div>
+            </div>
+
+            <div class="cta">Trouver ma conciergerie <svg class="fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+            <div class="url">luckyconciergerie.fr</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
