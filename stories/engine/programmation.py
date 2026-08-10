@@ -106,6 +106,16 @@ def programmer(debut, nom_dossier):
     (dossier / "auto").mkdir(parents=True)
     (dossier / "manuel").mkdir(parents=True)
 
+    # Les journees deja servies par une fournee de la semaine sont intouchables :
+    # la programmation du stock se range AUTOUR d'elles. L'actualite passe en
+    # premier, le stock comble les trous. (Martin, 08/08/2026.)
+    from livraison import jours_deja_pris
+    occupes = (jours_deja_pris(sauf=dossier, sous_dossier="auto")
+               | jours_deja_pris(sauf=dossier, sous_dossier="manuel"))
+    if occupes:
+        print(f"  {len(occupes)} journee(s) deja servie(s) par une fournee, on les saute.",
+              flush=True)
+
     calendrier = []
     jour = debut
     # Les séquences programmables prennent les jours ordinaires ; on saute les
@@ -115,7 +125,7 @@ def programmer(debut, nom_dossier):
     # automatique ne prend que lundi, mardi, jeudi, vendredi.
     RESERVES = {2, 5, 6}
     for nom, fichiers in groupes.items():
-        while jour.weekday() in RESERVES:
+        while jour.weekday() in RESERVES or jour.isoformat() in occupes:
             jour += datetime.timedelta(days=1)
         for i, src in enumerate(fichiers, 1):
             shutil.copy2(src, dossier / "auto" / f"{jour}-{HEURE}-{i:02d}.jpg")
@@ -148,7 +158,7 @@ def programmer(debut, nom_dossier):
             blocs.append((" + ".join(noms), tampon))
 
     samedi = debut
-    while samedi.weekday() != 5:
+    while samedi.weekday() != 5 or samedi.isoformat() in occupes:
         samedi += datetime.timedelta(days=1)
     entrees = []
     for nom, fichiers in blocs:
@@ -161,6 +171,8 @@ def programmer(debut, nom_dossier):
                 entrees.append((fnom, src.stem))
         calendrier.append((samedi, "manuel", nom, len(fichiers)))
         samedi += datetime.timedelta(days=7)
+        while samedi.isoformat() in occupes:
+            samedi += datetime.timedelta(days=7)
     # Le texte exact de chaque sticker voyage AVEC les images (Martin, 06/08).
     if entrees:
         txt, manquants = bloc_texte(entrees)

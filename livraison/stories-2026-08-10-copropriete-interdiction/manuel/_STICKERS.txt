@@ -1,0 +1,55 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-08-15-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Depuis la loi Le Meur, il faut l'unanimité de la copropriété pour interdire les meublés de tourisme.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-08-15-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Pour la Cour de cassation, louer en courte durée sur Airbnb est une activité commerciale.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-08-15-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tu déclares ton meublé en mairie. Qui met le sujet à l'ordre du jour de l'AG ?
+    Option 1 : Toi
+    Option 2 : Le syndic
+    Option 3 : La mairie
+    (La bonne reponse est "Le syndic", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-08-15-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tu as déjà lu le règlement de copropriété de ton logement ?
+    Option 1 : En entier
+    Option 2 : En diagonale
+    Option 3 : Jamais
+    Option 4 : Je n'y ai pas accès
+
+--- 2026-08-15-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tu proposes quoi à tes voyageurs ?
+    Option 1 : Ménage en option
+    Option 2 : Petit-déjeuner inclus
+    Option 3 : Accueil systématique
+    Option 4 : Rien de tout ça
+

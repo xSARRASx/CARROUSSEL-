@@ -71,6 +71,26 @@ CATALOG = {
                         "style": STYLE_WARM},
     "bg_bureau_matin": {"subject": "Bright desk near a large window in warm morning sunlight, notebook and coffee cup softly blurred, golden glow, mostly calm bright surfaces.",
                         "style": STYLE_WARM},
+    # Vague 3 (10/08/2026) : la video du dimanche parle de COPROPRIETE
+    # (assemblee generale, reglement, syndic). Fonds dedies au sujet, meme
+    # famille golden hour, pour que les sequences n'aient jamais deux fois
+    # le meme fond.
+    "bg_hall_immeuble": {"subject": "Entrance hall of a classic residential building, warm afternoon light through the glass door, softly blurred, empty, calm bright walls.",
+                        "style": STYLE_WARM},
+    "bg_boites_lettres": {"subject": "Row of mailboxes in a residential building hallway, warm soft light, shallow depth of field, calm empty wall above them.",
+                        "style": STYLE_WARM},
+    "bg_escalier":     {"subject": "Old wooden stairwell of a Parisian building seen from below, warm golden light falling from a skylight, soft blur, empty.",
+                        "style": STYLE_WARM},
+    "bg_cour":         {"subject": "Quiet inner courtyard of a residential building at golden hour, warm stone facades, a few plants, soft light, empty and calm.",
+                        "style": STYLE_WARM},
+    "bg_documents":    {"subject": "Stack of plain blank paper sheets and a pen on a wooden table in warm morning sunlight, very shallow depth of field, no writing at all on the pages.",
+                        "style": STYLE_WARM},
+    "bg_cles":         {"subject": "Set of keys resting on a wooden table near a sunlit window, warm golden light, softly blurred background, calm empty surface.",
+                        "style": STYLE_WARM},
+    "bg_salon_vide":   {"subject": "Empty furnished living room of a rental apartment in warm afternoon light, sofa and coffee table softly blurred, calm bright wall.",
+                        "style": STYLE_WARM},
+    "bg_facade_pierre": {"subject": "Classic Haussmann stone building facade with balconies at golden hour, warm light on the stone, soft blur, calm warm sky above.",
+                        "style": STYLE_WARM},
 }
 
 def call_gemini(body, key):

@@ -12,7 +12,7 @@ Les trois stickers Instagram :
 
 ==============================================================
 
---- 2026-08-08-12h00-02-SONDAGE.jpg
+--- 2026-08-22-12h00-02-SONDAGE.jpg
     Sticker  : Sondage
     Question : Le badge Superhost booste ton classement en 2026.
     Option 1 : Vrai
@@ -20,7 +20,7 @@ Les trois stickers Instagram :
     (La bonne reponse est "Faux", mais ne la
      coche PAS : elle est revelee dans la story suivante.)
 
---- 2026-08-08-12h00-04-SONDAGE.jpg
+--- 2026-08-22-12h00-04-SONDAGE.jpg
     Sticker  : Sondage
     Question : Combien pèse ta photo de couverture dans ton classement ?
     Option 1 : 8 %
@@ -29,7 +29,7 @@ Les trois stickers Instagram :
     (La bonne reponse est "8 %", mais ne la
      coche PAS : elle est revelee dans la story suivante.)
 
---- 2026-08-08-12h00-06-SONDAGE.jpg
+--- 2026-08-22-12h00-06-SONDAGE.jpg
     Sticker  : Sondage
     Question : Ta conciergerie peut débiter elle-même la caution du voyageur.
     Option 1 : Vrai
@@ -37,7 +37,7 @@ Les trois stickers Instagram :
     (La bonne reponse est "Faux", mais ne la
      coche PAS : elle est revelee dans la story suivante.)
 
---- 2026-08-15-12h00-02-SONDAGE.jpg
+--- 2026-08-29-12h00-02-SONDAGE.jpg
     Sticker  : Sondage
     Question : Avoir la carte G aurait évité la condamnation de la conciergerie.
     Option 1 : Vrai
@@ -45,7 +45,7 @@ Les trois stickers Instagram :
     (La bonne reponse est "Faux", mais ne la
      coche PAS : elle est revelee dans la story suivante.)
 
---- 2026-08-15-12h00-04-SONDAGE.jpg
+--- 2026-08-29-12h00-04-SONDAGE.jpg
     Sticker  : Sondage
     Question : Qui a été condamné à 220 000 € ?
     Option 1 : Le propriétaire
@@ -54,7 +54,7 @@ Les trois stickers Instagram :
     (La bonne reponse est "Les deux", mais ne la
      coche PAS : elle est revelee dans la story suivante.)
 
---- 2026-08-15-12h00-06-SONDAGE.jpg
+--- 2026-08-29-12h00-06-SONDAGE.jpg
     Sticker  : Sondage
     Question : Le numéro d'enregistrement dispense de l'autorisation de changement d'usage.
     Option 1 : Vrai
@@ -62,21 +62,21 @@ Les trois stickers Instagram :
     (La bonne reponse est "Faux", mais ne la
      coche PAS : elle est revelee dans la story suivante.)
 
---- 2026-08-22-12h00-01-QUESTIONS.jpg
+--- 2026-09-05-12h00-01-QUESTIONS.jpg
     Sticker  : Questions
     Question : Tu en es où de ton projet ?
 
---- 2026-08-22-12h00-02-QUESTIONS.jpg
+--- 2026-09-05-12h00-02-QUESTIONS.jpg
     Sticker  : Questions
     Question : Tu en es où aujourd'hui ?
 
---- 2026-08-22-12h00-03-SONDAGE.jpg
+--- 2026-09-05-12h00-03-SONDAGE.jpg
     Sticker  : Sondage
     Question : Tu es plutôt conciergerie ou sous-location ?
     Option 1 : Conciergerie
     Option 2 : Sous-location
 
---- 2026-08-22-12h00-04-SONDAGE.jpg
+--- 2026-09-05-12h00-04-SONDAGE.jpg
     Sticker  : Sondage
     Question : Ta plus grosse galère en ce moment ?
     Option 1 : Trouver des proprios
@@ -84,11 +84,11 @@ Les trois stickers Instagram :
     Option 3 : M'organiser
     Option 4 : Le juridique
 
---- 2026-08-22-12h00-05-QUESTIONS.jpg
+--- 2026-09-05-12h00-05-QUESTIONS.jpg
     Sticker  : Questions
     Question : Raconte-moi ta situation en une phrase
 
---- 2026-08-22-12h00-06-SONDAGE.jpg
+--- 2026-09-05-12h00-06-SONDAGE.jpg
     Sticker  : Sondage
     Question : Tu vérifies l'autorisation de changement d'usage avant de publier ?
     Option 1 : Toujours
@@ -96,7 +96,7 @@ Les trois stickers Instagram :
     Option 3 : Jamais
     Option 4 : C'est quoi ?
 
---- 2026-08-22-12h00-07-SONDAGE.jpg
+--- 2026-09-05-12h00-07-SONDAGE.jpg
     Sticker  : Sondage
     Question : Ton contrat conciergerie, il date de quand ?
     Option 1 : Moins d'un an

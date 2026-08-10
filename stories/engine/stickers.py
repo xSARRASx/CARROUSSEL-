@@ -102,6 +102,39 @@ STICKERS = {
         "options": ["Moins d'un an", "1 à 3 ans", "Plus de 3 ans", "Je n'en ai pas"],
     },
 
+    # ===================== interactifs-03 : le quiz copropriété ==============
+    "quiz03_02": {
+        "type": "Sondage",
+        "question": "Depuis la loi Le Meur, il faut l'unanimité de la copropriété pour interdire les meublés de tourisme.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz03_04": {
+        "type": "Sondage",
+        "question": "Pour la Cour de cassation, louer en courte durée sur Airbnb est une activité commerciale.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz03_06": {
+        "type": "Sondage",
+        "question": "Tu déclares ton meublé en mairie. Qui met le sujet à l'ordre du jour de l'AG ?",
+        "options": ["Toi", "Le syndic", "La mairie"],
+        "reponse": "Le syndic",
+    },
+
+    # ===================== interactifs-03 : les sondages =====================
+    "sondage03_01": {
+        "type": "Sondage",
+        "question": "Tu as déjà lu le règlement de copropriété de ton logement ?",
+        "options": ["En entier", "En diagonale", "Jamais", "Je n'y ai pas accès"],
+    },
+    "sondage03_02": {
+        "type": "Sondage",
+        "question": "Tu proposes quoi à tes voyageurs ?",
+        "options": ["Ménage en option", "Petit-déjeuner inclus",
+                    "Accueil systématique", "Rien de tout ça"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les

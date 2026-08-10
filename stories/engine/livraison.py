@@ -83,12 +83,14 @@ def jpgs_du_lot(lot):
         return []
     return sorted(d.glob("*.jpg"))
 
-def samedis_deja_pris(sauf=None):
-    """Les dates de samedi deja occupees par une livraison manuelle.
+def jours_deja_pris(sauf=None, sous_dossier="manuel"):
+    """Les dates deja occupees par une autre livraison.
 
-    Chaque fichier de `manuel/` porte sa date en tete (AAAA-MM-JJ-12h00-...).
-    On relit TOUS les dossiers de `livraison/`, y compris la programmation du
-    stock, pour ne jamais poser deux paquets manuels le meme jour.
+    Chaque fichier porte sa date en tete (AAAA-MM-JJ-12h00-...). On relit TOUS
+    les dossiers de `livraison/`, y compris la programmation du stock, pour ne
+    jamais poser deux paquets de stories le meme jour : le robot programmerait
+    les deux, et Martin ne saurait pas lequel est le bon.
+    (Erreur reperee par Martin le 08/08/2026.)
     """
     pris = set()
     if not LIVRAISON.is_dir():
@@ -96,9 +98,12 @@ def samedis_deja_pris(sauf=None):
     for d in LIVRAISON.iterdir():
         if not d.is_dir() or (sauf is not None and d == sauf):
             continue
-        for p in d.glob("manuel/*.jpg"):
+        for p in d.glob(f"{sous_dossier}/*.jpg"):
             pris.add(p.name[:10])
     return pris
+
+def samedis_deja_pris(sauf=None):
+    return jours_deja_pris(sauf, "manuel")
 
 def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi'):
     lots = trier_lots(lots)
@@ -122,16 +127,41 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi')
     # SÉPARATION AUTO / MANUEL (exigence de Martin, 06/08/2026) :
     # une story qui promet un vote ne doit JAMAIS partir en programmation
     # sans son sticker, ce serait pire que de ne rien poster.
-    auto, manuel = [], []
+    # ⚠️ La separation se fait par SEQUENCE, pas story par story. Un quiz se lit
+    # d'une traite : couverture, question, reponse, question, reponse, cloture.
+    # Si on n'envoyait en manuel que les 3 questions, la couverture et les
+    # reponses partiraient en programmation un autre jour et la sequence
+    # n'aurait plus aucun sens. Des qu'UNE story de la sequence reclame un
+    # sticker, la sequence ENTIERE part en manuel.
+    # (Defaut repere le 10/08/2026 sur le quiz copropriete.)
+    from collections import OrderedDict
+    seqs = OrderedDict()
     for src in fichiers:
-        besoin, sticker = besoin_sticker(src.stem)
-        (manuel if besoin else auto).append((src, sticker))
+        tige = src.stem.rsplit("_", 1)[0] if src.stem.rsplit("_", 1)[-1].isdigit() else src.stem
+        seqs.setdefault(tige, []).append(src)
+
+    auto, manuel = [], []
+    for tige, membres in seqs.items():
+        sequence_manuelle = any(besoin_sticker(s.stem)[0] for s in membres)
+        for src in membres:
+            _, sticker = besoin_sticker(src.stem)
+            (manuel if sequence_manuelle else auto).append((src, sticker))
 
     # Les stories automatiques suivent la grille : jour et heure dans le nom.
     # Une fournée riche produit souvent PLUS que ce que la semaine peut
     # absorber : le surplus part en `reserve/` (c'est le stock qui couvrira
     # les semaines sans vidéo). Le robot Mac ne programme QUE `auto/`.
     plan = creneaux_auto(jours, date)
+    # Un jour deja servi par une autre livraison est retire du plan : ses
+    # stories basculent en reserve plutot que d'ecraser ce qui est prevu.
+    occupes = jours_deja_pris(sauf=dossier, sous_dossier="auto")
+    if occupes:
+        avant = len(plan)
+        plan = [(d_, r) for d_, r in plan if d_.isoformat() not in occupes]
+        if len(plan) < avant:
+            sautes = sorted({d_.isoformat() for d_, _ in creneaux_auto(jours, date)} & occupes)
+            print(f"  Jours deja servis par une autre livraison, sautes : "
+                  f"{', '.join(sautes)}", flush=True)
     reserve = auto[len(plan):]
     for i, (src, _) in enumerate(auto[:len(plan)]):
         date_pub, rang = plan[i]
@@ -156,9 +186,14 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi')
         samedi += _dt.timedelta(days=7)
     entrees = []
     for i, (src, sticker) in enumerate(manuel, 1):
-        nom = f"{samedi}-12h00-{i:02d}-{sticker}.jpg"
+        # Une couverture, une reponse ou une cloture voyage avec la sequence
+        # mais ne porte AUCUN sticker : pas de suffixe, et pas d'entree dans
+        # _STICKERS.txt (sinon on signalerait un texte manquant a tort).
+        suffixe = f"-{sticker}" if sticker else ""
+        nom = f"{samedi}-12h00-{i:02d}{suffixe}.jpg"
         shutil.copy2(src, dossier / "manuel" / nom)
-        entrees.append((nom, src.stem))
+        if sticker:
+            entrees.append((nom, src.stem))
     # Le texte exact de chaque sticker voyage AVEC les images (Martin, 06/08) :
     # sans ca, il faut redemander la question et les options a chaque fois.
     if entrees:
