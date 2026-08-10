@@ -60,6 +60,12 @@
       "sujet": "Conciergerie condamnee a 220 000 EUR avec le proprietaire (10 juillet 2026)",
       "traite_le": "2026-08-06",
       "livrable": "banque-02 (I_condamnation_220k, J_checklist_conformite, K_mythe_carte_g) + interactifs-02 (quiz + 2 sondages) = 27 stories, zip livre a Martin"
+    },
+    {
+      "id": "sICVVkMpSl4",
+      "sujet": "Ta copropriete peut interdire ton Airbnb (loi Le Meur, la parade civile)",
+      "traite_le": "2026-08-10",
+      "livrable": "banque-03 (L_copro_peut_interdire, M_parade_rester_civil, N_checklist_copro) + interactifs-03 (quiz 3 questions + 2 sondages) = 30 stories, livrees dans livraison/stories-2026-08-10-copropriete-interdiction et zip envoye a Martin"
     }
   ]
 }
