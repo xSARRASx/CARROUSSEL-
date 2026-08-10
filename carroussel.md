@@ -1111,7 +1111,39 @@ Processus **strictement identique**. Le jeudi, il n'y a PAS toujours de vidéo :
 dans ce cas le robot s'arrête sans rien produire ni dépenser, et le dit en une ligne.
 Créneaux de publication (gérés par le Mac) : vendredi 18h et samedi 14h par marque.
 
-### 🔴 BLOCAGE YOUTUBE PAR ADRESSE IP (10/08/2026) — NON RÉSOLU
+### ✅ BLOCAGE YOUTUBE — RÉSOLU LE 10/08/2026 (solution trouvée par Martin)
+**La parade : changer de PORTE D'ENTRÉE.** YouTube expose plusieurs clients
+(site web, application Android, iPhone, télévision…). Quand l'un est fermé, un
+autre reste souvent ouvert. On le choisit avec `player_client`.
+```
+yt-dlp --skip-download --write-auto-sub --sub-lang "fr.*" --sub-format json3 \
+  --extractor-args "youtube:player_client=android" \
+  -o "%(id)s.%(ext)s" "https://www.youtube.com/watch?v=<ID>"
+```
+⚠️ **Deux détails indispensables, ne pas les perdre :**
+1. `--sub-lang "fr.*"` (au SINGULIER, une expression). La liste explicite
+   `--sub-langs "fr-orig,fr"` fait échouer la récupération sur plusieurs clients.
+   **C'était la vraie cause du diagnostic raté du matin** : j'avais bien testé le
+   client `android`, mais avec l'ancienne option de langue, et j'en ai conclu à
+   tort qu'aucun client ne passait.
+2. **La porte qui marche CHANGE avec le temps.** Aujourd'hui `android` ;
+   demain ce sera peut-être `ios`. D'où la cascade automatique.
+
+**Intégré dans `fetch_transcript.py`** : `get_transcript()` essaie les clients
+dans l'ordre `android, ios, mweb, tv, web_safari, web` et s'arrête au premier qui
+rapporte un fichier. ✅ Vérifié : la vidéo `URH12GYwAuc`, refusée le matin même,
+a été récupérée automatiquement l'après-midi.
+
+**Ce qui passe toujours, même bloqué** : `--flat-playlist` sur l'onglet /videos.
+Donc `--verifier` fonctionne en toutes circonstances.
+
+**Secours si un jour toutes les portes ferment** : le Claude du Mac récupère la
+transcription (son adresse n'est pas bloquée) et la dépose dans
+`pipeline/output/transcripts/` au format `<AAAAMMJJ>_<identifiant>.txt`.
+`--verifier` répond alors « À REPRENDRE » et le robot repart tout seul.
+✅ Circuit testé en vrai le 10/08 avec une transcription fournie par Martin.
+
+### 🔴 ANCIEN CONSTAT DU 10/08 (conservé pour l'historique)
 Le réveil du lundi 10/08 n'a pas pu récupérer la transcription : YouTube refuse
 toute extraction de page vidéo depuis ce serveur avec « Sign in to confirm
 you're not a bot ». Confirmé de façon indépendante par `youtube-transcript-api`

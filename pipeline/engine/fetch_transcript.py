@@ -106,31 +106,44 @@ def get_transcript(video_id):
     with tempfile.TemporaryDirectory() as tmp:
         template = os.path.join(tmp, "sub")
         url = "https://www.youtube.com/watch?v=" + video_id
-        commun = [
-            "--skip-download",          # on ne veut pas la video, juste le texte
-            "--sub-langs", SUB_LANGS,
-            "--sub-format", "json3",
-            "-o", template,
-        ]
-        # ⚠️ PIEGE PAYE LE 06/08/2026 : "--write-subs" (sous-titres MANUELS)
-        # declenche une requete que YouTube refuse depuis ce serveur, avec
-        # "Sign in to confirm you're not a bot". "--write-auto-subs" seul passe
-        # parfaitement. Verifie par elimination sur la video URH12GYwAuc :
-        #   auto-subs seul                       -> OK
-        #   auto-subs + write-subs               -> BLOQUE
-        #   auto-subs + write-subs + info-json   -> BLOQUE
-        # On tente donc la version complete, et on se rabat sur les sous-titres
-        # automatiques seuls si YouTube refuse. Le texte obtenu est le meme :
-        # c'est la piste fr-orig dans les deux cas.
-        complet = commun + ["--write-auto-subs", "--write-subs", "--write-info-json", url]
-        replis = commun + ["--write-auto-subs", url]
-        try:
-            _run_ytdlp(complet)
-        except RuntimeError as err:
-            if "not a bot" not in str(err) and "Sign in" not in str(err):
-                raise
-            print("      (YouTube refuse les sous-titres manuels, repli sur les automatiques)")
-            _run_ytdlp(replis)
+
+        # ⚠️ CONTOURNEMENT DU BLOCAGE YOUTUBE (trouve par Martin le 10/08/2026)
+        # YouTube refuse regulierement ce serveur avec "Sign in to confirm
+        # you're not a bot". La parade : demander explicitement une autre PORTE
+        # d'entree (le client mobile, la television...) via player_client.
+        # ⚠️ La porte qui marche CHANGE avec le temps : on les essaie donc en
+        # cascade et on s'arrete a la premiere qui rapporte un fichier.
+        # ⚠️ Utiliser "--sub-lang fr.*" (une expression, singulier) et NON
+        # "--sub-langs fr-orig,fr" : la liste explicite fait echouer la
+        # recuperation sur plusieurs clients. C'est cette option, et non le
+        # client, qui bloquait lors du diagnostic du 10/08.
+        for client in ("android", "ios", "mweb", "tv", "web_safari", "web"):
+            args = [
+                "--skip-download",
+                "--write-auto-sub",
+                "--sub-lang", "fr.*",
+                "--sub-format", "json3",
+                "--extractor-args", "youtube:player_client=" + client,
+                "-o", template,
+                url,
+            ]
+            try:
+                _run_ytdlp(args)
+            except RuntimeError:
+                continue                     # porte fermee, on essaie la suivante
+            if any(f.endswith(".json3") for f in os.listdir(tmp)):
+                if client != "android":
+                    print("      (porte '%s' utilisee : android etait ferme)" % client)
+                break
+        else:
+            raise RuntimeError(
+                "Aucune porte d'entree YouTube n'a fonctionne pour cette video.\n"
+                "Clients essayes : android, ios, mweb, tv, web_safari, web.\n"
+                "Le listing de la chaine passe peut-etre encore : dans ce cas le\n"
+                "blocage ne vise que les pages video. Solution de secours : faire\n"
+                "recuperer la transcription par le Claude du Mac, qui n'est pas\n"
+                "bloque, et la deposer dans pipeline/output/transcripts/."
+            )
 
         files = os.listdir(tmp)
 
