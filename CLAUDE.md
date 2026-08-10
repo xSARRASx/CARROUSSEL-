@@ -80,3 +80,34 @@ L multi-diffusion.
 - Pas de photo generee par IA representant une personne reelle
   (Sebastien More) : le concept E utilise un medaillon avec ses initiales,
   a remplacer par sa vraie photo.
+
+## 🎬 Videos publicitaires (Veo 3.1)
+
+Tout est dans `pipeline/ads/lucky_conciergerie/video/` :
+
+```
+plans.json       les plans a generer (prompt + duree + ratio)
+gen_veo.py       generation via Veo 3.1 (API Gemini, meme cle que les images)
+monter.py        assemblage + sous-titres en dur + carton final
+overlay.html     gabarit des sous-titres (Manrope, mot cle en dore)
+carton_final.html carton de fin (navy, logo, bouton, url)
+clips/           les plans bruts (PAYANTS : ne jamais les supprimer)
+final/           les videos montees, pretes pour la pub
+```
+
+```bash
+python3 gen_veo.py plans.json --modele fast   # generer les plans manquants
+python3 monter.py tout                        # monter v1 et v2 (30 s + 15 s)
+```
+
+⚠️ **Pieges verifies le 10/08/2026** :
+- **Veo est facture a la seconde** (~1,20 $ les 8 s en `fast`). `gen_veo.py`
+  ne regenere JAMAIS un clip deja present : c'est voulu.
+- **Le quota Veo refuse les rafales** : generation strictement sequentielle,
+  avec reessai. Une serie lancee en parallele finit en 429 en chaine.
+- `personGeneration: "allow_adult"` est REFUSE par l'API : ne pas le remettre.
+- **Veo rend parfois un cadrage cinemascope** dans le 9:16 demande.
+  `monter.py` detecte et rogne ces bandes noires. La detection mesure
+  plusieurs images et prend le MINIMUM : sur un plan qui demarre dans le noir
+  (v2_p3), mesurer la seule premiere image faisait rogner 426 px a tort.
+- Les videos sortent **sans musique** : a ajouter au montage (CapCut).

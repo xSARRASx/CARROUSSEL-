@@ -10,6 +10,7 @@ Monte les videos publicitaires Lucky Conciergerie a partir des clips Veo.
 Usage : python3 monter.py [v1|v2|tout]
 """
 import sys, pathlib, av
+import numpy as np
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
@@ -39,10 +40,11 @@ STORYBOARDS = {
     "v2": {
         "titre": "Toutes les conciergeries ne se valent pas",
         "plans": [
-            ("v2_p1", 3.5, "Votre conciergerie vous fait-elle vraiment <em>gagner de l'argent&nbsp;?</em>", True),
-            ("v2_p2", 5.0, "Des nuits vides.<br>Une commission quand même.", False),
-            ("v2_p3", 5.0, "Toutes les conciergeries<br><em>ne se valent pas.</em>", False),
-            ("v2_p4", 5.5, "Sélectionnée · Certifiée<br>Résultats suivis", True),
+            ("v2_p1", 4.0, "Votre conciergerie vous fait-elle vraiment <em>gagner de l'argent&nbsp;?</em>", True),
+            ("v2_p2", 6.0, "Des nuits vides.<br>Une commission quand même.", False),
+            ("v2_p3", 6.0, "Toutes les conciergeries<br><em>ne se valent pas.</em>", False),
+            # le plan 4 (checklist) a bute sur le quota Veo : son message
+            # (selection, certification) est deja porte par le carton final
         ],
         "carton": 6.0,
         "court": ["v2_p1", "v2_p3"],
@@ -77,20 +79,72 @@ def fabriquer_images(page, cles):
     page.screenshot(path=str(TAMPON / "carton.png"))
 
 
+def bandes_noires(img):
+    """Hauteur des bandes noires en haut et en bas : Veo rend parfois un
+    cadrage cinemascope a l'interieur du 9:16 demande."""
+    a = np.asarray(img.convert("L"), dtype="float32")
+    hauteur = a.shape[0]
+    lignes = a.mean(axis=1)
+    limite = hauteur // 3
+    haut = 0
+    while haut < limite and lignes[haut] < 12:
+        haut += 1
+    bas = 0
+    while bas < limite and lignes[hauteur - 1 - bas] < 12:
+        bas += 1
+    return haut, bas
+
+
+def recadrer(img, haut, bas):
+    """Retire les bandes puis recentre sur le ratio 9:16 sans deformer."""
+    larg, haut_tot = img.size
+    img = img.crop((0, haut, larg, haut_tot - bas))
+    larg, hu = img.size
+    vise = L / H
+    if larg / hu > vise:                      # trop large : on rogne les cotes
+        nl = int(round(hu * vise))
+        x = (larg - nl) // 2
+        img = img.crop((x, 0, x + nl, hu))
+    else:                                     # trop haut : on rogne le haut/bas
+        nh = int(round(larg / vise))
+        y = (hu - nh) // 2
+        img = img.crop((0, y, larg, y + nh))
+    return img
+
+
 def frames_du_clip(chemin, secondes):
     """Rend les images d'un clip, redimensionnees en 1080x1920, bouclees si trop court."""
     voulues = int(round(secondes * FPS))
     brut = []
     with av.open(str(chemin)) as c:
         for f in c.decode(video=0):
-            brut.append(f.to_image().convert("RGB").resize((L, H), Image.LANCZOS))
+            brut.append(f.to_image().convert("RGB"))
             if len(brut) >= voulues:
                 break
     if not brut:
         raise SystemExit(f"clip illisible : {chemin}")
-    while len(brut) < voulues:          # clip plus court que prevu : on tient la derniere image
-        brut.append(brut[-1])
-    return brut[:voulues]
+
+    # Une vraie bande noire est presente sur TOUTE la duree du plan. Une scene
+    # simplement sombre au demarrage, elle, s'eclaircit : on prend donc le
+    # minimum mesure sur plusieurs images, jamais la seule premiere.
+    temoins = [brut[i] for i in {0, len(brut) // 3, len(brut) // 2,
+                                 2 * len(brut) // 3, len(brut) - 1}]
+    mesures = [bandes_noires(t) for t in temoins]
+    haut = min(m[0] for m in mesures)
+    bas = min(m[1] for m in mesures)
+    if haut + bas <= 8:
+        haut = bas = 0
+    else:
+        print(f"    {chemin.stem} : bandes noires {haut}/{bas} px, recadrage")
+
+    sortie = []
+    for img in brut:
+        if haut or bas:
+            img = recadrer(img, haut, bas)
+        sortie.append(img.resize((L, H), Image.LANCZOS))
+    while len(sortie) < voulues:        # clip plus court que prevu : on tient la derniere image
+        sortie.append(sortie[-1])
+    return sortie[:voulues]
 
 
 def monter(cle, court=False):
