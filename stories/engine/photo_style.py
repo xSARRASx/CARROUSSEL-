@@ -94,6 +94,21 @@ COMMON_CSS = f"""
 .medaillon{{border-radius:50%;border:6px solid {BLANC};box-shadow:0 14px 44px rgba(0,0,0,0.4);
   background-size:cover;background-position:center;}}
 
+/* TEXTE LIBRE : posé directement sur la photo, sans cadre.
+   Martin, 10/08/2026 : « j'aime pas trop les gros blocs au centre ».
+   Un paragraphe court n'a pas besoin d'un rectangle blanc : il se lit très
+   bien en blanc sur la photo, avec une ombre portée. On garde le voile
+   uniquement pour le contenu DENSE et structuré (listes, frises, tableaux),
+   là où l'oeil a vraiment besoin d'un support. */
+.libre{{font-weight:600;font-size:31px;line-height:1.52;color:{BLANC};
+  text-shadow:0 2px 20px rgba(0,0,0,0.66), 0 1px 5px rgba(0,0,0,0.5);}}
+.libre .b{{color:{BLEU};font-weight:800;}}
+/* fondu sombre very doux, sans bord visible : garantit la lisibilite du
+   texte libre meme sur une photo claire, sans jamais ressembler a un bloc. */
+.scrim{{position:absolute;left:0;right:0;bottom:0;height:1250px;z-index:1;
+  background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.12) 34%,
+    rgba(0,0,0,0.40) 68%, rgba(0,0,0,0.55) 100%);}}
+
 /* voile blanc : le support du contenu dense */
 .veil{{background:rgba(255,255,255,0.78);border-radius:26px;padding:40px 42px;
   backdrop-filter:blur(8px);box-shadow:0 14px 44px rgba(0,0,0,0.20);}}
@@ -211,17 +226,57 @@ def cover(bg, hand_top, title, sub=None, hand_bottom="la suite juste après", ph
             + '</div></div>')
 
 def focus(bg, kicker, big, body=None, hand=None):
+    """Une idee forte + son explication.
+
+    L'explication est posee LIBREMENT sur la photo (plus de rectangle blanc au
+    centre : demande de Martin le 10/08/2026). Un fondu sombre tres doux,
+    sans bord visible, garantit la lisibilite.
+    """
     k = (f'<div class="hand" style="font-size:54px;margin-bottom:26px;">{nb(kicker)}</div>'
          if kicker else '')
-    b = ''
-    if body:
-        b = (f'<div class="veil" style="margin-top:48px;">'
-             f'<div class="vt" style="font-weight:500;font-size:29px;">{nb(body)}</div></div>')
+    b = (f'<div class="libre" style="margin-top:44px;">{nb(body)}</div>' if body else '')
     h = (f'<div class="hand" style="font-size:50px;position:absolute;right:100px;bottom:410px;">{nb(hand)}</div>'
          if hand else '')
-    return (open_photo(bg) + '<div class="pad" style="justify-content:center;">'
+    voile = '<div class="scrim"></div>' if body else ''
+    return (open_photo(bg) + voile + '<div class="pad" style="justify-content:center;">'
             + k + f'<div class="serif t1">{nb(big)}</div>' + b + h
             + '</div></div>')
+
+# ------------------------------------------------- formats interactifs partagés
+# Ces trois gabarits etaient recopies dans chaque build_interactifs*.py. Les
+# poser ici garantit qu'une correction de style profite a TOUTES les fournees
+# suivantes, sans avoir a repasser sur chaque fichier.
+
+def quiz_q(bg, num, total, kind, question, hint="vote avec le sondage, la réponse arrive"):
+    """Une question de quiz. La moitie basse reste LIBRE pour le sticker."""
+    return (open_photo(bg) + '<div class="scrim"></div>'
+            + '<div class="pad" style="align-items:center;text-align:center;">'
+            f'<div class="hand" style="font-size:52px;">quiz {num}/{total}</div>'
+            f'<div class="serif" style="font-size:100px;line-height:1.05;margin-top:30px;">{nb(kind)}</div>'
+            f'<div class="libre" style="margin-top:48px;max-width:880px;font-weight:700;">'
+            f'{nb(question)}</div>'
+            f'<div class="hand" style="font-size:44px;margin-top:44px;opacity:0.95;">{nb(hint)}</div>'
+            '</div></div>')
+
+def quiz_r(bg, verdict, explication, chiffre=None):
+    """La reponse, revelee dans la story suivante."""
+    ch = (f'<div class="serif" style="font-size:120px;line-height:1;color:{BLEU};'
+          f'margin-top:34px;">{chiffre}</div>') if chiffre else ''
+    return (open_photo(bg) + '<div class="scrim"></div>'
+            + '<div class="pad" style="justify-content:center;align-items:center;text-align:center;">'
+            f'<div class="serif" style="font-size:150px;line-height:1;">{acc(verdict)}</div>' + ch +
+            f'<div style="margin:44px auto;">{underline(220, BLANC, cls="inline")}</div>'
+            f'<div class="libre" style="max-width:870px;">{nb(explication)}</div>'
+            '</div></div>')
+
+def sondage(bg, kicker, title, note="vote juste en dessous"):
+    """Un diagnostic. La moitie basse reste LIBRE pour le sticker."""
+    return (open_photo(bg) + '<div class="pad">'
+            f'<div class="hand" style="font-size:56px;margin-top:30px;">{nb(kicker)}</div>'
+            f'<div class="serif" style="font-size:72px;line-height:1.16;margin-top:24px;">{nb(title)}</div>'
+            + underline(430, BLANC, 84, 720) +
+            f'<div class="hand" style="font-size:48px;position:absolute;right:130px;top:780px;">{nb(note)}</div>'
+            '</div></div>')
 
 def fin(bg, title, hand, keyword=None):
     kw = ''

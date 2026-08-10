@@ -29,6 +29,21 @@
 .medaillon{border-radius:50%;border:6px solid #ffffff;box-shadow:0 14px 44px rgba(0,0,0,0.4);
   background-size:cover;background-position:center;}
 
+/* TEXTE LIBRE : posé directement sur la photo, sans cadre.
+   Martin, 10/08/2026 : « j'aime pas trop les gros blocs au centre ».
+   Un paragraphe court n'a pas besoin d'un rectangle blanc : il se lit très
+   bien en blanc sur la photo, avec une ombre portée. On garde le voile
+   uniquement pour le contenu DENSE et structuré (listes, frises, tableaux),
+   là où l'oeil a vraiment besoin d'un support. */
+.libre{font-weight:600;font-size:31px;line-height:1.52;color:#ffffff;
+  text-shadow:0 2px 20px rgba(0,0,0,0.66), 0 1px 5px rgba(0,0,0,0.5);}
+.libre .b{color:#4E9FE0;font-weight:800;}
+/* fondu sombre very doux, sans bord visible : garantit la lisibilite du
+   texte libre meme sur une photo claire, sans jamais ressembler a un bloc. */
+.scrim{position:absolute;left:0;right:0;bottom:0;height:1250px;z-index:1;
+  background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.12) 34%,
+    rgba(0,0,0,0.40) 68%, rgba(0,0,0,0.55) 100%);}
+
 /* voile blanc : le support du contenu dense */
 .veil{background:rgba(255,255,255,0.78);border-radius:26px;padding:40px 42px;
   backdrop-filter:blur(8px);box-shadow:0 14px 44px rgba(0,0,0,0.20);}
