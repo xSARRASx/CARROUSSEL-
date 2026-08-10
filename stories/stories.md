@@ -346,6 +346,26 @@ Les visuels « texte sur fond » sont GÉNÉRÉS automatiquement, prêts à post
    CTA), témoignages = seuls gabarits à case vide, rien d'inventé, aucun
    tiret long.
 
+6. **PAS DE GROS BLOC BLANC AU CENTRE (Martin, 10/08/2026) — VALIDÉ.**
+   Martin : « j'aime pas trop les gros blocs au centre qu'il met parfois ».
+   Puis, après correction : « tu pars là-dessus pour le prochain ».
+   La règle est donc arrêtée, elle s'applique à TOUTES les fournées suivantes :
+   - **Un paragraphe** (explication, verdict, texte de quiz) → classe
+     `.libre` : texte blanc posé DIRECTEMENT sur la photo, avec ombre portée,
+     plus `.scrim` (un fondu sombre très doux, sans bord visible) pour tenir
+     la lisibilité même sur une photo claire. **Aucun cadre.**
+   - **Un contenu dense et structuré** (liste numérotée `p_steps`, frise
+     `p_timeline`, barres `p_bars`, cartes `p_duo` / `p_vs`, `p_bigstat`)
+     → le voile blanc `.veil` RESTE. Là, l'œil a besoin d'un support pour
+     suivre les lignes ; sans fond c'est illisible.
+   - `focus()` est passé en texte libre. `quiz_q()`, `quiz_r()` et
+     `sondage()` ont quitté les `build_interactifs*.py` pour vivre dans
+     `photo_style.py` : une correction de style profite désormais à toutes
+     les fournées suivantes, sans repasser fichier par fichier.
+   ⚠️ Si Martin redemande d'alléger, la marche suivante est : rendre les
+   cartes de liste plus transparentes, ou découper une grande carte en
+   plusieurs petites — pas de revenir au bloc plein.
+
 Les sections qui suivent (style V2, catalogue V5, familles V4) restent comme
 HISTORIQUE du cheminement — le style ci-dessus a le dernier mot.
 
@@ -552,6 +572,12 @@ d'hiver (fin octobre), passer les crons à `0 7 * * 1` et `0 7 * * 4`.
    `gen_background.py`), CTA légers (pas un mot-clé partout ; quiz et
    sondages sans CTA). Étendre `build_banque.py` / `build_interactifs.py` ou
    créer un build dédié, rendre via `render_stories.py`.
+   ⚠️ **PAS DE GROS BLOC BLANC AU CENTRE** (règle validée par Martin le
+   10/08/2026, point 6 de la section 🎨 STYLE DÉFINITIF) : un paragraphe
+   s'écrit en `.libre` sur la photo, jamais dans un `.veil`. Le voile blanc
+   ne sert plus qu'au contenu dense et structuré (listes, frises, cartes).
+   Utiliser les gabarits `quiz_q` / `quiz_r` / `sondage` de `photo_style.py`,
+   ne PAS en recopier de nouvelles versions dans le build.
 7. Commit + push (le conteneur est éphémère : rien ne reste local).
 8. **DOUBLE LIVRAISON** (demande de Martin, 06/08/2026) :
    **(a) Dans la conversation** : zip des JPEG via SendUserFile, livraison BIEN
