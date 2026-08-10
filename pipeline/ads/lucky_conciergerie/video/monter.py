@@ -33,6 +33,8 @@ STORYBOARDS = {
             ("v1_p6", 5.0, "Annonce optimisée<br>Tarifs ajustés<br>Voyageurs pris en charge", True),
         ],
         "carton": 6.0,
+        # version courte : accroche, preuve, carton (brief section 10)
+        "court": ["v1_p1", "v1_p4", "v1_p6"],
     },
     "v2": {
         "titre": "Toutes les conciergeries ne se valent pas",
@@ -43,6 +45,7 @@ STORYBOARDS = {
             ("v2_p4", 5.5, "Sélectionnée · Certifiée<br>Résultats suivis", True),
         ],
         "carton": 6.0,
+        "court": ["v2_p1", "v2_p3"],
     },
 }
 
@@ -90,12 +93,18 @@ def frames_du_clip(chemin, secondes):
     return brut[:voulues]
 
 
-def monter(cle):
+def monter(cle, court=False):
     board = STORYBOARDS[cle]
     SORTIE.mkdir(parents=True, exist_ok=True)
-    dest = SORTIE / f"lucky_{cle}_{board['titre'].split()[0].lower()}_9x16.mp4"
+    suffixe = "_15s" if court else "_30s"
+    dest = SORTIE / f"lucky_{cle}{suffixe}_9x16.mp4"
 
-    manquants = [c for c, *_ in board["plans"] if not (CLIPS / f"{c}.mp4").exists()]
+    plans = board["plans"]
+    if court:
+        gardes = board.get("court", [])
+        plans = [p for p in plans if p[0] in gardes]
+
+    manquants = [c for c, *_ in plans if not (CLIPS / f"{c}.mp4").exists()]
     if manquants:
         print(f"  clips manquants pour {cle} : {manquants} — video non montee")
         return None
@@ -106,7 +115,7 @@ def monter(cle):
     flux.options = {"crf": "20", "preset": "medium", "profile": "high"}
 
     total = 0
-    for clip, duree, _, _ in board["plans"]:
+    for clip, duree, _, _ in plans:
         images = frames_du_clip(CLIPS / f"{clip}.mp4", duree)
         calque = Image.open(TAMPON / f"{clip}.png").convert("RGBA")
         fondu = int(0.25 * FPS)          # le texte s'installe en 0,25 s
@@ -124,7 +133,8 @@ def monter(cle):
             total += 1
 
     carton = Image.open(TAMPON / "carton.png").convert("RGB")
-    for _ in range(int(round(board["carton"] * FPS))):
+    duree_carton = 4.0 if court else board["carton"]
+    for _ in range(int(round(duree_carton * FPS))):
         for paquet in flux.encode(av.VideoFrame.from_image(carton)):
             conteneur.mux(paquet)
         total += 1
@@ -149,7 +159,8 @@ def main():
     print("Sous-titres et carton final prets.")
 
     for cle in cles:
-        monter(cle)
+        monter(cle, court=False)
+        monter(cle, court=True)
 
 
 if __name__ == "__main__":
