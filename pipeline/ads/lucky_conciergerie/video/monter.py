@@ -14,6 +14,8 @@ import numpy as np
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
+import musique as compo
+
 ICI = pathlib.Path(__file__).resolve().parent
 CLIPS = ICI / "clips"
 TAMPON = ICI / "overlays"
@@ -147,6 +149,27 @@ def frames_du_clip(chemin, secondes):
     return sortie[:voulues]
 
 
+def poser_musique(conteneur, flux_audio, duree, volume=0.45):
+    """Compose une piste a la duree exacte de la video et l'encode."""
+    piste = compo.composer(duree) * volume
+    stereo = np.vstack([piste, piste]).astype("float32")   # fltp : un plan par canal
+    taille = 1024
+    pts = 0
+    for debut in range(0, stereo.shape[1], taille):
+        bloc = stereo[:, debut:debut + taille]
+        if bloc.shape[1] < taille:                          # dernier bloc : on complete
+            bloc = np.pad(bloc, ((0, 0), (0, taille - bloc.shape[1])))
+        frame = av.AudioFrame.from_ndarray(np.ascontiguousarray(bloc),
+                                           format="fltp", layout="stereo")
+        frame.rate = compo.SR
+        frame.pts = pts
+        pts += taille
+        for paquet in flux_audio.encode(frame):
+            conteneur.mux(paquet)
+    for paquet in flux_audio.encode(None):
+        conteneur.mux(paquet)
+
+
 def monter(cle, court=False):
     board = STORYBOARDS[cle]
     SORTIE.mkdir(parents=True, exist_ok=True)
@@ -167,6 +190,8 @@ def monter(cle, court=False):
     flux = conteneur.add_stream("libx264", rate=FPS)
     flux.width, flux.height, flux.pix_fmt = L, H, "yuv420p"
     flux.options = {"crf": "20", "preset": "medium", "profile": "high"}
+    flux_audio = conteneur.add_stream("aac", rate=compo.SR)
+    flux_audio.bit_rate = 128000
 
     total = 0
     for clip, duree, _, _ in plans:
@@ -195,6 +220,8 @@ def monter(cle, court=False):
 
     for paquet in flux.encode(None):
         conteneur.mux(paquet)
+
+    poser_musique(conteneur, flux_audio, total / FPS)
     conteneur.close()
 
     print(f"  OK {dest.name} — {total / FPS:.1f} s, {dest.stat().st_size // 1024} Ko")
