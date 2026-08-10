@@ -1111,6 +1111,36 @@ Processus **strictement identique**. Le jeudi, il n'y a PAS toujours de vidéo :
 dans ce cas le robot s'arrête sans rien produire ni dépenser, et le dit en une ligne.
 Créneaux de publication (gérés par le Mac) : vendredi 18h et samedi 14h par marque.
 
+### 🔴 BLOCAGE YOUTUBE PAR ADRESSE IP (10/08/2026) — NON RÉSOLU
+Le réveil du lundi 10/08 n'a pas pu récupérer la transcription : YouTube refuse
+toute extraction de page vidéo depuis ce serveur avec « Sign in to confirm
+you're not a bot ». Confirmé de façon indépendante par `youtube-transcript-api`
+qui renvoie l'erreur explicite **`IpBlocked`**.
+
+**Ce qui marche encore** : le LISTING de la chaîne (`--flat-playlist` sur
+l'onglet /videos). Donc `--verifier` fonctionne : le robot voit qu'il y a une
+nouvelle vidéo, il ne peut simplement pas la transcrire.
+
+**Ce qui a été essayé sans succès** (ne pas refaire, c'est du temps perdu) :
+- les 6 clients d'extraction : android, ios, tv, mweb, web_embedded, web_safari
+- les moteurs JavaScript disponibles : `--js-runtimes node` et `--js-runtimes bun`
+  (deno absent ; yt-dlp le réclame mais node et bun ne débloquent rien)
+- mise à jour de yt-dlp : déjà en 2026.07.04, aucune version plus récente
+- `youtube-transcript-api` : `IpBlocked`
+- ⛔ NE JAMAIS installer curl_cffi pour tenter l'« impersonation » : règle du
+  projet, ça casse yt-dlp derrière le proxy.
+
+**Ce n'est pas un bug du code** : la même vidéo `URH12GYwAuc` se téléchargeait
+sans problème le 06/08 et était refusée le 10/08. Le blocage vient de l'IP.
+
+**Pistes de sortie, par ordre de préférence** :
+1. **Le Claude du Mac récupère la transcription** : sa connexion n'est pas
+   bloquée. Il pousserait le fichier dans `pipeline/output/transcripts/` au
+   format `<AAAAMMJJ>_<identifiant>.txt`, et le robot repartirait de là
+   (`--verifier` répondrait alors « À REPRENDRE »). C'est la solution durable.
+2. Martin colle la transcription à la main dans la conversation.
+3. Réessayer plus tard : le blocage a déjà été intermittent le 06/08.
+
 ### 🌍 PIÈGE DU TITRE TRADUIT (Martin, 29/07/2026) — RÈGLE GRAVÉE
 **NE JAMAIS juger la langue ni le sujet d'une vidéo d'après son TITRE.**
 YouTube renvoie les titres **traduits automatiquement selon la localisation du
