@@ -1,0 +1,43 @@
+[
+  {
+    "id": "v1_p1", "duree": 4, "ratio": "9:16",
+    "prompt": "Realistic cinematic close-up of a smartphone glowing on a dark wooden coffee table at night, the screen deliberately out of focus so only its blue glow is visible, a tired hand slowly reaching for it, a warm table lamp softly lit in the deep background, very shallow depth of field, 50mm lens, slow push in, moody low-key lighting, film grain."
+  },
+  {
+    "id": "v1_p2", "duree": 4, "ratio": "9:16",
+    "prompt": "Realistic cinematic wide shot of an empty apartment right after guests left, unmade bed with crumpled white sheets, used towels on the floor, curtains half closed, dim grey morning light, static camera with a very slow drift to the right, 35mm lens, natural colours, slightly desaturated, no people."
+  },
+  {
+    "id": "v1_p3", "duree": 4, "ratio": "9:16",
+    "prompt": "Realistic cinematic shot of hands opening large white linen curtains, warm golden morning sunlight flooding into a bright modern living room, dust particles floating in the light beam, slow dolly in towards the window, 35mm lens, shallow depth of field, warm cinematic grade, no faces."
+  },
+  {
+    "id": "v1_p4", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic close-up of professional hands folding a white towel into a neat roll and placing it on a made bed, then setting a set of keys on a wooden bedside table, soft natural window light from the left, macro feel, slow horizontal tracking shot, 50mm lens, shallow depth of field, warm elegant tones, no faces."
+  },
+  {
+    "id": "v1_p5", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic shot of a relaxed man in his forties seen from behind, sitting on a sunny cafe terrace with a cup of coffee, out of focus street life behind him, he leans back calmly, warm late afternoon light, slow push in from behind, 85mm lens, very shallow depth of field, cinematic warm grade, no visible face."
+  },
+  {
+    "id": "v1_p6", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic slow travelling shot gliding through a beautifully prepared apartment, white made bed, folded towels, fresh green plant, warm wooden floor, soft daylight from a large window, smooth steady gimbal movement forward, 24mm lens, bright airy cinematic grade, no people."
+  },
+
+  {
+    "id": "v2_p1", "duree": 4, "ratio": "9:16",
+    "prompt": "Realistic cinematic over-the-shoulder shot of a laptop screen showing a blurred out-of-focus spreadsheet, a hand resting on the trackpad then stopping, warm desk lamp light, dark home office at dusk, slow push in over the shoulder, 50mm lens, shallow depth of field, moody, no readable numbers."
+  },
+  {
+    "id": "v2_p2", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic shot of a paper wall calendar in a bright room, mostly empty squares, soft side daylight casting a gentle shadow, a light breeze moves the page slightly, slow dolly in, 35mm lens, shallow depth of field, neutral clean tones, no numbers."
+  },
+  {
+    "id": "v2_p3", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic shot of a dull grey poorly lit apartment interior slowly transforming as warm sunlight progressively fills the room, revealing an elegant styled living space, smooth continuous lighting transition, static camera, 35mm lens, cinematic colour grade going from cold to warm, no people."
+  },
+  {
+    "id": "v2_p4", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic macro close-up of a hand ticking boxes on a paper checklist with a pen, clean wooden desk, soft natural window light, slow tracking down the page, 50mm lens, very shallow depth of field, warm neutral tones, no readable writing."
+  }
+]

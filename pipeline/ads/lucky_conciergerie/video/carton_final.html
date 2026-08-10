@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face {
+    font-family: 'Manrope';
+    src: url('../assets/fonts/manrope-latin-var.woff2') format('woff2');
+    font-weight: 200 800;
+    font-display: block;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+
+.carton {
+    position: relative; width: 1080px; height: 1920px; overflow: hidden;
+    background: linear-gradient(168deg, #041C4E 0%, #011640 48%, #010F2E 100%);
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 54px; padding: 0 84px;
+}
+.halo {
+    position: absolute; width: 1200px; height: 1200px; left: -260px; top: 620px;
+    background: radial-gradient(circle, rgba(176,138,62,.20) 0%, rgba(176,138,62,0) 66%);
+}
+.pastille {
+    position: relative;
+    background: #B08A3E; color: #fff; font-weight: 800; font-size: 27px;
+    letter-spacing: .13em; text-transform: uppercase;
+    padding: 24px 40px; border-radius: 999px;
+}
+.logo { position: relative; width: 560px; filter: brightness(0) invert(1); }
+.accroche {
+    position: relative; text-align: center; color: #fff;
+    font-weight: 800; font-size: 62px; line-height: 1.14; letter-spacing: -.025em;
+}
+.accroche em { font-style: normal; color: #D9B978; }
+.bouton {
+    position: relative;
+    background: #B08A3E; color: #fff; font-weight: 800; font-size: 42px;
+    padding: 42px 70px; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 22px;
+    box-shadow: 0 22px 60px rgba(176,138,62,.42);
+}
+.bouton svg { width: .82em; height: .82em; }
+.url {
+    position: relative; color: rgba(255,255,255,.72);
+    font-weight: 700; font-size: 34px; letter-spacing: .14em;
+}
+</style>
+</head>
+<body>
+<div class="carton">
+    <div class="halo"></div>
+    <div class="pastille">Mise en relation 100 % gratuite</div>
+    <img class="logo" src="../assets/logos/logo-lucky-conciergerie.png" alt="">
+    <div class="accroche" id="accroche">On vous présente une conciergerie
+        <em>certifiée près de chez vous.</em></div>
+    <div class="bouton">Trouver ma conciergerie
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+    </div>
+    <div class="url">luckyconciergerie.fr</div>
+</div>
+</body>
+</html>
