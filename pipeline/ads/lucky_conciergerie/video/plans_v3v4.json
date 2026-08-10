@@ -1,0 +1,35 @@
+[
+  {
+    "id": "v3_p1", "duree": 4, "ratio": "9:16",
+    "prompt": "Realistic cinematic shot of a smiling woman in her thirties opening large white curtains in a very bright airy apartment, brilliant morning sunlight flooding the white room, warm and joyful atmosphere, she looks out of the window with a calm confident smile, high-key lighting, white and cream tones, slow push in, 35mm lens, luminous cheerful cinematic grade."
+  },
+  {
+    "id": "v3_p2", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic shot of a bright sunlit bedroom with a perfectly made bed, crisp white linen, sunlight streaming through a large window onto pale wooden floor, fresh flowers on the bedside table, very luminous and airy, slow lateral tracking shot, 35mm lens, bright high-key cinematic grade, no people."
+  },
+  {
+    "id": "v3_p3", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic close-up of a smiling man in his forties sitting at a sunlit kitchen table with a laptop and a coffee, bright white kitchen flooded with daylight behind him, he looks pleased while checking something on the screen, warm friendly atmosphere, shallow depth of field, slow push in, 50mm lens, luminous cheerful grade."
+  },
+  {
+    "id": "v3_p4", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic gimbal travelling shot moving forward through a very bright modern living room with floor to ceiling windows, white linen sofa, green plants, sunlight pouring in and reflecting on the pale wooden floor, airy and spacious, smooth steady forward motion, 24mm lens, brilliant high-key cinematic grade, no people."
+  },
+
+  {
+    "id": "v4_p1", "duree": 4, "ratio": "9:16",
+    "prompt": "Realistic cinematic close-up of a smiling woman's hands typing on a smartphone, seated at a bright white kitchen counter, brilliant daylight from a large window behind, screen deliberately out of focus, fresh and modern, static camera with slight handheld movement, 50mm lens, very luminous airy grade, no readable screen."
+  },
+  {
+    "id": "v4_p2", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic shot of a friendly woman in her thirties smiling while talking on the phone in a bright sunlit living room, relaxed and confident body language, large window with brilliant daylight behind her, white and cream interior, slow push in, 50mm lens, warm luminous cheerful cinematic grade."
+  },
+  {
+    "id": "v4_p3", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic medium shot of two smiling people shaking hands in front of a bright residential building entrance on a sunny day, both visible from the chest down and up, warm natural sunlight, green trees behind, welcoming professional atmosphere, slow push in, 50mm lens, bright luminous grade, no distorted hands."
+  },
+  {
+    "id": "v4_p4", "duree": 6, "ratio": "9:16",
+    "prompt": "Realistic cinematic shot of a relaxed smiling couple sitting together on a sofa in a very bright sunlit living room, looking at a tablet and nodding happily, brilliant daylight, white and cream tones, plants, calm and reassuring atmosphere, slow lateral tracking, 35mm lens, high-key luminous cinematic grade."
+  }
+]

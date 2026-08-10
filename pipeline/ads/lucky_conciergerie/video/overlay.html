@@ -21,6 +21,13 @@ body { font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; 
     background: linear-gradient(180deg, rgba(1,22,64,0) 0%, rgba(1,22,64,.55) 42%,
                 rgba(1,22,64,.88) 100%);
 }
+/* variante pour les plans tres lumineux : on garde juste ce qu'il faut de
+   voile pour que le texte blanc reste lisible, sans eteindre l'image */
+.cadre.lumineux .voile {
+    height: 780px;
+    background: linear-gradient(180deg, rgba(1,22,64,0) 0%, rgba(1,22,64,.34) 44%,
+                rgba(1,22,64,.76) 100%);
+}
 .texte {
     position: absolute; left: 78px; right: 78px; bottom: 360px;
     font-weight: 800; font-size: 82px; line-height: 1.12; letter-spacing: -.025em;

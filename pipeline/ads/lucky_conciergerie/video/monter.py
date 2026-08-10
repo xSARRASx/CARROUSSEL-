@@ -51,6 +51,29 @@ STORYBOARDS = {
         "carton": 6.0,
         "court": ["v2_p1", "v2_p3"],
     },
+    # v3 et v4 : versions lumineuses, avec des personnes a l'image
+    "v3": {
+        "titre": "Votre logement peut rapporter bien plus",
+        "plans": [
+            ("v3_p1", 4.0, "Votre logement peut rapporter<br><em>bien plus.</em>", False),
+            ("v3_p2", 6.0, "Annonce optimisée.<br>Photos qui donnent envie.", False),
+            ("v3_p3", 6.0, "Tarifs ajustés<br><em>chaque jour.</em>", False),
+            ("v3_p4", 6.0, "<em>+36 %</em> de revenus<br>en moyenne", False),
+        ],
+        "carton": 6.0,
+        "court": ["v3_p1", "v3_p4"],
+    },
+    "v4": {
+        "titre": "En 3 etapes",
+        "plans": [
+            ("v4_p1", 4.0, "<em>01</em><br>Deux minutes pour remplir le formulaire", True),
+            ("v4_p2", 6.0, "<em>02</em><br>On vous appelle", False),
+            ("v4_p3", 6.0, "<em>03</em><br>On vous présente la bonne conciergerie", True),
+            ("v4_p4", 6.0, "<em>Gratuit</em> et sans engagement.", False),
+        ],
+        "carton": 6.0,
+        "court": ["v4_p1", "v4_p3"],
+    },
 }
 
 
@@ -63,12 +86,15 @@ def fabriquer_images(page, cles):
     page.evaluate("document.fonts.load('800 82px Manrope')")
     page.wait_for_function("document.fonts.check('800 82px Manrope')")
     for cle in cles:
+        # v3 et v4 sont tournees en pleine lumiere : voile allege
+        lumineux = cle in ("v3", "v4")
         for i, (clip, _, texte, petit) in enumerate(STORYBOARDS[cle]["plans"]):
-            page.evaluate("""([t, p]) => {
+            page.evaluate("""([t, p, clair]) => {
                 const el = document.getElementById('txt');
                 el.innerHTML = t;
                 el.classList.toggle('petit', p);
-            }""", [texte, petit])
+                document.querySelector('.cadre').classList.toggle('lumineux', clair);
+            }""", [texte, petit, lumineux])
             page.wait_for_timeout(90)
             page.screenshot(path=str(TAMPON / f"{clip}.png"), omit_background=True)
 
