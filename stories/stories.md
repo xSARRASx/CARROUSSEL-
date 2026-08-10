@@ -366,6 +366,32 @@ Les visuels « texte sur fond » sont GÉNÉRÉS automatiquement, prêts à post
    cartes de liste plus transparentes, ou découper une grande carte en
    plusieurs petites — pas de revenir au bloc plein.
 
+   **Deux fondus, selon où le texte est posé (corrigé le 10/08/2026).**
+   Un premier essai n'avait qu'un fondu par le BAS (`.scrim`). Il marche pour
+   le texte centré ou bas (les réponses de quiz, `focus()`), mais les
+   QUESTIONS de quiz ont leur texte ancré en HAUT : sur un ciel pâle, le fondu
+   ne remontait pas jusqu'au texte et la question devenait presque illisible.
+   D'où `.scrimhaut`, le même fondu par le haut, utilisé par `quiz_q()`.
+   👉 Règle : si tu écris un gabarit dont le texte est ancré en haut, prends
+   `.scrimhaut` ; centré ou bas, prends `.scrim`. Et vérifie toujours sur une
+   photo CLAIRE, c'est là que ça casse.
+
+7. **TOUT LE STOCK A ÉTÉ REPASSÉ DANS LE NOUVEAU STYLE (10/08/2026).**
+   ⚠️ Correction d'une erreur, à ne pas répéter : le commit `66f70ba` affirmait
+   « fournée du 10/08 ET programmation du stock regénérées ». C'était FAUX pour
+   le stock — seule la fournée du jour l'avait été. Les 99 stories d'avance
+   (13/08 → 07/09) allaient donc partir avec le gros bloc blanc que Martin
+   venait de refuser.
+   Repassées depuis : `banque-01`, `banque-02`, `interactifs-01`,
+   `interactifs-02` rebâties et re-rendues, puis `programmation.py` rejoué —
+   calendrier identique (mêmes dates, mêmes séquences), seules les images
+   changent. 22 images du stock corrigées.
+   👉 LEÇON : une correction de STYLE ne vaut que si on rejoue AUSSI les
+   anciennes fournées qui alimentent le stock. La commande qui le dit :
+   `grep -rl 'class="veil" style="margin-top:48px' stories/output/*/html/`
+   doit ne rien renvoyer pour les lots livrés. Et on n'écrit dans un message
+   de commit que ce qu'on a réellement fait.
+
 Les sections qui suivent (style V2, catalogue V5, familles V4) restent comme
 HISTORIQUE du cheminement — le style ci-dessus a le dernier mot.
 

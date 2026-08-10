@@ -108,6 +108,12 @@ COMMON_CSS = f"""
 .scrim{{position:absolute;left:0;right:0;bottom:0;height:1250px;z-index:1;
   background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.12) 34%,
     rgba(0,0,0,0.40) 68%, rgba(0,0,0,0.55) 100%);}}
+/* meme fondu, mais par le HAUT : pour les gabarits dont le texte est ancre en
+   haut (les questions de quiz). Sans lui, une photo claire avalait le texte,
+   puisque le fondu du bas ne monte pas jusque-la. */
+.scrimhaut{{position:absolute;left:0;right:0;top:0;height:1120px;z-index:1;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.40) 38%,
+    rgba(0,0,0,0.20) 72%, rgba(0,0,0,0) 100%);}}
 
 /* voile blanc : le support du contenu dense */
 .veil{{background:rgba(255,255,255,0.78);border-radius:26px;padding:40px 42px;
@@ -248,8 +254,13 @@ def focus(bg, kicker, big, body=None, hand=None):
 # suivantes, sans avoir a repasser sur chaque fichier.
 
 def quiz_q(bg, num, total, kind, question, hint="vote avec le sondage, la réponse arrive"):
-    """Une question de quiz. La moitie basse reste LIBRE pour le sticker."""
-    return (open_photo(bg) + '<div class="scrim"></div>'
+    """Une question de quiz. La moitie basse reste LIBRE pour le sticker.
+
+    Fondu par le HAUT (le texte est ancre en haut) : sur un ciel pale, le
+    fondu du bas ne remontait pas jusqu'au texte et la question devenait
+    illisible. Corrige le 10/08/2026.
+    """
+    return (open_photo(bg) + '<div class="scrimhaut"></div>'
             + '<div class="pad" style="align-items:center;text-align:center;">'
             f'<div class="hand" style="font-size:52px;">quiz {num}/{total}</div>'
             f'<div class="serif" style="font-size:100px;line-height:1.05;margin-top:30px;">{nb(kind)}</div>'
