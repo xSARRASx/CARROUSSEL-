@@ -18,6 +18,7 @@ import musique as compo
 
 ICI = pathlib.Path(__file__).resolve().parent
 CLIPS = ICI / "clips"
+IMAGES = ICI / "images"
 TAMPON = ICI / "overlays"
 SORTIE = ICI / "final"
 CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
@@ -51,28 +52,32 @@ STORYBOARDS = {
         "carton": 6.0,
         "court": ["v2_p1", "v2_p3"],
     },
-    # v3 et v4 : versions lumineuses, avec des personnes a l'image
+    # v3 et v4 : lumineuses, avec des personnes. Montees a partir d'images
+    # animees (zoom lent) parce que le quota video etait epuise — et le style
+    # obtenu est volontairement different des deux premieres.
     "v3": {
         "titre": "Votre logement peut rapporter bien plus",
+        "source": "images",
         "plans": [
-            ("v3_p1", 4.0, "Votre logement peut rapporter<br><em>bien plus.</em>", False),
-            ("v3_p2", 6.0, "Annonce optimisée.<br>Photos qui donnent envie.", False),
-            ("v3_p3", 6.0, "Tarifs ajustés<br><em>chaque jour.</em>", False),
-            ("v3_p4", 6.0, "<em>+36 %</em> de revenus<br>en moyenne", False),
+            ("v3_i1", 4.5, "Votre logement peut rapporter<br><em>bien plus.</em>", False),
+            ("v3_i2", 5.5, "Annonce optimisée.<br>Photos qui donnent envie.", False),
+            ("v3_i3", 5.5, "Tarifs ajustés<br><em>chaque jour.</em>", False),
+            ("v3_i4", 5.5, "<em>+36 %</em> de revenus<br>en moyenne", False),
         ],
         "carton": 6.0,
-        "court": ["v3_p1", "v3_p4"],
+        "court": ["v3_i1", "v3_i4"],
     },
     "v4": {
         "titre": "En 3 etapes",
+        "source": "images",
         "plans": [
-            ("v4_p1", 4.0, "<em>01</em><br>Deux minutes pour remplir le formulaire", True),
-            ("v4_p2", 6.0, "<em>02</em><br>On vous appelle", False),
-            ("v4_p3", 6.0, "<em>03</em><br>On vous présente la bonne conciergerie", True),
-            ("v4_p4", 6.0, "<em>Gratuit</em> et sans engagement.", False),
+            ("v4_i1", 4.5, "<em>01</em><br>Deux minutes pour remplir le formulaire", True),
+            ("v4_i2", 5.5, "<em>02</em><br>On vous appelle", False),
+            ("v4_i3", 5.5, "<em>03</em><br>On vous présente<br>la bonne conciergerie", True),
+            ("v4_i4", 5.5, "<em>Gratuit</em> et sans engagement.", False),
         ],
         "carton": 6.0,
-        "court": ["v4_p1", "v4_p3"],
+        "court": ["v4_i1", "v4_i3"],
     },
 }
 
@@ -196,6 +201,40 @@ def poser_musique(conteneur, flux_audio, duree, volume=0.45):
         conteneur.mux(paquet)
 
 
+def frames_depuis_image(chemin, secondes, variante=0):
+    """Anime une image fixe : lent zoom et leger deplacement lateral.
+    C'est la solution quand le quota video est epuise, et elle donne un
+    style volontairement different des plans tournes."""
+    n = int(round(secondes * FPS))
+    marge = 1.30                                   # on travaille plus grand que la cible
+    base = Image.open(chemin).convert("RGB").resize(
+        (int(L * marge), int(H * marge)), Image.LANCZOS)
+    bw, bh = base.size
+
+    avance = variante % 2 == 0                     # un plan sur deux zoome en avant
+    # zoom volontairement doux : au-dela, le recadrage coupe le haut des tetes
+    k0, k1 = (1.26, 1.15) if avance else (1.15, 1.26)
+    sens = 1 if (variante // 2) % 2 == 0 else -1   # et part d'un cote ou de l'autre
+
+    sortie = []
+    for i in range(n):
+        t = i / max(n - 1, 1)
+        adouci = t * t * (3 - 2 * t)               # depart et arrivee en douceur
+        k = k0 + (k1 - k0) * adouci
+        cw, ch = L * k, H * k
+        libre_x = (bw - cw) / 2
+        cx = bw / 2 + sens * libre_x * 0.45 * (adouci - 0.5)
+        # centre place un peu au-dessus du milieu : les visages sont dans le
+        # haut du cadre, et le bas de l'image accueille de toute facon le texte
+        cy = bh * 0.455
+        # le cadre doit rester entierement dans l'image, sinon PIL refuse
+        cx = min(max(cx, cw / 2), bw - cw / 2)
+        cy = min(max(cy, ch / 2), bh - ch / 2)
+        boite = (cx - cw / 2, cy - ch / 2, cx + cw / 2, cy + ch / 2)
+        sortie.append(base.resize((L, H), Image.LANCZOS, box=boite))
+    return sortie
+
+
 def monter(cle, court=False):
     board = STORYBOARDS[cle]
     SORTIE.mkdir(parents=True, exist_ok=True)
@@ -207,9 +246,11 @@ def monter(cle, court=False):
         gardes = board.get("court", [])
         plans = [p for p in plans if p[0] in gardes]
 
-    manquants = [c for c, *_ in plans if not (CLIPS / f"{c}.mp4").exists()]
+    depuis_images = board.get("source") == "images"
+    dossier, ext = (IMAGES, "png") if depuis_images else (CLIPS, "mp4")
+    manquants = [c for c, *_ in plans if not (dossier / f"{c}.{ext}").exists()]
     if manquants:
-        print(f"  clips manquants pour {cle} : {manquants} — video non montee")
+        print(f"  sources manquantes pour {cle} : {manquants} — video non montee")
         return None
 
     conteneur = av.open(str(dest), "w")
@@ -220,8 +261,9 @@ def monter(cle, court=False):
     flux_audio.bit_rate = 128000
 
     total = 0
-    for clip, duree, _, _ in plans:
-        images = frames_du_clip(CLIPS / f"{clip}.mp4", duree)
+    for rang, (clip, duree, _, _) in enumerate(plans):
+        images = (frames_depuis_image(IMAGES / f"{clip}.png", duree, rang)
+                  if depuis_images else frames_du_clip(CLIPS / f"{clip}.mp4", duree))
         calque = Image.open(TAMPON / f"{clip}.png").convert("RGBA")
         fondu = int(0.25 * FPS)          # le texte s'installe en 0,25 s
         for i, img in enumerate(images):
