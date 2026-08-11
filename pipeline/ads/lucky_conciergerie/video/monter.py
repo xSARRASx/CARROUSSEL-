@@ -28,6 +28,7 @@ L, H, FPS = 1080, 1920, 24
 STORYBOARDS = {
     "v1": {
         "titre": "Le dimanche soir",
+        "musique": "douce",
         "plans": [
             ("v1_p1", 3.0, "<em>21h47.</em><br>Encore un message.", False),
             ("v1_p2", 3.0, "Draps à laver.<br>Ménage à faire.", False),
@@ -42,6 +43,7 @@ STORYBOARDS = {
     },
     "v2": {
         "titre": "Toutes les conciergeries ne se valent pas",
+        "musique": "posee",
         "plans": [
             ("v2_p1", 4.0, "Votre conciergerie vous fait-elle vraiment <em>gagner de l'argent&nbsp;?</em>", True),
             ("v2_p2", 6.0, "Des nuits vides.<br>Une commission quand même.", False),
@@ -52,32 +54,30 @@ STORYBOARDS = {
         "carton": 6.0,
         "court": ["v2_p1", "v2_p3"],
     },
-    # v3 et v4 : lumineuses, avec des personnes. Montees a partir d'images
-    # animees (zoom lent) parce que le quota video etait epuise — et le style
-    # obtenu est volontairement different des deux premieres.
+    # v3 et v4 : lumineuses, avec des personnes, vraies prises de vue
     "v3": {
         "titre": "Votre logement peut rapporter bien plus",
-        "source": "images",
+        "musique": "claire",
         "plans": [
-            ("v3_i1", 4.5, "Votre logement peut rapporter<br><em>bien plus.</em>", False),
-            ("v3_i2", 5.5, "Annonce optimisée.<br>Photos qui donnent envie.", False),
-            ("v3_i3", 5.5, "Tarifs ajustés<br><em>chaque jour.</em>", False),
-            ("v3_i4", 5.5, "<em>+36 %</em> de revenus<br>en moyenne", False),
+            ("v3_p1", 4.0, "Votre logement peut rapporter<br><em>bien plus.</em>", False),
+            ("v3_p2", 6.0, "Annonce optimisée.<br>Photos qui donnent envie.", False),
+            ("v3_p3", 6.0, "Tarifs ajustés<br><em>chaque jour.</em>", False),
+            ("v3_p4", 6.0, "<em>+36 %</em> de revenus<br>en moyenne", False),
         ],
         "carton": 6.0,
-        "court": ["v3_i1", "v3_i4"],
+        "court": ["v3_p1", "v3_p4"],
     },
     "v4": {
         "titre": "En 3 etapes",
-        "source": "images",
+        "musique": "allante",
         "plans": [
-            ("v4_i1", 4.5, "<em>01</em><br>Deux minutes pour remplir le formulaire", True),
-            ("v4_i2", 5.5, "<em>02</em><br>On vous appelle", False),
-            ("v4_i3", 5.5, "<em>03</em><br>On vous présente<br>la bonne conciergerie", True),
-            ("v4_i4", 5.5, "<em>Gratuit</em> et sans engagement.", False),
+            ("v4_p1", 4.0, "<em>01</em><br>Deux minutes pour remplir le formulaire", True),
+            ("v4_p2", 6.0, "<em>02</em><br>On vous appelle", False),
+            ("v4_p3", 6.0, "<em>03</em><br>On vous présente<br>la bonne conciergerie", True),
+            ("v4_p4", 6.0, "<em>Gratuit</em> et sans engagement.", False),
         ],
         "carton": 6.0,
-        "court": ["v4_i1", "v4_i3"],
+        "court": ["v4_p1", "v4_p3"],
     },
 }
 
@@ -180,9 +180,9 @@ def frames_du_clip(chemin, secondes):
     return sortie[:voulues]
 
 
-def poser_musique(conteneur, flux_audio, duree, volume=0.45):
+def poser_musique(conteneur, flux_audio, duree, ambiance="douce", volume=0.45):
     """Compose une piste a la duree exacte de la video et l'encode."""
-    piste = compo.composer(duree) * volume
+    piste = compo.composer(duree, ambiance) * volume
     stereo = np.vstack([piste, piste]).astype("float32")   # fltp : un plan par canal
     taille = 1024
     pts = 0
@@ -289,7 +289,8 @@ def monter(cle, court=False):
     for paquet in flux.encode(None):
         conteneur.mux(paquet)
 
-    poser_musique(conteneur, flux_audio, total / FPS)
+    poser_musique(conteneur, flux_audio, total / FPS,
+                  board.get("musique", "douce"))
     conteneur.close()
 
     print(f"  OK {dest.name} — {total / FPS:.1f} s, {dest.stat().st_size // 1024} Ko")

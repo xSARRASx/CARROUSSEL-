@@ -1,36 +1,72 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Compose la musique de fond des publicites Lucky Conciergerie.
+Compose les musiques de fond des publicites Lucky Conciergerie.
 
-Elle est synthetisee ici, de zero : aucune licence a verifier, aucun risque
-de reclamation sur YouTube ou Meta.
+Elles sont synthetisees ici, de zero : aucune licence a verifier, aucun
+risque de reclamation sur YouTube ou Meta.
 
-Piano feutre + nappe de cordes, progression lente en La mineur, volume bas
-pour rester derriere les sous-titres.
+Quatre ambiances, pour que chaque video ait la sienne :
+  douce    piano feutre en mineur, intime          (video 1, le soir)
+  posee    nappe lente et large, presque suspendue (video 2, la reflexion)
+  claire   majeur lumineux, optimiste              (video 3, la reussite)
+  allante  pulsation reguliere, on avance          (video 4, les 3 etapes)
 
-Usage : python3 musique.py [duree_en_secondes]
+Usage : python3 musique.py [duree] [ambiance]
 """
-import sys, pathlib, math
+import sys, pathlib
 import numpy as np
 
 SR = 48000
 ICI = pathlib.Path(__file__).resolve().parent
 
+# (nom, notes aigues jouees en arpege, notes graves tenues)
+AMBIANCES = {
+    "douce": {
+        "accords": [([220.00, 261.63, 329.63], [110.00, 164.81]),
+                    ([174.61, 220.00, 261.63], [87.31, 130.81]),
+                    ([196.00, 261.63, 329.63], [130.81, 196.00]),
+                    ([196.00, 246.94, 293.66], [98.00, 146.83])],
+        "mesure": 4.0, "piano": 0.30, "nappe": 0.32, "pulsation": 0.0,
+    },
+    "posee": {   # accords de septieme, tres lents : on laisse respirer
+        "accords": [([174.61, 261.63, 329.63], [87.31, 130.81]),
+                    ([196.00, 261.63, 349.23], [98.00, 146.83]),
+                    ([146.83, 220.00, 293.66], [73.42, 110.00]),
+                    ([233.08, 293.66, 349.23], [116.54, 174.61])],
+        "mesure": 5.2, "piano": 0.22, "nappe": 0.40, "pulsation": 0.0,
+    },
+    "claire": {  # majeur, registre plus haut : lumineux et confiant
+        "accords": [([261.63, 329.63, 392.00], [130.81, 196.00]),
+                    ([196.00, 246.94, 392.00], [98.00, 146.83]),
+                    ([220.00, 329.63, 440.00], [110.00, 164.81]),
+                    ([174.61, 261.63, 349.23], [87.31, 130.81])],
+        "mesure": 3.6, "piano": 0.32, "nappe": 0.26, "pulsation": 0.0,
+    },
+    "allante": {  # meme couleur, mais une pulsation qui pousse en avant
+        "accords": [([261.63, 329.63, 392.00], [130.81, 196.00]),
+                    ([233.08, 293.66, 349.23], [116.54, 174.61]),
+                    ([220.00, 293.66, 349.23], [110.00, 164.81]),
+                    ([196.00, 246.94, 329.63], [98.00, 146.83])],
+        "mesure": 3.2, "piano": 0.26, "nappe": 0.24, "pulsation": 0.16,
+    },
+}
 
-def note(freq, duree, force=1.0):
+
+def note(freq, duree, force=1.0, chute_rapide=False):
     """Une note de piano : harmoniques + decroissance exponentielle."""
     n = int(duree * SR)
     t = np.arange(n) / SR
     son = np.zeros(n)
-    # le timbre du piano tient a ses harmoniques, de moins en moins fortes
     for rang, poids in enumerate([1.0, 0.42, 0.22, 0.12, 0.06], start=1):
-        # legere inharmonicite : les cordes reelles ne sont jamais parfaites
-        f = freq * rang * (1 + 0.0004 * rang * rang)
+        f = freq * rang * (1 + 0.0004 * rang * rang)   # legere inharmonicite
         son += poids * np.sin(2 * np.pi * f * t)
-    attaque = np.clip(t / 0.006, 0, 1)              # 6 ms de montee
-    chute = np.exp(-t * 1.5) * 0.75 + np.exp(-t * 6.0) * 0.25
-    return son * attaque * chute * force
+    attaque = np.clip(t / 0.006, 0, 1)
+    if chute_rapide:
+        enveloppe = np.exp(-t * 7.0)
+    else:
+        enveloppe = np.exp(-t * 1.5) * 0.75 + np.exp(-t * 6.0) * 0.25
+    return son * attaque * enveloppe * force
 
 
 def nappe(freqs, duree, force=0.32):
@@ -39,17 +75,15 @@ def nappe(freqs, duree, force=0.32):
     t = np.arange(n) / SR
     son = np.zeros(n)
     for f in freqs:
-        for detune in (-0.15, 0.0, 0.15):           # 3 voix legerement desaccordees
+        for detune in (-0.15, 0.0, 0.15):
             son += np.sin(2 * np.pi * (f + detune) * t) / 3
         son += 0.18 * np.sin(2 * np.pi * f * 2 * t)
-    enveloppe = np.minimum(np.clip(t / 1.2, 0, 1),
-                           np.clip((duree - t) / 1.2, 0, 1))
+    enveloppe = np.minimum(np.clip(t / 1.2, 0, 1), np.clip((duree - t) / 1.2, 0, 1))
     vibrato = 1 + 0.004 * np.sin(2 * np.pi * 4.5 * t)
     return son * enveloppe * vibrato * force / max(len(freqs), 1)
 
 
 def reverb(x, retards=((0.041, .28), (0.073, .21), (0.109, .15), (0.157, .10))):
-    """Reverberation simple : quelques reflets decroissants."""
     sortie = x.copy()
     for retard, gain in retards:
         d = int(retard * SR)
@@ -57,52 +91,49 @@ def reverb(x, retards=((0.041, .28), (0.073, .21), (0.109, .15), (0.157, .10))):
     return sortie
 
 
-def composer(duree_totale):
-    # La mineur : Am - F - C - G, une progression douce et rassurante
-    accords = [
-        ("Am", [220.00, 261.63, 329.63], [110.00, 164.81]),
-        ("F",  [174.61, 220.00, 261.63], [87.31, 130.81]),
-        ("C",  [196.00, 261.63, 329.63], [130.81, 196.00]),
-        ("G",  [196.00, 246.94, 293.66], [98.00, 146.83]),
-    ]
-    par_accord = 4.0
+def composer(duree_totale, ambiance="douce"):
+    reglage = AMBIANCES[ambiance]
+    accords = reglage["accords"]
+    mesure = reglage["mesure"]
     n_total = int(duree_totale * SR)
     piste = np.zeros(n_total + SR)
 
-    i = 0
-    pos = 0
+    i, pos = 0, 0
     while pos < n_total:
-        nom, aigus, graves = accords[i % len(accords)]
-        n = int(par_accord * SR)
+        aigus, graves = accords[i % len(accords)]
+        bloc = np.zeros(int(mesure * SR) + SR // 2)
 
-        # nappe tenue sous l'accord
-        bloc = np.zeros(n + SR // 2)
-        na = nappe(graves + aigus[:1], par_accord)
+        na = nappe(graves + aigus[:1], mesure, force=reglage["nappe"])
         bloc[:len(na)] += na
 
-        # arpege : les notes s'egrenent au lieu de tomber ensemble
-        for k, f in enumerate(aigus):
-            depart = int((0.0 + k * 0.55) * SR)
-            no = note(f, par_accord - k * 0.55 + 0.5, force=0.30 - k * 0.04)
+        for k, f in enumerate(aigus):                      # arpege
+            depart = int((k * 0.55) * SR)
+            no = note(f, mesure - k * 0.55 + 0.5, force=reglage["piano"] - k * 0.04)
             fin = min(depart + len(no), len(bloc))
             bloc[depart:fin] += no[:fin - depart]
 
-        # une note aigue posee sur le 3e temps, pour respirer
-        if i % 2 == 0:
-            depart = int(2.2 * SR)
-            no = note(aigus[-1] * 2, 2.2, force=0.13)
+        if i % 2 == 0:                                     # note aigue de respiration
+            depart = int(mesure * 0.55 * SR)
+            no = note(aigus[-1] * 2, 2.2, force=reglage["piano"] * 0.42)
             fin = min(depart + len(no), len(bloc))
             bloc[depart:fin] += no[:fin - depart]
+
+        if reglage["pulsation"]:                           # basse reguliere
+            pas = mesure / 4
+            for battement in range(4):
+                depart = int(battement * pas * SR)
+                no = note(graves[0], pas * 0.9,
+                          force=reglage["pulsation"], chute_rapide=True)
+                fin = min(depart + len(no), len(bloc))
+                bloc[depart:fin] += no[:fin - depart]
 
         fin = min(pos + len(bloc), len(piste))
         piste[pos:fin] += bloc[:fin - pos]
-        pos += n
+        pos += int(mesure * SR)
         i += 1
 
     piste = reverb(piste)[:n_total]
-
-    # fondu d'entree et de sortie
-    fondu = int(1.5 * SR)
+    fondu = int(min(1.5, duree_totale / 6) * SR)
     piste[:fondu] *= np.linspace(0, 1, fondu)
     piste[-fondu:] *= np.linspace(1, 0, fondu)
 
@@ -112,18 +143,17 @@ def composer(duree_totale):
 
 def ecrire_wav(signal, chemin):
     import wave
-    entier = np.clip(signal, -1, 1)
-    entier = (entier * 32767).astype("<i2")
+    entier = (np.clip(signal, -1, 1) * 32767).astype("<i2")
     stereo = np.repeat(entier[:, None], 2, axis=1).tobytes()
     with wave.open(str(chemin), "w") as w:
-        w.setnchannels(2)
-        w.setsampwidth(2)
-        w.setframerate(SR)
+        w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
         w.writeframes(stereo)
 
 
 if __name__ == "__main__":
-    duree = float(sys.argv[1]) if len(sys.argv) > 1 else 40.0
-    dest = ICI / "musique_fond.wav"
-    ecrire_wav(composer(duree), dest)
-    print(f"OK {dest.name} — {duree:.0f} s, {dest.stat().st_size // 1024} Ko")
+    duree = float(sys.argv[1]) if len(sys.argv) > 1 else 30.0
+    voulues = [sys.argv[2]] if len(sys.argv) > 2 else list(AMBIANCES)
+    for nom in voulues:
+        dest = ICI / f"musique_{nom}.wav"
+        ecrire_wav(composer(duree, nom), dest)
+        print(f"OK {dest.name} — {duree:.0f} s")

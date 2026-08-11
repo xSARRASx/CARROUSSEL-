@@ -1,0 +1,93 @@
+/* =========================================================
+   GuestLucky - annonce facturation electronique, version affiche.
+   Un aplat navy franc, une maquette d'interface qui deborde dessus,
+   une ombre portee DURE (sans flou). Angles droits partout.
+   ========================================================= */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../assets/fonts/inter-latin-var.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: block;
+}
+
+:root {
+    --violet: #6b46ff;
+    --violet-clair: #A78BFF;
+    --navy: #101733;
+    --encre: #0b0f1c;
+    --gris: #6a7391;
+    --papier: #F4F2EC;
+    --vert: #0f9d58;
+    --ambre: #c07800;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;
+       text-rendering: geometricPrecision; background: #999; }
+
+.post { position: relative; overflow: hidden; background: var(--papier); }
+.post.carre { width: 1080px; height: 1080px; }
+.post.story { width: 1080px; height: 1920px; }
+
+/* l'aplat sombre du haut */
+.bandeau { position: absolute; left: 0; right: 0; top: 0; background: var(--navy); }
+.bandeau::after {          /* un filet violet qui souligne l'aplat */
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 8px; background: var(--violet);
+}
+
+.pad { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+.logo { display: block; height: auto; }
+.rubrique { font-weight: 800; letter-spacing: .26em; text-transform: uppercase;
+            color: var(--violet-clair); }
+.titre { font-weight: 800; letter-spacing: -.038em; line-height: .98; color: #fff; }
+.titre em { font-style: normal; color: var(--violet-clair); }
+
+/* ---------- maquette de l'interface ---------- */
+.appli {
+    background: #fff;
+    border: 2px solid var(--encre);
+    box-shadow: 14px 14px 0 var(--violet);   /* ombre dure, pas de flou */
+}
+.appli-barre { display: flex; align-items: center; justify-content: space-between;
+               border-bottom: 2px solid var(--encre); }
+.appli-titre { font-weight: 800; color: var(--encre); letter-spacing: -.02em; }
+.appli-tag { font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+             color: var(--violet); }
+
+.rangee { display: flex; align-items: center; border-bottom: 1.5px solid #E9E6DE; }
+.rangee:last-child { border-bottom: none; }
+.r-ref { font-weight: 700; color: var(--gris); font-variant-numeric: tabular-nums; }
+.r-nom { font-weight: 600; color: var(--encre); flex: 1; }
+.r-montant { font-weight: 800; color: var(--encre); font-variant-numeric: tabular-nums;
+             text-align: right; }
+.etat { font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+        text-align: center; color: #fff; }
+.etat-payee { background: var(--vert); }
+.etat-envoyee { background: var(--violet); }
+.etat-brouillon { background: #fff; color: var(--ambre);
+                  box-shadow: inset 0 0 0 2px var(--ambre); }
+
+/* ---------- bas de l'affiche ---------- */
+.arguments { display: flex; }
+.argument { border-left: 3px solid var(--violet); }
+.arg-titre { font-weight: 800; color: var(--encre); letter-spacing: -.01em; }
+.arg-txt { font-weight: 500; color: var(--gris); line-height: 1.35; }
+
+.rdv { display: flex; align-items: stretch; background: var(--encre); color: #fff; }
+.rdv-date { background: var(--violet); display: flex; flex-direction: column;
+            align-items: center; justify-content: center; }
+.rdv-jour { font-weight: 900; line-height: .9; letter-spacing: -.04em;
+            font-variant-numeric: tabular-nums; }
+.rdv-mois { font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.rdv-txt { display: flex; flex-direction: column; justify-content: center; }
+.rdv-lab { font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+           color: rgba(255,255,255,.55); }
+.rdv-val { font-weight: 800; letter-spacing: -.015em; }
+
+.pied { display: flex; align-items: baseline; justify-content: space-between; }
+.pied-txt { font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+            color: var(--gris); }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="affiche.css">
+<style>
+    .bandeau { height: 520px; }
+    .pad { padding: 64px 68px 60px; }
+    .logo { width: 250px; }
+    .rubrique { font-size: 17px; margin-top: 46px; }
+    .titre { font-size: 76px; margin-top: 16px; }
+
+    .appli { margin-top: 54px; }
+    .appli-barre { padding: 20px 26px; }
+    .appli-titre { font-size: 25px; }
+    .appli-tag { font-size: 14px; }
+    .rangee { padding: 17px 26px; gap: 18px; }
+    .r-ref { font-size: 17px; width: 152px; flex: none; }
+    .r-nom { font-size: 19px; }
+    .r-montant { font-size: 19px; width: 132px; flex: none; }
+    .etat { font-size: 13px; padding: 8px 0; width: 116px; flex: none; }
+
+    .arguments { gap: 26px; margin-top: auto; margin-bottom: 40px; }
+    .argument { padding-left: 18px; flex: 1; }
+    .arg-titre { font-size: 21px; }
+    .arg-txt { font-size: 16px; margin-top: 5px; }
+
+    .rdv { margin-top: 0; }
+    .rdv-date { padding: 20px 28px; }
+    .rdv-jour { font-size: 50px; }
+    .rdv-mois { font-size: 16px; margin-top: 7px; }
+    .rdv-txt { padding: 20px 30px; }
+    .rdv-lab { font-size: 14px; }
+    .rdv-val { font-size: 31px; margin-top: 7px; }
+
+    .pied { margin-top: 24px; }
+    .pied-txt { font-size: 15px; }
+</style>
+</head>
+<body>
+<div class="post carre">
+    <div class="bandeau"></div>
+
+    <div class="pad">
+        <img class="logo" src="../assets/logos/logo-guestlucky-blanc.png" alt="GuestLucky">
+        <div class="rubrique">Nouveau module</div>
+        <div class="titre">La facturation<br><em>électronique</em> est là.</div>
+
+        <div class="appli">
+            <div class="appli-barre">
+                <div class="appli-titre">Mes factures</div>
+                <div class="appli-tag">Factur-X</div>
+            </div>
+            <div class="rangee">
+                <div class="r-ref">FA-2026-0142</div>
+                <div class="r-nom">Dupont</div>
+                <div class="r-montant">480,00 &euro;</div>
+                <div class="etat etat-payee">Payée</div>
+            </div>
+            <div class="rangee">
+                <div class="r-ref">FA-2026-0143</div>
+                <div class="r-nom">Moreau</div>
+                <div class="r-montant">1&nbsp;248,00 &euro;</div>
+                <div class="etat etat-envoyee">Envoyée</div>
+            </div>
+            <div class="rangee">
+                <div class="r-ref">FA-2026-0144</div>
+                <div class="r-nom">Bernard</div>
+                <div class="r-montant">560,00 &euro;</div>
+                <div class="etat etat-brouillon">Brouillon</div>
+            </div>
+        </div>
+
+        <div class="arguments">
+            <div class="argument">
+                <div class="arg-titre">Émises et reçues</div>
+                <div class="arg-txt">Tout au même endroit</div>
+            </div>
+            <div class="argument">
+                <div class="arg-titre">Facturation auto</div>
+                <div class="arg-txt">Générée depuis vos missions</div>
+            </div>
+            <div class="argument">
+                <div class="arg-titre">Conforme 2026</div>
+                <div class="arg-txt">Obligation légale anticipée</div>
+            </div>
+        </div>
+
+        <div class="rdv">
+            <div class="rdv-date">
+                <div class="rdv-jour">13</div>
+                <div class="rdv-mois">Août</div>
+            </div>
+            <div class="rdv-txt">
+                <div class="rdv-lab">On vous montre tout en direct</div>
+                <div class="rdv-val">Jeudi &agrave; 18h</div>
+            </div>
+        </div>
+
+        <div class="pied">
+            <div class="pied-txt">guestlucky.com</div>
+            <div class="pied-txt">Conforme 2026</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

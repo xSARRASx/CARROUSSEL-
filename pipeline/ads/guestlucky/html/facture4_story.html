@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="editorial.css">
+<style>
+    .cadre { inset: 40px; }
+    .pad { padding: 150px 84px 140px; }
+    .logo { width: 290px; }
+    .ref-lab { font-size: 16px; }
+    .ref-val { font-size: 22px; margin-top: 6px; }
+    .filet { height: 2px; margin-top: 40px; }
+    .rubrique { font-size: 19px; margin-top: 76px; }
+    .titre { font-size: 108px; margin-top: 22px; }
+    .chapo { font-size: 27px; margin-top: 34px; max-width: 780px; }
+
+    .lignes { gap: 34px; margin-top: 78px; }
+    .ligne-lab { font-size: 26px; }
+    .ligne-val { font-size: 24px; }
+
+    .filet-fin { height: 2px; margin-top: 76px; }
+    .rdv { margin-top: 76px; }
+    .rdv-date { padding: 34px 42px; align-items: center; }
+    .rdv-jour { font-size: 78px; }
+    .rdv-mois { font-size: 20px; margin-top: 10px; }
+    .rdv-txt { padding: 34px 46px; }
+    .rdv-lab { font-size: 18px; }
+    .rdv-val { font-size: 44px; margin-top: 10px; }
+
+    /* le tampon descend sous le bloc du rendez-vous : en haut, il mordait
+       sur le mot « electronique » et le rendait illisible */
+    .tampon { right: 96px; bottom: 300px; font-size: 44px; padding: 26px 40px; }
+    .tampon span { font-size: 18px; margin-top: 8px; }
+
+    .pied { margin-top: auto; }
+    .pied-txt { font-size: 18px; }
+</style>
+</head>
+<body>
+<div class="post story">
+    <div class="cadre"></div>
+
+    <div class="pad">
+        <div class="entete">
+            <img class="logo" src="../assets/logos/logo-guestlucky-navy.png" alt="GuestLucky">
+            <div class="ref">
+                <div class="ref-lab">Mise en service</div>
+                <div class="ref-val">13.08.2026</div>
+            </div>
+        </div>
+
+        <div class="filet"></div>
+
+        <div class="rubrique">Nouveau module</div>
+        <div class="titre">Facturation<br><em>électronique</em></div>
+        <div class="chapo">Éditez, envoyez et recevez vos factures conformes
+            <b>sans quitter GuestLucky.</b></div>
+
+        <div class="lignes">
+            <div class="ligne">
+                <div class="ligne-lab">Format Factur-X</div>
+                <div class="ligne-pts"></div>
+                <div class="ligne-val">Inclus</div>
+            </div>
+            <div class="ligne">
+                <div class="ligne-lab">Conformité 2026</div>
+                <div class="ligne-pts"></div>
+                <div class="ligne-val">Assurée</div>
+            </div>
+            <div class="ligne">
+                <div class="ligne-lab">Factures émises et reçues</div>
+                <div class="ligne-pts"></div>
+                <div class="ligne-val">Au même endroit</div>
+            </div>
+            <div class="ligne">
+                <div class="ligne-lab">Facturation automatique</div>
+                <div class="ligne-pts"></div>
+                <div class="ligne-val">Activable</div>
+            </div>
+        </div>
+
+        <div class="filet-fin"></div>
+
+        <div class="rdv">
+            <div class="rdv-date">
+                <div class="rdv-jour">13</div>
+                <div class="rdv-mois">Août</div>
+            </div>
+            <div class="rdv-txt">
+                <div class="rdv-lab">On vous montre tout en direct</div>
+                <div class="rdv-val">Jeudi &agrave; 18h</div>
+            </div>
+        </div>
+
+        <div class="pied">
+            <div class="pied-txt">guestlucky.com</div>
+            <div class="pied-txt">Location courte durée</div>
+        </div>
+    </div>
+
+    <div class="tampon">Disponible<span>dès maintenant</span></div>
+</div>
+</body>
+</html>
