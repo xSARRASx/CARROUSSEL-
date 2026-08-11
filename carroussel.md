@@ -858,6 +858,17 @@ de leur confier leur bien. 30 visuels = 30 posts différents = 3 mois de contenu
 
 ---
 
+## 🎤 Transcrire les vocaux de Martin (à refaire à CHAQUE session, testé, ça marche)
+Martin envoie souvent des messages vocaux (WhatsApp .opus/.ogg, m4a, mp3...).
+1. `pip install --quiet faster-whisper` (le conteneur repart de zéro à chaque session, ~40 s)
+2. `python3 pipeline/transcrire_vocal.py <fichier> [small|medium]`
+   (small = défaut rapide ; medium si audio difficile ou jargon)
+- TOUJOURS `vad_filter=True` (déjà dans le script) : sans lui Whisper invente du
+  texte sur les silences (« Sous-titres réalisés par la communauté d'Amara.org »).
+- Pas besoin de ffmpeg (décodage via PyAV, installé avec faster-whisper).
+- Whisper écorche les noms propres et termes techniques (GuestLucky, Beds24,
+  loi Hoguet...) : relire, corriger, et signaler ce qui a été rétabli.
+
 ## 🛡️ Règles de sauvegarde
 - Mettre à jour ce fichier à chaque grosse étape / nouvelle règle apprise.
 - Commit + push fréquents sur `claude/salut-af8y9u`.
