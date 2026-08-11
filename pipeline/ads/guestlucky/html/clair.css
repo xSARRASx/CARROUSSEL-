@@ -1,0 +1,96 @@
+/* =========================================================
+   GuestLucky - style clair, repris tel quel du site guestlucky.com
+   fond blanc violace, gros titre navy, mots cles violets,
+   pilules blanches a coche. Police Inter.
+   ========================================================= */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../assets/fonts/inter-latin-var.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: block;
+}
+
+:root {
+    --violet: #6b46ff;
+    --violet-fonce: #5a35e6;
+    --magenta: #E84A8C;
+    --navy: #1a2547;
+    --encre: #0f1424;
+    --gris: #5b6480;
+    --fond: #FAF8FF;
+    --bord: #E7E2F7;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;
+       text-rendering: geometricPrecision; background: #ddd; }
+
+.post { position: relative; overflow: hidden; background: var(--fond); }
+.post.carre { width: 1080px; height: 1080px; }
+
+/* les auras douces du site, en peripherie seulement */
+.aura { position: absolute; border-radius: 50%; }
+.aura-v { background: radial-gradient(circle, rgba(107,70,255,.20) 0%, rgba(107,70,255,0) 70%); }
+.aura-m { background: radial-gradient(circle, rgba(232,74,140,.16) 0%, rgba(232,74,140,0) 70%); }
+
+.pad { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+.logo { display: block; height: auto; }
+
+/* pilule sombre du haut de page */
+.chip {
+    display: inline-flex; align-items: center; align-self: flex-start; gap: .65em;
+    background: var(--encre); color: #fff;
+    font-weight: 600; border-radius: 999px;
+}
+.chip .point { width: .5em; height: .5em; border-radius: 50%;
+               background: var(--violet); flex: none; }
+
+.titre { font-weight: 800; letter-spacing: -.035em; line-height: 1.05; color: var(--navy); }
+.titre em { font-style: normal; color: var(--violet); }
+
+.sous { font-weight: 500; color: var(--gris); line-height: 1.5; }
+.sous b { font-weight: 700; color: var(--navy); }
+
+/* pilules blanches a coche, exactement comme sous le titre du site */
+.atouts { display: flex; flex-wrap: wrap; }
+.atout {
+    display: inline-flex; align-items: center; gap: .5em;
+    background: #fff; border: 1.5px solid var(--bord); border-radius: 999px;
+    color: var(--navy); font-weight: 600;
+    box-shadow: 0 3px 12px rgba(26,37,71,.05);
+}
+.atout svg { width: 1em; height: 1em; color: var(--violet); flex: none; }
+
+/* bandeau du rendez-vous */
+.rdv {
+    display: flex; align-items: center;
+    background: var(--encre); border-radius: 26px; color: #fff;
+}
+.rdv-jour { font-weight: 900; letter-spacing: -.04em; line-height: 1; }
+.rdv-mois { font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+            color: #A78BFF; }
+.rdv-trait { background: rgba(255,255,255,.18); flex: none; }
+.rdv-lab { font-weight: 500; color: rgba(255,255,255,.66); }
+.rdv-val { font-weight: 800; letter-spacing: -.015em; }
+
+/* maquette de facture */
+.facture { background: #fff; border: 1.5px solid var(--bord); border-radius: 26px;
+           box-shadow: 0 26px 60px rgba(26,37,71,.10); position: relative; }
+.f-haut { display: flex; align-items: flex-start; justify-content: space-between; }
+.f-titre { font-weight: 800; color: var(--navy); letter-spacing: -.02em; }
+.f-num { font-weight: 500; color: var(--gris); }
+.f-tag { background: rgba(107,70,255,.10); color: var(--violet); font-weight: 800;
+         letter-spacing: .07em; text-transform: uppercase; border-radius: 999px; }
+.f-ligne { display: flex; align-items: center; justify-content: space-between; }
+.f-barre { background: #EFECFA; border-radius: 999px; }
+.f-montant { font-weight: 600; color: var(--navy); }
+.f-sep { background: #F1EEFB; }
+.f-total { display: flex; align-items: center; justify-content: space-between; }
+.f-total-lab { font-weight: 600; color: var(--gris); }
+.f-total-val { font-weight: 900; color: var(--violet); letter-spacing: -.03em;
+               word-spacing: .16em; }
+
+.url { font-weight: 700; letter-spacing: .12em; color: var(--gris); }

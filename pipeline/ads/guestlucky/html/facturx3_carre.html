@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="clair.css">
+<style>
+    .aura-v { width: 700px; height: 700px; left: -290px; top: -300px; }
+    .aura-m { width: 640px; height: 640px; right: -280px; bottom: -280px; }
+    .pad { padding: 70px 70px 64px; }
+    .haut { display: flex; align-items: center; justify-content: space-between; }
+    .logo { width: 268px; }
+    .chip { font-size: 18px; padding: 13px 22px; align-self: center; }
+    .titre { font-size: 66px; margin-top: 40px; }
+    .sous { font-size: 23px; margin-top: 18px; max-width: 640px; }
+
+    .facture { padding: 30px 32px; margin-top: 34px; }
+    .f-titre { font-size: 27px; }
+    .f-num { font-size: 17px; margin-top: 3px; }
+    .f-tag { font-size: 14px; padding: 9px 16px; }
+    .f-ligne { margin-top: 20px; }
+    .f-barre { height: 12px; }
+    .f-montant { font-size: 17px; }
+    .f-sep { height: 1.5px; margin: 22px 0 18px; }
+    .f-total-lab { font-size: 18px; }
+    .f-total-val { font-size: 34px; }
+
+    .rdv { padding: 24px 30px; gap: 26px; margin-top: auto; align-self: flex-start; }
+    .rdv-jour { font-size: 50px; }
+    .rdv-mois { font-size: 17px; margin-top: 5px; }
+    .rdv-trait { width: 1.5px; height: 64px; }
+    .rdv-lab { font-size: 17px; }
+    .rdv-val { font-size: 27px; margin-top: 4px; }
+    .url { font-size: 19px; margin-top: 22px; }
+</style>
+</head>
+<body>
+<div class="post carre">
+    <div class="aura aura-v"></div>
+    <div class="aura aura-m"></div>
+
+    <div class="pad">
+        <div class="haut">
+            <img class="logo" src="../assets/logos/logo-guestlucky-navy.png" alt="GuestLucky">
+            <div class="chip"><span class="point"></span> Nouveau</div>
+        </div>
+
+        <div class="titre">La <em>facturation électronique</em> est disponible.</div>
+        <div class="sous">Vos factures conformes, éditées et envoyées
+            <b>depuis votre espace GuestLucky.</b></div>
+
+        <div class="facture">
+            <div class="f-haut">
+                <div>
+                    <div class="f-titre">Facture</div>
+                    <div class="f-num">FA-2026-0142</div>
+                </div>
+                <div class="f-tag">Factur-X</div>
+            </div>
+
+            <div class="f-ligne">
+                <div class="f-barre" style="width: 46%;"></div>
+                <div class="f-montant">480,00 &euro;</div>
+            </div>
+            <div class="f-ligne">
+                <div class="f-barre" style="width: 62%;"></div>
+                <div class="f-montant">560,00 &euro;</div>
+            </div>
+            <div class="f-ligne">
+                <div class="f-barre" style="width: 34%;"></div>
+                <div class="f-montant">208,00 &euro;</div>
+            </div>
+
+            <div class="f-sep"></div>
+            <div class="f-total">
+                <div class="f-total-lab">Total TTC</div>
+                <div class="f-total-val">1&nbsp;248,00&nbsp;&euro;</div>
+            </div>
+        </div>
+
+        <div class="rdv">
+            <div>
+                <div class="rdv-jour">13</div>
+                <div class="rdv-mois">Août</div>
+            </div>
+            <div class="rdv-trait"></div>
+            <div>
+                <div class="rdv-lab">On vous montre tout en direct</div>
+                <div class="rdv-val">Jeudi &agrave; 18h</div>
+            </div>
+        </div>
+
+        <div class="url">guestlucky.com</div>
+    </div>
+</div>
+</body>
+</html>
