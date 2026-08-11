@@ -85,6 +85,55 @@ Martin veut que je gère **toute la chaîne moi-même**, en une seule conversati
 **prompts visuels** (PARTIE D, couleurs des rendus IA photo) NE SONT PAS identiques :
 ne pas les mélanger. Toujours se référer à la partie concernée.
 
+## 🎙️ MESSAGES VOCAUX DE MARTIN — savoir les transcrire (procédure de Martin, 11/08/2026)
+
+Martin envoie souvent des vocaux. Le conteneur repart de zéro à chaque session,
+donc **l'installation est à refaire à chaque fois** (environ 40 secondes) :
+
+```
+pip install --quiet faster-whisper
+```
+
+Puis, quand un vocal arrive :
+
+```
+python3 pipeline/transcrire_vocal.py <fichier> [small|medium]
+```
+
+Le script fait le travail complet (transcription + garde-fous + noms propres).
+La commande brute reste possible, mais elle est moins sûre — voir le piège
+ci-dessous.
+
+**Ce qui est vérifié (testé le 11/08/2026, pas supposé) :**
+- Les vocaux WhatsApp `.opus` / `.ogg` se lisent **sans ffmpeg** (non installé),
+  le décodage passe par PyAV. Testé sur un vrai fichier `.opus`. Marchent aussi :
+  m4a, mp3, wav, mp4.
+- Le modèle se télécharge bien depuis le conteneur (`small` : 34 s au premier
+  appel, puis il est en cache pour la session).
+- `medium` si l'audio est difficile ou plein de jargon : plus lent, plus fidèle.
+
+**⚠️ PIÈGE IMPORTANT — `vad_filter=True` ne suffit PAS toujours.**
+Martin le donne comme parade aux inventions de Whisper (« Sous-titres réalisés
+par la communauté d'Amara.org »). C'est utile et on le garde TOUJOURS, mais le
+test du 11/08/2026 a montré la limite : sur un son continu non parlé, Whisper a
+sorti **exactement cette phrase malgré `vad_filter=True`**. Le VAD coupe les
+SILENCES ; il ne protège pas d'un bruit qu'il prend pour une voix.
+Deux garde-fous supplémentaires sont donc dans le script :
+1. **`no_speech_prob`** — le modèle donne lui-même la probabilité que ce ne soit
+   pas de la parole. Sur l'invention du test : **0,882**. Il « savait » et
+   écrivait quand même. Au-dessus de 0,75, on écarte.
+2. **Liste des phrases parasites connues** de Whisper en français (générique de
+   sous-titrage, remerciements de fin de vidéo...).
+Rien n'est supprimé en silence : tout passage écarté est affiché à Martin.
+
+**Noms propres.** Whisper écorche systématiquement le vocabulaire maison. Le
+script rétablit et **signale** chaque correction (`guest lucky` → GuestLucky,
+`bed 24` → Beds24, `chanel manager` → Channel Manager, `price labs` →
+PriceLabs, `loi oguet` → loi Hoguet, `bouquine` → Booking, `leap way` →
+Leapway...). Le lexique est en haut de `pipeline/transcrire_vocal.py` :
+**l'enrichir dès qu'un nouveau mot est écorché**. Et relire quand même la
+transcription : la liste ne peut pas tout prévoir.
+
 ---
 
 # PARTIE A — CRÉATION DE CONTENU DES CARROUSELS
