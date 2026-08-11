@@ -1360,6 +1360,31 @@ Martin veut **voir le rendu de chaque slide**, pas seulement recevoir les ZIP.
 2. Puis (ou avant) les **ZIP** avec `display: "attach"`.
 Ne jamais livrer uniquement les ZIP : les images d'abord, visibles dans la conversation.
 
+
+## 🎙️ MESSAGES VOCAUX DE MARTIN (règle du 03/08/2026)
+Martin envoie souvent des vocaux. On les transcrit nous-mêmes, en local.
+
+**À refaire à CHAQUE session** (le conteneur repart de zéro, ~40 s) :
+`pip install --quiet faster-whisper`
+
+**Transcription** : `python3 pipeline/transcrire_vocal.py <fichier> [small|medium]`
+ou en direct :
+```
+from faster_whisper import WhisperModel
+m = WhisperModel('small', device='cpu', compute_type='int8')
+seg, _ = m.transcribe('vocal.opus', language='fr', vad_filter=True)
+print(' '.join(s.text for s in seg))
+```
+- Lit .opus/.ogg (WhatsApp), m4a, mp3, wav, mp4. **ffmpeg inutile** (PyAV embarqué).
+- **`vad_filter=True` OBLIGATOIRE** : sans lui Whisper invente du texte sur les
+  silences (« Sous-titres réalisés par la communauté d'Amara.org »).
+- Audio difficile ou jargon → relancer avec `'medium'` (plus lent, plus fidèle).
+- ⚠️ **Whisper écorche les noms propres** : toujours relire, corriger, et
+  SIGNALER à Martin ce qui a été rétabli. Corrections fréquentes :
+  Gessuki/Guest Lucky → **GuestLucky** ; loi Lumur/Wemur → **loi Le Meur** ;
+  CH manager/chemin majeur → **channel manager** ; micro BC → **micro-BIC** ;
+  Bet 24 → **Beds24** (⚠️ mot banni en public) ; carte G, loi Hoguet, LMNP, DAC7.
+
 ## 🛡️ Règles de sauvegarde
 - Mettre à jour ce fichier à chaque grosse étape / nouvelle règle apprise.
 - Commit + push fréquents sur `claude/salut-af8y9u`.
