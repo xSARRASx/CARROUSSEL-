@@ -111,3 +111,28 @@ python3 monter.py tout                        # monter v1 et v2 (30 s + 15 s)
   plusieurs images et prend le MINIMUM : sur un plan qui demarre dans le noir
   (v2_p3), mesurer la seule premiere image faisait rogner 426 px a tort.
 - Les videos sortent **sans musique** : a ajouter au montage (CapCut).
+
+## 💜 Posts reseaux sociaux GuestLucky
+
+`pipeline/ads/guestlucky/` — a ne pas confondre avec Lucky Conciergerie :
+la charte est differente.
+
+**Charte GuestLucky** (reprise de guestlucky.com) : violet `#6b46ff`,
+violet clair `#9B6FFF`, magenta `#E84A8C`, nuit `#0A1228` → `#2D1545`,
+police **Inter**. Logo blanc : `assets/logos/logo-guestlucky-blanc.png`.
+
+```bash
+cd pipeline/ads/guestlucky
+python3 render.py        # les 3 posts (portrait 1080x1350, carre, story)
+python3 video_post.py    # la version animee 12 s avec musique
+```
+
+⚠️ **Pieges verifies le 11/08/2026** :
+- **Ne jamais utiliser `sed` pour un remplacement contenant `&`** : dans la
+  chaine de remplacement, `&` signifie « tout le motif trouve ». Un
+  `sed 's/1 248,00 &euro;/1&nbsp;248,00&nbsp;\&euro;/'` a produit
+  `11 248,00 &euro;nbsp;248,00...`. Passer par Python.
+- Le `letter-spacing` negatif des gros chiffres ecrase l'espace des milliers :
+  `word-spacing` positif pour compenser.
+- Verifier le jour de la semaine d'une date avant de l'afficher sur un post
+  public (`datetime.date(...).weekday()`).

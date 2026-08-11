@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .halo-violet  { width: 900px; height: 900px; left: -300px; top: -220px; }
+    .halo-magenta { width: 820px; height: 820px; right: -280px; bottom: -240px; }
+    .pad { padding: 74px 74px 66px; }
+    .logo { width: 330px; }
+    .badge { font-size: 21px; padding: 16px 28px; margin-top: 46px; }
+    .titre { font-size: 82px; margin-top: 30px; }
+    .sous { font-size: 27px; margin-top: 22px; max-width: 850px; }
+
+    .facture { padding: 34px 36px; margin-top: 40px; }
+    .f-titre { font-size: 30px; }
+    .f-num { font-size: 19px; margin-top: 4px; }
+    .f-tag { font-size: 15px; padding: 10px 18px; }
+    .f-ligne { margin-top: 24px; }
+    .f-barre { height: 13px; }
+    .f-montant { font-size: 19px; }
+    .f-sep { height: 1.5px; margin: 26px 0 22px; }
+    .f-total-lab { font-size: 20px; }
+    .f-total-val { font-size: 38px; }
+    .f-conforme { font-size: 18px; padding: 14px 24px; gap: 10px; right: 30px; bottom: -22px; }
+
+    .rdv { padding: 26px 32px; gap: 30px; margin-top: 46px; align-self: flex-start; }
+    .rdv-jour { font-size: 60px; }
+    .rdv-mois { font-size: 19px; margin-top: 6px; }
+    .rdv-trait { width: 1.5px; height: 78px; }
+    .rdv-lab { font-size: 19px; }
+    .rdv-val { font-size: 32px; margin-top: 6px; }
+    .url { font-size: 21px; margin-top: auto; }
+</style>
+</head>
+<body>
+<div class="post portrait">
+    <div class="halo halo-violet"></div>
+    <div class="halo halo-magenta"></div>
+
+    <div class="pad">
+        <img class="logo" src="../assets/logos/logo-guestlucky-blanc.png" alt="GuestLucky">
+
+        <div class="badge"><span class="point"></span> Nouveau</div>
+        <div class="titre">La facturation électronique<br>est <em>disponible.</em></div>
+        <div class="sous">Vos factures conformes, éditées et envoyées
+            <b>directement depuis GuestLucky.</b></div>
+
+        <div class="facture">
+            <div class="f-haut">
+                <div>
+                    <div class="f-titre">Facture</div>
+                    <div class="f-num">FA-2026-0142</div>
+                </div>
+                <div class="f-tag">Factur-X</div>
+            </div>
+
+            <div class="f-ligne">
+                <div class="f-barre" style="width: 46%;"></div>
+                <div class="f-montant">480,00 &euro;</div>
+            </div>
+            <div class="f-ligne">
+                <div class="f-barre" style="width: 62%;"></div>
+                <div class="f-montant">560,00 &euro;</div>
+            </div>
+            <div class="f-ligne">
+                <div class="f-barre" style="width: 34%;"></div>
+                <div class="f-montant">208,00 &euro;</div>
+            </div>
+
+            <div class="f-sep"></div>
+            <div class="f-total">
+                <div class="f-total-lab">Total TTC</div>
+                <div class="f-total-val">1&nbsp;248,00&nbsp;&euro;</div>
+            </div>
+
+            <div class="f-conforme">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l5 5L19 7"/></svg>
+                Conforme 2026
+            </div>
+        </div>
+
+        <div class="rdv">
+            <div>
+                <div class="rdv-jour">13</div>
+                <div class="rdv-mois">Août</div>
+            </div>
+            <div class="rdv-trait"></div>
+            <div>
+                <div class="rdv-lab">On vous montre tout en direct</div>
+                <div class="rdv-val">Jeudi &agrave; 18h</div>
+            </div>
+        </div>
+
+        <div class="url">guestlucky.com</div>
+    </div>
+</div>
+</body>
+</html>

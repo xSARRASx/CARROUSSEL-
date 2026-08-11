@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+    .halo-violet  { width: 1000px; height: 1000px; left: -320px; top: -140px; }
+    .halo-magenta { width: 950px; height: 950px; right: -320px; bottom: -200px; }
+    .pad { padding: 130px 78px 110px; justify-content: space-between; }
+    .logo { width: 350px; }
+    .badge { font-size: 22px; padding: 17px 30px; margin-top: 60px; }
+    .titre { font-size: 92px; margin-top: 34px; }
+    .sous { font-size: 30px; margin-top: 26px; max-width: 880px; }
+
+    .facture { padding: 38px 40px; margin-top: 56px; }
+    .f-titre { font-size: 32px; }
+    .f-num { font-size: 20px; margin-top: 5px; }
+    .f-tag { font-size: 16px; padding: 11px 20px; }
+    .f-ligne { margin-top: 26px; }
+    .f-barre { height: 14px; }
+    .f-montant { font-size: 20px; }
+    .f-sep { height: 1.5px; margin: 28px 0 24px; }
+    .f-total-lab { font-size: 21px; }
+    .f-total-val { font-size: 42px; }
+    .f-conforme { font-size: 19px; padding: 15px 26px; gap: 10px; right: 32px; bottom: -24px; }
+
+    .rdv { padding: 30px 38px; gap: 34px; margin-top: 62px; align-self: flex-start; }
+    .rdv-jour { font-size: 70px; }
+    .rdv-mois { font-size: 21px; margin-top: 7px; }
+    .rdv-trait { width: 1.5px; height: 92px; }
+    .rdv-lab { font-size: 21px; }
+    .rdv-val { font-size: 38px; margin-top: 7px; }
+    .url { font-size: 23px; margin-top: 54px; }
+</style>
+</head>
+<body>
+<div class="post story">
+    <div class="halo halo-violet"></div>
+    <div class="halo halo-magenta"></div>
+
+    <div class="pad">
+        <div>
+            <img class="logo" src="../assets/logos/logo-guestlucky-blanc.png" alt="GuestLucky">
+
+            <div class="badge"><span class="point"></span> Nouveau</div>
+            <div class="titre">La facturation électronique est <em>disponible.</em></div>
+            <div class="sous">Vos factures conformes, éditées et envoyées
+                <b>directement depuis GuestLucky.</b></div>
+
+            <div class="facture">
+                <div class="f-haut">
+                    <div>
+                        <div class="f-titre">Facture</div>
+                        <div class="f-num">FA-2026-0142</div>
+                    </div>
+                    <div class="f-tag">Factur-X</div>
+                </div>
+
+                <div class="f-ligne">
+                    <div class="f-barre" style="width: 46%;"></div>
+                    <div class="f-montant">480,00 &euro;</div>
+                </div>
+                <div class="f-ligne">
+                    <div class="f-barre" style="width: 62%;"></div>
+                    <div class="f-montant">560,00 &euro;</div>
+                </div>
+                <div class="f-ligne">
+                    <div class="f-barre" style="width: 34%;"></div>
+                    <div class="f-montant">208,00 &euro;</div>
+                </div>
+
+                <div class="f-sep"></div>
+                <div class="f-total">
+                    <div class="f-total-lab">Total TTC</div>
+                    <div class="f-total-val">1&nbsp;248,00&nbsp;&euro;</div>
+                </div>
+
+                <div class="f-conforme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"
+                         stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l5 5L19 7"/></svg>
+                    Conforme 2026
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="rdv">
+                <div>
+                    <div class="rdv-jour">13</div>
+                    <div class="rdv-mois">Août</div>
+                </div>
+                <div class="rdv-trait"></div>
+                <div>
+                    <div class="rdv-lab">On vous montre tout en direct</div>
+                    <div class="rdv-val">Jeudi &agrave; 18h</div>
+                </div>
+            </div>
+            <div class="url">guestlucky.com</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

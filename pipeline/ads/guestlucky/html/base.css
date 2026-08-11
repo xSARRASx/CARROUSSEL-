@@ -1,0 +1,169 @@
+/* =========================================================
+   GuestLucky - design system des posts reseaux sociaux
+   Charte reprise du site guestlucky.com
+   violet #6b46ff - magenta #E84A8C - navy #1a2547 - police Inter
+   ========================================================= */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../assets/fonts/inter-latin-var.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: block;
+}
+
+:root {
+    --violet: #6b46ff;
+    --violet-clair: #9B6FFF;
+    --violet-pale: #C5A8FF;
+    --magenta: #E84A8C;
+    --magenta-clair: #FFB1C9;
+    --navy: #0F1A35;
+    --nuit-1: #0A1228;
+    --nuit-2: #1A1640;
+    --nuit-3: #2D1545;
+    --blanc: #FFFFFF;
+    --gris: #8B92A8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+    background: #111;
+}
+
+/* ---------- formats ---------- */
+.post {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--nuit-1) 0%, var(--nuit-2) 52%, var(--nuit-3) 100%);
+}
+.post.portrait { width: 1080px; height: 1350px; }
+.post.carre    { width: 1080px; height: 1080px; }
+.post.story    { width: 1080px; height: 1920px; }
+
+/* halos de couleur, signature visuelle GuestLucky */
+.halo {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(10px);
+}
+.halo-violet  { background: radial-gradient(circle, rgba(123,79,224,.42) 0%, rgba(123,79,224,0) 68%); }
+.halo-magenta { background: radial-gradient(circle, rgba(232,74,140,.30) 0%, rgba(232,74,140,0) 68%); }
+
+.pad { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+/* ---------- marque ---------- */
+.logo { display: block; height: auto; }
+
+/* ---------- badge nouveaute ---------- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: .6em;
+    background: linear-gradient(120deg, var(--violet) 0%, var(--magenta) 100%);
+    color: var(--blanc);
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    border-radius: 999px;
+}
+.badge .point {
+    width: .55em; height: .55em; border-radius: 50%;
+    background: var(--blanc); flex: none;
+}
+
+/* ---------- typographie ---------- */
+.titre {
+    font-weight: 800;
+    letter-spacing: -.032em;
+    line-height: 1.04;
+    color: var(--blanc);
+}
+.titre em {
+    font-style: normal;
+    background: linear-gradient(100deg, var(--violet-clair) 0%, var(--magenta-clair) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.sous {
+    font-weight: 500;
+    color: rgba(255,255,255,.74);
+    line-height: 1.5;
+}
+.sous b { font-weight: 700; color: var(--blanc); }
+
+/* ---------- bloc rendez-vous ---------- */
+.rdv {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,.06);
+    border: 1.5px solid rgba(197,168,255,.34);
+    border-radius: 26px;
+    backdrop-filter: blur(8px);
+}
+.rdv-jour {
+    font-weight: 900;
+    letter-spacing: -.03em;
+    color: var(--blanc);
+    line-height: 1;
+}
+.rdv-mois {
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--violet-pale);
+}
+.rdv-trait { background: rgba(255,255,255,.16); flex: none; }
+.rdv-lab { font-weight: 600; color: rgba(255,255,255,.62); }
+.rdv-val { font-weight: 800; color: var(--blanc); letter-spacing: -.01em; }
+
+/* ---------- maquette de facture ---------- */
+.facture {
+    background: var(--blanc);
+    border-radius: 28px;
+    box-shadow: 0 40px 90px rgba(0,0,0,.42);
+    position: relative;
+}
+.f-haut { display: flex; align-items: center; justify-content: space-between; }
+.f-titre { font-weight: 800; color: var(--navy); letter-spacing: -.02em; }
+.f-num { font-weight: 600; color: var(--gris); }
+.f-tag {
+    background: rgba(107,70,255,.12);
+    color: var(--violet);
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border-radius: 999px;
+}
+.f-ligne { display: flex; align-items: center; justify-content: space-between; }
+.f-barre { background: #E8E6F2; border-radius: 999px; }
+.f-montant { font-weight: 700; color: var(--navy); }
+.f-total { display: flex; align-items: center; justify-content: space-between; }
+.f-total-lab { font-weight: 700; color: var(--gris); }
+/* word-spacing compense le letter-spacing negatif, qui sinon ecrase
+   l'espace des milliers et colle le symbole euro au montant */
+.f-total-val { font-weight: 900; color: var(--violet); letter-spacing: -.03em;
+               word-spacing: .16em; }
+.f-sep { background: #EEECF7; }
+
+/* pastille de conformite posee sur la facture */
+.f-conforme {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(120deg, var(--violet) 0%, var(--magenta) 100%);
+    color: var(--blanc);
+    font-weight: 800;
+    border-radius: 999px;
+    box-shadow: 0 16px 40px rgba(107,70,255,.45);
+}
+.f-conforme svg { width: 1em; height: 1em; flex: none; }
+
+/* ---------- pied ---------- */
+.url { font-weight: 700; letter-spacing: .12em; color: rgba(255,255,255,.55); }
