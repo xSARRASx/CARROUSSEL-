@@ -44,6 +44,34 @@
 - Commission : 0% le 1er mois, puis 10% dégressif, option Pro à 4,99€/mois/logement.
 - En cours de finalisation, liste d'attente active. CTA principal : mot-clé LANCEMENT.
 
+## 🎙️ TRANSCRIRE LES VOCAUX DE MARTIN (méthode validée, 24/07/2026)
+Martin envoie souvent des messages vocaux. Whisper tourne EN LOCAL (pas d'API).
+
+1. **À réinstaller à CHAQUE session** (le conteneur repart de zéro, ~40 s) :
+   `pip install --quiet faster-whisper`
+2. **Transcrire** (script prêt : `pipeline/transcrire_vocal.py`) :
+   `python3 pipeline/transcrire_vocal.py vocal.ogg` (ou `... vocal.opus medium`)
+   Équivalent direct :
+   ```python
+   from faster_whisper import WhisperModel
+   m = WhisperModel('small', device='cpu', compute_type='int8')
+   seg, _ = m.transcribe('LE_FICHIER.opus', language='fr', vad_filter=True)
+   print(' '.join(s.text for s in seg))
+   ```
+
+Règles :
+- Lit directement les vocaux WhatsApp (.opus/.ogg) + m4a, mp3, wav, mp4.
+  **Pas besoin de ffmpeg** (non installé) : le décodage passe par PyAV.
+- **`vad_filter=True` TOUJOURS.** Sans lui, Whisper invente du texte sur les
+  silences (ex. « Sous-titres réalisés par la communauté d'Amara.org »).
+- Audio difficile ou jargon → relancer avec **`medium`** au lieu de `small`
+  (plus lent, bien plus fidèle).
+- Whisper **écorche les noms propres et termes métier** (GuestLucky, Beds24,
+  Metricool, Seedance, loi Hoguet, LuckyCover, Leapway, PriceLabs...). Toujours
+  relire, corriger, et **signaler à Martin ce qui a été rétabli**.
+- Vérifié le 24/07/2026 : le modèle se télécharge bien depuis HuggingFace même
+  avec la politique réseau « Trusted » ; test à vide → aucune hallucination.
+
 ## 🔒 Règle de cloisonnement (IMPORTANTE)
 Chaque conversation de travail reste **uniquement** sur ce que Martin y dit. On
 ne pioche PAS d'infos d'autres conversations / projets, sauf s'il pose
