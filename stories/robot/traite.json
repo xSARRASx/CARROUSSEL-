@@ -66,6 +66,12 @@
       "sujet": "Ta copropriete peut interdire ton Airbnb (loi Le Meur, la parade civile)",
       "traite_le": "2026-08-10",
       "livrable": "banque-03 (L_copro_peut_interdire, M_parade_rester_civil, N_checklist_copro) + interactifs-03 (quiz 3 questions + 2 sondages) = 30 stories, livrees dans livraison/stories-2026-08-10-copropriete-interdiction et zip envoye a Martin"
+    },
+    {
+      "id": "JgFFL6no9OQ",
+      "sujet": "Bailleur meuble : les obligations de septembre (facturation electronique, menace 2027 sur l'amortissement, rappels de rentree)",
+      "traite_le": "2026-08-13",
+      "livrable": "banque-04 (O_facture_electronique, P_amortissement_vise, Q_rentree_verifications) + interactifs-04 (quiz 3 questions + 2 sondages) = 25 stories, livrees dans livraison/stories-2026-08-13-obligations-septembre et zip envoye a Martin"
     }
   ]
 }
