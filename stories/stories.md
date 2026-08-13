@@ -627,6 +627,44 @@ d'hiver (fin octobre), passer les crons à `0 7 * * 1` et `0 7 * * 4`.
 10. **En cas d'échec** (réseau, Gemini surchargé, rendu...) : le dire
     franchement dans la conversation. Jamais de faux « c'est fait ».
 
+### ⚠️ DEUX PIÈGES DE PRODUCTION (appris le 13/08/2026, à vérifier à CHAQUE fournée)
+
+**1. La taille d'une séquence doit suivre la GRILLE, sinon elle est coupée.**
+`planning.py` donne **6 créneaux le jeudi et le lundi, 5 le mardi et le
+vendredi**. `livraison.py` remplit ces créneaux À PLAT, sans regarder où
+commence et où finit une séquence : une séquence de 7 déborde donc sur le jour
+suivant, et la fin d'une autre part en réserve. La couverture promet alors une
+suite qui n'arrive que le lendemain, exactement ce que la règle « une séquence
+ne se coupe pas » interdit.
+👉 Donc : **la séquence du lundi/jeudi fait 6 stories, celle du mardi/vendredi
+en fait 5.** Pas 7, pas 4 si on veut qu'elle passe.
+👉 C'est l'ORDRE ALPHABÉTIQUE des noms de séquence qui décide du jour. La plus
+urgente prend donc la première lettre. Exemple du 13/08 : la facturation
+électronique (échéance 1er septembre) a été nommée `O_`, l'amortissement `P_`,
+pour que l'urgente parte le jeudi.
+👉 Vérification : après `livraison.py`, regarder `auto/` — si un jour a moins
+de stories que la grille, ou si `reserve/` contient le MILIEU d'une séquence,
+c'est coupé. Recaler les tailles et refaire.
+
+**2. Quatre fonds du catalogue sont presque noirs.**
+`bg_conversation` (19), `bg_mindset` (20), `bg_navy` (22) et `bg_immobilier`
+(30) sur une échelle de 0 à 255. Avec un voile blanc par-dessus, la story rend
+un grand rectangle clair posé sur du noir : elle paraît vide, et le style
+« photo fait main » disparaît. `bg_navy` est volontaire (fond uni de thème),
+les trois autres sont des photos vraiment sombres.
+👉 Avant de livrer, mesurer :
+```
+python3 -c "from PIL import Image, ImageStat; import pathlib
+for f in sorted(pathlib.Path('stories/assets/backgrounds').glob('bg_*.jpg')):
+    print(f.stem, round(ImageStat.Stat(Image.open(f).convert('L')).mean[0]))"
+```
+En dessous de 60, ne pas utiliser le fond pour une story à voile blanc.
+
+**3. `write_lot` n'efface pas les anciens fichiers.**
+Si on renomme une séquence, les JPEG de l'ancien nom restent dans
+`stories/output/<lot>/` et `livraison.py` les livre EN DOUBLE. Après tout
+renommage : `rm -rf stories/output/<lot>` avant de reconstruire.
+
 ### 🔴 Bouton d'arrêt
 Si Martin écrit **STOP** dans la conversation : mettre les DEUX Routines en
 pause immédiatement (`update_trigger` avec `enabled=false` sur les deux IDs

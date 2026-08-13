@@ -1,0 +1,39 @@
+CALENDRIER DE PROGRAMMATION DES STORIES
+Rendez-vous quotidien : 12h00, heure de Paris. Un seul par jour.
+
+Chaque fichier porte SA DATE de publication :
+    AAAA-MM-JJ-12h00-NN.jpg
+Les stories qui partagent la meme date forment UNE seule publication :
+elles s'enchainent dans l'ordre des numeros, le meme jour a 12h00.
+
+auto/    : a programmer tel quel.
+manuel/  : NE JAMAIS PROGRAMMER. Ces stories promettent un vote, et le
+           sticker de sondage Instagram ne peut pas etre pose sur une
+           story programmee. Elles tombent toujours un SAMEDI, et le nom
+           du fichier dit quel sticker poser (SONDAGE ou QUESTIONS).
+
+--------------------------------------------------------------
+
+lundi     2026-08-17  6 stories  — banque-01/A_remplir_sans_baisser
+mardi     2026-08-18  6 stories  — banque-01/B_trouver_clients
+jeudi     2026-08-20  6 stories  — banque-01/C_proprios_decus
+vendredi  2026-08-21  6 stories  — banque-01/D_30_logements
+lundi     2026-08-24  6 stories  — banque-01/E_algo_2026
+mardi     2026-08-25  6 stories  — banque-01/F_caution
+jeudi     2026-08-27  6 stories  — banque-01/G_pourquoi_ca_bloque
+vendredi  2026-08-28  6 stories  — banque-01/H_plan_de_zero
+samedi    2026-08-29  8 stories  [A LA MAIN]  — interactifs-01/quiz
+lundi     2026-08-31  6 stories  — banque-02/I_condamnation_220k
+mardi     2026-09-01  6 stories  — banque-02/J_checklist_conformite
+jeudi     2026-09-03  5 stories  — banque-02/K_mythe_carte_g
+vendredi  2026-09-04  3 stories  — melange-1
+samedi    2026-09-05  8 stories  [A LA MAIN]  — interactifs-02/quiz02
+lundi     2026-09-07  3 stories  — melange-2
+mardi     2026-09-08  3 stories  — melange-3
+jeudi     2026-09-10  2 stories  — melange-4
+samedi    2026-09-12  7 stories  [A LA MAIN]  — mercredi_03_question + samedi_01_radar + sondage + sondage02
+
+--------------------------------------------------------------
+
+99 stories, du 2026-08-17 au 2026-09-12.
+Soit 27 jours de contenu programmes d'avance.

@@ -135,6 +135,38 @@ STICKERS = {
                     "Accueil systématique", "Rien de tout ça"],
     },
 
+    # ===================== interactifs-04 : le quiz rentrée 2026 =============
+    "quiz04_02": {
+        "type": "Sondage",
+        "question": "Tu es exonéré de TVA, donc la facturation électronique ne te concerne pas.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz04_04": {
+        "type": "Sondage",
+        "question": "Au 1er septembre, qu'est-ce qui devient vraiment obligatoire pour toi ?",
+        "options": ["Émettre des factures", "Recevoir des factures", "Les deux"],
+        "reponse": "Recevoir des factures",
+    },
+    "quiz04_06": {
+        "type": "Sondage",
+        "question": "Le rapport du 8 juillet recommande de supprimer le statut LMNP.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+
+    # ===================== interactifs-04 : les sondages =====================
+    "sondage04_01": {
+        "type": "Sondage",
+        "question": "Tu es enregistré pour la facturation électronique ?",
+        "options": ["C'est fait", "Pas encore", "Je découvre le sujet"],
+    },
+    "sondage04_02": {
+        "type": "Sondage",
+        "question": "Tu es à quel régime aujourd'hui ?",
+        "options": ["Micro-BIC", "Réel", "Je ne sais pas"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les
