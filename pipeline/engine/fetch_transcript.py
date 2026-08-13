@@ -31,6 +31,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import time
 
 # Chaine YouTube source (les videos du dimanche de Sebastien More).
 CHANNEL_HANDLE = "moresebastien"
@@ -117,28 +118,46 @@ def get_transcript(video_id):
         # "--sub-langs fr-orig,fr" : la liste explicite fait echouer la
         # recuperation sur plusieurs clients. C'est cette option, et non le
         # client, qui bloquait lors du diagnostic du 10/08.
-        for client in ("android", "ios", "mweb", "tv", "web_safari", "web"):
-            args = [
-                "--skip-download",
-                "--write-auto-sub",
-                "--sub-lang", "fr.*",
-                "--sub-format", "json3",
-                "--extractor-args", "youtube:player_client=" + client,
-                "-o", template,
-                url,
-            ]
-            try:
-                _run_ytdlp(args)
-            except RuntimeError:
-                continue                     # porte fermee, on essaie la suivante
-            if any(f.endswith(".json3") for f in os.listdir(tmp)):
-                if client != "android":
-                    print("      (porte '%s' utilisee : android etait ferme)" % client)
+        # ⚠️ PIEGE DU 13/08/2026 : enchainer les clients SANS PAUSE aggrave le
+        # probleme. YouTube repond alors "HTTP Error 429: Too Many Requests",
+        # un plafond de requetes qui se libere avec le temps. On espace donc les
+        # tentatives, et on refait plusieurs tours au lieu d'abandonner apres un
+        # seul passage : un 429 n'est PAS un bannissement, juste une attente.
+        clients = ("android", "ios", "tv", "mweb", "web_safari", "web")
+        reussi = False
+        for tour in range(1, 4):
+            for client in clients:
+                args = [
+                    "--skip-download",
+                    "--write-auto-sub",
+                    "--sub-lang", "fr.*",
+                    "--sub-format", "json3",
+                    "--extractor-args", "youtube:player_client=" + client,
+                    "-o", template,
+                    url,
+                ]
+                try:
+                    _run_ytdlp(args)
+                except RuntimeError:
+                    time.sleep(20)           # on laisse respirer le plafond
+                    continue
+                if any(f.endswith(".json3") for f in os.listdir(tmp)):
+                    if client != "android" or tour > 1:
+                        print("      (porte '%s' utilisee, tour %d)" % (client, tour))
+                    reussi = True
+                    break
+                time.sleep(20)
+            if reussi:
                 break
-        else:
+            if tour < 3:
+                print("      (toutes les portes fermees, pause avant le tour %d)" % (tour + 1))
+                time.sleep(150)
+        if not reussi:
             raise RuntimeError(
-                "Aucune porte d'entree YouTube n'a fonctionne pour cette video.\n"
-                "Clients essayes : android, ios, mweb, tv, web_safari, web.\n"
+                "Aucune porte d'entree YouTube n'a fonctionne apres 3 tours espaces.\n"
+                "Clients essayes : android, ios, tv, mweb, web_safari, web.\n"
+                "Si l'erreur mentionne 'HTTP 429 Too Many Requests', c'est un\n"
+                "plafond temporaire : reessayer plus tard peut suffire.\n"
                 "Le listing de la chaine passe peut-etre encore : dans ce cas le\n"
                 "blocage ne vise que les pages video. Solution de secours : faire\n"
                 "recuperer la transcription par le Claude du Mac, qui n'est pas\n"
