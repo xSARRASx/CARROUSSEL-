@@ -1351,6 +1351,42 @@ navy/violet/magenta, zone haute vide). Écrans toujours éteints, zéro texte li
   **Ne jamais installer curl_cffi dans cet environnement.**
 - En attente : photos Seedance de Martin (optionnel) → re-rendu fonds ; sinon publiable tel quel.
 
+### Session robot — lundi 17 août 2026 (run automatique, RÉUSSI malgré une panne Google)
+- `--verifier` : verdict **NOUVELLE**. Vidéo `iVd1TQ-GUYs`, 20min48,
+  « 8 astuces pour remplir votre Airbnb en basse saison (sans brader) ».
+  Titre affiché par YouTube au moment de la récupération :
+  « Remplir son Airbnb sans baisser les prix ? C'est possible ! » → **la langue a
+  été vérifiée sur la transcription**, pas sur le titre (règle du 29/07).
+- Transcription : 21 725 caractères. La porte `android` est passée au **3e tour**
+  de la cascade — les deux premiers tours ont tout refusé. Les pauses servent.
+- ⚠️ **Sujet volontairement recadré** : la vidéo du 03/08 traitait déjà « remplir
+  sans baisser les prix » en général. Angle retenu ici : **la basse saison** et le
+  **bail mobilité**. Toujours vérifier ce qui a déjà été livré avant de choisir
+  l'angle, sinon on répète la semaine précédente.
+- Contenu clé : les deux pièges du bradage (économique ET **algorithmique** —
+  l'annonce apprend à la plateforme qu'elle est pas chère, remonter prend des
+  mois) ; remises early bird et paliers 30/14/7 jours ; durée min 3 nuits ;
+  nuits orphelines / bouche-trou ; calcul du mois plein (1 ménage au lieu de 6,
+  scénario réel 40-50 % d'occupation, remise mensuelle 30-50 %) ; reconditionner
+  l'annonce pour l'hiver (télétravailleurs, pas vacanciers) ; calendrier des
+  événements que le revenue management ne voit pas à temps ; **bail mobilité
+  (loi Elan 2018, 1 à 10 mois, non renouvelable) qui ne consomme PAS le quota de
+  90/120 jours**.
+- 2 carrousels livrés, 10 slides chacun, 0 débordement, 0 tiret long :
+  `lesousloueur-2026-08-17-basse-saison-sans-brader` (CTA « HIVER ») et
+  `guestlucky-2026-08-17-pilotage-basse-saison` (angle : la saison creuse, c'est là
+  que les mandats se perdent — `cta_sans_commentaire()`, **règle 13 respectée**).
+- Fonctions Guestlucky citées, aucune inventée : channel manager, remises last
+  minute et bouche-trou (les deux nommées par Sébastien dans CETTE vidéo), plus
+  rapports mensuels horodatés, documents par logement, historique des échanges,
+  interface propriétaire (déjà établis).
+- 🔴 **Panne Google d'une heure** sur `gemini-3-pro-image` → voir la section
+  « PIÈGE HIGH DEMAND ». Résolu par une cascade de modèles désormais gravée dans
+  `gemini_bg.py`. Le robot du jeudi n'aura plus à subir ça.
+- Contrôles finaux verts : `livraison.py --controle` → « semaine complète, les 2
+  marques sont livrées » ; `--verifier` → « DÉJÀ LIVRÉE, 2 dossiers vérifiés sur
+  le disque ».
+
 ## 👁️ RÈGLE DE LIVRAISON (Martin, 27/07/2026) : TOUJOURS MONTRER LES SLIDES
 Martin veut **voir le rendu de chaque slide**, pas seulement recevoir les ZIP.
 À chaque livraison (hebdo automatique ou à la demande) :
@@ -1448,6 +1484,43 @@ Objectif de Martin : ne plus JAMAIS générer les fonds à la main sur Seedance.
 - Modes : `--dry-run` (0 dépense, affiche le prompt) et `--go` (génère).
 - **Coût officiel** : 0,134 $ par image 1K/2K, 0,24 $ en 4K, pas de palier gratuit.
   ≈ **1 $/mois** pour 8 fonds (2 carrousels/semaine). Facturation Google à activer.
+
+### ⚠️ PIÈGE « HIGH DEMAND » SUR NANO BANANA PRO (constaté et corrigé le 17/08/2026)
+**Ce qui s'est passé.** Au réveil du lundi 17/08, Google a refusé toute génération
+pendant plus d'une heure : `500 / 503 — "gemini-3-pro-image is currently
+experiencing high demand"`, sur les **deux** routes (`interactions` ET
+`generateContent`). 12 relances espacées de 2 minutes : toutes refusées. La
+variante `gemini-3-pro-image-preview` était saturée de la même façon.
+
+**Ce qui a débloqué.** `gemini-3.1-flash-image` est passée **du premier coup**,
+avec un rendu **conforme aux règles de la PARTIE D** (zone haute vide, objets en
+bas, palette de la marque respectée). Vérifié à l'œil sur les deux fonds.
+
+**La parade, désormais gravée dans le code.** `gemini_bg.py` contient une constante
+`MODELS` et `generate_background()` parcourt la cascade dans cet ordre :
+1. `gemini-3-pro-image` (Nano Banana Pro, choix par défaut, on ne dégrade jamais
+   sans nécessité)
+2. `gemini-3-pro-image-preview`
+3. `gemini-3.1-flash-image` ← secours validé en conditions réelles
+4. `gemini-2.5-flash-image`
+
+Quand un modèle de secours est utilisé, le script l'affiche
+(`modele de secours utilise : …`) : **le robot doit toujours dire quand il a
+dégradé**, jamais le cacher.
+
+**Deux points à retenir pour ne pas paniquer la prochaine fois :**
+- Un appel refusé (500/503) n'est **PAS facturé**. Insister ne coûte rien. La
+  règle 11 (« jamais de génération pour rien ») n'est donc pas violée par les
+  relances : elle interdit de produire des images inutiles, pas de réessayer.
+- Le plafond de temps d'une commande est de **10 minutes**. Pour attendre plus
+  longtemps, lancer en arrière-plan et surveiller le journal.
+
+**Défaut de rendu à surveiller sur les modèles flash.** Le 17/08, le premier fond
+Guestlucky présentait une **couture horizontale nette** à ~29 % de la hauteur (une
+bande plate en haut, puis la scène). Régénéré une fois → propre. Donc : **toujours
+regarder le fond avant de construire le HTML**, la couture ne se voit pas dans les
+logs. Une régénération pour remplacer un fond défectueux n'est pas une
+« génération pour rien ».
 
 ### ⚠️ PIÈGE PLAYWRIGHT / CHROMIUM (corrigé le 27/07/2026)
 `pip install playwright` installe la **dernière** version (1.61 → veut le build

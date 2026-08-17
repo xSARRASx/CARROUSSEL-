@@ -42,6 +42,21 @@ BG_DIR = ROOT / "assets" / "backgrounds"
 
 BASE = "https://generativelanguage.googleapis.com"
 MODEL = "gemini-3-pro-image"          # Nano Banana Pro
+
+# Cascade de secours (constatee le 17/08/2026) : Google a renvoye pendant plus
+# d'une heure "gemini-3-pro-image is currently experiencing high demand" sur les
+# DEUX routes. 12 relances espacees de 2 minutes n'ont rien donne. La variante
+# -preview etait saturee de la meme facon, mais gemini-3.1-flash-image est passee
+# du premier coup, avec un rendu conforme aux regles de la PARTIE D.
+# -> On essaie les modeles dans cet ordre plutot que d'echouer. Le robot du lundi
+#    et celui du jeudi doivent pouvoir se debrouiller seuls.
+MODELS = (
+    "gemini-3-pro-image",             # Nano Banana Pro, le choix par defaut
+    "gemini-3-pro-image-preview",     # meme famille, parfois moins saturee
+    "gemini-3.1-flash-image",         # secours valide en conditions reelles
+    "gemini-2.5-flash-image",         # dernier filet
+)
+
 ASPECT = "4:5"                        # format des slides
 SIZE = "2K"                           # 1K / 2K / 4K (2K = bon compromis prix/qualite)
 
@@ -203,16 +218,16 @@ def _find_image_b64(obj):
     return None
 
 
-def _payloads(prompt, aspect, size):
+def _payloads(prompt, aspect, size, modele):
     """Deux formes de requete : la nouvelle (interactions) puis l'ancienne
     (generateContent). On essaie la 1re, on bascule sur la 2e si refusee."""
     new_style = (BASE + "/v1beta/interactions", {
-        "model": MODEL,
+        "model": modele,
         "input": [{"type": "text", "text": prompt}],
         "response_format": {"type": "image", "mime_type": "image/jpeg",
                             "aspect_ratio": aspect, "image_size": size},
     })
-    old_style = (BASE + "/v1beta/models/" + MODEL + ":generateContent", {
+    old_style = (BASE + "/v1beta/models/" + modele + ":generateContent", {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
             "responseModalities": ["IMAGE"],
@@ -223,27 +238,37 @@ def _payloads(prompt, aspect, size):
 
 
 def generate_background(brand, theme, out_name, objects=None,
-                        aspect=ASPECT, size=SIZE):
+                        aspect=ASPECT, size=SIZE, modeles=None):
     """Genere la photo de fond et l'enregistre dans assets/backgrounds/.
-    Renvoie (chemin, prompt_utilise). ATTENTION : consomme du credit Google."""
+    Renvoie (chemin, prompt_utilise). ATTENTION : consomme du credit Google.
+
+    Essaie les modeles de la cascade MODELS dans l'ordre : un modele sature
+    (500/503 "high demand") ne doit pas arreter le robot. Un appel refuse
+    n'est pas facture, donc la cascade ne coute rien de plus."""
     prompt = build_prompt(brand, theme, objects)
+    if modeles is None:
+        modeles = (MODEL,) + tuple(m for m in MODELS if m != MODEL)
     errors = []
-    for url, payload in _payloads(prompt, aspect, size):
-        try:
-            data = _post(url, payload)
-        except urllib.error.HTTPError as e:
-            body = e.read().decode("utf-8", "replace")[:300]
-            errors.append("%s -> %s %s" % (url.rsplit("/", 1)[-1], e.code, body))
-            continue
-        b64 = _find_image_b64(data)
-        if not b64:
-            errors.append("%s -> reponse sans image : %s"
-                          % (url.rsplit("/", 1)[-1], json.dumps(data)[:200]))
-            continue
-        BG_DIR.mkdir(parents=True, exist_ok=True)
-        out = BG_DIR / out_name
-        out.write_bytes(base64.b64decode(b64))
-        return out, prompt
+    for modele in modeles:
+        for url, payload in _payloads(prompt, aspect, size, modele):
+            try:
+                data = _post(url, payload)
+            except urllib.error.HTTPError as e:
+                body = e.read().decode("utf-8", "replace")[:300]
+                errors.append("%s / %s -> %s %s"
+                              % (modele, url.rsplit("/", 1)[-1], e.code, body))
+                continue
+            b64 = _find_image_b64(data)
+            if not b64:
+                errors.append("%s / %s -> reponse sans image : %s"
+                              % (modele, url.rsplit("/", 1)[-1], json.dumps(data)[:200]))
+                continue
+            BG_DIR.mkdir(parents=True, exist_ok=True)
+            out = BG_DIR / out_name
+            out.write_bytes(base64.b64decode(b64))
+            if modele != MODEL:
+                print("      (modele de secours utilise : %s)" % modele)
+            return out, prompt
     raise RuntimeError("Generation impossible :\n  " + "\n  ".join(errors))
 
 
