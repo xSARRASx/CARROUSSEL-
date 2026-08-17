@@ -72,6 +72,12 @@
       "sujet": "Bailleur meuble : les obligations de septembre (facturation electronique, menace 2027 sur l'amortissement, rappels de rentree)",
       "traite_le": "2026-08-13",
       "livrable": "banque-04 (O_facture_electronique, P_amortissement_vise, Q_rentree_verifications) + interactifs-04 (quiz 3 questions + 2 sondages) = 25 stories, livrees dans livraison/stories-2026-08-13-obligations-septembre et zip envoye a Martin"
+    },
+    {
+      "id": "keONb-XUtJY",
+      "sujet": "Un proprietaire Airbnb gagne contre sa copropriete (jugement du tribunal judiciaire de Nice, 23 juillet 2026, et les cinq boucliers)",
+      "traite_le": "2026-08-17",
+      "livrable": "banque-05 (R_proprio_gagne, S_cinq_boucliers) + interactifs-05 (quiz 3 questions + 2 sondages) = 21 stories, livrees dans livraison/stories-2026-08-17-copropriete-jugement-nice et zip envoye a Martin. Meme fournee : rattrapage des 4 stories Q_rentree_verifications de JgFFL6no9OQ, livrees le 20/08 dans livraison/stories-2026-08-17-rentree-verifications"
     }
   ]
 }
