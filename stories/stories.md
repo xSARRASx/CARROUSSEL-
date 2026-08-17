@@ -843,6 +843,29 @@ But : [ce que la story doit déclencher]
 | Semaine 01 (2026-08-03) | ARGUMENTAIRE | Ressource déjà créée côté LinkedIn |
 | Banque-01 | AUDIT | Ressource = l'outil d'audit d'annonce gratuit (lien en description de la vidéo « remplir sans baisser les prix ») — lien exact à fournir par Martin à la closeuse |
 | Banque-01 | ALGO | Ressource = le pack « Airbnb 2026 » de la vidéo algo (guide + checklist + analyse + plan 30 jours) — fichiers à fournir par Martin à la closeuse |
+| Atelier du 23/08/2026 | **ATELIER** | Ressource = le lien de l'atelier en direct + un rappel avant le début. ⚠️ Mot-clé à durée de vie courte : il ne vaut que jusqu'au dimanche 23/08 à 10h. Quelqu'un DOIT être derrière les messages privés ce jour-là. |
+
+### 🎤 Un événement en direct : le « pack Pierre » (fait le 17/08/2026)
+
+Pierre a demandé des stories pour son atelier en live du dimanche 23/08 à 10h.
+Ce cas ne passe PAS par la production habituelle, pour deux raisons :
+1. **Mercredi et dimanche sont ses jours** : `livraison.py` ne sait pas y
+   placer de créneaux (ils sont en mode `pierre`, pas `auto`).
+2. **Et surtout, l'heure.** Toute la programmation part à 12h00. Un rappel
+   programmé le dimanche arriverait DEUX HEURES APRÈS le début d'un atelier
+   de 10h. Un événement se poste donc toujours à la main.
+
+👉 Recette, si ça revient : construire un lot normal (`build_atelier.py`),
+puis assembler le dossier de livraison à la main —
+`livraison/<nom>/manuel/` avec des fichiers `AAAA-MM-JJ-<heure>-NN.jpg`
+(l'heure conseillée dans le nom), un `auto/` **vide mais présent**, un
+`description.txt`, et `_STICKERS.txt` généré par `stickers.bloc_texte`.
+⚠️ Le contrôle exige **au moins une story à sticker par journée manuelle**.
+Ce n'est pas une contrainte gênante : sur un événement, un **sondage**
+(« tu seras là ? ») et une **boîte à questions** (« une question pour
+l'atelier ? ») ont tout leur sens et font monter l'engagement.
+⚠️ Et ne jamais inventer le programme de l'événement : on n'écrit que ce que
+Pierre a réellement annoncé.
 
 ---
 

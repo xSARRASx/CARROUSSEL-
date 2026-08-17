@@ -1,0 +1,25 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-08-19-12h00-03-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tu seras là dimanche 10h pour l'atelier en direct ?
+    Option 1 : Oui, j'y serai
+    Option 2 : J'essaie
+    Option 3 : Envoie-moi le replay
+
+--- 2026-08-23-09h00-02-QUESTIONS.jpg
+    Sticker  : Questions
+    Question : Une question pour l'atelier ?
+

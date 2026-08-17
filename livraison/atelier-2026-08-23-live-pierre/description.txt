@@ -1,0 +1,65 @@
+ATELIER EN LIVE — DIMANCHE 23 AOUT 2026, 10H
+==============================================================
+
+Demande de Pierre (WhatsApp du 17/08/2026) : un atelier en direct, comme un
+webinaire, dimanche a 10h, sur la conciergerie et la sous-location, avec
+beaucoup d'appels a l'action.
+
+POUR QUI : c'est PIERRE qui poste ce pack, a la main.
+
+==============================================================
+POURQUOI CE PACK N'EST PAS PROGRAMME
+==============================================================
+
+Deux raisons, et la seconde est la plus importante :
+
+1. Mercredi et dimanche sont les jours de Pierre. La programmation
+   automatique ne place jamais rien sur ces deux jours.
+
+2. SURTOUT : l'atelier commence a 10H. Toute la programmation part a 12h00.
+   Un rappel programme le dimanche arriverait DEUX HEURES APRES le debut de
+   l'atelier. Le dimanche doit donc partir a la main, dans la matinee.
+
+==============================================================
+CE QU'IL FAUT POSTER, ET QUAND
+==============================================================
+
+MERCREDI 19 AOUT, vers midi -- l'annonce (4 stories, dans l'ordre)
+    01  L'annonce : atelier en direct, dimanche 10h
+    02  Pourquoi en direct : on repond aux questions
+    03  SONDAGE  -> sticker a poser, texte dans _STICKERS.txt
+    04  L'appel a l'action : "Reponds ATELIER"
+
+DIMANCHE 23 AOUT, LE MATIN AVANT 10H -- le jour J (3 stories)
+    01  C'est aujourd'hui, rendez-vous a 10h
+    02  QUESTIONS -> boite a questions, texte dans _STICKERS.txt
+    03  Dernier rappel : "Reponds ATELIER"
+
+Le nom des fichiers porte l'heure conseillee (12h00 le mercredi, 09h00 le
+dimanche). Le dimanche, plus c'est tot dans la matinee, mieux c'est.
+
+==============================================================
+LE MOT-CLE
+==============================================================
+
+Le mot-cle est ATELIER. Quelqu'un qui repond ATELIER en message prive doit
+recevoir le lien de l'atelier, puis un rappel avant le debut.
+⚠️ Il faut donc que quelqu'un SOIT DERRIERE LES MESSAGES PRIVES. Un mot-cle
+sans personne pour repondre, c'est pire que pas de mot-cle du tout.
+
+==============================================================
+CE QUI N'A PAS ETE INVENTE
+==============================================================
+
+Les stories ne promettent aucun programme detaille, aucun chiffre, aucun
+cadeau : on ne connait de l'atelier que ce que Pierre a dit, c'est-a-dire
+qu'il est en direct, dimanche a 10h, qu'il porte sur la conciergerie et la
+sous-location, et qu'on peut y poser ses questions. Si Pierre precise le
+programme, les stories peuvent etre refaites en quelques minutes.
+
+IDEE EN PLUS (facultative, a faire a la main) : Instagram propose un sticker
+"Compte a rebours". Pose sur la story d'annonce du mercredi, regle sur
+dimanche 10h, il permet aux gens de s'abonner au rappel et Instagram les
+previent tout seul au moment du debut. C'est le meilleur outil natif pour un
+evenement. Il n'est pas dans nos fichiers parce qu'il se regle directement
+dans l'application.
