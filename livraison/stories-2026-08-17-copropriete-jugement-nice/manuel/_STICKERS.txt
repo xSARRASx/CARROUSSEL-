@@ -1,0 +1,55 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-08-29-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Louer en courte durée est une activité commerciale.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-08-29-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Combien de prestations para-hôtelières faut-il cumuler pour basculer dans le commercial ?
+    Option 1 : Une
+    Option 2 : Deux
+    Option 3 : Trois
+    (La bonne reponse est "Trois", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-08-29-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Ton assemblée vote contre toi : tu as combien de temps pour contester la résolution ?
+    Option 1 : 2 mois
+    Option 2 : 6 mois
+    Option 3 : 1 an
+    (La bonne reponse est "2 mois", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-08-29-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : La courte durée est déjà passée à l'ordre du jour de ton assemblée générale ?
+    Option 1 : Oui, déjà voté
+    Option 2 : C'est prévu
+    Option 3 : Jamais
+    Option 4 : Je ne sais pas
+
+--- 2026-08-29-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tu aurais des preuves si on t'accusait de nuisances ?
+    Option 1 : Oui, tout est documenté
+    Option 2 : Quelques-unes
+    Option 3 : Rien du tout
+

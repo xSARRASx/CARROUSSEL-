@@ -167,6 +167,38 @@ STICKERS = {
         "options": ["Micro-BIC", "Réel", "Je ne sais pas"],
     },
 
+    # ===================== interactifs-05 : le quiz du jugement de Nice ======
+    "quiz05_02": {
+        "type": "Sondage",
+        "question": "Louer en courte durée est une activité commerciale.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz05_04": {
+        "type": "Sondage",
+        "question": "Combien de prestations para-hôtelières faut-il cumuler pour basculer dans le commercial ?",
+        "options": ["Une", "Deux", "Trois"],
+        "reponse": "Trois",
+    },
+    "quiz05_06": {
+        "type": "Sondage",
+        "question": "Ton assemblée vote contre toi : tu as combien de temps pour contester la résolution ?",
+        "options": ["2 mois", "6 mois", "1 an"],
+        "reponse": "2 mois",
+    },
+
+    # ===================== interactifs-05 : les sondages =====================
+    "sondage05_01": {
+        "type": "Sondage",
+        "question": "La courte durée est déjà passée à l'ordre du jour de ton assemblée générale ?",
+        "options": ["Oui, déjà voté", "C'est prévu", "Jamais", "Je ne sais pas"],
+    },
+    "sondage05_02": {
+        "type": "Sondage",
+        "question": "Tu aurais des preuves si on t'accusait de nuisances ?",
+        "options": ["Oui, tout est documenté", "Quelques-unes", "Rien du tout"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les

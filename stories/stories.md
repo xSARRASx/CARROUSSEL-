@@ -660,6 +660,30 @@ for f in sorted(pathlib.Path('stories/assets/backgrounds').glob('bg_*.jpg')):
 ```
 En dessous de 60, ne pas utiliser le fond pour une story à voile blanc.
 
+**2 bis. TOUJOURS supprimer la programmation du stock AVANT de livrer.**
+Piège vu deux fois (13/08 puis 17/08) : le stock occupe déjà les jours de la
+semaine, donc `livraison.py` ne trouve aucun créneau libre et envoie TOUTE
+l'actualité fraîche en `reserve/`, en repoussant en plus le samedi d'un mois.
+👉 L'ordre est donc, sans exception :
+```
+rm -rf livraison/programmation-stock-*        # 1. libérer les jours
+python3 stories/engine/livraison.py ...       # 2. l'actualité fraîche d'abord
+python3 stories/engine/programmation.py --debut <jour libre suivant> \
+        --dossier programmation-stock-<jour>  # 3. le stock comble le reste
+python3 stories/engine/livraison.py --controle
+```
+👉 Signe que c'est raté : la livraison annonce « 0 programmables » et un samedi
+très lointain. Recommencer dans cet ordre.
+
+**2 ter. Une séquence en réserve dont le contenu EXPIRE doit être replacée.**
+Le 13/08, les 4 stories « vérifications de rentrée » (échéance septembre) sont
+parties en réserve faute de créneau, et y seraient restées jusqu'à devenir
+fausses. Solution propre, sans toucher aux outils : copier ces JPEG dans un
+petit lot dédié (`stories/output/<lot>-<theme>/jpg/`) et le livrer seul, il
+prend le premier jour libre. Puis **supprimer la copie restée en `reserve/`**
+et le noter dans le `description.txt` de la fournée d'origine, sinon Martin a
+les mêmes images à deux endroits et risque de les poster deux fois.
+
 **3. `write_lot` n'efface pas les anciens fichiers.**
 Si on renomme une séquence, les JPEG de l'ancien nom restent dans
 `stories/output/<lot>/` et `livraison.py` les livre EN DOUBLE. Après tout

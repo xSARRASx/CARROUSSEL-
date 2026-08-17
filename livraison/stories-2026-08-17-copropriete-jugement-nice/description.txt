@@ -1,9 +1,9 @@
-Fournée de stories du 2026-08-13
-Sujet : obligations-septembre
-Vidéo source : Bailleur meublé : ces obligations de septembre vont tout changer
-Identifiant YouTube : JgFFL6no9OQ
+Fournée de stories du 2026-08-17
+Sujet : copropriete-jugement-nice
+Vidéo source : Un propriétaire Airbnb vient d'ÉCRASER sa copropriété au tribunal
+Identifiant YouTube : keONb-XUtJY
 
-25 stories au total. Format : JPEG 1080x1920.
+21 stories au total. Format : JPEG 1080x1920.
 
 COMMENT LIRE CE DOSSIER :
 - auto/     : A PROGRAMMER. Le nom du fichier porte SA DATE de
@@ -18,12 +18,5 @@ COMMENT LIRE CE DOSSIER :
               le stock qui couvrira les semaines sans video.
 
 Détail des lots inclus :
-- banque-04 (15 stories)
-- interactifs-04 (10 stories)
-
-[MISE A JOUR DU 17/08/2026] Les 4 stories qui etaient en reserve
-(Q_rentree_verifications, les verifications de rentree) ont ete
-programmees le jeudi 20/08 dans la fournee
-`stories-2026-08-17-rentree-verifications`, parce que leur contenu
-expire avec septembre. Le dossier reserve/ a donc ete retire d'ici,
-pour qu'elles ne soient pas postees deux fois.
+- banque-05 (11 stories)
+- interactifs-05 (10 stories)
