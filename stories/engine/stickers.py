@@ -199,17 +199,6 @@ STICKERS = {
         "options": ["Oui, tout est documenté", "Quelques-unes", "Rien du tout"],
     },
 
-    # ===================== atelier en live du 23/08/2026 (demande de Pierre) ==
-    "mer_03_sondage": {
-        "type": "Sondage",
-        "question": "Tu seras là dimanche 10h pour l'atelier en direct ?",
-        "options": ["Oui, j'y serai", "J'essaie", "Envoie-moi le replay"],
-    },
-    "dim_02_questions": {
-        "type": "Questions",
-        "question": "Une question pour l'atelier ?",
-    },
-
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les
