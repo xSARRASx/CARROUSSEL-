@@ -205,6 +205,50 @@ yt-dlp --skip-download --write-auto-subs --write-subs \
 Puis extraire le texte des `events[].segs[].utf8` du json3 pour obtenir la
 transcription propre.
 
+### 🚧 ACCÈS YOUTUBE : ce qui marche, et le jour où plus rien ne marche
+
+L'accès se dégrade avec le temps et il faut le réapprendre à chaque fois.
+Journal, pour ne pas refaire les mêmes essais :
+
+| Date | Ce qui passait | Ce qui était mort |
+|---|---|---|
+| 10/08/2026 | `player_client=android` | le client par défaut |
+| 13/08/2026 | `tv` et `mweb`, **avec `--ignore-no-formats-error`** | `android`, `ios`, `web_safari` (contrôle anti-robot) |
+| 20/08/2026 | `--flat-playlist` seulement (lister) | **TOUT le reste**, mur de 429 |
+
+💡 **`--ignore-no-formats-error` est la clé.** Les clients `tv` / `mweb`
+renvoient souvent « Requested format is not available » alors que les
+métadonnées ET les sous-titres, eux, sont accessibles. Cette option écarte
+l'erreur de format et laisse passer ce qu'on veut vraiment.
+💡 `--flat-playlist` pour LISTER passe toujours, même quand tout le reste est
+bloqué. C'est le dernier truc qui répond.
+💡 `mweb` renvoie le **vrai titre français** ; `tv` renvoie le titre traduit en
+anglais. Aucun des deux ne fait foi : seule la transcription compte.
+
+### ⚠️ TOUTES LES VIDÉOS N'ONT PAS DE SOUS-TITRES (découvert le 20/08/2026)
+
+`iVd1TQ-GUYs` (16/08) n'a **ni sous-titres, ni sous-titres automatiques** :
+`--list-subs` répond « has no automatic captions / has no subtitles ». Ce n'est
+pas un blocage d'accès, c'est un manque réel. Le réflexe « je récupère les
+sous-titres » ne suffit donc plus.
+
+👉 **LE REPLI, C'EST WHISPER**, installé et testé depuis le 11/08/2026 :
+```bash
+pip install --quiet faster-whisper
+yt-dlp -f bestaudio --extractor-args "youtube:player_client=tv" \
+       -o "audio_%(id)s.%(ext)s" "https://www.youtube.com/watch?v=<ID>"
+python3 pipeline/transcrire_vocal.py audio_<ID>.webm medium
+```
+Le script gère les garde-fous (VAD, `no_speech_prob`, phrases parasites) et
+rétablit les noms propres. `medium` plutôt que `small` pour une vidéo longue.
+
+⚠️ Ce repli ne sauve rien si le téléchargement de l'AUDIO est lui aussi bloqué
+— c'est exactement ce qui est arrivé le 20/08 : pas de sous-titres **et** mur
+de 429 sur l'audio. Dans ce cas, on ne fabrique RIEN, on le dit franchement, et
+on retente au réveil suivant (le 429 se lève tout seul en quelques heures).
+Autre porte de sortie : demander l'audio à Martin, qui peut l'envoyer en
+fichier — Whisper fait le reste.
+
 ### Comment transformer une transcription en stories
 1. Lire la transcription et repérer **3 idées fortes maximum** (les plus
    contre-intuitives ou les plus concrètes).
