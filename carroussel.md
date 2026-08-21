@@ -1415,6 +1415,40 @@ navy/violet/magenta, zone haute vide). Écrans toujours éteints, zéro texte li
   marques sont livrées » ; `--verifier` → « DÉJÀ LIVRÉE, 2 dossiers vérifiés sur
   le disque ».
 
+### Session rattrapage — jeudi 20 août 2026 (pas de vidéo le mercredi)
+- `--verifier` : verdict **DÉJÀ LIVRÉE** au réveil du jeudi. Pas de vidéo mercredi,
+  donc arrêt normal, rien produit. Martin a ensuite demandé de reprendre une
+  **ancienne vidéo jamais utilisée** et de relancer la chaîne.
+- Choix : `1jBnvyCvSA0`, « Comment remplir sa liasse fiscale LMNP étape par étape ».
+  Vérifié absent de `traite.json` avant de commencer.
+- 🔴 **YouTube a bloqué la récupération** (voir « ESCALADE DU BLOCAGE »). C'est
+  Martin qui a fourni la transcription, collée dans la conversation.
+  → **La solution de secours documentée fonctionne** : transcription rangée à la
+  main dans `pipeline/output/transcripts/`, au bon format, et le reste de la
+  chaîne s'est déroulé normalement sans aucune adaptation.
+  L'en-tête du fichier indique explicitement l'origine et la date.
+- ⚠️ **Artefact de transcription repéré et écarté** : le plafond du meublé classé
+  était transcrit « 117 700 € ». C'est 77 700 €. On ne recopie jamais un chiffre
+  douteux : on s'appuie sur le chiffre non ambigu (non classé, 30 % et 15 000 €).
+  Règle générale : une transcription automatique déforme les nombres, **toujours
+  recouper avant de graver un chiffre dans une slide**.
+- Contenu : bascule micro vers réel, les 4 formulaires réellement remplis
+  (2033 A/B/C/D + 2031), l'ordre de remplissage (on part de la B et on remonte),
+  l'amortissement par composants avec le piège du terrain sous-évalué, les
+  5 erreurs classiques, le calendrier (5 mai, puis 2042-C-PRO fin mai).
+- 2 carrousels livrés, 10 slides chacun, 0 débordement, 0 tiret long :
+  `lesousloueur-2026-08-17-liasse-fiscale-lmnp` (CTA « LIASSE ») et
+  `guestlucky-2026-08-17-traces-declaration` (`cta_sans_commentaire()`, règle 13).
+- **Angle Guestlucky forcé (règle 14)** : la vidéo est un tutoriel fiscal, pas un
+  sujet conciergerie. Angle retenu : la liste de pièces que Sébastien énumère est
+  exactement ce qu'une conciergerie doit pouvoir sortir en avril. ⛔ La slide 7 et
+  la légende disent noir sur blanc que **l'outil garde les traces mais ne fait ni
+  la comptabilité ni la déclaration**. Ne jamais laisser croire l'inverse.
+- Les deux fonds sont passés par `gemini-3-pro-image` directement, sans secours.
+- `livraison.py --controle` → « semaine complète, les 2 marques sont livrées ».
+  Les lignes « ATTENTION : 2 dossiers » sont **normales** ici : le lundi avait déjà
+  livré cette semaine-là, et les deux packages portent la même date du lundi.
+
 ## 👁️ RÈGLE DE LIVRAISON (Martin, 27/07/2026) : TOUJOURS MONTRER LES SLIDES
 Martin veut **voir le rendu de chaque slide**, pas seulement recevoir les ZIP.
 À chaque livraison (hebdo automatique ou à la demande) :
