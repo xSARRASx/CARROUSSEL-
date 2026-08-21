@@ -1143,6 +1143,34 @@ transcription (son adresse n'est pas bloquée) et la dépose dans
 `--verifier` répond alors « À REPRENDRE » et le robot repart tout seul.
 ✅ Circuit testé en vrai le 10/08 avec une transcription fournie par Martin.
 
+### 🚨 ESCALADE DU BLOCAGE YOUTUBE (constaté le 20/08/2026) — NE PAS MARTELER
+Leçon payée cher : **insister vite AGGRAVE le blocage**. Il y a trois étages, et
+on descend d'un étage à chaque salve de requêtes :
+
+1. `HTTP 429 Too Many Requests` sur le sous-titre — plafond temporaire, bénin.
+2. Toutes les portes refusées — le plafond s'est étendu.
+3. `Sign in to confirm you're not a bot` — **détection anti-robot sur l'IP
+   entière**, plus seulement sur une vidéo. C'est là qu'on est arrivé le 20/08
+   après ~1 h de relances : une AUTRE vidéo jamais touchée renvoyait la même
+   erreur. Le blocage n'est donc pas par vidéo, il est par adresse.
+
+**Conduite à tenir désormais :**
+- Au premier 429, **ARRÊTER** la cascade au lieu de la relancer. Une pause d'une
+  heure sans aucune requête vaut mieux que vingt essais en vingt minutes.
+- Ensuite : **une seule requête** par tentative, espacées de 20 minutes minimum.
+- Changer de vidéo ne sert à rien : le plafond suit l'adresse IP, pas la vidéo.
+- ⛔ Ne JAMAIS installer `curl_cffi` pour contourner l'avertissement
+  « no impersonate target is available ». Interdit par Martin, et ça casse
+  yt-dlp derrière le proxy.
+
+**Ce qui a quand même servi ce jour-là :** `yt-dlp` avait 6 semaines de retard
+(2026.07.04 alors que 2026.08.19 était sortie). Après `pip install -U yt-dlp`,
+l'extraction est repassée et la piste `fr-orig` était de nouveau trouvée — seul le
+téléchargement du sous-titre restait bloqué par le 429.
+👉 **Réflexe numéro 1 en cas de blocage YouTube : vérifier la version de yt-dlp
+et la mettre à jour avant toute autre chose.** Le conteneur repart à zéro à chaque
+réveil et réinstalle souvent une version périmée.
+
 ### 🔴 ANCIEN CONSTAT DU 10/08 (conservé pour l'historique)
 Le réveil du lundi 10/08 n'a pas pu récupérer la transcription : YouTube refuse
 toute extraction de page vidéo depuis ce serveur avec « Sign in to confirm
