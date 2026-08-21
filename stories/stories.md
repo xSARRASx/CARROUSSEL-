@@ -728,6 +728,25 @@ prend le premier jour libre. Puis **supprimer la copie restée en `reserve/`**
 et le noter dans le `description.txt` de la fournée d'origine, sinon Martin a
 les mêmes images à deux endroits et risque de les poster deux fois.
 
+**2 quater. TOUJOURS passer `--date` à `livraison.py`.**
+Sans elle, la fournée s'ancre sur une date par défaut qui peut tomber un autre
+jour de la semaine, et la grille se déroule alors dans le désordre : le 20/08,
+une livraison lancée un jeudi s'est ancrée au vendredi, a ouvert 11 créneaux
+(jeudi suivant + vendredi) et a COUPÉ une séquence en deux, avec en prime des
+stories publiées dans le désordre (la fin d'une séquence le 21, son début le
+27). Passer `--date <aujourd'hui>` remet la grille d'aplomb.
+👉 Vérification après chaque livraison : chaque journée de `auto/` doit
+contenir une séquence ENTIÈRE. Si un jour a moins de stories que la grille, ou
+si `reserve/` contient le début ou le milieu d'une séquence, c'est coupé.
+
+**2 quinquies. Une séquence entière en réserve, c'est une BONNE chose.**
+À ne pas confondre avec une séquence coupée. Une séquence complète en
+`reserve/` est du stock prêt à poster : c'est exactement ce qu'on sort le jour
+où il n'y a pas de vidéo. Au 20/08/2026, `U_preparer_toute_annee` (5 stories,
+préparer sa déclaration meublée toute l'année, contenu intemporel) attend dans
+`livraison/stories-2026-08-20-declaration-lmnp/reserve/`. À servir en priorité
+la prochaine fois qu'un réveil tombe à vide.
+
 **3. `write_lot` n'efface pas les anciens fichiers.**
 Si on renomme une séquence, les JPEG de l'ancien nom restent dans
 `stories/output/<lot>/` et `livraison.py` les livre EN DOUBLE. Après tout

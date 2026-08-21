@@ -199,6 +199,38 @@ STICKERS = {
         "options": ["Oui, tout est documenté", "Quelques-unes", "Rien du tout"],
     },
 
+    # ===================== interactifs-06 : le quiz liasse fiscale LMNP ======
+    "quiz06_02": {
+        "type": "Sondage",
+        "question": "En location meublée non professionnelle, ton déficit se déduit de ton revenu global.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz06_04": {
+        "type": "Sondage",
+        "question": "L'amortissement peut-il creuser un déficit quand tes charges dépassent déjà tes loyers ?",
+        "options": ["Oui", "Non, il est reporté"],
+        "reponse": "Non, il est reporté",
+    },
+    "quiz06_06": {
+        "type": "Sondage",
+        "question": "Un dépôt de garantie encaissé puis rendu au voyageur n'est pas à déclarer.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+
+    # ===================== interactifs-06 : les sondages =====================
+    "sondage06_01": {
+        "type": "Sondage",
+        "question": "Ta déclaration de location meublée, tu la fais comment ?",
+        "options": ["Tout seul", "Avec un comptable", "Avec un logiciel", "Je suis au micro-BIC"],
+    },
+    "sondage06_02": {
+        "type": "Sondage",
+        "question": "Tes justificatifs de l'année, ils sont où ?",
+        "options": ["Rangés au fur et à mesure", "En vrac quelque part", "Je les cherche encore"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les

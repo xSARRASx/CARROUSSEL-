@@ -1,0 +1,53 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-09-05-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : En location meublée non professionnelle, ton déficit se déduit de ton revenu global.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-05-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : L'amortissement peut-il creuser un déficit quand tes charges dépassent déjà tes loyers ?
+    Option 1 : Oui
+    Option 2 : Non, il est reporté
+    (La bonne reponse est "Non, il est reporté", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-05-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Un dépôt de garantie encaissé puis rendu au voyageur n'est pas à déclarer.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-05-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Ta déclaration de location meublée, tu la fais comment ?
+    Option 1 : Tout seul
+    Option 2 : Avec un comptable
+    Option 3 : Avec un logiciel
+    Option 4 : Je suis au micro-BIC
+
+--- 2026-09-05-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tes justificatifs de l'année, ils sont où ?
+    Option 1 : Rangés au fur et à mesure
+    Option 2 : En vrac quelque part
+    Option 3 : Je les cherche encore
+
