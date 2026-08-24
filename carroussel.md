@@ -1449,6 +1449,42 @@ navy/violet/magenta, zone haute vide). Écrans toujours éteints, zéro texte li
   Les lignes « ATTENTION : 2 dossiers » sont **normales** ici : le lundi avait déjà
   livré cette semaine-là, et les deux packages portent la même date du lundi.
 
+### Session — lundi 24 août 2026 (rattrapage sur archive, YouTube debloque)
+- `--verifier` : **DÉJÀ LIVRÉE**, pas de nouvelle vidéo le dimanche. Arrêt normal.
+  Martin a ensuite demandé de reprendre une ancienne vidéo jamais utilisée.
+- ⚠️ **Il a d'abord collé une transcription DÉJÀ TRAITÉE** (celle de la basse
+  saison, `iVd1TQ-GUYs`, livrée le 17/08). Reconnue aux repères caractéristiques
+  (24 heures du Mans, bail mobilité, bouche-trou) et recoupée avec `traite.json`.
+  → **Rien produit, signalé en une fois.** Réflexe à garder : quand une
+  transcription arrive collée, TOUJOURS vérifier l'identifiant et le registre
+  avant d'écrire quoi que ce soit. Une transcription fournie n'est pas une
+  autorisation de produire.
+- ✅ **Le blocage YouTube était retombé** : une seule requête de test a suffi à le
+  constater, puis `--id Mq4pGuah050` a récupéré la transcription tout seul
+  (30 274 caractères, porte `android` au 3e tour).
+- Vidéo traitée : `Mq4pGuah050`, « Conciergerie 30 logements en 1 an ».
+- Contenu : le piège du mode freelance bricolage, les 3 erreurs qui font
+  plafonner, les 4 paliers (1-5 fondations, 5-12 système, 10-20 acquisition,
+  20-30 industrialisation), les 3 canaux d'acquisition, et surtout les
+  **décisions de 2025 condamnant deux conciergeries** (loyers encaissés à leur
+  nom, comptes tenus à la place du propriétaire, prix fixés sans validation).
+- 2 carrousels livrés, 10 slides chacun, 0 débordement, 0 tiret long :
+  `lesousloueur-2026-08-24-scaler-conciergerie` (CTA « PILIERS ») et
+  `guestlucky-2026-08-24-mode-gouvernance` (`cta_sans_commentaire()`, règle 13).
+
+#### ⚖️ VOCABULAIRE CONCIERGERIE — À SURVEILLER DANS TOUS LES PROCHAINS CARROUSELS
+La vidéo est formelle et ça vaut pour nos textes : **le verbe « gérer » et le
+champ lexical de la gestion immobilière font basculer l'activité sous la
+LOI HOGUET**. Les mots exacts du métier sont **pilotage, coordination,
+prestation de services**. À appliquer côté Guestlucky ET côté Le Sous Loueur
+dès qu'on décrit ce que fait une conciergerie.
+- ⚠️ Nom de la loi : **HOGUET**. La transcription automatique la rend « loi OG »,
+  « loi Agué », « loi au guay ». Ne jamais recopier ces formes.
+- ⛔ **Délégation de carte G : sujet écarté.** La vidéo parle d'un PARTENAIRE, pas
+  d'une fonction de l'outil. Ne jamais la présenter comme une fonction Guestlucky.
+- Rappel des mots bannis Guestlucky, toujours valables : beds24, mandat de
+  gestion, garantie financière.
+
 ## 👁️ RÈGLE DE LIVRAISON (Martin, 27/07/2026) : TOUJOURS MONTRER LES SLIDES
 Martin veut **voir le rendu de chaque slide**, pas seulement recevoir les ZIP.
 À chaque livraison (hebdo automatique ou à la demande) :
