@@ -84,6 +84,12 @@
       "sujet": "Comment remplir sa liasse fiscale LMNP (formulaires 2031 et 2033) - video ancienne, jamais exploitee",
       "traite_le": "2026-08-20",
       "livrable": "banque-06 (T_cinq_erreurs_lmnp livree le 21/08, U_preparer_toute_annee entiere en reserve) + interactifs-06 (quiz 3 questions + 2 sondages, samedi 05/09) = 20 stories, dans livraison/stories-2026-08-20-declaration-lmnp. Transcription fournie par Martin (aucun sous-titre sur YouTube) et conservee dans stories/robot/sources/liasse-fiscale-lmnp.md"
+    },
+    {
+      "id": "iVd1TQ-GUYs",
+      "sujet": "Remplir son calendrier en basse saison sans brader ses prix (le bail mobilite, les remises chirurgicales)",
+      "traite_le": "2026-08-24",
+      "livrable": "banque-07 (V_basse_saison_sans_brader le 24/08, W_bail_mobilite le 25/08, X_annonce_hiver entiere en reserve) + interactifs-07 (quiz 3 questions + 2 sondages, samedi 12/09) = 26 stories, dans livraison/stories-2026-08-24-basse-saison. Transcription fournie par Martin (aucun sous-titre sur YouTube, audio bloque). VERIFIE : ce n'est PAS un doublon de URH12GYwAuc malgre le titre proche (22 % de mots communs seulement)"
     }
   ]
 }

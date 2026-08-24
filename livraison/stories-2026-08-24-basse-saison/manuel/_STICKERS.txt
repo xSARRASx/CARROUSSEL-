@@ -1,0 +1,54 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-09-12-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Baisser tes prix tout l'hiver, ça n'a de conséquence que sur l'hiver.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-12-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : En résidence principale, un séjour d'un mois réservé sur une plateforme mange-t-il ton quota de nuitées ?
+    Option 1 : Oui
+    Option 2 : Non
+    (La bonne reponse est "Oui", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-12-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Le bail mobilité peut durer au maximum combien de temps ?
+    Option 1 : 3 mois
+    Option 2 : 10 mois
+    Option 3 : 12 mois
+    (La bonne reponse est "10 mois", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-12-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Ton calendrier d'hiver, il ressemble à quoi ?
+    Option 1 : Déjà bien rempli
+    Option 2 : Quelques dates
+    Option 3 : Complètement vide
+
+--- 2026-09-12-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tu as déjà signé un bail mobilité ?
+    Option 1 : Oui, régulièrement
+    Option 2 : Une fois
+    Option 3 : Jamais
+    Option 4 : Je découvre
+

@@ -231,6 +231,38 @@ STICKERS = {
         "options": ["Rangés au fur et à mesure", "En vrac quelque part", "Je les cherche encore"],
     },
 
+    # ===================== interactifs-07 : le quiz basse saison =============
+    "quiz07_02": {
+        "type": "Sondage",
+        "question": "Baisser tes prix tout l'hiver, ça n'a de conséquence que sur l'hiver.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz07_04": {
+        "type": "Sondage",
+        "question": "En résidence principale, un séjour d'un mois réservé sur une plateforme mange-t-il ton quota de nuitées ?",
+        "options": ["Oui", "Non"],
+        "reponse": "Oui",
+    },
+    "quiz07_06": {
+        "type": "Sondage",
+        "question": "Le bail mobilité peut durer au maximum combien de temps ?",
+        "options": ["3 mois", "10 mois", "12 mois"],
+        "reponse": "10 mois",
+    },
+
+    # ===================== interactifs-07 : les sondages =====================
+    "sondage07_01": {
+        "type": "Sondage",
+        "question": "Ton calendrier d'hiver, il ressemble à quoi ?",
+        "options": ["Déjà bien rempli", "Quelques dates", "Complètement vide"],
+    },
+    "sondage07_02": {
+        "type": "Sondage",
+        "question": "Tu as déjà signé un bail mobilité ?",
+        "options": ["Oui, régulièrement", "Une fois", "Jamais", "Je découvre"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les
