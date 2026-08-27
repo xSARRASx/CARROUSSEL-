@@ -20,3 +20,7 @@ COMMENT LIRE CE DOSSIER :
 Détail des lots inclus :
 - banque-07 (16 stories)
 - interactifs-07 (10 stories)
+
+[MISE A JOUR DU 27/08/2026] La sequence X_annonce_hiver, qui attendait en
+reserve, a ete programmee le 27/08 dans la fournee `stories-2026-08-27-annonce-hiver`.
+Le dossier reserve/ a donc ete retire d ici pour eviter un double post.

@@ -1,9 +1,9 @@
-Fournée de stories du 2026-08-20
-Sujet : declaration-lmnp
-Vidéo source : Comment remplir sa liasse fiscale LMNP (formulaires 2031 et 2033)
+Fournée de stories du 2026-08-27
+Sujet : preparation-fiscale
+Vidéo source : Liasse fiscale LMNP (suite : ce qui se prepare toute l'annee)
 Identifiant YouTube : 1jBnvyCvSA0
 
-20 stories au total. Format : JPEG 1080x1920.
+5 stories au total. Format : JPEG 1080x1920.
 
 COMMENT LIRE CE DOSSIER :
 - auto/     : A PROGRAMMER. Le nom du fichier porte SA DATE de
@@ -18,9 +18,4 @@ COMMENT LIRE CE DOSSIER :
               le stock qui couvrira les semaines sans video.
 
 Détail des lots inclus :
-- banque-06 (10 stories)
-- interactifs-06 (10 stories)
-
-[MISE A JOUR DU 27/08/2026] La sequence U_preparer_toute_annee, qui attendait en
-reserve, a ete programmee le 28/08 dans la fournee `stories-2026-08-27-preparation-fiscale`.
-Le dossier reserve/ a donc ete retire d ici pour eviter un double post.
+- reserve-prepa-fiscale (5 stories)
