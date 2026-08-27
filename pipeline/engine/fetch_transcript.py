@@ -101,6 +101,20 @@ def get_latest_video():
 # MORCEAU 2 : recuperer la transcription francaise
 # --------------------------------------------------------------------------
 
+MESSAGES_ROBOT = (
+    "not a bot",
+    "sign in to confirm",
+    "confirm you're not a bot",
+)
+
+
+def _detection_robot(message):
+    """Vrai si YouTube a sorti sa detection anti-robot. Dans ce cas, insister
+    aggrave le blocage : il vise l'adresse IP, pas la video."""
+    bas = message.lower()
+    return any(m in bas for m in MESSAGES_ROBOT)
+
+
 def get_transcript(video_id):
     """Telecharge les sous-titres francais de la video et renvoie un
     dictionnaire : text (transcription propre) + info (titre, date, duree...)."""
@@ -121,11 +135,18 @@ def get_transcript(video_id):
         # ⚠️ PIEGE DU 13/08/2026 : enchainer les clients SANS PAUSE aggrave le
         # probleme. YouTube repond alors "HTTP Error 429: Too Many Requests",
         # un plafond de requetes qui se libere avec le temps. On espace donc les
-        # tentatives, et on refait plusieurs tours au lieu d'abandonner apres un
-        # seul passage : un 429 n'est PAS un bannissement, juste une attente.
-        clients = ("android", "ios", "tv", "mweb", "web_safari", "web")
+        # tentatives au lieu de marteler.
+        # 🚨 LECON DU 27/08/2026 : cette cascade tirait 6 clients x 3 tours,
+        # soit 18 requetes d'affilee. C'est ELLE qui faisait passer le blocage du
+        # simple 429 (benin, par video) a "Sign in to confirm you're not a bot"
+        # (detection anti-robot sur l'IP ENTIERE, qui met des heures a retomber).
+        # On a donc reduit la voilure ET ajoute un coupe-circuit : des que
+        # YouTube prononce le mot "bot", on ARRETE TOUT immediatement. Insister
+        # a ce stade ne peut qu'empirer les choses, jamais les arranger.
+        clients = ("android", "ios", "tv")
         reussi = False
-        for tour in range(1, 4):
+        robot = False
+        for tour in range(1, 3):
             for client in clients:
                 args = [
                     "--skip-download",
@@ -138,20 +159,37 @@ def get_transcript(video_id):
                 ]
                 try:
                     _run_ytdlp(args)
-                except RuntimeError:
-                    time.sleep(20)           # on laisse respirer le plafond
+                except RuntimeError as e:
+                    if _detection_robot(str(e)):
+                        robot = True
+                        break                # coupe-circuit : ne PAS insister
+                    time.sleep(45)           # on laisse respirer le plafond
                     continue
                 if any(f.endswith(".json3") for f in os.listdir(tmp)):
                     if client != "android" or tour > 1:
                         print("      (porte '%s' utilisee, tour %d)" % (client, tour))
                     reussi = True
                     break
-                time.sleep(20)
-            if reussi:
+                time.sleep(45)
+            if reussi or robot:
                 break
-            if tour < 3:
+            if tour < 2:
                 print("      (toutes les portes fermees, pause avant le tour %d)" % (tour + 1))
-                time.sleep(150)
+                time.sleep(300)
+        if robot:
+            raise RuntimeError(
+                "YouTube a declenche sa detection anti-robot sur cette adresse\n"
+                "(\"Sign in to confirm you're not a bot\"). On ARRETE ICI : insister\n"
+                "aggrave le blocage au lieu de le lever.\n"
+                "Ce n'est pas un probleme de video ni de client : c'est l'adresse IP.\n"
+                "Que faire, dans cet ordre :\n"
+                "  1. Verifier que yt-dlp est a jour (pip install -U yt-dlp).\n"
+                "  2. Attendre AU MOINS une heure sans aucune requete, puis reessayer\n"
+                "     UNE seule fois. Espacer les tentatives suivantes de 20 minutes.\n"
+                "  3. Si c'est urgent : faire recuperer la transcription par le Claude\n"
+                "     du Mac, ou la faire coller par Martin, puis la deposer dans\n"
+                "     pipeline/output/transcripts/ au format habituel."
+            )
         if not reussi:
             raise RuntimeError(
                 "Aucune porte d'entree YouTube n'a fonctionne apres 3 tours espaces.\n"
