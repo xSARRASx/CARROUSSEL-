@@ -1,0 +1,22 @@
+Fournée de stories du 2026-08-27
+Sujet : taxe-fonciere
+Vidéo source : Comment faire baisser sa taxe fonciere
+Identifiant YouTube : h0GZh51rtCk
+
+21 stories au total. Format : JPEG 1080x1920.
+
+COMMENT LIRE CE DOSSIER :
+- auto/     : A PROGRAMMER. Le nom du fichier porte SA DATE de
+              publication : <AAAA-MM-JJ>-12h00-<rang>.jpg.
+              Les fichiers qui partagent une date forment UNE publication :
+              ils s'enchainent le meme jour a 12h00 (heure de Paris).
+- manuel/   : NE JAMAIS PROGRAMMER. Ces stories promettent un vote et le
+              sticker de sondage Instagram ne peut pas etre pose sur une
+              story programmee. Elles sont toutes regroupees le SAMEDI,
+              et le nom dit quel sticker poser : SONDAGE ou QUESTIONS.
+- reserve/  : surplus sans creneau cette semaine. Ne pas programmer, c'est
+              le stock qui couvrira les semaines sans video.
+
+Détail des lots inclus :
+- banque-08 (11 stories)
+- interactifs-08 (10 stories)

@@ -1,0 +1,54 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-09-19-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Ta taxe foncière est calculée sur la surface réelle de ton logement.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-19-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : La fiche d'évaluation, ce document sur lequel repose tout le calcul, elle coûte combien ?
+    Option 1 : Rien, c'est gratuit
+    Option 2 : Environ 30 €
+    Option 3 : Elle ne se demande pas
+    (La bonne reponse est "Rien, c'est gratuit", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-19-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Réclamer ne peut que faire baisser ta taxe, jamais monter.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-19-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tu as déjà demandé ta fiche d'évaluation ?
+    Option 1 : Oui, je l'ai
+    Option 2 : Jamais
+    Option 3 : Je découvre qu'elle existe
+
+--- 2026-09-19-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Ta taxe foncière a augmenté de combien cette année ?
+    Option 1 : Moins de 5 %
+    Option 2 : 5 à 15 %
+    Option 3 : Plus de 15 %
+    Option 4 : Je n'ai pas regardé
+

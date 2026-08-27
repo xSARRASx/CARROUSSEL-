@@ -225,6 +225,58 @@ bloqué. C'est le dernier truc qui répond.
 💡 `mweb` renvoie le **vrai titre français** ; `tv` renvoie le titre traduit en
 anglais. Aucun des deux ne fait foi : seule la transcription compte.
 
+### 🔧 PREMIÈRE COMMANDE DE CHAQUE RÉVEIL (mis en place le 27/08/2026)
+
+```bash
+bash stories/engine/setup_youtube.sh
+```
+
+Le conteneur repart de zéro à chaque session, avec un yt-dlp ancien et **sans
+moteur JavaScript**. Or YouTube pose désormais un défi JavaScript, et yt-dlp
+le dit lui-même : « YouTube extraction without a JS runtime has been
+deprecated ». Sans moteur, l'extraction tombe directement sur « Sign in to
+confirm you're not a bot » — **même quand le réseau va bien**. On a perdu du
+temps là-dessus en croyant à un blocage réseau.
+
+Le script installe `yt-dlp[default,curl-cffi]` à jour et écrit la
+configuration `/root/.config/yt-dlp/config`, après quoi yt-dlp prend le moteur
+tout seul, sans répéter l'option.
+
+⚠️ **LE PIÈGE DU node** : `node` dans le PATH est une vieille version (20.x)
+que yt-dlp REFUSE — il écrit `node-20.20.2 (unsupported)` puis continue sans
+moteur, sans erreur bien visible. Il faut lui donner le chemin d'un node
+récent, `/opt/node22/bin/node` ici. Le script s'en charge.
+Vérification : `yt-dlp -v ... 2>&1 | grep "JS runtimes"` doit afficher
+`node-22.x` **sans** le mot `unsupported`.
+
+### 🚫 L'IMPERSONATION (curl_cffi) NE MARCHE PAS ICI — testé le 27/08/2026
+
+Piste proposée par Martin, sérieuse et logique : yt-dlp affiche
+« no impersonate target is available », le correctif habituel est `curl_cffi`.
+Installé, les cibles apparaissent bien. **Mais toute requête échoue** :
+
+```
+curl: (35) Recv failure: Connection reset by peer
+```
+
+Raison : le trafic du conteneur passe par un proxy qui **re-termine le TLS**.
+Quand curl_cffi imite la signature réseau d'un navigateur, le proxy coupe. Et
+même si ça passait, YouTube verrait la signature du proxy, pas la nôtre :
+l'impersonation ne peut structurellement rien apporter dans cet environnement.
+👉 Ne pas y repasser du temps. `curl_cffi` reste installé (il vient avec
+l'extra yt-dlp) mais **ne jamais utiliser `--impersonate`**.
+
+### 🧱 L'ERREUR 429, LE VRAI MUR
+
+C'est une limite posée sur l'ADRESSE du serveur, pas un problème d'outil.
+Aucune option, aucun client, aucun moteur n'en vient à bout. Elle se lève
+d'elle-même après quelques heures ou quelques jours. Tant qu'elle est là,
+seul `--flat-playlist` (lister les vidéos) répond encore.
+👉 Dans ce cas : **demander la transcription à Martin**. C'est devenu le canal
+le plus fiable — il l'a fournie trois fois de suite (LMNP le 20/08, basse
+saison le 24/08, taxe foncière le 27/08) et à chaque fois la fournée est
+sortie derrière. Ne pas s'acharner, ne rien fabriquer, demander.
+
 ### ⚠️ TOUTES LES VIDÉOS N'ONT PAS DE SOUS-TITRES (découvert le 20/08/2026)
 
 `iVd1TQ-GUYs` (16/08) n'a **ni sous-titres, ni sous-titres automatiques** :

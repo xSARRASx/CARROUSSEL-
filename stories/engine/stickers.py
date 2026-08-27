@@ -263,6 +263,38 @@ STICKERS = {
         "options": ["Oui, régulièrement", "Une fois", "Jamais", "Je découvre"],
     },
 
+    # ===================== interactifs-08 : le quiz taxe fonciere ============
+    "quiz08_02": {
+        "type": "Sondage",
+        "question": "Ta taxe foncière est calculée sur la surface réelle de ton logement.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz08_04": {
+        "type": "Sondage",
+        "question": "La fiche d'évaluation, ce document sur lequel repose tout le calcul, elle coûte combien ?",
+        "options": ["Rien, c'est gratuit", "Environ 30 €", "Elle ne se demande pas"],
+        "reponse": "Rien, c'est gratuit",
+    },
+    "quiz08_06": {
+        "type": "Sondage",
+        "question": "Réclamer ne peut que faire baisser ta taxe, jamais monter.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+
+    # ===================== interactifs-08 : les sondages =====================
+    "sondage08_01": {
+        "type": "Sondage",
+        "question": "Tu as déjà demandé ta fiche d'évaluation ?",
+        "options": ["Oui, je l'ai", "Jamais", "Je découvre qu'elle existe"],
+    },
+    "sondage08_02": {
+        "type": "Sondage",
+        "question": "Ta taxe foncière a augmenté de combien cette année ?",
+        "options": ["Moins de 5 %", "5 à 15 %", "Plus de 15 %", "Je n'ai pas regardé"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les
