@@ -27,7 +27,9 @@ On avance en 3 morceaux :
 import datetime
 import json
 import os
+import pathlib
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -56,6 +58,8 @@ TRANSCRIPTS_DIR = os.path.join(REPO_ROOT, "pipeline", "output", "transcripts")
 def _run_ytdlp(args):
     """Lance yt-dlp avec les arguments donnes. Renvoie la sortie texte.
     Explique clairement quoi faire si yt-dlp n'est pas installe."""
+    if NODE and "--js-runtimes" not in args:
+        args = ["--js-runtimes", "node:" + NODE] + args
     try:
         result = subprocess.run(
             ["yt-dlp"] + args,
@@ -100,6 +104,65 @@ def get_latest_video():
 # --------------------------------------------------------------------------
 # MORCEAU 2 : recuperer la transcription francaise
 # --------------------------------------------------------------------------
+
+def trouver_node():
+    """Chemin vers un runtime JavaScript utilisable par yt-dlp, ou None.
+
+    🚨 CAUSE PRINCIPALE DES BLOCAGES (recette de Martin, validee le 24/08/2026).
+    Sans runtime JS, yt-dlp ne peut pas resoudre les defis de YouTube et se fait
+    repondre "Sign in to confirm you're not a bot". Il le signale seulement dans
+    un WARNING discret : "No supported JavaScript runtime could be found. Only
+    deno is enabled by default". Node EST present dans le conteneur, mais yt-dlp
+    ne le detecte pas tout seul : il faut le lui donner explicitement.
+    Avec le runtime, il n'est plus necessaire d'empiler les player_client."""
+    candidats = sorted(pathlib.Path("/opt").glob("node*/bin/node"), reverse=True)
+    for c in candidats:
+        if c.is_file():
+            return str(c)
+    trouve = shutil.which("node") or shutil.which("deno")
+    return trouve
+
+
+NODE = trouver_node()
+
+
+TRANSCRIPTS = pathlib.Path(TRANSCRIPTS_DIR)
+DEMANDE = TRANSCRIPTS / "A_RECUPERER.json"
+
+
+def transcript_existant(video_id):
+    """Renvoie le fichier de transcription deja present pour cette video, ou None.
+    Permet de repartir d'une transcription deposee par le Claude du Mac (ou collee
+    par Martin) sans redemander quoi que ce soit a YouTube."""
+    if not TRANSCRIPTS.exists():
+        return None
+    for f in sorted(TRANSCRIPTS.glob("*_%s.txt" % video_id)):
+        return f
+    return None
+
+
+def deposer_demande(video):
+    """Ecrit la demande que le Claude du Mac viendra executer.
+
+    Ce serveur est derriere un proxy d'entreprise : YouTube le prend
+    regulierement pour un robot, et l'impersonation (curl_cffi) est impossible
+    ici car le proxy re-termine le TLS. Le Mac de Martin, lui, sort par une
+    connexion residentielle normale : il n'est jamais bloque. On lui laisse donc
+    un bon de commande, qu'il lit a son prochain git pull."""
+    TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
+    DEMANDE.write_text(json.dumps({
+        "video_id": video["id"],
+        "titre": video.get("title", ""),
+        "lien": video.get("url", ""),
+        "duree_secondes": video.get("duration"),
+        "raison": "detection anti-robot YouTube sur l'IP de ce serveur",
+        "quoi_faire": ("Recuperer la transcription francaise de cette video depuis "
+                       "le Mac, puis la deposer avec : python3 "
+                       "pipeline/engine/depot_transcript.py --video <id> "
+                       "--titre \"<titre>\" --fichier <texte.txt>, puis commit et push."),
+    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return DEMANDE
+
 
 MESSAGES_ROBOT = (
     "not a bot",
@@ -426,8 +489,28 @@ def main():
     print("      - Lien  :", video["url"])
     print()
 
+    deja = transcript_existant(video["id"])
+    if deja:
+        print("[2/3] Transcription DEJA PRESENTE, aucun appel a YouTube :")
+        print("      -", deja.name)
+        print()
+        print("Termine. Ce fichier sert de matiere premiere aux 2 carrousels.")
+        return 0
+
     print("[2/3] Telechargement de la transcription francaise...")
-    transcript = get_transcript(video["id"])
+    try:
+        transcript = get_transcript(video["id"])
+    except RuntimeError as e:
+        if _detection_robot(str(e)) or "detection anti-robot" in str(e):
+            chemin = deposer_demande(video)
+            print()
+            print("YouTube bloque ce serveur. Une DEMANDE DE RELAIS a ete deposee :")
+            print("      -", chemin)
+            print("Pousse-la sur GitHub : le Claude du Mac la verra a son prochain")
+            print("git pull, recuperera la transcription depuis une connexion non")
+            print("bloquee, et la deposera dans pipeline/output/transcripts/.")
+            print("Au prochain reveil, ce robot la trouvera et reprendra tout seul.")
+        raise
     print("      - Longueur :", len(transcript["text"]), "caracteres")
     print("      - Debut    :", transcript["text"][:120], "...")
     print()

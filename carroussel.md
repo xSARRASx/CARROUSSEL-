@@ -1143,6 +1143,59 @@ transcription (son adresse n'est pas bloquée) et la dépose dans
 `--verifier` répond alors « À REPRENDRE » et le robot repart tout seul.
 ✅ Circuit testé en vrai le 10/08 avec une transcription fournie par Martin.
 
+### ✅ LA VRAIE CAUSE DES BLOCAGES YOUTUBE : LE RUNTIME JAVASCRIPT (27/08/2026)
+**Recette apportée par Martin, vérifiée dans cet environnement.** Depuis le début,
+yt-dlp affichait un WARNING discret que tout le monde ignorait :
+
+    No supported JavaScript runtime could be found. Only deno is enabled by default
+
+Sans runtime JavaScript, yt-dlp ne peut pas résoudre les défis de YouTube, et
+YouTube répond « Sign in to confirm you're not a bot ». **Node EST présent dans le
+conteneur** (`/opt/node22/bin/node`, v22) mais yt-dlp ne le détecte pas seul.
+
+**C'est désormais dans le code** : `trouver_node()` cherche `/opt/node*/bin/node`
+puis `which node`/`deno`, et `_run_ytdlp()` injecte `--js-runtimes node:<chemin>`
+dans **tous** les appels. Plus besoin d'empiler les `player_client`.
+
+#### Comment distinguer les DEUX causes (test de contrôle de Martin)
+Quand le message anti-robot apparaît, regarde s'il y a **aussi un `HTTP Error 429`** :
+- **Sans 429** → c'était le runtime JavaScript. Corrigé, ça ne devrait plus arriver.
+- **Avec 429** → vrai quota sur l'IP. **Test de contrôle** : relancer une vidéo
+  déjà téléchargée avec succès. Si elle échoue aussi, c'est confirmé.
+  → 2 ou 3 tentatives maximum, puis attendre quelques heures. Le `--flat-playlist`
+  continue de marcher pendant ce temps (on garde donc le vrai titre).
+
+#### ⛔ CE QUI NE MARCHE PAS — NE PLUS JAMAIS Y PASSER DE TEMPS
+- **`curl_cffi` / `--impersonate`** : testé et mesuré le 27/08. Le proxy sortant
+  **re-termine le TLS**, donc l'empreinte de navigateur forgée est réécrite avant
+  d'atteindre YouTube, et la connexion se fait couper (`curl: (35) Recv failure:
+  Connection reset by peer`). C'est **architecturalement impossible ici**, pas une
+  question de version. curl_cffi a été désinstallé, l'interdiction reste.
+- **Empiler les `player_client`** : sans runtime JS aucun ne passe ; avec le
+  runtime, c'est inutile.
+
+#### Le correctif définitif, s'il faut aller plus loin
+Passer des cookies YouTube par **variable d'environnement** (jamais dans le dépôt,
+jamais dans le chat), puis ajouter `--cookies /tmp/yt-cookies.txt`.
+
+### 🔁 RELAIS PAR LE MAC — quand l'IP est vraiment sous quota (27/08/2026)
+Un filet de sécurité automatique a été ajouté, pour ne plus jamais dépendre d'un
+copier-coller en urgence :
+1. Quand la détection anti-robot tombe, `fetch_transcript.py` dépose
+   `pipeline/output/transcripts/A_RECUPERER.json` (identifiant, titre, lien,
+   quoi faire) et le robot pousse ce fichier.
+2. Le Claude du Mac, qui fait déjà `git pull` sur `livraison/`, voit la demande.
+   Il sort par une **connexion résidentielle, jamais bloquée**. Il récupère la
+   transcription et la dépose avec :
+   `python3 pipeline/engine/depot_transcript.py --video <id> --titre "<titre>" --fichier <texte.txt>`
+   puis commit et push.
+3. `depot_transcript.py` garantit le format, **refuse un texte de moins de
+   2 000 caractères** (on n'écrit jamais de carrousels sur une transcription
+   tronquée) et efface la demande une fois honorée.
+4. Au réveil suivant, `fetch_transcript.py` voit la transcription déjà présente
+   (`transcript_existant()`), **ne rappelle pas YouTube du tout**, et la chaîne
+   repart toute seule.
+
 ### 🔧 COUPE-CIRCUIT ANTI-ROBOT DANS `fetch_transcript.py` (27/08/2026)
 **Le coupable était notre propre script.** La cascade tirait 6 clients x 3 tours,
 soit **18 requêtes d'affilée**. C'est elle qui faisait passer le blocage du simple
