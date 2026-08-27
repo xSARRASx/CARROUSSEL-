@@ -1143,6 +1143,26 @@ transcription (son adresse n'est pas bloquée) et la dépose dans
 `--verifier` répond alors « À REPRENDRE » et le robot repart tout seul.
 ✅ Circuit testé en vrai le 10/08 avec une transcription fournie par Martin.
 
+### 🔧 COUPE-CIRCUIT ANTI-ROBOT DANS `fetch_transcript.py` (27/08/2026)
+**Le coupable était notre propre script.** La cascade tirait 6 clients x 3 tours,
+soit **18 requêtes d'affilée**. C'est elle qui faisait passer le blocage du simple
+429 (bénin, par vidéo) à la détection anti-robot sur l'IP entière. Autrement dit :
+la règle « ne pas marteler » était écrite dans la mémoire, mais le code, lui,
+martelait tout seul à chaque réveil. Une règle qui n'existe que dans la mémoire
+ne protège de rien : **il faut la mettre DANS le code.**
+
+**Ce qui a été changé :**
+- Cascade réduite à **3 clients (android, ios, tv) x 2 tours**, pauses de 45 s
+  entre clients et 300 s entre tours.
+- **Coupe-circuit `_detection_robot()`** : dès que la sortie de yt-dlp contient
+  « not a bot » ou « sign in to confirm », le script **ARRÊTE TOUT immédiatement**
+  et lève une erreur explicite. Insister à ce stade ne peut qu'empirer.
+- Le message d'erreur dicte la conduite : vérifier yt-dlp, puis **une heure sans
+  aucune requête**, puis UNE tentative, puis 20 minutes d'écart.
+
+**À retenir :** un 429 se soigne par l'attente, la détection anti-robot se soigne
+par le silence. Ce ne sont pas les mêmes soins.
+
 ### 🚨 ESCALADE DU BLOCAGE YOUTUBE (constaté le 20/08/2026) — NE PAS MARTELER
 Leçon payée cher : **insister vite AGGRAVE le blocage**. Il y a trois étages, et
 on descend d'un étage à chaque salve de requêtes :
