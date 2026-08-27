@@ -2,69 +2,80 @@
 # ============================================================================
 # PREPARER L'ACCES YOUTUBE — a lancer AU DEBUT DE CHAQUE REVEIL DU ROBOT.
 #
-# Le conteneur repart de zero a chaque session : yt-dlp y est en version
-# ancienne et sans moteur JavaScript. Or YouTube pose desormais un defi
-# JavaScript, et yt-dlp le dit noir sur blanc :
-#   « YouTube extraction without a JS runtime has been deprecated »
-# Sans moteur, l'extraction tombe direct sur « Sign in to confirm you're not
-# a bot », meme quand l'acces reseau est bon.
-#
-# Ce script installe la bonne version et branche le moteur, une fois pour
-# toutes dans la session :
 #     bash stories/engine/setup_youtube.sh
 #
-# Ensuite, yt-dlp lit tout seul sa configuration : plus besoin de repeter
-# l'option sur chaque commande.
+# Recette validee avec Martin (24 et 27/08/2026). Le conteneur repart de zero
+# a chaque session : sans cette preparation, yt-dlp echoue sur
+# « Sign in to confirm you're not a bot » MEME QUAND LE RESEAU VA BIEN.
+#
+# LA VRAIE CAUSE, dans neuf cas sur dix, est LOCALE : yt-dlp ne trouve aucun
+# moteur JavaScript et ne le dit que dans un WARNING discret. Node existe dans
+# le conteneur, mais celui du PATH est en 20.x -- yt-dlp le refuse en silence
+# (« unsupported »). Il faut mettre /opt/node22 devant.
 # ============================================================================
 set -u
+export PATH=/opt/node22/bin:$PATH
 
-echo "1/3  yt-dlp a jour"
-pip install --quiet -U "yt-dlp[default,curl-cffi]" 2>&1 | grep -vi warning | tail -1
-echo "     version : $(yt-dlp --version)"
+echo "1/4  node"
+echo "     $(command -v node) -> $(node --version)"
 
-echo "2/3  moteur JavaScript"
-# ⚠️ PIEGE : `node` dans le PATH est une VIEILLE version (20.x) que yt-dlp
-# refuse -- il affiche « node-20.x (unsupported) » et continue sans moteur.
-# Il faut lui donner le chemin d'un node recent. On prend le plus eleve.
-NODE=""
-for v in 24 23 22; do
-    [ -x "/opt/node$v/bin/node" ] && { NODE="/opt/node$v/bin/node"; break; }
-done
-if [ -z "$NODE" ]; then
-    C=$(command -v node || true)
-    if [ -n "$C" ] && [ "$("$C" -e 'console.log(process.versions.node.split(".")[0])')" -ge 22 ]; then
-        NODE="$C"
-    fi
+echo "2/4  yt-dlp + fournisseur de jetons PO"
+pip install --quiet -U yt-dlp bgutil-ytdlp-pot-provider 2>&1 | grep -vi warning | tail -1
+echo "     yt-dlp $(yt-dlp --version)"
+# ⚠️ curl_cffi est RETIRE volontairement : voir la note en bas.
+pip uninstall -y curl_cffi >/dev/null 2>&1 && echo "     curl_cffi retire (il casse le telechargement ici)"
+
+echo "3/4  serveur de jetons PO"
+if [ ! -d /root/bgutil-ytdlp-pot-provider/server/build ]; then
+    rm -rf /root/bgutil-ytdlp-pot-provider
+    git clone --depth 1 https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git \
+        /root/bgutil-ytdlp-pot-provider >/dev/null 2>&1
+    ( cd /root/bgutil-ytdlp-pot-provider/server && npm install >/dev/null 2>&1 && npx tsc >/dev/null 2>&1 )
 fi
-if [ -z "$NODE" ]; then
-    echo "     AUCUN node >= 22 trouve. yt-dlp fonctionnera sans moteur JS,"
-    echo "     donc mal. Chercher un autre moteur (deno, bun, quickjs)."
-else
-    echo "     $NODE ($($NODE --version))"
-    mkdir -p /root/.config/yt-dlp
-    printf -- '--js-runtimes node:%s\n' "$NODE" > /root/.config/yt-dlp/config
-    echo "     ecrit dans /root/.config/yt-dlp/config"
-fi
+[ -f /root/bgutil-ytdlp-pot-provider/server/build/main.js ] \
+    && echo "     construit" || echo "     ECHEC de construction"
 
-echo "3/3  verification"
-yt-dlp -v --skip-download --print "%(id)s" \
-    "https://www.youtube.com/watch?v=dQw4w9WgXcQ" 2>&1 \
-    | grep -iE "JS runtimes|Challenge Providers" | head -2
+echo "4/4  configuration permanente"
+mkdir -p /root/.config/yt-dlp
+printf -- '--js-runtimes node:/opt/node22/bin/node\n' > /root/.config/yt-dlp/config
+yt-dlp -v --skip-download --print "%(id)s" "https://www.youtube.com/watch?v=dQw4w9WgXcQ" 2>&1 \
+    | grep -i "JS runtimes" | head -1
 
 cat <<'NOTE'
 
---- CE QUI NE MARCHE PAS, INUTILE DE REESSAYER -----------------------------
-IMPERSONATION (curl_cffi, --impersonate) : INCOMPATIBLE avec ce conteneur.
-Le trafic passe par un proxy qui re-termine le TLS. Quand curl_cffi imite la
-signature reseau d'un navigateur, le proxy coupe la connexion :
-    curl: (35) Recv failure: Connection reset by peer
-Et de toute facon YouTube verrait la signature du proxy, pas la notre.
-Teste et ecarte le 27/08/2026. Ne pas y repasser du temps.
+--- LA COMMANDE QUI PASSE -------------------------------------------------
+yt-dlp --js-runtimes "node:/opt/node22/bin/node" \
+  --skip-download --write-auto-sub --sub-lang "fr.*" --sub-format json3 \
+  -o "%(id)s.%(ext)s" "https://www.youtube.com/watch?v=<ID>"
 
-ERREUR 429 « Too Many Requests » : c'est une limite posee sur l'ADRESSE du
-serveur, pas un probleme d'outil. Aucune option n'en vient a bout. Elle se
-leve d'elle-meme apres quelques heures ou quelques jours. Quand elle est la,
-seul `--flat-playlist` (lister les videos) continue de repondre.
---> Dans ce cas : demander la transcription a Martin. C'est le canal le plus
-    fiable, il l'a fourni trois fois de suite et ca marche tres bien.
+Elle produit <ID>.fr-orig.json3 : la VO francaise, a PRIVILEGIER sur <ID>.fr.
+Parsing : concatener les segs[].utf8 de chaque events[], joindre par un espace.
+Plus besoin de forcer player_client : avec le moteur JS, c'est inutile.
+
+--- CE QUI NE SERT A RIEN, NE PAS Y PASSER DE TEMPS ------------------------
+--impersonate / curl_cffi : le proxy sortant du conteneur re-termine le TLS,
+la signature navigateur est reecrite avant d'atteindre YouTube. Pire, le
+telechargement casse avec « curl: (35) Recv failure: Connection reset by
+peer ». C'est pour ca que le script DESINSTALLE curl_cffi.
+
+Empiler les player_client (ios, mweb, tv, web_safari...) : sans moteur JS
+aucun ne passe, et avec le moteur ce n'est plus necessaire.
+
+--- SI CA ECHOUE QUAND MEME -----------------------------------------------
+TEST DE CONTROLE : relancer une video DEJA telechargee avec succes.
+    - elle passe    -> le probleme vient de la video (pas de sous-titres ?)
+    - elle echoue   -> c'est un vrai quota sur l'IP du serveur.
+Dans ce cas : DEUX OU TROIS TENTATIVES MAXIMUM, puis attendre quelques heures.
+Ne rien fabriquer, et demander la transcription a Martin -- canal le plus
+fiable, il l'a fournie quatre fois en aout.
+
+Pendant le blocage, ces deux-la repondent encore :
+    yt-dlp --flat-playlist ...                      (lister les videos)
+    curl "https://www.youtube.com/oembed?url=<URL>&format=json"
+L'oEmbed donne le VRAI TITRE FRANCAIS, ce que le listing ne fait pas toujours.
+
+--- LE CORRECTIF DEFINITIF ------------------------------------------------
+Passer des cookies YouTube, via une VARIABLE D'ENVIRONNEMENT -- jamais dans le
+repo, jamais dans le chat -- puis ajouter a la commande :
+    --cookies /tmp/yt-cookies.txt
 NOTE

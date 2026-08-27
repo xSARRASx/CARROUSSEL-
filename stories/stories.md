@@ -225,57 +225,72 @@ bloqué. C'est le dernier truc qui répond.
 💡 `mweb` renvoie le **vrai titre français** ; `tv` renvoie le titre traduit en
 anglais. Aucun des deux ne fait foi : seule la transcription compte.
 
-### 🔧 PREMIÈRE COMMANDE DE CHAQUE RÉVEIL (mis en place le 27/08/2026)
+### 🔧 PREMIÈRE COMMANDE DE CHAQUE RÉVEIL — recette validée avec Martin (27/08/2026)
 
 ```bash
 bash stories/engine/setup_youtube.sh
 ```
 
-Le conteneur repart de zéro à chaque session, avec un yt-dlp ancien et **sans
-moteur JavaScript**. Or YouTube pose désormais un défi JavaScript, et yt-dlp
-le dit lui-même : « YouTube extraction without a JS runtime has been
-deprecated ». Sans moteur, l'extraction tombe directement sur « Sign in to
-confirm you're not a bot » — **même quand le réseau va bien**. On a perdu du
-temps là-dessus en croyant à un blocage réseau.
+**Devant `Sign in to confirm you're not a bot`, ne conclus PAS tout de suite au
+quota.** Dans neuf cas sur dix la cause est LOCALE : yt-dlp ne trouve aucun
+moteur JavaScript, et ne le dit que dans un WARNING discret. Node existe dans
+le conteneur, mais celui du PATH est en **20.x** — yt-dlp le refuse **en
+silence** (`node-20.20.2 (unsupported)`) et continue sans moteur. Il faut
+mettre `/opt/node22` devant.
 
-Le script installe `yt-dlp[default,curl-cffi]` à jour et écrit la
-configuration `/root/.config/yt-dlp/config`, après quoi yt-dlp prend le moteur
-tout seul, sans répéter l'option.
+Le script installe `yt-dlp`, le **fournisseur de jetons PO**
+(`bgutil-ytdlp-pot-provider`, cloné et construit), retire `curl_cffi`, et écrit
+la configuration permanente. Vérification : `JS runtimes: node-22.22.2`, sans
+le mot `unsupported`.
 
-⚠️ **LE PIÈGE DU node** : `node` dans le PATH est une vieille version (20.x)
-que yt-dlp REFUSE — il écrit `node-20.20.2 (unsupported)` puis continue sans
-moteur, sans erreur bien visible. Il faut lui donner le chemin d'un node
-récent, `/opt/node22/bin/node` ici. Le script s'en charge.
-Vérification : `yt-dlp -v ... 2>&1 | grep "JS runtimes"` doit afficher
-`node-22.x` **sans** le mot `unsupported`.
-
-### 🚫 L'IMPERSONATION (curl_cffi) NE MARCHE PAS ICI — testé le 27/08/2026
-
-Piste proposée par Martin, sérieuse et logique : yt-dlp affiche
-« no impersonate target is available », le correctif habituel est `curl_cffi`.
-Installé, les cibles apparaissent bien. **Mais toute requête échoue** :
-
+**La commande qui passe :**
+```bash
+yt-dlp --js-runtimes "node:/opt/node22/bin/node" \
+  --skip-download --write-auto-sub --sub-lang "fr.*" --sub-format json3 \
+  -o "%(id)s.%(ext)s" "https://www.youtube.com/watch?v=<ID>"
 ```
-curl: (35) Recv failure: Connection reset by peer
+Elle produit `<ID>.fr-orig.json3` — **la VO française, à privilégier** sur
+`<ID>.fr`. Parsing : concaténer les `segs[].utf8` de chaque `events[]`, joindre
+par un espace. Plus besoin de forcer `player_client`.
+
+### 🚫 CE QUI NE SERT À RIEN — testé, ne pas y repasser de temps
+
+**`--impersonate` / `curl_cffi`.** Le proxy sortant du conteneur re-termine le
+TLS : la signature navigateur est réécrite avant d'atteindre YouTube. Pire, le
+téléchargement casse avec `curl: (35) Recv failure: Connection reset by peer`.
+C'est pourquoi le script **désinstalle** curl_cffi.
+
+**Empiler les `player_client`** (ios, mweb, tv, web_safari…). Sans moteur JS
+aucun ne passe ; avec le moteur, ce n'est plus nécessaire.
+
+### 🧱 LE QUOTA IP — le seul mur réel, et comment en être sûr
+
+**TEST DE CONTRÔLE** (donné par Martin) : relancer une vidéo **déjà
+téléchargée avec succès**.
+- elle passe → le problème vient de la vidéo (elle n'a peut-être pas de
+  sous-titres du tout) ;
+- elle échoue aussi → **c'est un vrai quota sur l'IP du serveur**.
+
+Fait le 27/08 : `keONb-XUtJY`, récupérée le 17/08, échouait à son tour →
+quota confirmé. Dans ce cas : **deux ou trois tentatives maximum**, puis
+attendre quelques heures. Ne rien fabriquer, et **demander la transcription à
+Martin** — canal le plus fiable, fourni quatre fois en août.
+
+Pendant le blocage, deux choses répondent encore :
+```bash
+yt-dlp --flat-playlist ...                                   # lister
+curl "https://www.youtube.com/oembed?url=<URL>&format=json"   # vrai titre FR
 ```
+⚠️ L'oEmbed donne le **VRAI titre français** (« Comment faire baisser sa taxe
+foncière ? ») là où le listing renvoie parfois la traduction anglaise. C'est le
+moyen le plus sûr d'identifier une vidéo quand tout le reste est bloqué.
 
-Raison : le trafic du conteneur passe par un proxy qui **re-termine le TLS**.
-Quand curl_cffi imite la signature réseau d'un navigateur, le proxy coupe. Et
-même si ça passait, YouTube verrait la signature du proxy, pas la nôtre :
-l'impersonation ne peut structurellement rien apporter dans cet environnement.
-👉 Ne pas y repasser du temps. `curl_cffi` reste installé (il vient avec
-l'extra yt-dlp) mais **ne jamais utiliser `--impersonate`**.
+### 🔑 LE CORRECTIF DÉFINITIF (pas encore en place)
 
-### 🧱 L'ERREUR 429, LE VRAI MUR
-
-C'est une limite posée sur l'ADRESSE du serveur, pas un problème d'outil.
-Aucune option, aucun client, aucun moteur n'en vient à bout. Elle se lève
-d'elle-même après quelques heures ou quelques jours. Tant qu'elle est là,
-seul `--flat-playlist` (lister les vidéos) répond encore.
-👉 Dans ce cas : **demander la transcription à Martin**. C'est devenu le canal
-le plus fiable — il l'a fournie trois fois de suite (LMNP le 20/08, basse
-saison le 24/08, taxe foncière le 27/08) et à chaque fois la fournée est
-sortie derrière. Ne pas s'acharner, ne rien fabriquer, demander.
+Passer des **cookies YouTube**, via une variable d'environnement — **jamais
+dans le repo, jamais dans le chat** — puis ajouter `--cookies /tmp/yt-cookies.txt`
+à la commande. C'est ce qui lèvera le quota pour de bon. À mettre en place avec
+Martin quand il pourra fournir le fichier.
 
 ### ⚠️ TOUTES LES VIDÉOS N'ONT PAS DE SOUS-TITRES (découvert le 20/08/2026)
 
