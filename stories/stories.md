@@ -837,15 +837,39 @@ transformées en stories (les 8 de banque-01 + « parler d'argent »).
 | **Dépôt** | `https://github.com/xSARRASx/CARROUSSEL-` |
 | **Branche** | `claude/instagram-stories-strategy-ni1w08` |
 | **Dossier** | `livraison/` |
-| **Nom des fournées** | `stories-<AAAA-MM-JJ>-<sujet>/` |
+| **Nom des fournées** | `programmation-<AAAA-MM-JJ>-<sujet>/` — ⚠️ voir ci-dessous |
 | **Contenu** | `01.jpg`, `02.jpg`... (ordre de publication) + `description.txt` |
 | **Format des images** | JPEG, 1080 × 1920, sans métadonnées |
 | **Volume moyen** | 15 à 30 stories par fournée |
 
-⚠️ À ne pas confondre avec le robot carrousels, qui livre lui aussi dans
-`livraison/` mais sur une AUTRE branche (`claude/carrousel-instagram-robot-hk4743`)
-et avec le préfixe `lsl-` / `gl-`. Les stories utilisent le préfixe
-`stories-` : les deux robots ne se marchent jamais dessus.
+### 🚨 LE PRÉFIXE DU DOSSIER DÉCIDE SI LA STORY EST PUBLIÉE OU NON
+
+**Signalé par le robot du Mac, via Martin, le 27/08/2026.**
+
+Le robot ne programme QUE les dossiers dont le nom commence par
+**`programmation-`**. Les dossiers `stories-…` sont **lus mais ignorés, donc
+jamais publiés**. C'est silencieux : rien n'échoue, les images sont là, elles
+ne partent simplement pas.
+
+| | |
+|---|---|
+| ✅ publié | `livraison/programmation-2026-08-31-annonce-hiver/auto/…` |
+| ❌ ignoré | `livraison/stories-2026-08-31-annonce-hiver/auto/…` |
+
+Le reste ne change pas : sous-dossier `auto/`, fichiers `AAAA-MM-JJ-12h00-NN.jpg`.
+
+**Ce que ça a coûté** : les lots du 31/08 et du 01/09 ne sont pas partis,
+Martin les a récupérés à la main. Le dossier du stock, lui, portait déjà le bon
+préfixe — c'est pour ça que lui passait, et que le défaut est resté invisible
+si longtemps.
+
+**Corrigé le 27/08/2026** : `PREFIXE` dans `livraison.py` est passé à
+`programmation-`, et les neuf dossiers déjà livrés ont été renommés. Le
+contrôle passe (il scanne tous les dossiers, sans regarder le préfixe).
+
+⚠️ Le robot carrousels livre lui aussi dans `livraison/`, mais sur une AUTRE
+branche (`claude/carrousel-instagram-robot-hk4743`) et avec le préfixe `lsl-` /
+`gl-`. Les deux robots ne se marchent donc jamais dessus.
 
 ---
 

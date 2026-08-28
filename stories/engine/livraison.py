@@ -65,7 +65,12 @@ LIVRAISON = REPO / "livraison"
 REGISTRE = ROOT / "robot" / "traite.json"
 
 W_ATTENDU, H_ATTENDU = 1080, 1920
-PREFIXE = "stories-"
+# ⚠️ PREFIXE : « programmation- », pas « stories- ».
+# Signale par Martin le 27/08/2026 : le robot du Mac ne programme QUE les
+# dossiers dont le nom commence par « programmation- ». Les fournees livrees
+# sous « stories- » etaient donc vues mais jamais mises en file. Le dossier du
+# stock, lui, portait deja le bon prefixe -- c'est pour ca que lui passait.
+PREFIXE = "programmation-"
 
 # Ordre de diffusion conseillé quand plusieurs lots partent ensemble : les
 # séquences d'aide d'abord (elles donnent), les formats interactifs ensuite.
