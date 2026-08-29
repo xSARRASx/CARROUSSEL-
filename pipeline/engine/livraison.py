@@ -59,6 +59,7 @@ MARQUES = {
 JETONS_IGNORES = {"v1", "v2", "v3", "build", "deck", "carrousel", "carroussel"}
 
 NB_SLIDES = 10
+MAX_DESCRIPTION = 2000       # limite Instagram via Metricool (regle 15)
 MARQUES_ATTENDUES = ("lesousloueur", "guestlucky")
 
 
@@ -183,6 +184,23 @@ def livrer(slug, date=None, sujet=None, remplacer=False, video=None, titre=None)
         raise SystemExit(f"ERREUR : pas de dossier jpg dans {src}. Lance render.py d'abord.")
     if not description.is_file():
         raise SystemExit(f"ERREUR : description.txt manquant dans {src}. La legende est obligatoire.")
+
+    # 🚨 REGLE 15 (Martin, 27/08/2026) : Metricool REFUSE de publier sur Instagram
+    # une legende de plus de 2000 caracteres, et l'echec est SILENCIEUX. Constate
+    # en vrai : les legendes du 17 et du 24/08 faisaient 2700 a 4000 caracteres,
+    # les carrousels ne se sont pas postes et Martin a du les reprendre a la main.
+    # La regle vit ICI, dans le code, pas seulement dans la memoire.
+    longueur = len(description.read_text(encoding="utf-8"))
+    if longueur > MAX_DESCRIPTION:
+        raise SystemExit(
+            f"ERREUR : la legende fait {longueur} caracteres, maximum {MAX_DESCRIPTION}.\n"
+            f"Fichier : {description}\n"
+            f"Metricool refuserait de publier ce carrousel sur Instagram, en silence.\n"
+            f"Raccourcis la legende avant de livrer :\n"
+            f"  - garde l'accroche, le corps et l'appel a l'action ;\n"
+            f"  - coupe dans les exemples et les repetitions, jamais dans les chiffres ;\n"
+            f"  - vise 1500 a 1800 caracteres pour avoir de la marge."
+        )
 
     slides = sorted(jpg_dir.glob("slide_*.jpg"))
     if len(slides) != NB_SLIDES:

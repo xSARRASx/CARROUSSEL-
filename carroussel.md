@@ -52,6 +52,22 @@ gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
    dire à Martin de télécharger ou de programmer.
 10. **Honnêteté** : si une brique échoue (clé, quota, réseau), le dire clairement et
     livrer avec le fond de secours. Jamais improviser ni prétendre avoir vérifié.
+15. **LÉGENDE : 2 000 CARACTÈRES MAXIMUM, JAMAIS PLUS** (règle posée par Martin
+    le 27/08/2026, après un échec réel). **Metricool refuse de publier sur
+    Instagram une légende de plus de 2 000 caractères, et l'échec est SILENCIEUX** :
+    le carrousel ne part pas, personne n'est prévenu. C'est arrivé aux quatre
+    carrousels des 17 et 24/08 (entre 2 700 et 4 000 caractères), que Martin a dû
+    reprendre à la main.
+    - **Cible de rédaction : 1 500 à 1 800 caractères**, pour garder de la marge.
+    - Ce qu'on coupe en premier : les exemples redondants et les reformulations.
+      **Jamais les chiffres, jamais les mises en garde d'honnêteté, jamais l'appel
+      à l'action.**
+    - ✅ **La règle est DANS LE CODE** : `livraison.py` compte les caractères et
+      **refuse la livraison** au-delà de 2 000 (`MAX_DESCRIPTION`). Une règle qui
+      n'existe que dans cette mémoire finit toujours par être oubliée.
+    - La dérive avait commencé dès le 10/08 (2 090 caractères) sans que personne
+      ne le voie. D'où le garde-fou automatique.
+
 14. **VIDÉO HORS THÈME : TOUJOURS PRODUIRE LE SOUS LOUEUR** (décision de Martin
     le 03/08/2026). La chaîne évolue vers le business, le développement personnel
     et l'investissement : Sébastien l'annonce lui-même en fin de vidéo. Quand la
