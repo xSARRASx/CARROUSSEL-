@@ -55,8 +55,15 @@ def nettoyer(brut):
         # "0:07", "12:34", "1:02:03" seuls sur leur ligne
         if re.fullmatch(r"\d{1,2}:\d{2}(:\d{2})?", ligne):
             continue
-        # "0:077 secondes" / "12 minutes et 3 secondes" colles par certains export
-        ligne = re.sub(r"^\d{1,2}:\d{2}(:\d{2})?\d*\s*(secondes?|minutes?.*?secondes?)?", "", ligne).strip()
+        # Titres de chapitres ajoutes par l'interface YouTube
+        if re.match(r"^Chapter\s+\d+\s*:", ligne, re.I):
+            continue
+        # Horodatage colle au texte, en francais OU en anglais :
+        #   "0:077 secondes...", "12 minutes et 3 secondes...", "0:000 secondsMenage..."
+        ligne = re.sub(
+            r"^\d{1,2}:\d{2}(:\d{2})?\d*\s*"
+            r"(secondes?|seconds?|minutes?(\s*(et|,)\s*\d+\s*(secondes?|seconds?))?)?\s*",
+            "", ligne).strip()
         if ligne:
             lignes.append(ligne)
     return " ".join(lignes)

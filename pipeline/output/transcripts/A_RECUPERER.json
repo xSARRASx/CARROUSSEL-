@@ -1,8 +1,0 @@
-{
-  "video_id": "sWiie3c__Lo",
-  "titre": "Ménage Airbnb : le business caché qui rapporte gros",
-  "lien": "https://www.youtube.com/watch?v=sWiie3c__Lo",
-  "duree_secondes": 1372,
-  "raison": "detection anti-robot YouTube sur l'IP de ce serveur",
-  "quoi_faire": "Recuperer la transcription francaise de cette video depuis le Mac, puis la deposer avec : python3 pipeline/engine/depot_transcript.py --video <id> --titre \"<titre>\" --fichier <texte.txt>, puis commit et push."
-}
