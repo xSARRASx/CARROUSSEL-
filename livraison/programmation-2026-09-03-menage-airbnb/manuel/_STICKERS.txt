@@ -1,0 +1,55 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-09-26-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Le principal problème des conciergeries, c'est de trouver des propriétaires.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-26-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Une conciergerie choisit son prestataire de ménage d'abord sur quoi ?
+    Option 1 : Le prix
+    Option 2 : La fiabilité
+    Option 3 : La proximité
+    (La bonne reponse est "La fiabilité", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-26-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Proposer le linge en plus du ménage, ça se facture combien de plus ?
+    Option 1 : 5 à 10 %
+    Option 2 : 20 à 30 %
+    Option 3 : 50 %
+    (La bonne reponse est "20 à 30 %", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-09-26-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Le ménage de tes logements, c'est qui ?
+    Option 1 : Moi-même
+    Option 2 : Un prestataire
+    Option 3 : Une équipe salariée
+    Option 4 : Ça dépend des jours
+
+--- 2026-09-26-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Trouver quelqu'un de fiable pour le ménage, c'est dur chez toi ?
+    Option 1 : Mission impossible
+    Option 2 : Compliqué
+    Option 3 : J'ai ma perle rare
+

@@ -295,6 +295,38 @@ STICKERS = {
         "options": ["Moins de 5 %", "5 à 15 %", "Plus de 15 %", "Je n'ai pas regardé"],
     },
 
+    # ===================== interactifs-09 : le quiz menage Airbnb ============
+    "quiz09_02": {
+        "type": "Sondage",
+        "question": "Le principal problème des conciergeries, c'est de trouver des propriétaires.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz09_04": {
+        "type": "Sondage",
+        "question": "Une conciergerie choisit son prestataire de ménage d'abord sur quoi ?",
+        "options": ["Le prix", "La fiabilité", "La proximité"],
+        "reponse": "La fiabilité",
+    },
+    "quiz09_06": {
+        "type": "Sondage",
+        "question": "Proposer le linge en plus du ménage, ça se facture combien de plus ?",
+        "options": ["5 à 10 %", "20 à 30 %", "50 %"],
+        "reponse": "20 à 30 %",
+    },
+
+    # ===================== interactifs-09 : les sondages =====================
+    "sondage09_01": {
+        "type": "Sondage",
+        "question": "Le ménage de tes logements, c'est qui ?",
+        "options": ["Moi-même", "Un prestataire", "Une équipe salariée", "Ça dépend des jours"],
+    },
+    "sondage09_02": {
+        "type": "Sondage",
+        "question": "Trouver quelqu'un de fiable pour le ménage, c'est dur chez toi ?",
+        "options": ["Mission impossible", "Compliqué", "J'ai ma perle rare"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les

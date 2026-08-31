@@ -275,9 +275,17 @@ def controle():
             continue
         if not (d / "description.txt").is_file() and not (d / "calendrier.txt").is_file():
             alertes.append(f"{d.name} : description.txt ou calendrier.txt manquant")
-        # numérotation continue, sans trou
-        if not (d / "auto").is_dir() or not (d / "manuel").is_dir():
-            alertes.append(f"{d.name} : sous-dossiers auto/ et manuel/ attendus")
+        # `auto/` est le SEUL dossier que le robot Mac programme : s'il manque,
+        # la fournee ne partira jamais, c'est une vraie alerte.
+        # `manuel/` en revanche peut legitimement ne pas exister : une fournee
+        # sans quiz ni sondage n'a aucune story a sticker, et git ne sait pas
+        # conserver un dossier vide -- il disparait au clone suivant. On ne le
+        # reclame donc que si des images manuelles existent vraiment.
+        # (Fausse alerte reperee le 31/08/2026 sur trois fournees de reserve :
+        # elle faisait sortir --controle en erreur et noyait les vraies.)
+        if not (d / "auto").is_dir():
+            alertes.append(f"{d.name} : sous-dossier auto/ manquant, "
+                           f"le robot n'a rien a programmer")
         if list(d.glob("manuel/*.jpg")) and not (d / "manuel" / "_STICKERS.txt").is_file():
             alertes.append(f"{d.name} : manuel/_STICKERS.txt manquant "
                            f"(le texte des stickers doit voyager avec les images)")

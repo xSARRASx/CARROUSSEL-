@@ -841,6 +841,34 @@ préparer sa déclaration meublée toute l'année, contenu intemporel) attend da
 `livraison/stories-2026-08-20-declaration-lmnp/reserve/`. À servir en priorité
 la prochaine fois qu'un réveil tombe à vide.
 
+**2 sexies. NE JAMAIS pré-placer une réserve sur les jours d'un réveil à venir.**
+Appris le 31/08/2026, et ça coûte une semaine de décalage. Le réveil du 27/08
+(jeudi) couvrait jeudi 27 + vendredi 28 — sa part de la semaine. Mais deux
+séquences de réserve ont en plus été livrées sur **lundi 31/08 et mardi 01/09**,
+qui appartiennent au réveil du LUNDI. Le lundi venu, la vidéo fraîche du
+dimanche (le ménage Airbnb) n'avait plus un seul jour libre. Martin ayant déjà
+récupéré ces deux lots à la main, impossible de les déloger : la fournée fraîche
+a dû glisser sur **jeudi 03/09 + vendredi 04/09**, ceux du réveil suivant, qui
+glissera à son tour. Le décalage se propage jusqu'à la première semaine sans
+vidéo, qui l'absorbe.
+👉 Règle : une réserve ne se place QUE sur les jours de la fournée en cours
+(lundi+mardi pour un réveil du lundi, jeudi+vendredi pour un réveil du jeudi).
+Les jours du réveil suivant restent libres — c'est du contenu intemporel, il
+peut attendre ; l'actualité fraîche, non.
+👉 Et le stock (`programmation.py --debut`) démarre **au moins une semaine après
+le dernier jour livré**, pas le lendemain : il lui faut laisser 4 jours auto de
+marge (les 2 prochains réveils). Le 31/08, il a été relancé au **14/09** pour
+laisser libres 07, 08, 10 et 11/09.
+
+**2 septies. `--controle` : un `manuel/` absent n'est PAS une anomalie.**
+Une fournée sans quiz ni sondage n'a aucune story à sticker, donc son dossier
+`manuel/` est vide — et **git ne sait pas conserver un dossier vide**, il
+disparaît au clone suivant. Le contrôle réclamait `auto/` ET `manuel/` : au
+31/08 il sortait en erreur sur trois fournées parfaitement saines, ce qui aurait
+fini par faire ignorer les vraies alertes. Corrigé : seul `auto/` est exigé (le
+robot Mac ne programme que celui-là), et `manuel/` n'est réclamé que si des
+images manuelles existent vraiment.
+
 **3. `write_lot` n'efface pas les anciens fichiers.**
 Si on renomme une séquence, les JPEG de l'ancien nom restent dans
 `stories/output/<lot>/` et `livraison.py` les livre EN DOUBLE. Après tout
@@ -1108,6 +1136,24 @@ main. Le contrôle de livraison reste vert.
 - **Prochaine étape :** mercredi 5 août, récupérer la transcription de la vidéo
   du soir et compléter la séquence du jeudi 6 août (placeholder posé dans le
   fichier semaine 01).
+
+- **2026-08-31 (réveil du lundi) : banque-09, le ménage Airbnb.** Vidéo
+  `sWiie3c__Lo` « Ménage Airbnb : le business caché qui rapporte gros ».
+  Transcription **fournie par Martin** (YouTube toujours bloqué par le quota IP).
+  3 séquences : `AA_menage_business_cache` (6), `AB_decrocher_contrats` (5),
+  `AC_recruter_menage` (5) + `interactifs-09` (quiz 3 questions + 2 sondages).
+  Écartés volontairement : les outils maison cités dans la vidéo (règle de
+  séparation des marques) et le passage sur la facturation électronique, déjà
+  traité par banque-04.
+  ⚠️ **La fournée a dû glisser au jeudi 03/09 + vendredi 04/09** : lundi 31/08 et
+  mardi 01/09 étaient déjà occupés par deux séquences de réserve placées le
+  27/08, que Martin avait récupérées à la main. Voir le piège **2 sexies** —
+  une réserve ne se place plus jamais sur les jours d'un réveil à venir.
+  Stock relancé au **14/09** (au lieu du lendemain) pour laisser 07, 08, 10 et
+  11/09 libres aux deux prochains réveils.
+  👉 **Où ancrer le prochain réveil :** jeudi 03/09 → `--date 2026-09-07
+  --reveil lundi` ; lundi 07/09 → `--date 2026-09-10 --reveil jeudi`. Le
+  décalage se résorbe à la première semaine sans vidéo.
 
 ---
 
