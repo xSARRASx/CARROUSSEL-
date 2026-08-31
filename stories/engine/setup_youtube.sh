@@ -34,6 +34,16 @@ if [ ! -d /root/bgutil-ytdlp-pot-provider/server/build ]; then
 fi
 [ -f /root/bgutil-ytdlp-pot-provider/server/build/main.js ] \
     && echo "     construit" || echo "     ECHEC de construction"
+# ⚠️ LE CONSTRUIRE NE SUFFIT PAS, IL FAUT LE DEMARRER (trouve le 31/08/2026).
+# Sans le serveur lance, yt-dlp echoue sur « Unable to fetch GVS PO Token:
+# Missing required Visitor Data ». Une fois lance, ce message disparait.
+if ! curl -sS --noproxy '*' --max-time 3 http://127.0.0.1:4416/ping >/dev/null 2>&1; then
+    ( cd /root/bgutil-ytdlp-pot-provider/server && nohup node build/main.js >/tmp/bgutil.log 2>&1 & )
+    sleep 6
+fi
+curl -sS --noproxy '*' --max-time 3 http://127.0.0.1:4416/ping >/dev/null 2>&1 \
+    && echo "     serveur de jetons DEMARRE (port 4416)" \
+    || echo "     serveur de jetons NON demarre -- voir /tmp/bgutil.log"
 
 echo "4/4  configuration permanente"
 mkdir -p /root/.config/yt-dlp

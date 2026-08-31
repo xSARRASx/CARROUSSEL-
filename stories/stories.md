@@ -253,6 +253,33 @@ Elle produit `<ID>.fr-orig.json3` — **la VO française, à privilégier** sur
 `<ID>.fr`. Parsing : concaténer les `segs[].utf8` de chaque `events[]`, joindre
 par un espace. Plus besoin de forcer `player_client`.
 
+### 📈 CE QUI A ÉTÉ GAGNÉ LE 31/08/2026 (et ce qui bloque encore)
+
+Le script a fait tomber les blocages **un par un**. Chaque message d'erreur
+était une étape, pas un mur :
+
+| Message | Ce qu'il fallait faire | État |
+|---|---|---|
+| `No supported JavaScript runtime` | `/opt/node22/bin/node` (celui du PATH est en 20.x, refusé) | ✅ réglé |
+| `Missing required Visitor Data` | **DÉMARRER** le serveur de jetons PO, pas seulement le construire | ✅ réglé |
+| `challenge solver script was skipped` | `--remote-components ejs:github` | ✅ dispo |
+| `Sign in to confirm you're not a bot` | rien de local : quota sur l'IP | ❌ reste |
+
+⚠️ **LE PIÈGE DU 31/08** : construire le serveur de jetons ne suffit pas, **il
+faut le lancer**. `node build/main.js` sur le port 4416. Le script le fait
+désormais tout seul et vérifie avec `/ping`. Sans lui : « Missing required
+Visitor Data ».
+
+⚠️ **LE CLIENT `tv` ATTEINT ENCORE LA VIDÉO** quand le client web est bloqué :
+il ne renvoie pas d'erreur anti-robot et permet au moins `--list-subs`. Mais il
+n'expose **aucun format**, donc pas d'audio. Utile pour SAVOIR si une vidéo a
+des sous-titres, pas pour les récupérer.
+
+⚠️ **QUATRE VIDÉOS D'AFFILÉE SANS AUCUN SOUS-TITRE** (20, 24, 27, 31 août).
+Ce n'est plus une exception, c'est la norme sur cette chaîne : ne plus compter
+sur les sous-titres automatiques. Le chemin normal est devenu : audio +
+Whisper, et si l'audio est bloqué, demander la transcription à Martin.
+
 ### 🚫 CE QUI NE SERT À RIEN — testé, ne pas y repasser de temps
 
 **`--impersonate` / `curl_cffi`.** Le proxy sortant du conteneur re-termine le
