@@ -34,6 +34,8 @@ import subprocess
 import sys
 import tempfile
 import time
+import urllib.parse
+import urllib.request
 
 # Chaine YouTube source (les videos du dimanche de Sebastien More).
 CHANNEL_HANDLE = "moresebastien"
@@ -79,6 +81,26 @@ def _run_ytdlp(args):
 # --------------------------------------------------------------------------
 # MORCEAU 1 : trouver la derniere VRAIE video (sans shorts)
 # --------------------------------------------------------------------------
+
+def titre_reel(video_id):
+    """Le VRAI titre francais, via l'API publique oEmbed de YouTube.
+
+    🚨 POURQUOI : depuis ce serveur, yt-dlp renvoie les titres TRADUITS
+    automatiquement (« Airbnb Cleaning: The Hidden Business That Pays Big » au
+    lieu de « Menage Airbnb : le business cache qui rapporte gros »). oEmbed, lui,
+    renvoie le titre d'origine tel que Sebastien l'a ecrit.
+    Bonus verifie le 31/08/2026 : oEmbed CONTINUE DE REPONDRE meme quand YouTube
+    bloque l'IP pour les pages video. C'est donc aussi le moyen de connaitre le
+    sujet reel d'une video qu'on n'arrive pas encore a transcrire.
+    Renvoie None si l'appel echoue : on retombe alors sur le titre de yt-dlp."""
+    api = ("https://www.youtube.com/oembed?format=json&url="
+           + urllib.parse.quote("https://www.youtube.com/watch?v=" + video_id, safe=""))
+    try:
+        with urllib.request.urlopen(api, timeout=30) as r:
+            return json.loads(r.read().decode("utf-8")).get("title") or None
+    except Exception:
+        return None
+
 
 def get_latest_video():
     """Renvoie la derniere vraie video de l'onglet "Videos" sous forme de
@@ -438,7 +460,7 @@ def verifier():
     livree, detail = video_livree(video["id"])
 
     print("Derniere video de la chaine :")
-    print("  - Titre       :", video["title"])
+    print("  - Titre       :", titre_reel(video["id"]) or video["title"])
     print("  - Identifiant :", video["id"])
     print("  - Lien        :", video["url"])
     print("  - Transcript  :", os.path.basename(deja) if deja else "aucun")
@@ -482,6 +504,11 @@ def main():
     else:
         print("[1/3] Recherche de la derniere vraie video (sans shorts)...")
         video = get_latest_video()
+    vrai = titre_reel(video["id"])
+    if vrai and vrai != video.get("title"):
+        print("      (titre reel recupere via oEmbed, celui de yt-dlp etait traduit)")
+        video["title"] = vrai
+
     dur = video.get("duration")
     dur_txt = ("%dmin%02ds" % (dur // 60, dur % 60)) if dur else "?"
     print("      - Titre :", video["title"])
