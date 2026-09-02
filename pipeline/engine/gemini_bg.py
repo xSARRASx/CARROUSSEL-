@@ -141,22 +141,34 @@ LIGHTING
 """ + COMMON_RULES,
 }
 
+# 🚨 CONSTAT DE MARTIN (02/09/2026) : les fonds se ressemblaient TOUS.
+# La cause etait ici : cette liste d'objets etait FIGEE. Le theme de la semaine
+# ne changeait qu'une phrase de contexte, jamais les objets. D'ou le meme carnet,
+# le meme telephone et la meme tasse chaque semaine, juste deplaces.
+# Desormais ce sont des CONSIGNES : le modele choisit lui-meme des objets qui
+# illustrent le sujet. Et le mieux reste de passer une liste explicite via
+# l'argument objects=, ecrite d'apres la transcription de la semaine.
 DEFAULT_OBJECTS = {
     "lesousloueur": (
-        "- One closed kraft document folder with a completely BLANK cover\n"
-        "- A neat stack of white paper sheets, all pages completely BLANK\n"
-        "- A pair of apartment keys on a small natural wood keychain\n"
-        "- One elegant pen with an orange barrel\n"
-        "- Thin-frame reading glasses\n"
-        "- One white ceramic espresso cup on a saucer\n"
-        "- Two or three small orange paper clips"
+        "- CHOOSE 4 to 6 objects that LITERALLY illustrate the theme above.\n"
+        "  They must be recognisable as belonging to THAT subject, not to a\n"
+        "  generic desk. A viewer who sees only the photo should be able to\n"
+        "  guess what the carousel talks about.\n"
+        "- Vary the composition from one shoot to the next: sometimes a wide\n"
+        "  flat-lay, sometimes a tight close-up on one or two objects only.\n"
+        "- Keep every printed surface BLANK: no readable text, no logo,\n"
+        "  no numbers, no user interface on any screen.\n"
+        "- At most one small orange object, as the accent touch."
     ),
     "guestlucky": (
-        "- A small stack of dark folders perfectly aligned, BLANK covers\n"
-        "- A tidy pile of white paper sheets, completely BLANK\n"
-        "- One smartphone laying flat, screen COMPLETELY OFF, dark glass\n"
-        "- One elegant dark pen placed parallel to the papers\n"
-        "- One small dark ceramic cup, matte finish\n"
+        "- CHOOSE 4 to 6 objects that LITERALLY illustrate the theme above.\n"
+        "  They must be recognisable as belonging to THAT subject, not to a\n"
+        "  generic desk. A viewer who sees only the photo should be able to\n"
+        "  guess what the carousel talks about.\n"
+        "- Vary the composition from one shoot to the next: sometimes a wide\n"
+        "  desk, sometimes a tight close-up on one or two objects only.\n"
+        "- Keep every printed surface BLANK: no readable text, no logo,\n"
+        "  no numbers, no user interface on any screen.\n"
         "- Background dissolving into soft dark bokeh"
     ),
 }
