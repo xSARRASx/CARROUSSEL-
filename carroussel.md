@@ -52,6 +52,35 @@ gardés pour référence : ne plus les utiliser pour de nouveaux carrousels.
    dire à Martin de télécharger ou de programmer.
 10. **Honnêteté** : si une brique échoue (clé, quota, réseau), le dire clairement et
     livrer avec le fond de secours. Jamais improviser ni prétendre avoir vérifié.
+16. **LA COUVERTURE CHANGE DE FORME À CHAQUE FOIS** (règle posée par Martin
+    le 02/09/2026). Sur le profil Instagram, toutes les premières pages avaient
+    la même silhouette : bandeau, gros titre centré, filet, sous-titre. Vu en
+    grille, ça faisait répétitif et bâclé. Martin a tranché : **« mets de tout ».**
+    - **CINQ archétypes disponibles** dans `design_v2.py` :
+      `cover()` (l'historique), `cover_chiffre()`, `cover_aplat()`,
+      `cover_citation()`, `cover_duo()`.
+    - ✅ **La rotation est DANS LE CODE** : `couvertures_possibles(marque)` écarte
+      celui de la semaine dernière et celui que l'autre marque vient de prendre.
+      Appeler `noter_couverture(marque, nom)` après avoir écrit le carrousel.
+      Registre : `pipeline/output/couvertures.json`.
+    - **Choisir selon le SUJET, pas au hasard** : le chiffre plein cadre exige un
+      vrai chiffre marquant ; la citation exige une phrase **réellement prononcée
+      dans la vidéo**, jamais inventée ; le duo exige deux états vraiment opposés.
+      Si rien ne colle, prendre `cover()`.
+
+17. **LE FOND DOIT PARLER DU SUJET** (même constat de Martin, 02/09/2026). Les
+    fonds Guestlucky se ressemblaient tous : même carnet, même téléphone, même
+    tasse, juste déplacés. La cause était `DEFAULT_OBJECTS` dans `gemini_bg.py`,
+    une liste **figée** que le thème hebdomadaire ne changeait jamais.
+    - C'est corrigé : le prompt demande maintenant **4 à 6 objets qui illustrent
+      littéralement le sujet**, et fait varier la composition (plan large ou gros
+      plan). Quelqu'un qui ne voit que la photo doit deviner le sujet.
+    - **Le mieux reste de passer une liste explicite** :
+      `generate_background(marque, theme, fichier, objects="- un trousseau...")`,
+      écrite d'après la transcription de la semaine. Le faire dès que le sujet
+      s'y prête, plutôt que de s'en remettre au modèle.
+    - Les surfaces imprimées restent **vierges** : jamais de texte lisible.
+
 15. **LÉGENDE : 2 000 CARACTÈRES MAXIMUM, JAMAIS PLUS** (règle posée par Martin
     le 27/08/2026, après un échec réel). **Metricool refuse de publier sur
     Instagram une légende de plus de 2 000 caractères, et l'échec est SILENCIEUX** :

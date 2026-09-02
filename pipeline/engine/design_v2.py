@@ -22,6 +22,7 @@ Usage :
 """
 
 import base64
+import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -256,6 +257,63 @@ CSS_TPL = """
 .cov .cf{font-size:23px;font-weight:500;font-style:italic;margin-top:22px;
   color:rgba(255,255,255,0.80);}
 
+/* ---- COUVERTURES ALTERNATIVES (Martin, 02/09/2026) -----------------------
+   Toutes les couvertures se ressemblaient sur le profil Instagram : meme
+   silhouette, seuls les mots changeaient. On dispose maintenant de CINQ
+   archetypes, a faire TOURNER. Voir la regle 16 dans carroussel.md.        */
+
+/* A. le chiffre plein cadre */
+.cvA{position:absolute;inset:0;padding:96px 84px 176px;z-index:2;display:flex;
+  flex-direction:column;justify-content:center;}
+.cvA .eyb{font-size:23px;font-weight:800;letter-spacing:6px;text-transform:uppercase;
+  color:{{A2}};}
+.cvA .big{font-size:206px;font-weight:900;line-height:0.82;letter-spacing:-10px;
+  color:{{A1}};margin-top:18px;}
+.cvA .big small{font-size:94px;letter-spacing:-4px;}
+.cvA .un{font-size:34px;font-weight:800;line-height:1.15;margin-top:26px;
+  text-transform:uppercase;}
+.cvA .sub{font-size:27px;font-weight:600;line-height:1.34;margin-top:20px;max-width:820px;
+  color:rgba(255,255,255,0.90);}
+
+/* B. l'aplat de couleur */
+.cvB{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;}
+.cvB .haut{flex:1;}
+.cvB .bloc{background:{{A1}};padding:56px 72px 64px;margin-bottom:118px;}
+.cvB .bloc .q{font-size:60px;font-weight:900;line-height:1.06;letter-spacing:-2px;
+  text-transform:uppercase;color:#fff;}
+.cvB .bloc .r{font-size:26px;font-weight:600;line-height:1.34;margin-top:22px;
+  color:rgba(255,255,255,0.95);}
+.cvB .etq{position:absolute;top:96px;left:84px;font-size:23px;font-weight:800;
+  letter-spacing:6px;text-transform:uppercase;color:#fff;}
+
+/* C. la citation */
+.cvC{position:absolute;inset:0;padding:110px 84px 176px;z-index:2;display:flex;
+  flex-direction:column;justify-content:center;}
+.cvC .guil{font-size:196px;font-weight:900;line-height:0.5;color:{{A1}};opacity:0.55;}
+.cvC .phr{font-size:52px;font-weight:800;line-height:1.14;letter-spacing:-1px;margin-top:14px;}
+.cvC .phr em{font-style:normal;color:{{A1}};}
+.cvC .qui{font-size:25px;font-weight:600;margin-top:34px;color:rgba(255,255,255,0.86);}
+.cvC .qui b{color:#fff;}
+
+/* D. le duo avant / apres */
+.cvD{position:absolute;inset:0;padding:96px 60px 176px;z-index:2;display:flex;
+  flex-direction:column;justify-content:center;}
+.cvD .eyb{font-size:23px;font-weight:800;letter-spacing:6px;text-transform:uppercase;
+  color:{{A2}};text-align:center;}
+.cvD .tt{font-size:50px;font-weight:900;line-height:1.06;text-transform:uppercase;
+  text-align:center;margin-top:22px;letter-spacing:-1px;}
+.cvD .cols{display:flex;gap:22px;margin-top:44px;}
+.cvD .col{flex:1;background:rgba(255,255,255,0.07);border-radius:22px;padding:30px 26px;
+  border:1px solid rgba(255,255,255,0.14);}
+.cvD .col.on{background:{{A1}};border-color:{{A1}};}
+.cvD .col .k{font-size:21px;font-weight:800;letter-spacing:3px;text-transform:uppercase;
+  color:{{A2}};}
+.cvD .col.on .k{color:#fff;}
+.cvD .col .v{font-size:62px;font-weight:900;line-height:0.98;margin-top:14px;color:{{A1}};}
+.cvD .col.on .v{color:#fff;}
+.cvD .col .d{font-size:23px;font-weight:600;line-height:1.3;margin-top:14px;
+  color:rgba(255,255,255,0.88);}
+
 /* CTA */
 .cta{position:absolute;inset:0;padding:96px 84px 176px;z-index:2;display:flex;
   flex-direction:column;justify-content:center;align-items:center;text-align:center;}
@@ -393,6 +451,49 @@ class Deck:
                 '<div class="ct">%s</div><div class="cr"></div>'
                 '<div class="cs">%s</div>%s</div>' % (eyebrow, title, subtitle, fn) +
                 self._logo(big=True, chevron=True))
+
+    def cover_chiffre(self, eyebrow, chiffre, unite, titre, subtitle):
+        """COUVERTURE A : un chiffre enorme tire de la video, titre en dessous.
+        A reserver aux sujets qui portent un vrai chiffre marquant."""
+        u = '<small> %s</small>' % unite if unite else ""
+        return (self._open() +
+                '<div class="cvA"><div class="eyb">%s</div>'
+                '<div class="big">%s%s</div><div class="un">%s</div>'
+                '<div class="sub">%s</div></div>'
+                % (eyebrow, chiffre, u, titre, subtitle) +
+                self._logo(big=True, chevron=True))
+
+    def cover_aplat(self, eyebrow, question, reponse):
+        """COUVERTURE B : bandeau de couleur pleine en bas, question dessus.
+        C'est la plus visible de loin dans une grille de vignettes sombres."""
+        return (self._open() +
+                '<div class="cvB"><div class="etq">%s</div><div class="haut"></div>'
+                '<div class="bloc"><div class="q">%s</div>'
+                '<div class="r">%s</div></div></div>' % (eyebrow, question, reponse) +
+                self._logo(big=False, chevron=True))
+
+    def cover_citation(self, phrase, auteur, role):
+        """COUVERTURE C : une phrase forte de la video, entre guillemets.
+        La phrase doit etre VRAIMENT dite dans la video, jamais inventee."""
+        return (self._open() +
+                '<div class="cvC"><div class="guil">&laquo;</div>'
+                '<div class="phr">%s</div>'
+                '<div class="qui">%s, <b>%s</b></div></div>' % (phrase, auteur, role) +
+                self._logo(big=True, chevron=True))
+
+    def cover_duo(self, eyebrow, titre, gauche, droite):
+        """COUVERTURE D : deux etats opposes cote a cote.
+        gauche et droite = (etiquette, valeur, phrase). La droite est mise en avant."""
+        def col(t3, actif):
+            k, v, d = t3
+            return ('<div class="col%s"><div class="k">%s</div>'
+                    '<div class="v">%s</div><div class="d">%s</div></div>'
+                    % (" on" if actif else "", k, v, d))
+        return (self._open() +
+                '<div class="cvD"><div class="eyb">%s</div><div class="tt">%s</div>'
+                '<div class="cols">%s%s</div></div>'
+                % (eyebrow, titre, col(gauche, False), col(droite, True)) +
+                self._logo(big=False, chevron=True))
 
     def mindmap(self, num, title, eyebrow, core, branches, foot_label=None, foot_value="", lead=None):
         """Carte mentale : un noyau central + 4 branches (haut/bas x gauche/droite)."""
@@ -544,6 +645,51 @@ class Deck:
             (out / ("slide_%02d.html" % i)).write_text(html, encoding="utf-8")
         print("%d slides HTML ecrites dans %s. Tirets longs : %d" % (len(slides), out, bad))
         return out
+
+
+# --------------------------------------------------------------------------
+# ROTATION DES COUVERTURES (regle 16, Martin le 02/09/2026)
+# --------------------------------------------------------------------------
+# Le profil Instagram faisait moche : toutes les premieres pages avaient la
+# meme silhouette. On dispose de CINQ archetypes ; ces deux fonctions
+# garantissent qu'on ne reprend jamais le meme deux semaines de suite pour une
+# marque, ni le meme sur les deux marques la meme semaine.
+
+COUVERTURES = ("cover", "cover_chiffre", "cover_aplat", "cover_citation", "cover_duo")
+JOURNAL_COUVERTURES = ROOT / "output" / "couvertures.json"
+
+
+def _journal_couvertures():
+    if JOURNAL_COUVERTURES.is_file():
+        try:
+            return json.loads(JOURNAL_COUVERTURES.read_text(encoding="utf-8"))
+        except ValueError:
+            pass
+    return {}
+
+
+def couvertures_possibles(marque, deja_prise=None):
+    """Les archetypes autorises cette semaine pour cette marque, du plus au
+    moins souhaitable. On ecarte celui de la semaine derniere et celui que
+    l'autre marque vient de prendre. Choisis ensuite celui qui colle au SUJET :
+    le chiffre demande un vrai chiffre marquant, la citation une phrase
+    reellement prononcee dans la video."""
+    j = _journal_couvertures()
+    interdits = {j.get(marque), deja_prise}
+    libres = [c for c in COUVERTURES if c not in interdits]
+    return libres or list(COUVERTURES)
+
+
+def noter_couverture(marque, nom):
+    """A appeler apres avoir ecrit le carrousel, pour que la semaine suivante
+    sache quoi eviter."""
+    assert nom in COUVERTURES, "archetype de couverture inconnu : %s" % nom
+    j = _journal_couvertures()
+    j[marque] = nom
+    JOURNAL_COUVERTURES.parent.mkdir(parents=True, exist_ok=True)
+    JOURNAL_COUVERTURES.write_text(json.dumps(j, ensure_ascii=False, indent=2) + "\n",
+                                   encoding="utf-8")
+    return nom
 
 
 def acc(word):
