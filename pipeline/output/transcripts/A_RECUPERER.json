@@ -1,0 +1,8 @@
+{
+  "video_id": "ARDRtYtIgSk",
+  "titre": "Frais Airbnb : Ce qui change vraiment pour les hôtes",
+  "lien": "https://www.youtube.com/watch?v=ARDRtYtIgSk",
+  "duree_secondes": 1518,
+  "raison": "detection anti-robot YouTube sur l'IP de ce serveur",
+  "quoi_faire": "Recuperer la transcription francaise de cette video depuis le Mac, puis la deposer avec : python3 pipeline/engine/depot_transcript.py --video <id> --titre \"<titre>\" --fichier <texte.txt>, puis commit et push."
+}
