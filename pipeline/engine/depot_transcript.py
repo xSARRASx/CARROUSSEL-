@@ -56,7 +56,7 @@ def nettoyer(brut):
         if re.fullmatch(r"\d{1,2}:\d{2}(:\d{2})?", ligne):
             continue
         # Titres de chapitres ajoutes par l'interface YouTube
-        if re.match(r"^Chapter\s+\d+\s*:", ligne, re.I):
+        if re.match(r"^(Chapter|Chapitre)\s+\d+\s*:", ligne, re.I):
             continue
         # Horodatage colle au texte, en francais OU en anglais :
         #   "0:077 secondes...", "12 minutes et 3 secondes...", "0:000 secondsMenage..."
