@@ -312,6 +312,38 @@ curl "https://www.youtube.com/oembed?url=<URL>&format=json"   # vrai titre FR
 foncière ? ») là où le listing renvoie parfois la traduction anglaise. C'est le
 moyen le plus sûr d'identifier une vidéo quand tout le reste est bloqué.
 
+### ✅ 03/09/2026 — LE QUOTA 429 N'EST PLUS FATAL : `player_client=mweb`
+
+**C'est la découverte la plus utile depuis le runtime JavaScript.** Le matin du
+03/09, le 429 était bien là (« Unable to download webpage: HTTP Error 429 »)
+et la commande par défaut échouait comme d'habitude sur « Sign in to confirm
+you're not a bot ». `tv` a échoué aussi. **`mweb` est passé et a livré les
+trois pistes françaises** (`fr-orig`, `fr`, `fr-fr`).
+
+```bash
+yt-dlp --js-runtimes "node:/opt/node22/bin/node" \
+  --extractor-args "youtube:player_client=mweb" \
+  --skip-download --write-auto-sub --sub-lang "fr.*" --sub-format json3 \
+  --ignore-no-formats-error -o "%(id)s.%(ext)s" \
+  "https://www.youtube.com/watch?v=<ID>"
+```
+
+👉 **Pourquoi ça marche maintenant alors que ça échouait le 21/08.** À l'époque
+`mweb` VOYAIT les sous-titres mais refusait de les livrer, faute de jeton PO
+(« Subtitles for these languages are missing: fr »). Ce qui a changé entre
+temps, c'est que `setup_youtube.sh` **démarre** le serveur de jetons PO sur le
+port 4416 (corrigé le 31/08 — il était construit mais jamais lancé). Les deux
+morceaux réunis, `mweb` traverse le 429.
+
+👉 **L'ordre à essayer, dans cet ordre exact** : commande par défaut, puis `tv`,
+puis **`mweb`**, puis `android`, `ios`, `web_safari`, `tv_embedded`. Ne pas
+s'arrêter au premier échec : le 03/09, deux clients ont échoué avant le bon.
+
+👉 Le 429 sur la page web n'empêche donc PLUS rien : yt-dlp bascule sur l'API
+interne et récupère quand même les sous-titres. **Ne plus conclure « bloqué »
+avant d'avoir essayé les sept clients.** Demander la transcription à Martin
+reste le filet, mais ce n'est plus le premier réflexe.
+
 ### 🔑 LE CORRECTIF DÉFINITIF (pas encore en place)
 
 Passer des **cookies YouTube**, via une variable d'environnement — **jamais
@@ -841,6 +873,19 @@ préparer sa déclaration meublée toute l'année, contenu intemporel) attend da
 `livraison/stories-2026-08-20-declaration-lmnp/reserve/`. À servir en priorité
 la prochaine fois qu'un réveil tombe à vide.
 
+**2 octies. LE DOSSIER DU STOCK DOIT S'APPELER `programmation-stock-…`.**
+Le protocole commence par `rm -rf livraison/programmation-stock-*` pour libérer
+les jours. Le 31/08, `programmation.py --debut 2026-09-14` avait produit
+`programmation-2026-09-14` : **le `rm` ne l'a pas trouvé**. Résultat le 03/09 :
+le stock a gardé ses journées, et la fournée fraîche s'est fait repousser ses
+samedis de six semaines (24/10 au lieu du 03/10). Le contrôle ne l'attrape pas
+— aucune règle n'est violée, c'est juste très loin.
+👉 Corrigé à la racine : le nom par défaut de `programmation.py` est désormais
+`programmation-stock-<date>`. Le préfixe `programmation-` reste indispensable
+(c'est lui qui déclenche la publication côté Mac), `stock-` vient juste après.
+👉 Signe que c'est raté : la livraison annonce « Samedi … déjà pris, on décale »
+**plus de deux ou trois fois de suite**. Supprimer le stock et relivrer.
+
 **2 sexies. NE JAMAIS pré-placer une réserve sur les jours d'un réveil à venir.**
 Appris le 31/08/2026, et ça coûte une semaine de décalage. Le réveil du 27/08
 (jeudi) couvrait jeudi 27 + vendredi 28 — sa part de la semaine. Mais deux
@@ -1154,6 +1199,28 @@ main. Le contrôle de livraison reste vert.
   👉 **Où ancrer le prochain réveil :** jeudi 03/09 → `--date 2026-09-07
   --reveil lundi` ; lundi 07/09 → `--date 2026-09-10 --reveil jeudi`. Le
   décalage se résorbe à la première semaine sans vidéo.
+
+- **2026-09-03 (réveil du jeudi) : banque-10, la commission Airbnb à 6 %.**
+  Vidéo `ARDRtYtIgSk` « Frais Airbnb : Ce qui change vraiment pour les hôtes »
+  (le titre s'affiche traduit en anglais sur YouTube). **Transcription
+  récupérée par le robot lui-même** — première fois depuis le 20/08, grâce à
+  `player_client=mweb` (voir la section YouTube).
+  Sujet 100 % neuf : aucune fournée n'avait traité les commissions.
+  4 séquences : `AD_airbnb_teste_6` (6, lundi 07/09), `AE_les_trois_pieges`
+  (5, mardi 08/09), `AF_entonnoir_voyageurs` (6, réserve),
+  `AG_construire_sa_base` (5, réserve) + `interactifs-10` (quiz 3 questions +
+  2 sondages, samedi 03/10). 32 stories.
+  AF et AG partent en réserve **volontairement** : leur contenu est intemporel
+  (la grille inconnu / connecté / fidèle, et comment se constituer une base
+  client), c'est exactement le stock des semaines sans vidéo. AD et AE collent
+  à une actualité qui bouge — un test américain — donc ils passent devant.
+  Écartés : les outils maison cités dans la vidéo (moteur de réservation,
+  assurance, pré-checkin) au titre de la séparation des marques.
+  ✅ **Le décalage de calendrier est résorbé** : 03 et 04/09 (ménage Airbnb),
+  07 et 08/09 (commission Airbnb), 10 et 11/09 libres pour le réveil du jeudi
+  10/09, stock à partir du 14/09.
+  👉 **Où ancrer le prochain réveil :** jeudi 10/09 → `--date 2026-09-10
+  --reveil jeudi`. La grille est de nouveau d'aplomb, plus de décalage à gérer.
 
 ---
 

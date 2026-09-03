@@ -227,7 +227,15 @@ def main():
     a = ap.parse_args()
     debut = (datetime.date.fromisoformat(a.debut) if a.debut
              else datetime.date.today() + datetime.timedelta(days=1))
-    nom = a.dossier or f"programmation-{debut}"
+    # ⚠️ LE NOM PAR DEFAUT PORTE « stock » — ne pas le changer.
+    # Le protocole du reveil commence par « rm -rf livraison/programmation-stock-* »
+    # pour liberer les jours avant de livrer l'actualite fraiche. Le 14/08/2026
+    # le dossier s'appelait « programmation-2026-09-14 » : le rm ne l'a pas
+    # trouve, le stock a garde ses journees, et la fournee fraiche s'est fait
+    # repousser ses samedis d'un mois et demi. Le prefixe « programmation- »
+    # reste indispensable (c'est lui qui declenche la publication cote Mac),
+    # « stock- » vient juste apres pour rendre le dossier reconnaissable.
+    nom = a.dossier or f"programmation-stock-{debut}"
     sys.exit(0 if programmer(debut, nom) else 1)
 
 if __name__ == "__main__":

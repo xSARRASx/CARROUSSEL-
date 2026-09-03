@@ -327,6 +327,36 @@ STICKERS = {
         "options": ["Mission impossible", "Compliqué", "J'ai ma perle rare"],
     },
 
+    # ---- interactifs-10 : la commission Airbnb a 6 % (video ARDRtYtIgSk)
+    "quiz10_02": {
+        "type": "Sondage",
+        "question": "Avec le lien a 6 %, Airbnb lance enfin la reservation en direct.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz10_04": {
+        "type": "Sondage",
+        "question": "Le curseur qui reverse une partie de l'economie au voyageur, tu en fais quoi ?",
+        "options": ["Je le pousse a fond", "Je le laisse a zero", "Je coupe la poire en deux"],
+        "reponse": "Je le laisse a zero",
+    },
+    "quiz10_06": {
+        "type": "Sondage",
+        "question": "15,5 % d'un cote, 6 % de l'autre : cet ecart chiffre quoi ?",
+        "options": ["Le cout de la technologie", "Le prix de trouver le client", "La marge d'Airbnb"],
+        "reponse": "Le prix de trouver le client",
+    },
+    "sondage10_01": {
+        "type": "Sondage",
+        "question": "Tes voyageurs de l'annee, tu peux en recontacter combien sans Airbnb ?",
+        "options": ["Aucun", "Une poignee", "La plupart"],
+    },
+    "sondage10_02": {
+        "type": "Sondage",
+        "question": "Un ancien voyageur revient. Il reserve par ou ?",
+        "options": ["Airbnb, comme avant", "Mon site ou mon lien", "Il m'ecrit directement"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les

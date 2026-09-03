@@ -1,0 +1,54 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-10-03-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Avec le lien a 6 %, Airbnb lance enfin la reservation en direct.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-03-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Le curseur qui reverse une partie de l'economie au voyageur, tu en fais quoi ?
+    Option 1 : Je le pousse a fond
+    Option 2 : Je le laisse a zero
+    Option 3 : Je coupe la poire en deux
+    (La bonne reponse est "Je le laisse a zero", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-03-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : 15,5 % d'un cote, 6 % de l'autre : cet ecart chiffre quoi ?
+    Option 1 : Le cout de la technologie
+    Option 2 : Le prix de trouver le client
+    Option 3 : La marge d'Airbnb
+    (La bonne reponse est "Le prix de trouver le client", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-03-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tes voyageurs de l'annee, tu peux en recontacter combien sans Airbnb ?
+    Option 1 : Aucun
+    Option 2 : Une poignee
+    Option 3 : La plupart
+
+--- 2026-10-03-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Un ancien voyageur revient. Il reserve par ou ?
+    Option 1 : Airbnb, comme avant
+    Option 2 : Mon site ou mon lien
+    Option 3 : Il m'ecrit directement
+

@@ -26,14 +26,14 @@ lundi     2026-09-28  6 stories  — banque-02/I_condamnation_220k
 mardi     2026-09-29  6 stories  — banque-02/J_checklist_conformite
 jeudi     2026-10-01  5 stories  — banque-02/K_mythe_carte_g
 vendredi  2026-10-02  3 stories  — melange-1
-samedi    2026-10-03  8 stories  [A LA MAIN]  — interactifs-01/quiz
 lundi     2026-10-05  3 stories  — melange-2
 mardi     2026-10-06  3 stories  — melange-3
 jeudi     2026-10-08  2 stories  — melange-4
-samedi    2026-10-10  8 stories  [A LA MAIN]  — interactifs-02/quiz02
-samedi    2026-10-17  7 stories  [A LA MAIN]  — mercredi_03_question + samedi_01_radar + sondage + sondage02
+samedi    2026-10-10  8 stories  [A LA MAIN]  — interactifs-01/quiz
+samedi    2026-10-17  8 stories  [A LA MAIN]  — interactifs-02/quiz02
+samedi    2026-10-24  7 stories  [A LA MAIN]  — mercredi_03_question + samedi_01_radar + sondage + sondage02
 
 --------------------------------------------------------------
 
-99 stories, du 2026-09-14 au 2026-10-17.
-Soit 34 jours de contenu programmes d'avance.
+99 stories, du 2026-09-14 au 2026-10-24.
+Soit 41 jours de contenu programmes d'avance.
