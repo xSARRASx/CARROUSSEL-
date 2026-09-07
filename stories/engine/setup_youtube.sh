@@ -39,7 +39,15 @@ fi
 # Missing required Visitor Data ». Une fois lance, ce message disparait.
 if ! curl -sS --noproxy '*' --max-time 3 http://127.0.0.1:4416/ping >/dev/null 2>&1; then
     ( cd /root/bgutil-ytdlp-pot-provider/server && nohup node build/main.js >/tmp/bgutil.log 2>&1 & )
-    sleep 6
+    # ⚠️ ATTENDRE VRAIMENT, ne pas dormir un temps fixe. Le serveur doit d'abord
+    # resoudre le defi de YouTube avant de repondre : le 07/09/2026, un « sleep 6 »
+    # a conclu « NON demarre » alors qu'il tournait et generait des jetons.
+    # Un faux negatif ici fait perdre du temps au reveil suivant, ou pire, fait
+    # croire a un blocage YouTube.
+    for _ in $(seq 1 30); do
+        curl -sS --noproxy '*' --max-time 2 http://127.0.0.1:4416/ping >/dev/null 2>&1 && break
+        sleep 2
+    done
 fi
 curl -sS --noproxy '*' --max-time 3 http://127.0.0.1:4416/ping >/dev/null 2>&1 \
     && echo "     serveur de jetons DEMARRE (port 4416)" \
