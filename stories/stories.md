@@ -1222,6 +1222,29 @@ main. Le contrôle de livraison reste vert.
   👉 **Où ancrer le prochain réveil :** jeudi 10/09 → `--date 2026-09-10
   --reveil jeudi`. La grille est de nouveau d'aplomb, plus de décalage à gérer.
 
+- **2026-09-09 : banque-11, revenus réels contre revenus affichés.** Vidéo
+  `v8fzA9JYTHM` « Revenus réels vs revenus affichés : Le grand mensonge »,
+  sortie entre le réveil du lundi 07 (rien à traiter ce jour-là) et le
+  mercredi 09. **Transcription fournie par Martin**, hors réveil.
+  ⚠️ **Recouvrement vérifié** avec `_OOxN_7bZWI` (« 7 choses à ne jamais dire
+  quand tu commences à gagner de l'argent », traitée le 03/08 via semaine-01) :
+  ce sont bien DEUX vidéos différentes. Le seul angle commun — « les 4
+  réactions » (moquerie, jalousie, attente, calcul) — a été **délibérément
+  écarté**. Tout le reste est neuf.
+  4 séquences : `AH_le_chiffre_affiche` (6, jeudi 10/09),
+  `AI_decortiquer_un_chiffre` (5, vendredi 11/09),
+  `AJ_vrais_riches_invisibles` (6, réserve), `AK_actifs_pas_passifs`
+  (5, réserve) + `interactifs-11` (quiz 3 questions + 2 sondages, samedi
+  10/10). 32 stories.
+  👉 **Le parcours personnel de Sébastien** (dépôt de bilan, tout perdu, les
+  dîners de famille) est utilisé dans une story : il en parle lui-même
+  publiquement depuis longtemps (« j'en ai déjà parlé sur internet »). Gardé
+  factuel et sobre, comme lui. **Et aucun chiffre de revenu n'est avancé** —
+  ce serait contredire le propos même de la vidéo.
+  👉 **Où ancrer le prochain réveil :** lundi 14/09 → `--date 2026-09-14
+  --reveil lundi` (14 et 15/09 libres) ; jeudi 17/09 → `--date 2026-09-17
+  --reveil jeudi` (17 et 18/09 libres). Stock à partir du 21/09.
+
 ---
 
 ## 🕐 LA GRILLE DE DIFFUSION — UN rendez-vous par jour, à 12h00

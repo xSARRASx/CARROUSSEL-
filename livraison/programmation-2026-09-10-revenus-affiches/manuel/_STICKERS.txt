@@ -1,0 +1,55 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-10-10-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Une addition a 20 000 € postee en story : cet argent vient d'ou ?
+    Option 1 : De son activite
+    Option 2 : De ceux qui ont achete
+    Option 3 : D'un credit
+    (La bonne reponse est "De ceux qui ont achete", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-10-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Annoncer publiquement combien on gagne, c'est un gage de transparence.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-10-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Quelqu'un qui a vraiment reussi, tu le reconnais a quoi ?
+    Option 1 : Sa voiture
+    Option 2 : Son agenda plein
+    Option 3 : Son temps libre
+    (La bonne reponse est "Son temps libre", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-10-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Un chiffre affiche sur les reseaux : ton premier reflexe ?
+    Option 1 : J'y crois
+    Option 2 : Je me mefie
+    Option 3 : Je passe mon chemin
+
+--- 2026-10-10-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : L'argent que tu as gagne cette annee, il est parti ou ?
+    Option 1 : Le train de vie
+    Option 2 : Des placements
+    Option 3 : Reinvesti dans le business
+    Option 4 : Il reste sur le compte
+

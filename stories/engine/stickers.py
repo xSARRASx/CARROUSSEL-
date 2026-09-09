@@ -357,6 +357,36 @@ STICKERS = {
         "options": ["Airbnb, comme avant", "Mon site ou mon lien", "Il m'ecrit directement"],
     },
 
+    # ---- interactifs-11 : revenus reels vs revenus affiches (video v8fzA9JYTHM)
+    "quiz11_02": {
+        "type": "Sondage",
+        "question": "Une addition a 20 000 € postee en story : cet argent vient d'ou ?",
+        "options": ["De son activite", "De ceux qui ont achete", "D'un credit"],
+        "reponse": "De ceux qui ont achete",
+    },
+    "quiz11_04": {
+        "type": "Sondage",
+        "question": "Annoncer publiquement combien on gagne, c'est un gage de transparence.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz11_06": {
+        "type": "Sondage",
+        "question": "Quelqu'un qui a vraiment reussi, tu le reconnais a quoi ?",
+        "options": ["Sa voiture", "Son agenda plein", "Son temps libre"],
+        "reponse": "Son temps libre",
+    },
+    "sondage11_01": {
+        "type": "Sondage",
+        "question": "Un chiffre affiche sur les reseaux : ton premier reflexe ?",
+        "options": ["J'y crois", "Je me mefie", "Je passe mon chemin"],
+    },
+    "sondage11_02": {
+        "type": "Sondage",
+        "question": "L'argent que tu as gagne cette annee, il est parti ou ?",
+        "options": ["Le train de vie", "Des placements", "Reinvesti dans le business", "Il reste sur le compte"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les
