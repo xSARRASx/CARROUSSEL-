@@ -167,13 +167,52 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi')
             sautes = sorted({d_.isoformat() for d_, _ in creneaux_auto(jours, date)} & occupes)
             print(f"  Jours deja servis par une autre livraison, sautes : "
                   f"{', '.join(sautes)}", flush=True)
-    reserve = auto[len(plan):]
-    for i, (src, _) in enumerate(auto[:len(plan)]):
-        date_pub, rang = plan[i]
+
+    # ⚠️ PLACEMENT PAR SEQUENCE, PAS A PLAT (Martin, 10/09/2026 : « si tu fais
+    # moins de stories c'est pas grave mais je veux des choses differentes »).
+    #
+    # Avant, on remplissait les creneaux a la queue leu leu. Tant que chaque
+    # sequence faisait EXACTEMENT la taille du jour (6 le lundi, 5 le mardi),
+    # ca tombait juste. Des qu'une sequence etait plus courte -- ce que Martin
+    # autorise desormais -- la suivante debordait sur deux jours et se faisait
+    # COUPER : sa couverture promettait une suite qui n'arrivait que le
+    # lendemain. C'est precisement ce que la regle « une sequence ne se coupe
+    # pas » interdit.
+    #
+    # Desormais chaque sequence prend UN jour entier et commence toujours au
+    # rang 01. Un jour peut donc etre plus court que la grille (4 stories au
+    # lieu de 6) : ce n'est pas un defaut, c'est une journee plus courte. Une
+    # sequence trop grosse pour le jour disponible part en reserve entiere
+    # plutot que d'etre coupee en deux.
+    jours_libres = []
+    for d_, rang in plan:
+        if rang == 1:
+            jours_libres.append([d_, 0])
+        if jours_libres:
+            jours_libres[-1][1] += 1
+
+    places, reserve = [], []
+    for tige, membres in seqs.items():
+        if any(besoin_sticker(s.stem)[0] for s in membres):
+            continue                                    # sequence manuelle
+        pose = False
+        for creneau in jours_libres:
+            if creneau[1] >= len(membres):
+                for r, src in enumerate(membres, 1):
+                    places.append((src, creneau[0], r))
+                creneau[1] = 0                          # le jour est consomme
+                pose = True
+                break
+        if not pose:
+            reserve += membres
+            print(f"  Sequence « {tige} » ({len(membres)} stories) : aucun jour "
+                  f"assez grand, elle part ENTIERE en reserve.", flush=True)
+
+    for src, date_pub, rang in places:
         shutil.copy2(src, dossier / "auto" / f"{date_pub}-12h00-{rang:02d}.jpg")
     if reserve:
         (dossier / "reserve").mkdir(exist_ok=True)
-        for i, (src, _) in enumerate(reserve, 1):
+        for i, src in enumerate(reserve, 1):
             shutil.copy2(src, dossier / "reserve" / f"{i:02d}-{src.stem}.jpg")
 
     # Les stories manuelles sont toutes regroupées sur le samedi, et le nom
@@ -239,8 +278,9 @@ def livrer(lots, sujet, date, video=None, titre=None, note=None, reveil='lundi')
 
     (dossier / "description.txt").write_text("\n".join(lignes) + "\n", encoding="utf-8")
     nres = len(list((dossier / "reserve").glob("*.jpg"))) if (dossier / "reserve").is_dir() else 0
+    npro = len(list((dossier / "auto").glob("*.jpg")))
     print(f"Livré : livraison/{dossier.name}  "
-          f"({len(auto) - nres} programmables, {len(manuel)} manuel, {nres} en reserve)", flush=True)
+          f"({npro} programmables, {len(manuel)} manuel, {nres} en reserve)", flush=True)
     return dossier
 
 def controle():

@@ -140,6 +140,29 @@ def controler(lots):
             else:
                 remarques.append(f"{lot} : gabarits employés -> {', '.join(sorted(employes))}")
 
+            # 5. LES SEQUENCES NE DOIVENT PAS ETRE TOUTES BATIES PAREIL
+            # (Martin, 10/09/2026 : « tout le temps des choses différentes »).
+            # Une couverture qui promet et une cloture qui conclut restent la
+            # regle de la maison ; ce qui est refuse, c'est que les sequences
+            # d'une meme fournee soient interchangeables.
+            if len(seqs) > 1:
+                if len({tuple(g) for g in seqs.values()}) == 1:
+                    alertes.append(
+                        f"{lot} : toutes les séquences ont la MEME suite de "
+                        f"gabarits. Change la forme d'au moins une.")
+                tailles = {len(g) for g in seqs.values()}
+                if len(tailles) == 1:
+                    remarques.append(
+                        f"{lot} : toutes les séquences font {tailles.pop()} stories. "
+                        f"Depuis le 10/09/2026 elles peuvent être plus courtes, "
+                        f"c'est même préféré à du remplissage.")
+                # Le milieu de sequence, lui, doit varier d'une sequence a l'autre.
+                milieux = [tuple(g[1:-1]) for g in seqs.values() if len(g) > 2]
+                if len(milieux) > 1 and len(set(milieux)) == 1:
+                    alertes.append(
+                        f"{lot} : le corps de chaque séquence est identique "
+                        f"({' > '.join(milieux[0])}). Varie les gabarits du milieu.")
+
     for r in remarques:
         print(f"    {r}", flush=True)
     if alertes:

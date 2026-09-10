@@ -806,8 +806,21 @@ commence et où finit une séquence : une séquence de 7 déborde donc sur le jo
 suivant, et la fin d'une autre part en réserve. La couverture promet alors une
 suite qui n'arrive que le lendemain, exactement ce que la règle « une séquence
 ne se coupe pas » interdit.
-👉 Donc : **la séquence du lundi/jeudi fait 6 stories, celle du mardi/vendredi
-en fait 5.** Pas 7, pas 4 si on veut qu'elle passe.
+👉 **CORRIGÉ LE 10/09/2026 (demande de Martin) : 6 et 5 sont des MAXIMUMS,
+plus des tailles à remplir.**
+> « Tout le temps des choses différentes. Si tu fais moins de stories c'est
+> pas grave mais je veux des choses différentes. »
+
+`livraison.py` place désormais **séquence par séquence** : chaque séquence
+prend UN jour entier et démarre au rang 01. Une séquence de 4 donne donc une
+journée de 4 stories, et la suivante commence quand même le lendemain. Une
+journée plus courte n'est **pas** un défaut.
+Ce qui reste interdit, c'est la séquence **coupée** en deux jours : une
+séquence trop grosse pour le jour disponible part désormais **entière en
+réserve** au lieu d'être tranchée. Donc 7 stories ne passent toujours pas sur
+un jour à 6, mais elles ne cassent plus la fournée.
+👉 En clair : **écris le nombre de stories que le sujet mérite, entre 3 et 6.**
+Du remplissage pour atteindre 6 est une faute, pas une sécurité.
 👉 C'est l'ORDRE ALPHABÉTIQUE des noms de séquence qui décide du jour. La plus
 urgente prend donc la première lettre. Exemple du 13/08 : la facturation
 électronique (échéance 1er septembre) a été nommée `O_`, l'amortissement `P_`,
@@ -945,9 +958,14 @@ python3 stories/engine/variete.py <banque-XX> <interactifs-XX>
   suite de gabarits qu'une précédente, ou si la fournée n'utilise que les
   quatre gabarits habituels.
 
+👉 **LA VARIÉTÉ PASSE AVANT LE VOLUME** (Martin, 10/09/2026, deuxième message :
+« tout le temps des choses différentes, si tu fais moins de stories c'est pas
+grave »). L'objectif STOCK ne justifie plus une fournée qui se ressemble : mieux
+vaut 9 stories neuves que 22 qui rappellent la semaine d'avant.
 👉 **La couverture et la clôture restent la règle de la maison** (une séquence
-promet puis conclut). Ce qui est interdit, c'est le TEXTE recopié et la suite
-de gabarits identique. Varier la forme à l'intérieur : un `p_timeline` plutôt
+promet puis conclut). Ce qui est interdit, c'est le TEXTE recopié, la suite de
+gabarits identique, et des séquences interchangeables **à l'intérieur d'une
+même fournée** — `variete.py` refuse maintenant les trois. Varier la forme à l'intérieur : un `p_timeline` plutôt
 qu'un `p_steps`, un `p_vs` plutôt qu'un `p_duo`, un `p_formula` quand il y a un
 calcul, un `p_bars` quand il y a des proportions.
 
