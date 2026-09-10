@@ -1245,6 +1245,35 @@ main. Le contrôle de livraison reste vert.
   --reveil lundi` (14 et 15/09 libres) ; jeudi 17/09 → `--date 2026-09-17
   --reveil jeudi` (17 et 18/09 libres). Stock à partir du 21/09.
 
+- **2026-09-10 (réveil du jeudi) : banque-12, le fisc et la résidence
+  principale.** Vidéo `lc1huihoLio` « Le fisc vous surveille : les 3 signes
+  qui alertent sur votre résidence » (titre déjà en français sur YouTube).
+  Transcription récupérée par le robot, commande par défaut, malgré un 429.
+  ⚠️ **Gros recouvrement avec banque-08** (taxe foncière, 27/08) : Sébastien
+  renvoie lui-même à cette vidéo. Toute la partie « vérifier et contester sa
+  taxe foncière » (surface pondérée, catégorie de confort, dépendances,
+  valeur locative, les 5 erreurs) a donc été **écartée**. Gardé uniquement le
+  neuf : les 3 décisions de justice, la majoration de 40 %, le délai d'un an,
+  le divorce qui coupe l'exonération en deux, et surtout la **fiche
+  d'occupation « Gérer mes biens immobiliers »**, jamais traitée.
+  3 séquences : `AL_fisc_traque_residence` (6, lundi 14/09),
+  `AM_fiche_occupation` (5, mardi 15/09), `AN_calendrier_de_la_vente`
+  (6, réserve) + `interactifs-12` (samedi 17/10). 27 stories.
+  👉 **TON : sujet sensible.** Ces stories informent sur un risque et
+  invitent à vérifier sa propre fiche ; aucune ne donne un moyen de passer
+  entre les mailles. Les décisions sont citées avec leur date, aucune ne
+  promet de résultat — Sébastien rappelle lui-même qu'il n'est pas fiscaliste.
+  ⚠️ **Le décalage est reparti d'une semaine.** La fournée du mercredi 09/09
+  (livrée hors réveil, sur transcription de Martin) occupait jeudi 10 et
+  vendredi 11, donc la vidéo du mercredi a pris lundi 14 et mardi 15. Cause :
+  **deux vidéos dans la même semaine en plus du rythme normal**, et la grille
+  n'a que 4 jours auto par semaine, soit exactement deux vidéos. C'est
+  arithmétique, pas une erreur — ça se résorbera à la première semaine sans
+  vidéo.
+  👉 **Où ancrer les prochains réveils :** lundi 14/09 → `--date 2026-09-17
+  --reveil jeudi` ; jeudi 17/09 → `--date 2026-09-21 --reveil lundi`. Les
+  jours 17, 18, 21 et 22/09 sont libres, le stock reprend le 24/09.
+
 ---
 
 ## 🕐 LA GRILLE DE DIFFUSION — UN rendez-vous par jour, à 12h00

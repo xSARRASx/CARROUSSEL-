@@ -1,0 +1,55 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-10-17-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tous ses papiers etaient a cette adresse. Qu'est-ce qui l'a fait perdre ?
+    Option 1 : Ses releves bancaires
+    Option 2 : Sa facture d'electricite
+    Option 3 : Son acte de vente
+    (La bonne reponse est "Sa facture d'electricite", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-17-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Combien de temps faut-il habiter un bien pour qu'il compte comme residence principale ?
+    Option 1 : Six mois
+    Option 2 : Un an
+    Option 3 : Aucune duree minimale
+    (La bonne reponse est "Aucune duree minimale", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-17-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Couple divorce qui vend : l'un y vivait encore, l'autre etait parti. Il se passe quoi ?
+    Option 1 : Les deux exoneres
+    Option 2 : Les deux taxes
+    Option 3 : Un exonere, un taxe
+    (La bonne reponse est "Un exonere, un taxe", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-17-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Ta fiche « Gerer mes biens immobiliers », tu l'as deja ouverte ?
+    Option 1 : Jamais
+    Option 2 : Une fois
+    Option 3 : Je la surveille
+
+--- 2026-10-17-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Pour prouver que tu vis chez toi, tu sortirais quoi ?
+    Option 1 : Mes factures d'energie
+    Option 2 : Mes courriers
+    Option 3 : Aucune idee
+

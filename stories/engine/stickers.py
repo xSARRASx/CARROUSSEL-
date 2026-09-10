@@ -387,6 +387,36 @@ STICKERS = {
         "options": ["Le train de vie", "Des placements", "Reinvesti dans le business", "Il reste sur le compte"],
     },
 
+    # ---- interactifs-12 : le fisc et la residence principale (video lc1huihoLio)
+    "quiz12_02": {
+        "type": "Sondage",
+        "question": "Tous ses papiers etaient a cette adresse. Qu'est-ce qui l'a fait perdre ?",
+        "options": ["Ses releves bancaires", "Sa facture d'electricite", "Son acte de vente"],
+        "reponse": "Sa facture d'electricite",
+    },
+    "quiz12_04": {
+        "type": "Sondage",
+        "question": "Combien de temps faut-il habiter un bien pour qu'il compte comme residence principale ?",
+        "options": ["Six mois", "Un an", "Aucune duree minimale"],
+        "reponse": "Aucune duree minimale",
+    },
+    "quiz12_06": {
+        "type": "Sondage",
+        "question": "Couple divorce qui vend : l'un y vivait encore, l'autre etait parti. Il se passe quoi ?",
+        "options": ["Les deux exoneres", "Les deux taxes", "Un exonere, un taxe"],
+        "reponse": "Un exonere, un taxe",
+    },
+    "sondage12_01": {
+        "type": "Sondage",
+        "question": "Ta fiche « Gerer mes biens immobiliers », tu l'as deja ouverte ?",
+        "options": ["Jamais", "Une fois", "Je la surveille"],
+    },
+    "sondage12_02": {
+        "type": "Sondage",
+        "question": "Pour prouver que tu vis chez toi, tu sortirais quoi ?",
+        "options": ["Mes factures d'energie", "Mes courriers", "Aucune idee"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les
