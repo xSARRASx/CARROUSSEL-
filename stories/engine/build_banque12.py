@@ -38,7 +38,11 @@ fin de video est ECARTE, comme tous les outils maison.
 Rendu : python3 render_stories.py banque-12
 """
 from photo_style import (cover, focus, fin, p_steps, p_timeline, p_bigstat,
-                         p_duo, p_vs, acc, write_lot)
+                         p_duo, p_vs, acc, write_lot, accroche)
+
+# ⚠️ VARIETE (demande de Martin, 10/09/2026) : les bas de couverture ne finissent
+# plus tous par « juste après ». `accroche()` tourne avec le numero du lot.
+NUM_LOT = 12
 
 # Les apostrophes ne passent pas dans une expression de f-string.
 TA_VIE = acc("ta vie")
@@ -69,7 +73,7 @@ SEQUENCES = {
           f'Le fisc ne regarde plus tes papiers. Il regarde {TA_VIE}.',
           sub="Revendre sa résidence principale échappe à l'impôt sur la "
               "plus-value. Encore faut-il prouver qu'on y vivait.",
-          hand_bottom="les trois affaires, juste après"),
+          hand_bottom=accroche(NUM_LOT + 1)),
 
     p_timeline("bg_facade_pierre", "un studio de 13 m² à Paris",
                "Jugé le 9 juillet 2025",
@@ -127,7 +131,7 @@ SEQUENCES = {
           f'Il y a une {FICHE} sur chacun de tes biens. Tu ne l\'as jamais lue.',
           sub="C'est elle qui décide de ce que tu paies, et c'est elle que le "
               "fisc regardera le jour où tu vendras.",
-          hand_bottom="ce qu'il y a dedans, juste après"),
+          hand_bottom=accroche(NUM_LOT + 5)),
 
     focus("bg_cour", "sur ton espace impots.gouv",
           f'« Gérer mes biens immobiliers » {DECIDE} de tout.',
@@ -174,7 +178,7 @@ SEQUENCES = {
           f'Quand tu vends est une {DECISION} avant d\'être une décision immobilière.',
           sub="Quelques mois d'écart peuvent valoir des dizaines de milliers "
               "d'euros. Voilà les trois moments qui comptent.",
-          hand_bottom="les trois, juste après"),
+          hand_bottom=accroche(NUM_LOT + 9)),
 
     p_vs("bg_salon_cosy", "un couple se sépare, l'un part, l'autre reste",
          "Deux ans plus tard, ils vendent",

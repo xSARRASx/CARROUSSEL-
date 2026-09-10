@@ -216,6 +216,82 @@ def arrow_down(x, y, w=220, h=280, color=BLANC, flip=False):
 
 # =========================================================== gabarits pleine page
 
+# ============================================================================
+# VARIETE — demande de Martin le 10/09/2026 : « je vois que les stories que tu
+# fais sont parfois les mêmes, je veux des choses différentes ».
+#
+# CE QUI SE REPETAIT, mesure ce jour-la sur 40 sequences et 10 lots de quiz :
+#   - 40 couvertures sur 40 finissaient par « ... juste après » ;
+#   - les 10 lots de quiz ouvraient et fermaient avec le MEME texte, mot pour
+#     mot. Martin poste ces quiz TOUS LES SAMEDIS : il voyait donc la meme
+#     image chaque semaine, c'est ce qui saute aux yeux en premier ;
+#   - quatre gabarits (focus, cover, p_steps, fin) faisaient 73 % du total,
+#     pendant que p_bars, p_formula, p_vs et p_timeline dormaient.
+#
+# Les listes ci-dessous tournent avec le NUMERO DU LOT : deux fournees qui se
+# suivent ne peuvent plus tomber sur la meme formule. `variete.py` verifie que
+# la regle est tenue avant chaque livraison.
+# ============================================================================
+
+# Bas de couverture. Aucune ne repete la precedente, et toutes ne disent pas
+# « juste apres ».
+ACCROCHES = [
+    "la suite juste après",
+    "on déroule",
+    "reste, c'est du concret",
+    "ça commence maintenant",
+    "tout est en dessous",
+    "on y va",
+    "la suite arrive",
+    "regarde bien",
+    "c'est parti",
+    "on décortique",
+    "lis jusqu'au bout",
+    "la démonstration",
+]
+
+def accroche(n):
+    """Le bas de couverture qui va avec la n-ieme couverture d'une fournee.
+
+    Passer un entier different a chaque couverture d'un meme lot, et decaler
+    d'un lot a l'autre (par exemple `accroche(numero_lot * 3 + i)`).
+    """
+    return ACCROCHES[n % len(ACCROCHES)]
+
+# Ouverture du quiz du samedi : titre, puis consigne de vote.
+# ⚠️ Le mot en gros ALTERNE volontairement d'un rang a l'autre : deux lots qui
+# se suivent n'affichent jamais le meme mot en haut de la couverture.
+QUIZ_OUVERTURES = [
+    ("3 questions. Vote à chaque fois,<br>la réponse arrive juste après.", "QUIZ"),
+    ("On vérifie ce que tu sais.<br>Trois questions, pas une de plus.", "TEST"),
+    ("Trois affirmations.<br>À toi de dire vrai ou faux.", "VRAI ou FAUX"),
+    ("Trois questions, trois pièges.<br>Tu votes, je réponds derrière.", "QUIZ"),
+    ("Petit contrôle.<br>Trois questions, réponses derrière.", "CONTRÔLE"),
+    ("Trois idées reçues.<br>Tu vas en avoir au moins une.", "TEST"),
+    ("Vote d'abord, tu sauras après.<br>Trois questions.", "QUIZ"),
+    ("Trois affirmations, trois pièges.<br>Vrai ou faux, à toi.", "VRAI ou FAUX"),
+]
+
+def quiz_ouverture(n):
+    """(consigne, mot en gros) pour la couverture du n-ieme lot de quiz."""
+    return QUIZ_OUVERTURES[n % len(QUIZ_OUVERTURES)]
+
+# Cloture du quiz : le score, puis le renvoi vers la video.
+QUIZ_CLOTURES = [
+    ("3/3&nbsp;? {acc}", "Moins&nbsp;? Tout est détaillé dans la vidéo sur la chaîne."),
+    ("Trois sur trois&nbsp;?", "Si tu as buté sur une, la vidéo répond en entier."),
+    ("Tu en as eu combien&nbsp;?", "Dis-le en réponse à cette story. La vidéo détaille tout."),
+    ("Sans faute&nbsp;?", "Sinon, la vidéo reprend chaque point calmement."),
+    ("Alors, ton score&nbsp;?", "La vidéo complète est sur la chaîne, elle déroule tout."),
+    ("Pas si simple, hein.", "Tout y est expliqué dans la vidéo, sans raccourci."),
+    ("Trois bonnes réponses&nbsp;?", "Si non, c'est justement le sujet de la vidéo."),
+    ("Verdict&nbsp;?", "La vidéo reprend les trois points, exemples à l'appui."),
+]
+
+def quiz_cloture(n):
+    """(titre du score, phrase de renvoi) pour le n-ieme lot de quiz."""
+    return QUIZ_CLOTURES[n % len(QUIZ_CLOTURES)]
+
 def cover(bg, hand_top, title, sub=None, hand_bottom="la suite juste après", photo=None):
     h = (f'<div class="hand" style="font-size:58px;margin-bottom:28px;">{nb(hand_top)}</div>'
          if hand_top else '')

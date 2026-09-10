@@ -23,13 +23,20 @@ Fonds tous differents a l'interieur de la sequence.
 Rendu : python3 render_stories.py interactifs-12
 """
 from photo_style import (open_photo, underline, acc, BLANC,
-                         quiz_q, quiz_r, sondage, write_lot)
+                         quiz_q, quiz_r, sondage, write_lot,
+                         quiz_ouverture, quiz_cloture)
+
+# ⚠️ VARIETE (demande de Martin, 10/09/2026). L'ouverture et la cloture du quiz
+# ne sont plus recopiees d'un lot a l'autre : elles tournent avec le numero du
+# lot. Verifie par `python3 variete.py interactifs-12`.
+NUM_LOT = 12
+CONSIGNE, MOT = quiz_ouverture(NUM_LOT)
+SCORE, RENVOI = quiz_cloture(NUM_LOT)
 
 STORIES = {}
 
 # Les apostrophes ne passent pas dans une expression de f-string.
 PRINCIPALE = acc("résidence principale")
-BIEN_JOUE = acc("Bien joué.")
 DEJA_OUVERTE = acc("déjà ouverte")
 PROUVER = acc("prouver")
 
@@ -38,14 +45,13 @@ PROUVER = acc("prouver")
 # ============================================================================
 
 STORIES["quiz12_01"] = (
-    open_photo("bg_mer_calme") + '<div class="scrim"></div>'
+    open_photo("bg_hall_immeuble") + '<div class="scrim"></div>'
     + '<div class="pad" style="justify-content:center;align-items:center;text-align:center;">'
-    '<div class="serif" style="font-size:190px;line-height:1;">QUIZ</div>'
+    f'<div class="serif" style="font-size:150px;line-height:1;">{MOT}</div>'
     '<div class="serif" style="font-size:52px;line-height:1.2;margin-top:36px;">'
     f'Tu connais les règles<br>de la {PRINCIPALE}&nbsp;?</div>'
     f'<div style="margin:46px auto;">{underline(220, BLANC, cls="inline")}</div>'
-    '<div class="hand" style="font-size:48px;line-height:1.3;">3 questions. Vote à chaque fois,<br>'
-    'la réponse arrive juste après.</div>'
+    f'<div class="hand" style="font-size:48px;line-height:1.3;">{CONSIGNE}</div>'
     '</div></div>')
 
 STORIES["quiz12_02"] = quiz_q("bg_ciel_rose", 1, 3, "Déclaration, courriers, relevés bancaires",
@@ -70,12 +76,12 @@ STORIES["quiz12_07"] = quiz_r("bg_cles", "Deux traitements",
     "parti est taxé sur la sienne. Même maison, même acte notarié.")
 
 STORIES["quiz12_08"] = (
-    open_photo("bg_plage_aube") + '<div class="scrim"></div>'
+    open_photo("bg_escalier") + '<div class="scrim"></div>'
     + '<div class="pad" style="justify-content:center;align-items:center;text-align:center;">'
-    f'<div class="serif" style="font-size:86px;line-height:1.1;">3/3&nbsp;? {BIEN_JOUE}</div>'
+    f'<div class="serif" style="font-size:86px;line-height:1.1;">{SCORE}</div>'
     '<div class="libre" style="max-width:830px;margin-top:52px;">'
-    'Moins&nbsp;? La vidéo entière est sur la chaîne : les trois décisions de '
-    'justice, la majoration de 40 %, et la fiche que le fisc tient sur ton bien.'
+    f'{RENVOI} Les trois décisions de justice, la majoration de 40 %, et la '
+    'fiche que le fisc tient sur ton bien.'
     '</div>'
     '</div></div>')
 

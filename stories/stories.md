@@ -840,6 +840,7 @@ rm -rf livraison/programmation-stock-*        # 1. libérer les jours
 python3 stories/engine/livraison.py ...       # 2. l'actualité fraîche d'abord
 python3 stories/engine/programmation.py --debut <jour libre suivant> \
         --dossier programmation-stock-<jour>  # 3. le stock comble le reste
+python3 stories/engine/variete.py <lots>         # 0. rien de recopie ?
 python3 stories/engine/livraison.py --controle
 ```
 👉 Signe que c'est raté : la livraison annonce « 0 programmables » et un samedi
@@ -913,6 +914,42 @@ disparaît au clone suivant. Le contrôle réclamait `auto/` ET `manuel/` : au
 fini par faire ignorer les vraies alertes. Corrigé : seul `auto/` est exigé (le
 robot Mac ne programme que celui-là), et `manuel/` n'est réclamé que si des
 images manuelles existent vraiment.
+
+**4. 🔁 LA VARIÉTÉ EST UNE EXIGENCE, PAS UN BONUS (Martin, 10/09/2026).**
+> « je vois que les stories que tu fais sont parfois les mêmes, je veux des
+> choses différentes »
+
+Mesuré ce jour-là, et c'était fondé :
+- **40 couvertures sur 40** finissaient par « … juste après » ;
+- **les 10 lots de quiz ouvraient et fermaient avec le MÊME texte**, mot pour
+  mot. Martin poste ces quiz **tous les samedis** : il voyait donc la même
+  image chaque semaine. C'est ce qui saute aux yeux en premier ;
+- **`bg_plage_aube` revenait 13 fois** dans 10 lots de quiz, `bg_ciel_rose` 12 ;
+- quatre gabarits (`focus`, `cover`, `p_steps`, `fin`) faisaient **73 %** du
+  total, pendant que `p_bars`, `p_formula`, `p_vs` et `p_timeline` dormaient ;
+- **40 séquences sur 40 commençaient par `cover`**, 33 finissaient par `fin`.
+
+👉 **Ce qui a été mis en place** (une promesse de faire attention ne tient pas
+trois semaines, il fallait une mesure) :
+- `photo_style.py` : `accroche(n)`, `quiz_ouverture(n)`, `quiz_cloture(n)` —
+  des listes de formulations qui **tournent avec le numéro du lot**. Deux
+  fournées qui se suivent ne peuvent plus tomber sur la même phrase, et le mot
+  en gros de la couverture de quiz alterne (QUIZ / TEST / VRAI ou FAUX /
+  CONTRÔLE) ;
+- `variete.py` : **le contrôle à lancer AVANT chaque livraison**.
+```
+python3 stories/engine/variete.py <banque-XX> <interactifs-XX>
+```
+  Il sort en erreur si un fond revient des trois dernières fournées, si une
+  formule par défaut a été recopiée, si une séquence a exactement la même
+  suite de gabarits qu'une précédente, ou si la fournée n'utilise que les
+  quatre gabarits habituels.
+
+👉 **La couverture et la clôture restent la règle de la maison** (une séquence
+promet puis conclut). Ce qui est interdit, c'est le TEXTE recopié et la suite
+de gabarits identique. Varier la forme à l'intérieur : un `p_timeline` plutôt
+qu'un `p_steps`, un `p_vs` plutôt qu'un `p_duo`, un `p_formula` quand il y a un
+calcul, un `p_bars` quand il y a des proportions.
 
 **3. `write_lot` n'efface pas les anciens fichiers.**
 Si on renomme une séquence, les JPEG de l'ancien nom restent dans
