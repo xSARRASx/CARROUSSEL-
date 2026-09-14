@@ -958,6 +958,15 @@ python3 stories/engine/variete.py <banque-XX> <interactifs-XX>
   suite de gabarits qu'une précédente, ou si la fournée n'utilise que les
   quatre gabarits habituels.
 
+👉 **LA CAUSE RACINE ÉTAIT LE NOMBRE DE FONDS (trouvée le 14/09/2026).**
+Faire tourner les formulations ne suffisait pas : il n'y avait que **23 fonds
+utilisables** pour deux fournées par semaine qui en consomment 15 à 25 chacune.
+La même plage et le même ciel rose revenaient donc toutes les semaines, quoi
+qu'on écrive dessus. **18 fonds ont été générés** (`gen_background.py`, vague 3)
+— des lieux qu'on n'avait pas du tout : intérieurs, objets, matières, ville,
+saisons. **41 fonds utilisables** désormais. À refaire dès que `variete.py`
+commence à refuser faute de fond neuf : c'est le signal.
+
 👉 **LA VARIÉTÉ PASSE AVANT LE VOLUME** (Martin, 10/09/2026, deuxième message :
 « tout le temps des choses différentes, si tu fais moins de stories c'est pas
 grave »). L'objectif STOCK ne justifie plus une fournée qui se ressemble : mieux

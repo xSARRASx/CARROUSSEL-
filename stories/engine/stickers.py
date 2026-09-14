@@ -417,6 +417,26 @@ STICKERS = {
         "options": ["Mes factures d'energie", "Mes courriers", "Aucune idee"],
     },
 
+    # ---- interactifs-13 : controle fiscal des hotes (video h0fE0L6d5QI)
+    # ⚠️ Format volontairement different : DEUX questions, UN sondage.
+    "quiz13_02": {
+        "type": "Sondage",
+        "question": "Airbnb te verse 17 000 € apres commission. Tu declares combien ?",
+        "options": ["17 000 €, ce que j'ai recu", "Le montant brut, avant commission"],
+        "reponse": "Le montant brut, avant commission",
+    },
+    "quiz13_04": {
+        "type": "Sondage",
+        "question": "Au-dela de 23 000 € de recettes dans l'annee, qu'est-ce qui se declenche ?",
+        "options": ["Les cotisations d'independant", "Le statut professionnel", "Rien de special"],
+        "reponse": "Les cotisations d'independant",
+    },
+    "sondage13_01": {
+        "type": "Sondage",
+        "question": "Ce que tu declares, tu le prends ou ?",
+        "options": ["Mon releve bancaire", "Le rapport de la plateforme", "Mon comptable s'en occupe"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les

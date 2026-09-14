@@ -94,17 +94,31 @@ def besoin_sticker(nom):
     (QUIZ, SONDAGE ou QUESTIONS), pas une approximation.
     Le repli par mot-clé ne sert qu'aux stories pas encore documentées.
     """
+    documente = False
     try:
-        from stickers import fiche
+        from stickers import fiche, STICKERS
         f = fiche(nom)
         if f:
             return True, f["type"].upper()
+        # Le lot est-il DEJA documente dans stickers.py ? Si oui, l'absence de
+        # fiche pour cette story-ci veut dire « pas de sticker », et le repli
+        # par mot-cle ne doit surtout pas s'en meler.
+        prefixe = nom.lower().split("_")[0]
+        documente = any(k.lower().startswith(prefixe) for k in STICKERS)
     except ImportError:
         pass
     n = nom.lower()
     # Dans une séquence de quiz, SEULE la question a besoin du sticker :
     # la couverture, les réponses et la clôture se programment normalement.
     if n.startswith("quiz"):
+        if documente:
+            # ⚠️ Le lot est documenté : stickers.py fait foi, point.
+            # Le repli ci-dessous suppose TROIS questions (02, 04, 06). Depuis
+            # le 14/09/2026 le format varie -- interactifs-13 n'a que deux
+            # questions, et sa CLOTURE porte le numero 06. Le repli la marquait
+            # « SONDAGE » a tort, et la livraison signalait un texte manquant
+            # pour une story qui n'a jamais eu de sticker.
+            return False, ""
         num = "".join(c for c in n.split("_")[-1] if c.isdigit())
         if num in ("02", "04", "06"):
             return True, "SONDAGE"

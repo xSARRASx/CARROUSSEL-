@@ -91,6 +91,54 @@ CATALOG = {
                         "style": STYLE_WARM},
     "bg_facade_pierre": {"subject": "Classic Haussmann stone building facade with balconies at golden hour, warm light on the stone, soft blur, calm warm sky above.",
                         "style": STYLE_WARM},
+
+    # ------------------------------------------------------------------
+    # Vague 3 (14/09/2026) — CAUSE RACINE de « je veux des choses différentes ».
+    # Martin l'a dit deux fois le 10/09. On avait corrige les FORMULATIONS,
+    # mais pas les IMAGES : 23 fonds utilisables pour deux fournees par semaine
+    # qui en consomment 15 a 25 chacune. Mathematiquement, la meme plage et le
+    # meme ciel rose revenaient toutes les semaines. Aucune rotation de texte
+    # ne repare ca : il fallait elargir la banque.
+    # Meme famille golden hour, mais des LIEUX qu'on n'avait pas : interieurs,
+    # objets, matieres, ville, saisons. De quoi tenir plusieurs mois sans
+    # reprendre le meme visuel.
+    # ------------------------------------------------------------------
+    "bg_cuisine_matin":  {"subject": "Empty modern kitchen counter in the morning, warm sunlight coming through a window on the right, clean surfaces, soft shadows, the upper half almost empty.",
+                          "style": STYLE_WARM},
+    "bg_cafe_table":     {"subject": "A single cup of coffee on a wooden table near a bright window, warm morning light, plenty of empty table surface in the upper frame, shallow depth of field.",
+                          "style": STYLE_WARM},
+    "bg_fenetre_pluie":  {"subject": "Rain drops on a window pane at golden hour, blurred warm city lights behind, large calm out-of-focus area filling most of the frame.",
+                          "style": STYLE_WARM},
+    "bg_couloir_hotel":  {"subject": "Quiet hotel corridor with warm wall lamps, soft carpet, receding perspective, calm empty walls, nobody in sight.",
+                          "style": STYLE_WARM},
+    "bg_chambre_lumiere":{"subject": "Neatly made bed in a bright airy bedroom, white linen, warm daylight from a side window, large calm empty wall above the bed.",
+                          "style": STYLE_WARM},
+    "bg_bureau_papiers": {"subject": "Wooden desk seen from above with a closed notebook and a pen, warm side light, lots of empty desk surface, calm and tidy.",
+                          "style": STYLE_WARM},
+    "bg_etagere":        {"subject": "Simple wooden shelf against a warm plaster wall, a few books and a small plant, soft afternoon light, large empty wall area above.",
+                          "style": STYLE_WARM},
+    "bg_toits_pluie":    {"subject": "European rooftops under a soft grey and amber sky after rain, wet tiles catching warm light, wide calm sky filling the upper two thirds.",
+                          "style": STYLE_WARM},
+    "bg_ruelle":         {"subject": "Narrow old european street at golden hour, warm stone walls, long soft shadows, empty, receding perspective, nobody in sight.",
+                          "style": STYLE_WARM},
+    "bg_port":           {"subject": "Small fishing harbour at sunrise, a few moored boats in the lower third, soft pastel sky filling the upper frame, very calm water.",
+                          "style": STYLE_WARM},
+    "bg_foret_automne":  {"subject": "Autumn forest path with warm amber leaves, soft diffused light through the trees, misty depth, calm and quiet.",
+                          "style": STYLE_WARM},
+    "bg_neige_douce":    {"subject": "Quiet snowy field at dusk with a soft pink and blue sky, bare trees small along the bottom edge, large calm sky filling most of the frame.",
+                          "style": STYLE_WARM},
+    "bg_champ_ete":      {"subject": "Golden wheat field under a warm late afternoon sky, gentle breeze, soft focus, the sky filling the upper half.",
+                          "style": STYLE_WARM},
+    "bg_balcon":         {"subject": "Empty balcony with a simple railing overlooking a warm hazy city at sunset, calm sky filling most of the frame.",
+                          "style": STYLE_WARM},
+    "bg_escalier_bois":  {"subject": "Warm wooden staircase in an old building, soft daylight from above, calm empty wall on one side, nobody in sight.",
+                          "style": STYLE_WARM},
+    "bg_table_bois":     {"subject": "Close-up of a warm weathered wooden table surface filling the whole frame, soft golden side light, subtle grain, nothing on it.",
+                          "style": STYLE_WARM},
+    "bg_mur_beton":      {"subject": "Smooth warm concrete wall lit by late afternoon sun, soft diagonal shadow across it, minimal, filling the whole frame.",
+                          "style": STYLE_WARM},
+    "bg_rideau":         {"subject": "Sheer white curtain glowing with warm backlight from a window, gentle folds, very soft and calm, filling the frame.",
+                          "style": STYLE_WARM},
 }
 
 def call_gemini(body, key):

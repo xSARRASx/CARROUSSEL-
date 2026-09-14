@@ -1,0 +1,38 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-10-24-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Airbnb te verse 17 000 € apres commission. Tu declares combien ?
+    Option 1 : 17 000 €, ce que j'ai recu
+    Option 2 : Le montant brut, avant commission
+    (La bonne reponse est "Le montant brut, avant commission", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-24-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Au-dela de 23 000 € de recettes dans l'annee, qu'est-ce qui se declenche ?
+    Option 1 : Les cotisations d'independant
+    Option 2 : Le statut professionnel
+    Option 3 : Rien de special
+    (La bonne reponse est "Les cotisations d'independant", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-24-12h00-07-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Ce que tu declares, tu le prends ou ?
+    Option 1 : Mon releve bancaire
+    Option 2 : Le rapport de la plateforme
+    Option 3 : Mon comptable s'en occupe
+
