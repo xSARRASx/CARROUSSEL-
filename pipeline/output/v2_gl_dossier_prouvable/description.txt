@@ -1,0 +1,21 @@
+Un contrôle ne se prépare pas en avril 📁
+
+Depuis la directive DAC7, l'administration reçoit chaque mois de janvier les chiffres transmis par Airbnb, Booking et les autres. En 2025, plus d'un dossier de particulier sur deux a été orienté vers un contrôle par recoupement automatique.
+
+Pour une conciergerie, la question n'est pas d'être contrôlée : c'est d'être capable de répondre. Le même mois, deux personnes attendent des chiffres de toi. Le propriétaire, pour sa propre déclaration. Et l'administration, qui compare ce qui a été déclaré avec ce qu'elle a déjà reçu.
+
+Ce qu'on te redemandera, trois ans en arrière : le total par logement toutes plateformes confondues, les factures d'intervention datées, ce qui a été reversé au propriétaire, les périodes exactes.
+
+Un seul endroit pour les recettes. Le channel manager natif synchronise Airbnb, Booking et Abritel en temps réel, et le moteur de réservation directe alimente le même calendrier. Chaque montant reste attaché à son logement.
+
+Les flux qui ne sont pas du chiffre d'affaires restent séparés. La caution est encaissée via Stripe sur un compte par propriétaire, conforme à la loi Hoguet. La taxe de séjour collectée, elle, revient à la commune.
+
+Les dépenses se prouvent. Le planning ménages et l'application prestataires horodatent les interventions, la facturation électronique conforme à la réforme 2026 garde les pièces. Une charge sans justificatif ne se déduit pas.
+
+La restitution, enfin, ne coûte plus une soirée : l'interface propriétaire et ses KPIs temps réel se consultent directement.
+
+Un outil de gestion ne remplace ni un comptable ni ta déclaration. Il garde la trace pendant que tu gères.
+
+Enregistre ce post, et découvre le suivi du parc sur guestlucky.com
+
+#conciergerie #locationcourteduree #gestionlocative #airbnb #pms
