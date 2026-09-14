@@ -115,7 +115,7 @@ SLIDES = [
                  "La location meublée est une activité professionnelle au sens de la CFE, même pour un seul bien.", False),
                 ("Toute l'année", "Les pièces s'accumulent",
                  "Interventions horodatées, factures conformes, flux séparés : c'est là que le dossier se fabrique.", False)],
-               "L'honnêteté", "Ces repères viennent de la vidéo de Sébastien. Un outil de gestion ne remplace ni un comptable ni ta déclaration.",
+               "L'honnêteté", "Ces repères viennent de la vidéo de Sébastien. Un outil de pilotage ne remplace ni un comptable ni ta déclaration.",
                lead="Quatre moments, dont un seul est visible : les trois autres décident du résultat."),
 
     d.cta_sans_commentaire(
@@ -126,7 +126,7 @@ SLIDES = [
         "Le meilleur moment pour construire un dossier propre, c'est pendant que la saison tourne."),
 
     d.closing("Le PMS qui garde la trace "
-              + "<em>pendant que tu gères</em>."),
+              + "<em>pendant que tu pilotes</em>."),
 ]
 
 if __name__ == "__main__":

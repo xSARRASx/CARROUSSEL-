@@ -1603,6 +1603,36 @@ dès qu'on décrit ce que fait une conciergerie.
 - Rappel des mots bannis Guestlucky, toujours valables : beds24, mandat de
   gestion, garantie financière.
 
+### Session — lundi 14 septembre 2026 (blocage YouTube d'une journee, puis livraison)
+- Vidéo `h0fE0L6d5QI`, « Les 5 erreurs qui déclenchent un contrôle fiscal pour
+  les hôtes Airbnb ». YouTube a refusé toute la journée du 14 (6 tentatives
+  espacées sur 9 heures, quota d'IP confirmé par un test de contrôle). Demande de
+  relais déposée et poussée, puis **la surveillance de nuit a vu YouTube rouvrir
+  dès le 1er essai** : transcription récupérée seule, 25 505 caractères.
+  → La règle tient : on attend, on ne martèle pas. Le relais Mac n'a pas servi.
+- Couvertures (règle 16) : LSL `cover_chiffre` (les 54 %), GL `cover_duo`.
+  Rotation respectée, les deux marques diffèrent et diffèrent de la semaine passée.
+- Fonds (règle 17) : objets écrits à la main d'après la transcription
+  (formulaire vierge, liasse de reçus, calculatrice, enveloppe kraft, loupe côté
+  LSL ; boîte d'archives, pochette de factures vierges, disque dur, clés côté GL).
+  ⚠️ **Le premier fond GL avait de nouveau la COUTURE horizontale** (ligne nette à
+  29 % de la hauteur). Regénéré une fois avec une consigne explicite : « the
+  transition must be a SMOOTH CONTINUOUS gradient, NO horizontal seam ».
+  → Consigne à remettre systématiquement dans les `objects=` Guestlucky.
+- ⚠️ **PIÈGE ÉVITÉ DE JUSTESSE : le vocabulaire Hoguet.** La clôture GL disait
+  « pendant que tu gères » et la légende « un outil de gestion ». Les deux
+  violaient la règle de vocabulaire du 24/08 (gérer / gestion → LOI HOGUET).
+  Corrigé en **pilotage / piloter**, slides regénérées, paquet relivré avec
+  `--remplacer`. → **Relire chaque texte Guestlucky contre cette liste AVANT de
+  rendre**, pas après : la relecture est arrivée une fois le paquet déjà poussé.
+- Prudences de contenu appliquées : le plafonnement des taux d'amortissement est
+  dit **recommandation d'un rapport du 8 juillet 2026, aucun taux ni date arrêtés** ;
+  le nom de l'outil de déclaration cité dans la vidéo n'est **pas** gravé (la
+  transcription le rend de trois façons différentes).
+- Légendes : 1 847 et 1 801 caractères, sous la limite de 2 000 (règle 15).
+- Livré : `lesousloueur-2026-09-14-controle-fiscal` (CTA « CONTROLE ») et
+  `guestlucky-2026-09-14-dossier-prouvable` (`cta_sans_commentaire()`, règle 13).
+
 ## 👁️ RÈGLE DE LIVRAISON (Martin, 27/07/2026) : TOUJOURS MONTRER LES SLIDES
 Martin veut **voir le rendu de chaque slide**, pas seulement recevoir les ZIP.
 À chaque livraison (hebdo automatique ou à la demande) :
