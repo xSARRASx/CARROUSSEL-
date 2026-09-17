@@ -437,6 +437,36 @@ STICKERS = {
         "options": ["Mon releve bancaire", "Le rapport de la plateforme", "Mon comptable s'en occupe"],
     },
 
+    # ---- interactifs-14 : le marche immobilier en 2026 (video iIO-RH_doLo)
+    "quiz14_02": {
+        "type": "Sondage",
+        "question": "Depuis 2000 les prix ont fait +55 %. Et les loyers ?",
+        "options": ["+55 % aussi", "Ils ont stagne", "-9 %"],
+        "reponse": "-9 %",
+    },
+    "quiz14_04": {
+        "type": "Sondage",
+        "question": "Tu empruntes a 3,31 %. L'Etat francais emprunte a combien ?",
+        "options": ["2,50 %", "3,90 %", "Le meme taux que toi"],
+        "reponse": "3,90 %",
+    },
+    "quiz14_06": {
+        "type": "Sondage",
+        "question": "La courbe dit que les prix sont 55 % trop hauts. Un krach de 35 % arrive ?",
+        "options": ["Oui, d'ici 2 ans", "Non, pas dans les chiffres"],
+        "reponse": "Non, pas dans les chiffres",
+    },
+    "sondage14_01": {
+        "type": "Sondage",
+        "question": "Ton projet immobilier en ce moment, il en est ou ?",
+        "options": ["J'achete", "Je vends", "J'attends", "Je regarde seulement"],
+    },
+    "sondage14_02": {
+        "type": "Sondage",
+        "question": "Tu devais vendre aujourd'hui. Tu affiches quoi ?",
+        "options": ["Le prix que j'espere", "Le prix des ventes qui se font"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les

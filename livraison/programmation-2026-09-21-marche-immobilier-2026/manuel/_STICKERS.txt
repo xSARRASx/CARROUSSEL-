@@ -1,0 +1,54 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-10-31-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Depuis 2000 les prix ont fait +55 %. Et les loyers ?
+    Option 1 : +55 % aussi
+    Option 2 : Ils ont stagne
+    Option 3 : -9 %
+    (La bonne reponse est "-9 %", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-31-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tu empruntes a 3,31 %. L'Etat francais emprunte a combien ?
+    Option 1 : 2,50 %
+    Option 2 : 3,90 %
+    Option 3 : Le meme taux que toi
+    (La bonne reponse est "3,90 %", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-31-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : La courbe dit que les prix sont 55 % trop hauts. Un krach de 35 % arrive ?
+    Option 1 : Oui, d'ici 2 ans
+    Option 2 : Non, pas dans les chiffres
+    (La bonne reponse est "Non, pas dans les chiffres", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-10-31-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Ton projet immobilier en ce moment, il en est ou ?
+    Option 1 : J'achete
+    Option 2 : Je vends
+    Option 3 : J'attends
+    Option 4 : Je regarde seulement
+
+--- 2026-10-31-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Tu devais vendre aujourd'hui. Tu affiches quoi ?
+    Option 1 : Le prix que j'espere
+    Option 2 : Le prix des ventes qui se font
+
