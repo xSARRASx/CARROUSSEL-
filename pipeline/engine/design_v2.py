@@ -22,6 +22,8 @@ Usage :
 """
 
 import base64
+import datetime
+import hashlib
 import json
 import pathlib
 
@@ -55,8 +57,13 @@ BRANDS = {
         "navy": "#0a0e27", "deep": "#05060f",
         "a1": "#7c3aed",   # violet : accent principal
         "a2": "#ec4899",   # rose : accent secondaire
+        "a1_clair": "#6d28d9",   # memes couleurs, un cran plus dense sur papier
+        "a2_clair": "#d1258a",
         "red": "#ff5a5a", "green": "#5dd987",
-        "logo": "guestlucky.png",
+        "logo": "guestlucky.png",            # glyphes blancs : fonds sombres
+        "logo_clair": "guestlucky_sombre.png",  # glyphes navy : fonds clairs
+        "papier": "#F4F1FA",                 # blanc casse legerement violace
+        "encre": "#120a2e",
         "site": "guestlucky.com",
     },
     "lesousloueur": {
@@ -64,11 +71,55 @@ BRANDS = {
         "navy": "#0d1b2e", "deep": "#081320",
         "a1": "#E8561F",   # orange : accent principal
         "a2": "#2086C8",   # bleu : accent secondaire
+        "a1_clair": "#D4471A",   # memes couleurs, un cran plus dense sur papier
+        "a2_clair": "#17699F",
         "red": "#ff5a5a", "green": "#5dd987",
         "logo": "lesousloueur_white_temp.png",
+        "logo_clair": "lesousloueur.png",    # version navy officielle
+        "papier": "#F6F3EE",                 # blanc casse legerement chaud
+        "encre": "#0d1b2e",
         "site": "WWW.LESOUSLOUEUR.FR",
     },
 }
+
+# --------------------------------------------------------------------------
+# THEMES (Martin, 18/09/2026) : "toutes les couvertures se ressemblent".
+# La cause etait structurelle : la feuille de style etait ecrite en dur pour un
+# fond sombre. On peut desormais retourner entierement la charte. Le theme
+# "clair" pose l'encre de la marque et ses accents sur un papier blanc casse.
+# Les couleurs d'accent (orange/bleu, violet/rose) ne changent JAMAIS.
+# --------------------------------------------------------------------------
+
+THEMES = ("sombre", "clair")
+
+
+def jetons_theme(marque, theme):
+    """Les valeurs des jetons de la feuille de style pour une marque + un theme."""
+    b = BRANDS[marque]
+    if theme == "clair":
+        encre = b["encre"]
+        rgb = ",".join(str(int(encre.lstrip("#")[i:i + 2], 16)) for i in (0, 2, 4))
+        return {
+            "SURF": b["papier"], "SURF2": "#FFFFFF",
+            "INK": encre, "INK_SOFT": "rgba(%s,0.74)" % rgb,
+            "CARD": "rgba(%s,0.055)" % rgb, "BORDER": "rgba(%s,0.16)" % rgb,
+            "DOT": "rgba(%s,0.22)" % rgb, "WIRE": "rgba(%s,0.22)" % rgb,
+            "PANEL": encre, "PANEL_INK": "#FFFFFF",
+            "A1": b["a1_clair"], "A2": b["a2_clair"],
+            "VIG1": "rgba(255,255,255,0.30)", "VIG2": "rgba(255,255,255,0.45)",
+            "logo": b["logo_clair"], "voile": b["papier"], "voile_defaut": 0.90,
+        }
+    return {
+        "SURF": b["navy"], "SURF2": b["deep"],
+        "INK": "#FFFFFF", "INK_SOFT": "rgba(255,255,255,0.86)",
+        "CARD": "rgba(255,255,255,0.06)", "BORDER": "rgba(255,255,255,0.16)",
+        "DOT": "rgba(255,255,255,0.30)", "WIRE": "rgba(255,255,255,0.26)",
+        "PANEL": "#FFFFFF", "PANEL_INK": b["navy"],
+        "A1": b["a1"], "A2": b["a2"],
+        "VIG1": "rgba(0,0,0,0.40)", "VIG2": "rgba(0,0,0,0.30)",
+        "logo": b["logo"], "voile": b["navy"], "voile_defaut": 0.84,
+    }
+
 
 # --------------------------------------------------------------------------
 # Feuille de style V2 (tokens remplaces par la marque)
@@ -78,16 +129,16 @@ CSS_TPL = """
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif !important;
   -webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;}
 .slide{width:1080px;height:1350px;position:relative;overflow:hidden;
-  background:{{NAVY}};color:#fff;}
+  background:{{SURF}};color:{{INK}};}
 
 /* fond : degrade sobre, ou photo si fournie */
 .bg{position:absolute;inset:0;background:
   radial-gradient(58% 44% at 26% 88%, {{A1}}2e 0%, rgba(0,0,0,0) 62%),
   radial-gradient(52% 40% at 84% 74%, {{A2}}24 0%, rgba(0,0,0,0) 64%),
-  linear-gradient(180deg, {{DEEP}} 0%, {{NAVY}} 100%);}
+  linear-gradient(180deg, {{SURF2}} 0%, {{SURF}} 100%);}
 .bg::after{content:"";position:absolute;inset:0;background:
-  radial-gradient(84% 80% at 50% 58%, rgba(0,0,0,0) 44%, rgba(0,0,0,0.40) 100%),
-  linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0) 30%);}
+  radial-gradient(84% 80% at 50% 58%, rgba(0,0,0,0) 44%, {{VIG1}} 100%),
+  linear-gradient(180deg, {{VIG2}} 0%, rgba(0,0,0,0) 30%);}
 .topbar{position:absolute;top:0;left:0;right:0;height:5px;z-index:6;
   background:linear-gradient(90deg,{{A2}} 0%,{{A1}} 100%);}
 
@@ -103,7 +154,7 @@ CSS_TPL = """
 .num{position:absolute;top:78px;right:76px;font-size:118px;font-weight:900;
   line-height:0.78;letter-spacing:-7px;color:{{A1}};}
 .rule{width:66px;height:4px;background:{{A1}};margin-top:24px;border-radius:2px;}
-.lead{font-size:25px;font-weight:500;line-height:1.4;color:rgba(255,255,255,0.86);
+.lead{font-size:25px;font-weight:500;line-height:1.4;color:{{INK_SOFT}};
   margin-top:20px;max-width:830px;}
 .grow{flex:1;}
 
@@ -111,7 +162,7 @@ CSS_TPL = """
 .foot{display:flex;align-items:stretch;border-radius:12px;overflow:hidden;}
 .foot .fl{background:{{A1}};color:#fff;font-weight:800;font-size:20px;
   padding:17px 21px;display:flex;align-items:center;flex-shrink:0;}
-.foot .fv{background:#fff;color:{{NAVY}};font-weight:700;font-size:20px;
+.foot .fv{background:{{PANEL}};color:{{PANEL_INK}};font-weight:700;font-size:20px;
   padding:17px 23px;display:flex;align-items:center;flex-grow:1;line-height:1.3;}
 
 .logo{position:absolute;bottom:48px;left:0;right:0;display:flex;
@@ -131,45 +182,45 @@ CSS_TPL = """
 .map{position:relative;width:928px;height:640px;}
 .node{position:absolute;border-radius:18px;padding:22px 22px;min-height:150px;
   display:flex;flex-direction:column;justify-content:center;
-  border:2px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.06);}
+  border:2px solid {{BORDER}};background:{{CARD}};}
 .node .nl{font-size:29px;font-weight:800;color:{{A1}};line-height:1.12;}
 .node .nt{font-size:22px;font-weight:500;line-height:1.34;margin-top:9px;
-  color:rgba(255,255,255,0.88);}
+  color:{{INK_SOFT}};}
 .core{position:absolute;left:314px;top:268px;width:300px;height:104px;
   border-radius:18px;display:flex;align-items:center;justify-content:center;
   text-align:center;padding:14px 18px;background:{{A1}};}
-.core span{font-size:28px;font-weight:900;line-height:1.14;text-transform:uppercase;
+.core span{color:#fff;font-size:28px;font-weight:900;line-height:1.14;text-transform:uppercase;
   letter-spacing:-0.3px;}
 .wires{position:absolute;inset:0;}
 
 /* timeline verticale */
 .tl{position:relative;padding-left:38px;display:flex;flex-direction:column;}
 .tl::before{content:"";position:absolute;left:9px;top:10px;bottom:10px;width:3px;
-  background:rgba(255,255,255,0.18);}
+  background:{{BORDER}};}
 .tlrow{position:relative;min-height:128px;display:flex;
   flex-direction:column;justify-content:center;}
 
 .tlrow::before{content:"";position:absolute;left:-38px;top:50%;margin-top:-11px;
   width:22px;height:22px;
-  border-radius:5px;background:rgba(255,255,255,0.30);}
+  border-radius:5px;background:{{DOT}};}
 .tlrow.hot::before{background:{{A1}};}
 .tld{font-size:22px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
   color:{{A2}};}
 .tlrow.hot .tld{color:{{A1}};}
 .tlt{font-size:31px;font-weight:800;margin-top:5px;line-height:1.2;}
 .tls{font-size:23px;font-weight:500;margin-top:5px;line-height:1.34;
-  color:rgba(255,255,255,0.84);}
+  color:{{INK_SOFT}};}
 
 /* flux horizontal */
 .flow{display:flex;align-items:stretch;gap:12px;min-height:450px;}
 .step{flex:1;border-radius:16px;padding:28px 22px;display:flex;
   flex-direction:column;justify-content:center;
-  border:2px solid rgba(255,255,255,0.16);background:rgba(255,255,255,0.05);}
+  border:2px solid {{BORDER}};background:{{CARD}};}
 .step .sn{font-size:34px;font-weight:900;color:{{A1}};line-height:1;}
 .step .sbar{width:34px;height:3px;background:{{A1}};margin:12px 0 14px;border-radius:2px;}
 .step .st{font-size:28px;font-weight:800;line-height:1.16;}
 .step .ss{font-size:22px;font-weight:500;line-height:1.32;margin-top:8px;
-  color:rgba(255,255,255,0.84);}
+  color:{{INK_SOFT}};}
 .arw{align-self:center;color:{{A1}};font-size:40px;font-weight:900;line-height:1;}
 
 /* comparatif 2 cartes */
@@ -182,7 +233,7 @@ CSS_TPL = """
 .card ul{list-style:none;margin-top:12px;flex:1;display:flex;
   flex-direction:column;justify-content:center;gap:8px;}
 .card li{font-size:25px;font-weight:500;line-height:1.3;margin-top:10px;
-  padding-left:26px;position:relative;color:rgba(255,255,255,0.9);}
+  padding-left:26px;position:relative;color:{{INK_SOFT}};}
 .card li::before{content:"";position:absolute;left:0;top:9px;width:12px;height:12px;
   border-radius:3px;}
 .bad{border:2px solid {{RED}};background:rgba(255,90,90,0.10);}
@@ -197,7 +248,7 @@ CSS_TPL = """
 .stats{display:flex;flex-direction:column;gap:16px;}
 .stat{display:flex;align-items:center;gap:24px;border-radius:16px;
   padding:22px 26px;min-height:120px;
-  border:2px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.05);}
+  border:2px solid {{BORDER}};background:{{CARD}};}
 .stat .sv{font-size:56px;font-weight:900;color:{{A1}};line-height:1;flex-shrink:0;
   letter-spacing:-2px;}
 .stat .sl{font-size:25px;font-weight:600;line-height:1.28;}
@@ -212,34 +263,34 @@ CSS_TPL = """
 .mk.ok{background:rgba(93,217,135,0.16);border:2px solid {{GREEN}};}
 .ctxt .cl{font-size:30px;font-weight:800;line-height:1.16;}
 .ctxt .cs{font-size:23px;font-weight:500;line-height:1.32;margin-top:5px;
-  color:rgba(255,255,255,0.84);}
+  color:{{INK_SOFT}};}
 
 /* etages empiles */
 .layers{display:flex;flex-direction:column;gap:16px;align-items:center;}
 .layer{border-radius:16px;padding:24px 28px;border-left:6px solid {{A1}};
-  background:rgba(255,255,255,0.06);width:100%;min-height:162px;
+  background:{{CARD}};width:100%;min-height:162px;
   display:flex;flex-direction:column;justify-content:center;}
 .layer .ln{font-size:20px;font-weight:800;letter-spacing:3px;text-transform:uppercase;
   color:{{A2}};}
 .layer .lt{font-size:31px;font-weight:800;margin-top:6px;line-height:1.16;}
 .layer .ls{font-size:23px;font-weight:500;margin-top:6px;line-height:1.32;
-  color:rgba(255,255,255,0.84);}
+  color:{{INK_SOFT}};}
 
 /* tenaille : 2 menaces vers 1 bloc */
 .pincer{display:flex;flex-direction:column;align-items:center;gap:0;}
 .prow{display:flex;gap:16px;width:100%;}
 .pbox{flex:1;border-radius:16px;padding:28px 26px;border:2px solid {{A2}};
-  background:rgba(255,255,255,0.05);display:flex;flex-direction:column;
+  background:{{CARD}};display:flex;flex-direction:column;
   justify-content:center;min-height:212px;}
 .pbox .pt{font-size:29px;font-weight:800;line-height:1.16;color:{{A2}};}
 .pbox .ps{font-size:23px;font-weight:500;line-height:1.32;margin-top:7px;
-  color:rgba(255,255,255,0.86);}
+  color:{{INK_SOFT}};}
 .pv{color:{{A1}};font-size:42px;font-weight:900;margin:18px 0;line-height:1;
   flex:0 0 auto;}
 .pcore{width:100%;border-radius:18px;padding:30px 28px;background:{{A1}};
   text-align:center;display:flex;flex-direction:column;
   justify-content:center;min-height:182px;}
-.pcore .pct{font-size:34px;font-weight:900;line-height:1.16;text-transform:uppercase;}
+.pcore .pct{color:#fff;font-size:34px;font-weight:900;line-height:1.16;text-transform:uppercase;}
 .pcore .pcs{font-size:24px;font-weight:600;line-height:1.32;margin-top:8px;
   color:rgba(255,255,255,0.92);}
 
@@ -253,9 +304,9 @@ CSS_TPL = """
 .cov .ct em{font-style:normal;color:{{A1}};}
 .cov .cr{width:78px;height:4px;background:{{A1}};margin:34px 0;border-radius:2px;}
 .cov .cs{font-size:28px;font-weight:600;line-height:1.36;max-width:840px;
-  color:rgba(255,255,255,0.90);}
+  color:{{INK_SOFT}};}
 .cov .cf{font-size:23px;font-weight:500;font-style:italic;margin-top:22px;
-  color:rgba(255,255,255,0.80);}
+  color:{{INK_SOFT}};}
 
 /* ---- COUVERTURES ALTERNATIVES (Martin, 02/09/2026) -----------------------
    Toutes les couvertures se ressemblaient sur le profil Instagram : meme
@@ -273,7 +324,7 @@ CSS_TPL = """
 .cvA .un{font-size:34px;font-weight:800;line-height:1.15;margin-top:26px;
   text-transform:uppercase;}
 .cvA .sub{font-size:27px;font-weight:600;line-height:1.34;margin-top:20px;max-width:820px;
-  color:rgba(255,255,255,0.90);}
+  color:{{INK_SOFT}};}
 
 /* B. l'aplat de couleur */
 .cvB{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;}
@@ -283,7 +334,7 @@ CSS_TPL = """
   text-transform:uppercase;color:#fff;}
 .cvB .bloc .r{font-size:26px;font-weight:600;line-height:1.34;margin-top:22px;
   color:rgba(255,255,255,0.95);}
-.cvB .etq{position:absolute;top:96px;left:84px;font-size:23px;font-weight:800;
+.cvB .etq{color:{{INK}};position:absolute;top:96px;left:84px;font-size:23px;font-weight:800;
   letter-spacing:6px;text-transform:uppercase;color:#fff;}
 
 /* C. la citation */
@@ -292,8 +343,8 @@ CSS_TPL = """
 .cvC .guil{font-size:196px;font-weight:900;line-height:0.5;color:{{A1}};opacity:0.55;}
 .cvC .phr{font-size:52px;font-weight:800;line-height:1.14;letter-spacing:-1px;margin-top:14px;}
 .cvC .phr em{font-style:normal;color:{{A1}};}
-.cvC .qui{font-size:25px;font-weight:600;margin-top:34px;color:rgba(255,255,255,0.86);}
-.cvC .qui b{color:#fff;}
+.cvC .qui{font-size:25px;font-weight:600;margin-top:34px;color:{{INK_SOFT}};}
+.cvC .qui b{color:{{INK}};}
 
 /* D. le duo avant / apres */
 .cvD{position:absolute;inset:0;padding:96px 60px 176px;z-index:2;display:flex;
@@ -303,8 +354,8 @@ CSS_TPL = """
 .cvD .tt{font-size:50px;font-weight:900;line-height:1.06;text-transform:uppercase;
   text-align:center;margin-top:22px;letter-spacing:-1px;}
 .cvD .cols{display:flex;gap:22px;margin-top:44px;}
-.cvD .col{flex:1;background:rgba(255,255,255,0.07);border-radius:22px;padding:30px 26px;
-  border:1px solid rgba(255,255,255,0.14);}
+.cvD .col{flex:1;background:{{CARD}};border-radius:22px;padding:30px 26px;
+  border:1px solid {{BORDER}};}
 .cvD .col.on{background:{{A1}};border-color:{{A1}};}
 .cvD .col .k{font-size:21px;font-weight:800;letter-spacing:3px;text-transform:uppercase;
   color:{{A2}};}
@@ -312,7 +363,7 @@ CSS_TPL = """
 .cvD .col .v{font-size:62px;font-weight:900;line-height:0.98;margin-top:14px;color:{{A1}};}
 .cvD .col.on .v{color:#fff;}
 .cvD .col .d{font-size:23px;font-weight:600;line-height:1.3;margin-top:14px;
-  color:rgba(255,255,255,0.88);}
+  color:{{INK_SOFT}};}
 
 /* CTA */
 .cta{position:absolute;inset:0;padding:96px 84px 176px;z-index:2;display:flex;
@@ -323,10 +374,10 @@ CSS_TPL = """
   text-transform:uppercase;letter-spacing:-1px;}
 .cta .qt em{font-style:normal;color:{{A1}};}
 .cta .qs{font-size:25px;font-weight:500;line-height:1.38;margin-top:22px;max-width:780px;
-  color:rgba(255,255,255,0.88);}
-.cta .box{background:#fff;border-radius:22px;padding:34px 30px;margin-top:34px;
+  color:{{INK_SOFT}};}
+.cta .box{background:{{PANEL}};border-radius:22px;padding:34px 30px;margin-top:34px;
   width:100%;max-width:840px;}
-.cta .box .bk{font-size:28px;font-weight:800;letter-spacing:3px;color:{{NAVY}};}
+.cta .box .bk{font-size:28px;font-weight:800;letter-spacing:3px;color:{{PANEL_INK}};}
 .cta .box .bw{font-size:80px;font-weight:900;letter-spacing:2px;line-height:1.02;
   margin-top:8px;color:{{A1}};}
 .cta .qv{font-size:24px;font-weight:600;font-style:italic;line-height:1.36;
@@ -343,6 +394,99 @@ CSS_TPL = """
 .end .em em{font-style:normal;color:{{A1}};font-weight:700;}
 .icons{display:flex;gap:36px;align-items:center;margin-top:40px;padding:20px 42px;
   border-radius:60px;background:linear-gradient(90deg,{{A1}},{{A2}});}
+
+/* ---- SEPT COUVERTURES DE PLUS (Martin, 18/09/2026) ----------------------
+   « elles se ressemblent toujours autant, il faudrait vraiment changer
+   completement ». Douze archetypes au total, et deux themes : la meme
+   semaine ne peut plus ressembler a la precedente.                        */
+
+/* F. bandeau plein travers */
+.cvF{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;
+  justify-content:center;padding-bottom:70px;}
+.cvF .eyb{position:absolute;top:96px;left:84px;font-size:23px;font-weight:800;
+  letter-spacing:6px;text-transform:uppercase;color:{{A2}};}
+.cvF .band{background:{{A1}};padding:52px 84px;}
+.cvF .band .t{font-size:72px;font-weight:900;line-height:0.98;letter-spacing:-2.5px;
+  text-transform:uppercase;color:#fff;}
+.cvF .sub{padding:0 84px;margin-top:36px;font-size:27px;font-weight:600;
+  line-height:1.36;max-width:880px;color:{{INK_SOFT}};}
+
+/* G. sommaire numerote */
+.cvG{position:absolute;inset:0;padding:100px 84px 176px;z-index:2;display:flex;
+  flex-direction:column;justify-content:center;}
+.cvG .eyb{font-size:23px;font-weight:800;letter-spacing:6px;text-transform:uppercase;
+  color:{{A2}};}
+.cvG .t{font-size:54px;font-weight:900;line-height:1.02;letter-spacing:-1.8px;
+  text-transform:uppercase;margin-top:18px;}
+.cvG .lst{margin-top:40px;display:flex;flex-direction:column;}
+.cvG .it{display:flex;align-items:center;gap:22px;padding:18px 0;
+  border-bottom:2px solid {{BORDER}};}
+.cvG .it .n{font-size:38px;font-weight:900;color:{{A1}};line-height:1;
+  min-width:56px;letter-spacing:-2px;}
+.cvG .it .x{font-size:27px;font-weight:700;line-height:1.2;}
+
+/* H. un seul mot, plein cadre */
+.cvH{position:absolute;inset:0;padding:96px 84px 176px;z-index:2;display:flex;
+  flex-direction:column;justify-content:center;}
+.cvH .eyb{font-size:23px;font-weight:800;letter-spacing:6px;text-transform:uppercase;
+  color:{{A2}};}
+.cvH .mot{font-size:152px;font-weight:900;line-height:0.86;letter-spacing:-8px;
+  text-transform:uppercase;color:{{A1}};margin-top:22px;overflow-wrap:anywhere;}
+.cvH .rl{width:120px;height:6px;background:{{A2}};margin:34px 0;border-radius:3px;}
+.cvH .sub{font-size:29px;font-weight:600;line-height:1.34;max-width:840px;
+  color:{{INK_SOFT}};}
+
+/* I. etiquette posee de travers */
+.cvI{position:absolute;inset:0;padding:96px 84px 176px;z-index:2;display:flex;
+  flex-direction:column;justify-content:center;align-items:flex-start;}
+.cvI .tag{transform:rotate(-2.4deg);background:{{PANEL}};color:{{PANEL_INK}};
+  padding:42px 46px;border-radius:8px;max-width:880px;}
+.cvI .tag .k{font-size:22px;font-weight:800;letter-spacing:5px;
+  text-transform:uppercase;color:{{A1}};}
+.cvI .tag .t{font-size:58px;font-weight:900;line-height:1.02;letter-spacing:-2px;
+  text-transform:uppercase;margin-top:14px;}
+.cvI .sub{margin-top:44px;font-size:26px;font-weight:600;line-height:1.36;
+  max-width:840px;color:{{INK_SOFT}};}
+
+/* J. deux moitiees empilees */
+.cvJ{position:absolute;inset:0;padding-bottom:172px;z-index:2;display:flex;
+  flex-direction:column;}
+.cvJ .moitie{flex:1;padding:0 84px;display:flex;flex-direction:column;
+  justify-content:center;}
+.cvJ .moitie.pleine{background:{{A1}};}
+.cvJ .k{font-size:22px;font-weight:800;letter-spacing:5px;text-transform:uppercase;
+  color:{{A2}};}
+.cvJ .moitie.pleine .k{color:rgba(255,255,255,0.88);}
+.cvJ .t{font-size:54px;font-weight:900;line-height:1.02;letter-spacing:-2px;
+  text-transform:uppercase;margin-top:12px;}
+.cvJ .moitie.pleine .t{color:#fff;}
+.cvJ .s{font-size:24px;font-weight:600;line-height:1.34;margin-top:14px;
+  max-width:800px;color:{{INK_SOFT}};}
+.cvJ .moitie.pleine .s{color:rgba(255,255,255,0.90);}
+
+/* K. trois lignes barrees */
+.cvK{position:absolute;inset:0;padding:96px 84px 176px;z-index:2;display:flex;
+  flex-direction:column;justify-content:center;gap:30px;}
+.cvK .eyb{font-size:23px;font-weight:800;letter-spacing:6px;text-transform:uppercase;
+  color:{{A2}};margin-bottom:6px;}
+.cvK .ln{border-left:9px solid {{A1}};padding-left:28px;}
+.cvK .ln:last-child{border-left-color:{{A2}};}
+.cvK .ln .t{font-size:52px;font-weight:900;line-height:1.02;letter-spacing:-1.8px;
+  text-transform:uppercase;}
+.cvK .ln .s{font-size:23px;font-weight:600;line-height:1.32;margin-top:9px;
+  color:{{INK_SOFT}};}
+
+/* L. cadre ouvert, la photo respire */
+.cvL{position:absolute;left:46px;right:46px;top:46px;bottom:132px;
+  border:3px solid {{A1}};z-index:2;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:0 46px 46px;}
+.cvL .eyb{font-size:22px;font-weight:800;letter-spacing:6px;text-transform:uppercase;
+  color:{{A2}};}
+.cvL .t{font-size:58px;font-weight:900;line-height:1.02;letter-spacing:-2px;
+  text-transform:uppercase;margin-top:16px;}
+.cvL .t em{font-style:normal;color:{{A1}};}
+.cvL .s{font-size:25px;font-weight:600;line-height:1.34;margin-top:18px;
+  max-width:820px;color:{{INK_SOFT}};}
 """
 
 
@@ -371,37 +515,44 @@ CROSS_SVG = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke
 class Deck:
     """Un carrousel : une marque, une charte, des slides construites par methodes."""
 
-    def __init__(self, brand):
+    def __init__(self, brand, theme="sombre"):
         if brand not in BRANDS:
             raise ValueError("Marque inconnue : " + brand)
+        if theme not in THEMES:
+            raise ValueError("Theme inconnu : %s (attendu %s)" % (theme, THEMES))
         self.key = brand
         self.b = BRANDS[brand]
-        self.logo_b64 = b64(ASSETS / "logos" / self.b["logo"], "image/png")
+        self.theme = theme
+        self.t = jetons_theme(brand, theme)
+        self.logo_b64 = b64(ASSETS / "logos" / self.t["logo"], "image/png")
         self.bg_photo_b64 = None
         self._build_css()
 
     # ---------- style ----------
     def _build_css(self):
         css = CSS_TPL
-        for token, val in (("{{NAVY}}", self.b["navy"]), ("{{DEEP}}", self.b["deep"]),
-                           ("{{A1}}", self.b["a1"]), ("{{A2}}", self.b["a2"]),
-                           ("{{RED}}", self.b["red"]), ("{{GREEN}}", self.b["green"])):
+        for token, val in (("{{RED}}", self.b["red"]), ("{{GREEN}}", self.b["green"])):
             css = css.replace(token, val)
+        for nom, val in self.t.items():
+            if nom.isupper():
+                css = css.replace("{{%s}}" % nom, val)
+        assert "{{" not in css, "jeton de style non remplace"
         self.css = FONT_FACES + css
         if self.bg_photo_b64:
             self.css += self._photo_css()
 
     def set_bg_photo(self, filename, veil=None):
         """Pose une photo en fond (fichier dans assets/backgrounds/).
-        veil : opacite du voile navy (defaut 0.84 ; monter si la photo est claire)."""
+        veil : opacite du voile. Le voile prend la couleur du THEME : navy sur
+        un theme sombre, papier sur un theme clair. Defaut 0.84 / 0.90."""
         self.bg_photo_b64 = b64(ASSETS / "backgrounds" / filename, "image/jpeg")
-        self.veil = veil or 0.84
+        self.veil = veil or self.t["voile_defaut"]
         self._build_css()
 
     def _photo_css(self):
-        v = getattr(self, "veil", 0.84)
-        navy = self.b["navy"].lstrip("#")
-        r, g, bl = int(navy[0:2], 16), int(navy[2:4], 16), int(navy[4:6], 16)
+        v = getattr(self, "veil", self.t["voile_defaut"])
+        fond = self.t["voile"].lstrip("#")
+        r, g, bl = int(fond[0:2], 16), int(fond[2:4], 16), int(fond[4:6], 16)
         rgb = "%d,%d,%d" % (r, g, bl)
         return (
             ".bg{background-image:url(" + self.bg_photo_b64 + ") !important;"
@@ -495,6 +646,75 @@ class Deck:
                 % (eyebrow, titre, col(gauche, False), col(droite, True)) +
                 self._logo(big=False, chevron=True))
 
+    # ---- sept couvertures de plus (Martin, 18/09/2026) ------------------
+    def cover_bandeau(self, eyebrow, titre, subtitle):
+        """COUVERTURE F : un bandeau de couleur traverse la slide de part en
+        part, titre dedans. Silhouette horizontale, tres reconnaissable."""
+        return (self._open() +
+                '<div class="cvF"><div class="eyb">%s</div>'
+                '<div class="band"><div class="t">%s</div></div>'
+                '<div class="sub">%s</div></div>' % (eyebrow, titre, subtitle) +
+                self._logo(big=False, chevron=True))
+
+    def cover_index(self, eyebrow, titre, points):
+        """COUVERTURE G : le sommaire du carrousel, 3 a 5 points numerotes.
+        points = liste de textes courts."""
+        items = "".join('<div class="it"><div class="n">%d</div><div class="x">%s</div></div>'
+                        % (i + 1, t) for i, t in enumerate(points))
+        return (self._open() +
+                '<div class="cvG"><div class="eyb">%s</div><div class="t">%s</div>'
+                '<div class="lst">%s</div></div>' % (eyebrow, titre, items) +
+                self._logo(big=False, chevron=True))
+
+    def cover_mot(self, eyebrow, mot, subtitle):
+        """COUVERTURE H : UN seul mot, en enorme. Affiche colle a l'affiche.
+        Le mot doit etre court (12 caracteres au plus), sinon il deborde."""
+        return (self._open() +
+                '<div class="cvH"><div class="eyb">%s</div>'
+                '<div class="mot">%s</div><div class="rl"></div>'
+                '<div class="sub">%s</div></div>' % (eyebrow, mot, subtitle) +
+                self._logo(big=True, chevron=True))
+
+    def cover_etiquette(self, etiquette, titre, subtitle):
+        """COUVERTURE I : une etiquette posee de travers, comme un dossier
+        tamponne. Le seul archetype ou le titre est sur fond inverse."""
+        return (self._open() +
+                '<div class="cvI"><div class="tag"><div class="k">%s</div>'
+                '<div class="t">%s</div></div>'
+                '<div class="sub">%s</div></div>' % (etiquette, titre, subtitle) +
+                self._logo(big=False, chevron=True))
+
+    def cover_moities(self, haut, bas):
+        """COUVERTURE J : deux moities empilees, la seconde en aplat de
+        couleur. haut et bas = (etiquette, titre, phrase)."""
+        def moitie(t3, pleine):
+            k, t, s = t3
+            return ('<div class="moitie%s"><div class="k">%s</div>'
+                    '<div class="t">%s</div><div class="s">%s</div></div>'
+                    % (" pleine" if pleine else "", k, t, s))
+        return (self._open() +
+                '<div class="cvJ">%s%s</div>' % (moitie(haut, False), moitie(bas, True)) +
+                self._logo(big=False, chevron=True))
+
+    def cover_trois(self, eyebrow, lignes):
+        """COUVERTURE K : trois affirmations barrees d'un trait de couleur.
+        lignes = liste de 3 tuples (titre, phrase)."""
+        assert len(lignes) == 3, "cover_trois attend exactement 3 lignes"
+        body = "".join('<div class="ln"><div class="t">%s</div><div class="s">%s</div></div>'
+                       % (t, s) for t, s in lignes)
+        return (self._open() +
+                '<div class="cvK"><div class="eyb">%s</div>%s</div>' % (eyebrow, body) +
+                self._logo(big=False, chevron=True))
+
+    def cover_cadre(self, eyebrow, titre, subtitle):
+        """COUVERTURE L : un filet encadre toute la slide, le texte est pousse
+        en bas. C'est la couverture qui laisse le plus voir la photo."""
+        return (self._open() +
+                '<div class="cvL"><div class="eyb">%s</div>'
+                '<div class="t">%s</div><div class="s">%s</div></div>'
+                % (eyebrow, titre, subtitle) +
+                self._logo(big=False, chevron=True))
+
     def mindmap(self, num, title, eyebrow, core, branches, foot_label=None, foot_value="", lead=None):
         """Carte mentale : un noyau central + 4 branches (haut/bas x gauche/droite)."""
         assert len(branches) == 4, "la carte mentale attend exactement 4 branches"
@@ -507,7 +727,7 @@ class Deck:
                       '<div class="nt">%s</div></div>' % (style, label, text))
         wires = (
             '<svg class="wires" width="928" height="640" viewBox="0 0 928 640">'
-            '<g fill="none" stroke="rgba(255,255,255,0.26)" stroke-width="3">'
+            '<g fill="none" stroke="{{WIRE}}" stroke-width="3">'
             '<path d="M314 320 H282 Q270 320 270 308 V97 Q270 85 282 85 H300"/>'
             '<path d="M614 320 H646 Q658 320 658 308 V97 Q658 85 646 85 H628"/>'
             '<path d="M314 320 H282 Q270 320 270 332 V538 Q270 550 282 550 H300"/>'
@@ -655,41 +875,103 @@ class Deck:
 # garantissent qu'on ne reprend jamais le meme deux semaines de suite pour une
 # marque, ni le meme sur les deux marques la meme semaine.
 
-COUVERTURES = ("cover", "cover_chiffre", "cover_aplat", "cover_citation", "cover_duo")
+COUVERTURES = ("cover", "cover_chiffre", "cover_aplat", "cover_citation", "cover_duo",
+               "cover_bandeau", "cover_index", "cover_mot", "cover_etiquette",
+               "cover_moities", "cover_trois", "cover_cadre")
 JOURNAL_COUVERTURES = ROOT / "output" / "couvertures.json"
+JOURNAL_THEMES = ROOT / "output" / "themes.json"
 
 
-def _journal_couvertures():
-    if JOURNAL_COUVERTURES.is_file():
+def _journal(chemin):
+    if chemin.is_file():
         try:
-            return json.loads(JOURNAL_COUVERTURES.read_text(encoding="utf-8"))
+            return json.loads(chemin.read_text(encoding="utf-8"))
         except ValueError:
             pass
     return {}
 
 
+def _ecrire(chemin, j):
+    chemin.parent.mkdir(parents=True, exist_ok=True)
+    chemin.write_text(json.dumps(j, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def _historique(chemin, marque):
+    """Les choix passes d'une marque, du plus ancien au plus recent.
+    Accepte l'ancien format (une seule valeur texte) sans rien casser."""
+    v = _journal(chemin).get(marque, [])
+    return [v] if isinstance(v, str) else list(v)
+
+
 def couvertures_possibles(marque, deja_prise=None):
     """Les archetypes autorises cette semaine pour cette marque, du plus au
-    moins souhaitable. On ecarte celui de la semaine derniere et celui que
+    moins souhaitable. On ecarte les DEUX derniers de la marque et celui que
     l'autre marque vient de prendre. Choisis ensuite celui qui colle au SUJET :
     le chiffre demande un vrai chiffre marquant, la citation une phrase
-    reellement prononcee dans la video."""
-    j = _journal_couvertures()
-    interdits = {j.get(marque), deja_prise}
+    reellement prononcee, le sommaire un carrousel en points numerotes."""
+    interdits = set(_historique(JOURNAL_COUVERTURES, marque)[-2:]) | {deja_prise}
     libres = [c for c in COUVERTURES if c not in interdits]
-    return libres or list(COUVERTURES)
+    return libres or [c for c in COUVERTURES if c != deja_prise]
 
 
 def noter_couverture(marque, nom):
     """A appeler apres avoir ecrit le carrousel, pour que la semaine suivante
     sache quoi eviter."""
     assert nom in COUVERTURES, "archetype de couverture inconnu : %s" % nom
-    j = _journal_couvertures()
-    j[marque] = nom
-    JOURNAL_COUVERTURES.parent.mkdir(parents=True, exist_ok=True)
-    JOURNAL_COUVERTURES.write_text(json.dumps(j, ensure_ascii=False, indent=2) + "\n",
-                                   encoding="utf-8")
+    j = _journal(JOURNAL_COUVERTURES)
+    j[marque] = (_historique(JOURNAL_COUVERTURES, marque) + [nom])[-6:]
+    _ecrire(JOURNAL_COUVERTURES, j)
     return nom
+
+
+def themes_possibles(marque, deja_pris=None):
+    """Le theme de la semaine : jamais le meme que la semaine derniere pour
+    cette marque, et de preference pas celui que l'autre marque vient de
+    prendre (une semaine tout sombre est moins vivante dans la grille)."""
+    passe = _historique(JOURNAL_THEMES, marque)[-1:]
+    libres = [t for t in THEMES if t not in set(passe) | {deja_pris}]
+    return libres or [t for t in THEMES if t not in passe] or list(THEMES)
+
+
+def noter_theme(marque, nom):
+    assert nom in THEMES, "theme inconnu : %s" % nom
+    j = _journal(JOURNAL_THEMES)
+    j[marque] = (_historique(JOURNAL_THEMES, marque) + [nom])[-6:]
+    _ecrire(JOURNAL_THEMES, j)
+    return nom
+
+
+def _melange(liste, marque, sel):
+    """Melange stable : le tirage depend de la SEMAINE, donc il ne bouge pas
+    pendant qu'on travaille, mais il change d'une semaine a l'autre. Sans cela
+    on reprenait toujours le premier de la liste, c'est-a-dire le plus
+    classique, et on retombait dans la monotonie qu'on essaie de corriger."""
+    an, sem, _ = datetime.date.today().isocalendar()
+    graine = "%d-%d-%s-%s" % (an, sem, marque, sel)
+    ordre = sorted(liste, key=lambda x: hashlib.md5((graine + x).encode()).hexdigest())
+    return ordre
+
+
+def plan_semaine(marque, autre=None):
+    """Propose (theme, couverture, scene de fond) pour la marque, en evitant
+    tout ce qui a deja servi recemment et tout ce que l'autre marque prend la
+    meme semaine. `autre` = le plan deja retenu pour l'autre marque.
+
+    ⚠️ Ce n'est qu'une PROPOSITION : le sujet de la semaine prime toujours.
+    Si la video n'a pas de chiffre marquant, ne prends pas cover_chiffre ;
+    prends le suivant de la liste. Mais ne reviens JAMAIS a la couverture ni
+    a la scene de la semaine precedente : c'est exactement ce que Martin a
+    reproche deux fois (02/09 et 18/09).
+
+    A appeler AVANT d'ecrire le carrousel ; noter_theme / noter_couverture /
+    noter_scene enregistrent ensuite ce qui a reellement ete utilise."""
+    from gemini_bg import scenes_possibles                 # import tardif : pas de cycle
+    autre = autre or {}
+    theme = themes_possibles(marque, autre.get("theme"))[0]
+    couvertures = _melange(couvertures_possibles(marque, autre.get("couverture")), marque, "c")
+    scenes = _melange(scenes_possibles(marque, theme, autre.get("scene")), marque, "s")
+    return {"theme": theme, "couverture": couvertures[0], "scene": scenes[0],
+            "couvertures_libres": couvertures, "scenes_libres": scenes}
 
 
 def acc(word):

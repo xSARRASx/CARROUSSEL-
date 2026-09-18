@@ -1,4 +1,10 @@
 {
-  "lesousloueur": "cover_aplat",
-  "guestlucky": "cover_citation"
+  "lesousloueur": [
+    "cover_aplat",
+    "cover_index"
+  ],
+  "guestlucky": [
+    "cover_citation",
+    "cover_mot"
+  ]
 }

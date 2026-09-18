@@ -1633,6 +1633,60 @@ dès qu'on décrit ce que fait une conciergerie.
 - Livré : `lesousloueur-2026-09-14-controle-fiscal` (CTA « CONTROLE ») et
   `guestlucky-2026-09-14-dossier-prouvable` (`cta_sans_commentaire()`, règle 13).
 
+## 🎨 RÈGLE 18 — LA VARIÉTÉ EST TENUE PAR LE CODE (Martin, 18/09/2026)
+
+> « les fonds des carrousels c'est de la merde, ils sont tous pareils… les
+> couvertures pareil, t'as changé un peu mais elles se ressemblent toujours
+> autant… du fond blanc avec les écritures violettes rose et inversement…
+> t'as 10 15 idées, tu utilises les 10 ou les 15. Je veux que ça change. »
+
+**C'est le DEUXIÈME rappel sur le même sujet** (le premier était le 02/09). La
+première fois j'avais dégelé la liste des OBJETS et ajouté 4 couvertures. Ça n'a
+pas suffi, et c'était prévisible : **le reste du prompt image restait figé**.
+Le Sous Loueur, c'était toujours un flat-lay vu du dessus sur fond navy ;
+Guestlucky, toujours un bureau de nuit en trois quarts. Changer les objets d'une
+photo dont le cadrage, le décor et la lumière ne bougent jamais ne change rien.
+Et les 12 couvertures partageaient toutes le même fond sombre.
+
+### Ce qui existe maintenant dans le code
+1. **DEUX THÈMES** (`design_v2.py`) : `Deck(marque, "sombre")` ou
+   `Deck(marque, "clair")`. Le thème clair pose l'encre et les accents de la
+   marque sur un papier blanc cassé : fond blanc, écritures violet/rose côté
+   Guestlucky, navy/orange côté Le Sous Loueur. Toute la feuille de style passe
+   par des jetons, plus une seule couleur en dur.
+   ⚠️ Le logo suit le thème : `guestlucky_sombre.png` et `lesousloueur.png`
+   (versions à glyphes foncés) sur les fonds clairs, sinon le logo disparaît.
+2. **DOUZE COUVERTURES** : cover, cover_chiffre, cover_aplat, cover_citation,
+   cover_duo, cover_bandeau, cover_index, cover_mot, cover_etiquette,
+   cover_moities, cover_trois, cover_cadre. Douze silhouettes différentes, pas
+   douze variantes du même bloc centré.
+3. **VINGT-HUIT SCÈNES DE FOND** (`gemini_bg.py`, 14 par marque) : chacune fixe
+   un CADRAGE, un DÉCOR et une LUMIÈRE. Flat-lay marbre, macro sur lin, marche
+   d'escalier parisien, coin d'appartement à l'heure dorée, rebord de fenêtre,
+   kraft studio, ardoise, velours, plexi rose, stores et ombres portées…
+   Chaque scène est marquée `clair` ou `sombre` : **la scène et le thème du
+   carrousel doivent correspondre**, sinon le voile écrase la photo.
+4. **ROTATION TENUE PAR DES JOURNAUX** : `output/couvertures.json`,
+   `output/themes.json`, `output/fonds.json`. On n'y revient jamais avant deux
+   semaines, et les deux marques ne prennent jamais la même chose le même jour.
+
+### Ce qu'on fait chaque semaine, dans cet ordre
+```python
+from design_v2 import Deck, plan_semaine, noter_couverture, noter_theme
+lsl = plan_semaine("lesousloueur")        # {theme, couverture, scene, ...}
+gl  = plan_semaine("guestlucky", lsl)     # tient compte de ce que LSL a pris
+```
+Le tirage change à chaque semaine ISO : il ne retombe plus sur le premier de la
+liste, c'est-à-dire sur le plus classique. **Le plan est une proposition, le
+SUJET prime** : pas de `cover_chiffre` sans vrai chiffre marquant, pas de
+`cover_citation` sans phrase réellement prononcée. Mais on ne revient JAMAIS à la
+couverture ni à la scène de la semaine précédente, et on passe les `objects=`
+écrits d'après la transcription.
+
+⛔ Ce qui est désormais interdit : livrer deux semaines de suite le même thème
+pour une marque, la même scène, ou la même couverture. Le code le propose tout
+seul ; il n'y a plus d'excuse.
+
 ## 👁️ RÈGLE DE LIVRAISON (Martin, 27/07/2026) : TOUJOURS MONTRER LES SLIDES
 Martin veut **voir le rendu de chaque slide**, pas seulement recevoir les ZIP.
 À chaque livraison (hebdo automatique ou à la demande) :

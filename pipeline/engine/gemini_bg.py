@@ -68,9 +68,12 @@ SIZE = "2K"                           # 1K / 2K / 4K (2K = bon compromis prix/qu
 COMMON_RULES = """
 LAYOUT (STRICT VERTICAL 4:5, THINK 1080 x 1350)
 - TOP 38%: almost EMPTY surface, only subtle texture and gentle light falloff.
-  A large white title will be placed over this zone, so it must stay clean and dark.
+  A large title will be placed over this zone, so it must stay clean and calm.
 - BOTTOM 62%: the objects, arranged with generous breathing room, never crowded.
 - Comfortable margins left and right, no object awkwardly cropped.
+- CRITICAL: the empty top zone and the scene below must join through a SMOOTH
+  CONTINUOUS gradient. NO horizontal seam, NO visible band, NO straight line
+  across the frame, NO split between two different backgrounds.
 
 ABSOLUTE EXCLUSIONS
 - NO readable text, NO letters, NO numbers, NO typography anywhere.
@@ -88,103 +91,233 @@ RENDERING
 - Shot on Sony A7, sharp focus on the objects, calm and premium color grading.
 """
 
-BRAND_PROMPTS = {
-    "lesousloueur": """═══════════════════════════════════════════════════════
-PREMIUM EDITORIAL FLAT-LAY PHOTOGRAPH, STRICT VERTICAL 4:5
-THEME: {theme}
-═══════════════════════════════════════════════════════
+# ==========================================================================
+# 🚨 CONSTAT DE MARTIN (18/09/2026), le deuxieme sur le meme sujet :
+#    « les fonds des carrousels c'est de la merde, ils sont tous pareils ».
+#    Il avait raison, et la cause etait ICI. Le 02/09 j'avais degele la liste
+#    des OBJETS, mais le reste du prompt restait fige : Le Sous Loueur, c'etait
+#    TOUJOURS un flat-lay vu du dessus sur fond navy, et Guestlucky TOUJOURS un
+#    bureau de nuit en trois quarts. Changer les objets d'une photo dont le
+#    cadrage, le decor et la lumiere ne bougent jamais ne change rien.
+#    -> Desormais le prompt se COMPOSE : une scene (cadrage + decor + lumiere)
+#       tiree d'une banque de 14 par marque, un theme (sombre ou clair), et des
+#       objets ecrits d'apres la transcription de la semaine. La rotation est
+#       tenue par output/fonds.json : jamais la meme scene qu'aux DEUX
+#       dernieres semaines, jamais la meme sur les deux marques le meme jour.
+# ==========================================================================
 
-CONCEPT
-Top-down editorial flat-lay photograph on a deep navy blue matte surface.
-The scene evokes a serious short-term rental professional, organized and calm,
-in the context of: {theme}. Premium hospitality magazine mood
-(Kinfolk, Monocle, Conde Nast Traveler).
-
-OBJECTS (lower two thirds only, choose what fits the theme)
-{objects}
-
-COLOR PALETTE (STRICT, DO NOT DEVIATE)
-- Dominant: deep navy blue #0E1B2E and #142841 for the surface and shadows
+PALETTES = {
+    ("lesousloueur", "sombre"): """- Dominant: deep navy blue #0E1B2E and #142841 for surfaces and shadows
 - Accent: warm vibrant orange #E8551F to #F25C2A, maximum three small touches
 - Secondary: white #FFFFFF for papers, warm cream #F5F5EE, natural kraft brown
-- NO violet, NO purple, NO magenta, NO pink, NO green anywhere
+- NO violet, NO purple, NO magenta, NO pink, NO green anywhere""",
+    ("lesousloueur", "clair"): """- Dominant: warm off-white and cream #F6F3EE to #FFFFFF, pale sand, light kraft
+- Accent: warm vibrant orange #E8551F, maximum two small touches
+- Secondary: deep navy blue #0E1B2E for the darkest objects only
+- Bright, airy, high-key image: the whole frame stays LIGHT
+- NO violet, NO purple, NO magenta, NO pink, NO green anywhere""",
+    ("guestlucky", "sombre"): """- Base: very deep navy blue #0F1A35 and #0A1228, close to black in the corners
+- Primary glow: violet #7B4FE0 and #8B3FD9, coming from off-frame
+- Secondary glow: magenta pink #E84A8C and #C13FBE, softer
+- White #FFFFFF only for blank papers and faint edge highlights
+- NO orange, NO yellow, NO green, NO teal, NO red anywhere""",
+    ("guestlucky", "clair"): """- Base: clean white and very pale lilac #F4F1FA to #FFFFFF
+- Accent: violet #7B4FE0 and magenta pink #E84A8C, as coloured light or as
+  one or two coloured objects, never as a heavy wash
+- Soft grey #E7E4EF for shadows, which stay light and open
+- Bright, airy, high-key image: the whole frame stays LIGHT
+- NO orange, NO yellow, NO green, NO teal, NO red anywhere""",
+}
 
-LIGHTING
-- Soft directional daylight from the upper left, slightly warm
-- Gentle soft shadows, no harsh contrast, very slight natural vignette
-""" + COMMON_RULES,
+# Chaque scene : (cadrage, decor, lumiere). Le theme dit si l'image sort claire
+# ou sombre : il doit correspondre au theme du carrousel (voile blanc ou navy).
+SCENES = {
+    "lesousloueur": {
+        "flatlay_navy": ("sombre", "Top-down flat-lay, camera straight above",
+                         "a deep navy blue matte paper surface",
+                         "soft directional daylight from the upper left, gentle shadows"),
+        "bureau_chene": ("sombre", "Three-quarter view of a desk corner, slightly elevated",
+                         "a warm solid oak desk with visible grain",
+                         "low late-afternoon sun, long soft shadows across the wood"),
+        "beton_soleil": ("sombre", "High angle, objects gathered on the floor",
+                         "a raw grey concrete floor with fine texture",
+                         "hard directional sunlight, graphic geometric shadows"),
+        "nuit_lampe": ("sombre", "Three-quarter close-up",
+                       "a dark wooden table at night",
+                       "a single warm desk lamp pooling light on the objects, deep shadows around"),
+        "table_bistrot": ("sombre", "Low angle across the table edge, shallow depth of field",
+                          "a dark walnut bistro table",
+                          "soft window light from the side, moody falloff"),
+        "escalier": ("sombre", "Slightly high angle, objects placed on a step",
+                     "a worn stone step in an old Parisian stairwell, wrought iron rail blurred behind",
+                     "natural shade with a soft glow from a distant window"),
+        "ardoise": ("sombre", "Tight top-down crop, only two or three objects",
+                    "a black slate board with matte texture",
+                    "a single hard light source, crisp shadow edges"),
+        "marbre_clair": ("clair", "Top-down flat-lay, camera straight above",
+                         "a white marble slab with subtle grey veining",
+                         "bright diffuse daylight, very soft shadows"),
+        "lin_macro": ("clair", "Extreme close-up, shallow depth of field",
+                      "a natural undyed linen cloth with visible weave",
+                      "soft window light, quiet and even"),
+        "appartement": ("clair", "Wide interior shot, objects on the floor in the lower third",
+                        "the empty corner of a bright apartment with pale parquet and white walls",
+                        "golden hour light coming through an off-frame window"),
+        "rebord_fenetre": ("clair", "Eye-level close-up on a window sill",
+                           "a painted wooden window sill, blurred rooftops outside",
+                           "backlit daylight, soft haze, bright and airy"),
+        "kraft_studio": ("clair", "Top-down flat-lay with generous spacing",
+                         "a large sheet of natural kraft paper",
+                         "even studio softbox light, neutral and clean"),
+        "terrazzo": ("clair", "Top-down, objects arranged off-centre",
+                     "a pale terrazzo surface with tiny warm flecks",
+                     "bright even daylight, minimal shadows"),
+        "drap": ("clair", "Three-quarter close-up, soft focus falloff",
+                 "a rumpled white cotton bed sheet",
+                 "early morning light, gentle and diffuse"),
+    },
+    "guestlucky": {
+        "bureau_nuit": ("sombre", "Three-quarter view, slightly elevated",
+                        "a modern ordered desk at night",
+                        "ambient LED glow from off-frame sources, blending into darkness"),
+        "verre_reflets": ("sombre", "Low three-quarter angle with visible reflections",
+                          "a black glass sheet over a dark ground",
+                          "violet and magenta reflections from off-frame panels"),
+        "velours_macro": ("sombre", "Extreme close-up, very shallow depth of field",
+                          "deep violet velvet fabric",
+                          "a single soft light grazing the surface"),
+        "beton_neon": ("sombre", "High angle, objects gathered together",
+                       "dark polished concrete",
+                       "a thin violet LED strip off-frame, its glow spilling across the floor"),
+        "table_noire": ("sombre", "Straight top-down, dramatic and graphic",
+                        "a matte black table surface",
+                        "one hard light source, a magenta rim on the object edges"),
+        "fenetre_soir": ("sombre", "Eye-level close-up near a window",
+                         "a dark sill with a dim interior behind",
+                         "cool blue-hour daylight with a faint violet cast"),
+        "etagere": ("sombre", "Three-quarter view of a shelf, objects staged on it",
+                    "a dark wooden shelf against a deep navy wall",
+                    "a soft violet glow behind, deep shadows in front"),
+        "studio_blanc": ("clair", "Three-quarter view on a seamless backdrop",
+                         "a bright white studio sweep with a subtle violet gradient",
+                         "high-key soft light, open airy shadows"),
+        "papier_lilas": ("clair", "Top-down flat-lay, generous spacing",
+                         "a pale lilac paper surface",
+                         "even bright light, barely any shadow"),
+        "gris_perle": ("clair", "Three-quarter close-up",
+                       "a light pearl grey seamless surface",
+                       "soft diffuse light with a violet rim from the right"),
+        "plexi_rose": ("clair", "Top-down on a translucent sheet",
+                       "a pale pink translucent acrylic sheet",
+                       "diffuse backlight glowing through the material"),
+        "marbre_violet": ("clair", "Top-down flat-lay",
+                          "a white marble surface",
+                          "daylight with a soft violet gel light from one side"),
+        "tissu_gris": ("clair", "Extreme close-up, shallow depth of field",
+                       "light grey wool fabric with visible texture",
+                       "soft window light with a faint magenta bounce"),
+        "ombres_stores": ("clair", "Top-down on paper, graphic shadow stripes",
+                          "a plain white paper surface",
+                          "hard sunlight through a window blind, the shadows tinted violet"),
+    },
+}
 
-    "guestlucky": """═══════════════════════════════════════════════════════
-PREMIUM TECH STILL-LIFE PHOTOGRAPH, STRICT VERTICAL 4:5
+GABARIT = """═══════════════════════════════════════════════════════
+PREMIUM EDITORIAL PHOTOGRAPH, STRICT VERTICAL 4:5
 THEME: {theme}
 ═══════════════════════════════════════════════════════
 
-CONCEPT
-Cinematic premium still-life photograph of a modern ordered desk at night,
-seen from a slightly elevated three-quarter angle. High-end SaaS brand mood
-(Stripe, Linear, Notion), in the context of: {theme}.
+FRAMING
+{cadrage}.
 
-OBJECTS (lower two thirds only, choose what fits the theme)
+SETTING
+The scene takes place on {decor}, in the context of: {theme}.
+{mood}
+
+LIGHTING
+{lumiere}.
+
+OBJECTS (lower two thirds only)
 {objects}
 
 COLOR PALETTE (STRICT, DO NOT DEVIATE)
-- Base: very deep navy blue #0F1A35 and #0A1228, close to black in the corners
-- Primary glow: violet #7B4FE0 and #8B3FD9, coming from the left, off-frame
-- Secondary glow: magenta pink #E84A8C and #C13FBE, softer, from the right
-- White #FFFFFF only for blank papers and faint edge highlights
-- NO orange, NO yellow, NO green, NO teal, NO red anywhere
+{palette}
+"""
 
-LIGHTING
-- Ambient LED-style glow from OFF-FRAME sources only, blending into darkness
-- Soft reflections on glass and matte surfaces, deep shadows elsewhere
-- Cinematic falloff, corners darker than the center bottom
-""" + COMMON_RULES,
+MOODS = {
+    "lesousloueur": "Premium hospitality magazine mood (Kinfolk, Monocle, Conde Nast "
+                    "Traveler): a serious short-term rental professional, organised and calm.",
+    "guestlucky": "High-end SaaS brand mood (Stripe, Linear, Notion): precise, modern, "
+                  "quietly technical.",
 }
 
-# 🚨 CONSTAT DE MARTIN (02/09/2026) : les fonds se ressemblaient TOUS.
-# La cause etait ici : cette liste d'objets etait FIGEE. Le theme de la semaine
-# ne changeait qu'une phrase de contexte, jamais les objets. D'ou le meme carnet,
-# le meme telephone et la meme tasse chaque semaine, juste deplaces.
-# Desormais ce sont des CONSIGNES : le modele choisit lui-meme des objets qui
-# illustrent le sujet. Et le mieux reste de passer une liste explicite via
-# l'argument objects=, ecrite d'apres la transcription de la semaine.
-DEFAULT_OBJECTS = {
-    "lesousloueur": (
-        "- CHOOSE 4 to 6 objects that LITERALLY illustrate the theme above.\n"
-        "  They must be recognisable as belonging to THAT subject, not to a\n"
-        "  generic desk. A viewer who sees only the photo should be able to\n"
-        "  guess what the carousel talks about.\n"
-        "- Vary the composition from one shoot to the next: sometimes a wide\n"
-        "  flat-lay, sometimes a tight close-up on one or two objects only.\n"
-        "- Keep every printed surface BLANK: no readable text, no logo,\n"
-        "  no numbers, no user interface on any screen.\n"
-        "- At most one small orange object, as the accent touch."
-    ),
-    "guestlucky": (
-        "- CHOOSE 4 to 6 objects that LITERALLY illustrate the theme above.\n"
-        "  They must be recognisable as belonging to THAT subject, not to a\n"
-        "  generic desk. A viewer who sees only the photo should be able to\n"
-        "  guess what the carousel talks about.\n"
-        "- Vary the composition from one shoot to the next: sometimes a wide\n"
-        "  desk, sometimes a tight close-up on one or two objects only.\n"
-        "- Keep every printed surface BLANK: no readable text, no logo,\n"
-        "  no numbers, no user interface on any screen.\n"
-        "- Background dissolving into soft dark bokeh"
-    ),
-}
+DEFAULT_OBJECTS = (
+    "- CHOOSE 4 to 6 objects that LITERALLY illustrate the theme above.\n"
+    "  They must be recognisable as belonging to THAT subject, not to a\n"
+    "  generic desk. A viewer who sees only the photo should be able to\n"
+    "  guess what the carousel talks about.\n"
+    "- Keep every printed surface BLANK: no readable text, no logo,\n"
+    "  no numbers, no user interface on any screen."
+)
+
+JOURNAL_FONDS = ROOT / "output" / "fonds.json"
 
 
-def build_prompt(brand, theme, objects=None):
-    """Construit le prompt image de la semaine pour une marque + un theme."""
-    if brand not in BRAND_PROMPTS:
+def _journal_fonds():
+    if JOURNAL_FONDS.is_file():
+        try:
+            return json.loads(JOURNAL_FONDS.read_text(encoding="utf-8"))
+        except ValueError:
+            pass
+    return {}
+
+
+def scenes_possibles(marque, theme=None, deja_prise=None):
+    """Les scenes utilisables cette semaine pour une marque, de la plus a la
+    moins souhaitable. On ecarte les DEUX dernieres scenes de la marque et
+    celle que l'autre marque vient de prendre. theme filtre clair / sombre."""
+    if marque not in SCENES:
+        raise ValueError("Marque inconnue : " + marque)
+    passees = _journal_fonds().get(marque, [])[-2:]
+    interdits = set(passees) | {deja_prise}
+    libres = [n for n, sc in SCENES[marque].items()
+              if n not in interdits and (theme is None or sc[0] == theme)]
+    if libres:
+        return libres
+    return [n for n, sc in SCENES[marque].items() if theme is None or sc[0] == theme]
+
+
+def noter_scene(marque, nom):
+    """A appeler apres la generation, pour que la semaine suivante l'evite."""
+    assert nom in SCENES[marque], "scene inconnue : %s" % nom
+    j = _journal_fonds()
+    j.setdefault(marque, []).append(nom)
+    j[marque] = j[marque][-6:]
+    JOURNAL_FONDS.parent.mkdir(parents=True, exist_ok=True)
+    JOURNAL_FONDS.write_text(json.dumps(j, ensure_ascii=False, indent=2) + "\n",
+                             encoding="utf-8")
+    return nom
+
+
+def build_prompt(brand, theme, objects=None, scene=None):
+    """Compose le prompt image de la semaine : marque + scene + sujet + objets."""
+    if brand not in SCENES:
         raise ValueError("Marque inconnue : " + brand)
-    return BRAND_PROMPTS[brand].format(
-        theme=theme, objects=objects or DEFAULT_OBJECTS[brand]).strip()
+    if scene is None:
+        scene = scenes_possibles(brand)[0]
+    if scene not in SCENES[brand]:
+        raise ValueError("Scene inconnue pour %s : %s" % (brand, scene))
+    ton, cadrage, decor, lumiere = SCENES[brand][scene]
+    return (GABARIT.format(theme=theme, cadrage=cadrage, decor=decor, lumiere=lumiere,
+                           mood=MOODS[brand], objects=objects or DEFAULT_OBJECTS,
+                           palette=PALETTES[(brand, ton)]).strip()
+            + "\n" + COMMON_RULES)
 
 
-# --------------------------------------------------------------------------
-# Appel API Google
-# --------------------------------------------------------------------------
+def theme_de_la_scene(brand, scene):
+    """clair ou sombre : le carrousel doit utiliser le MEME theme."""
+    return SCENES[brand][scene][0]
+
 
 def _key():
     k = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
@@ -249,7 +382,7 @@ def _payloads(prompt, aspect, size, modele):
     return [new_style, old_style]
 
 
-def generate_background(brand, theme, out_name, objects=None,
+def generate_background(brand, theme, out_name, objects=None, scene=None,
                         aspect=ASPECT, size=SIZE, modeles=None):
     """Genere la photo de fond et l'enregistre dans assets/backgrounds/.
     Renvoie (chemin, prompt_utilise). ATTENTION : consomme du credit Google.
@@ -257,7 +390,9 @@ def generate_background(brand, theme, out_name, objects=None,
     Essaie les modeles de la cascade MODELS dans l'ordre : un modele sature
     (500/503 "high demand") ne doit pas arreter le robot. Un appel refuse
     n'est pas facture, donc la cascade ne coute rien de plus."""
-    prompt = build_prompt(brand, theme, objects)
+    if scene is None:
+        scene = scenes_possibles(brand)[0]
+    prompt = build_prompt(brand, theme, objects, scene)
     if modeles is None:
         modeles = (MODEL,) + tuple(m for m in MODELS if m != MODEL)
     errors = []
@@ -280,13 +415,16 @@ def generate_background(brand, theme, out_name, objects=None,
             out.write_bytes(base64.b64decode(b64))
             if modele != MODEL:
                 print("      (modele de secours utilise : %s)" % modele)
+            noter_scene(brand, scene)      # la rotation ne compte que ce qui existe
+            print("      (scene : %s, rendu %s)" % (scene, theme_de_la_scene(brand, scene)))
             return out, prompt
     raise RuntimeError("Generation impossible :\n  " + "\n  ".join(errors))
 
 
 def main():
     ap = argparse.ArgumentParser(description="Fond de carrousel via Nano Banana Pro.")
-    ap.add_argument("--brand", required=True, choices=list(BRAND_PROMPTS))
+    ap.add_argument("--brand", required=True, choices=list(SCENES))
+    ap.add_argument("--scene", default=None, help="Nom de la scene (voir SCENES)")
     ap.add_argument("--theme", required=True, help="Sujet du carrousel de la semaine")
     ap.add_argument("--out", default=None, help="Nom du fichier de sortie (.jpg)")
     ap.add_argument("--size", default=SIZE, choices=["1K", "2K", "4K"])
@@ -296,7 +434,7 @@ def main():
                     help="Genere pour de vrai (consomme du credit)")
     args = ap.parse_args()
 
-    prompt = build_prompt(args.brand, args.theme)
+    prompt = build_prompt(args.brand, args.theme, scene=args.scene)
     if not args.go or args.dry_run:
         cost = {"1K": 0.134, "2K": 0.134, "4K": 0.24}[args.size]
         print("=== MODE A BLANC (0 depense) ===")
@@ -310,7 +448,8 @@ def main():
         return
 
     out_name = args.out or ("%s_bg.jpg" % args.brand)
-    path, used = generate_background(args.brand, args.theme, out_name, size=args.size)
+    path, used = generate_background(args.brand, args.theme, out_name,
+                                     scene=args.scene, size=args.size)
     print("Image generee :", path)
 
 

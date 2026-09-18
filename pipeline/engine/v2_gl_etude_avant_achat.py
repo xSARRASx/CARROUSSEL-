@@ -24,23 +24,26 @@ donne aucun conseil d'investissement et ne garantit aucun rendement.
 
 ⚠️ REGLE 13 : aucun appel a commenter. Slide finale = cta_sans_commentaire().
 
-Couverture : cover_citation. La phrase est reellement prononcee dans la video.
-Semaine derniere GL = cover_duo, et LSL prend cover_aplat : rotation respectee.
+Couverture : cover_mot, sur THEME CLAIR (papier blanc casse, encre et accents
+violet/rose) et scene de fond "marbre_violet". Refonte du 18/09 : Martin voulait
+"du fond blanc avec les ecritures violettes rose et inversement". Voir la regle
+18 dans carroussel.md.
 
 Usage : python3 v2_gl_etude_avant_achat.py && python3 render.py v2_gl_etude_avant_achat
 """
-from design_v2 import Deck, acc, noter_couverture
+from design_v2 import Deck, acc, noter_couverture, noter_theme
 
 SLUG = "v2_gl_etude_avant_achat"
 
-d = Deck("guestlucky")
-d.set_bg_photo("gl_etude_avant_achat_bg.jpg", veil=0.82)
+d = Deck("guestlucky", "clair")
+d.set_bg_photo("gl_etude_avant_achat_bg.jpg", veil=0.80)
 
 SLIDES = [
-    d.cover_citation(
-        "Combien ce bien précis<br>va rapporter dans<br><em>chaque mode de location</em> ?",
-        "Sébastien More",
-        "conciergeur depuis 2014"),
+    d.cover_mot(
+        "Guestlucky · Avant de signer",
+        "Combien ?",
+        "« Combien ce bien précis va rapporter dans chaque mode de location ? » "
+        "C'est la seule question qui compte, et presque personne ne la pose."),
 
     d.compare(1, "Deux façons<br>d'estimer un bien<br>avant de signer", "Le marché ne pardonne plus l'à-peu-près",
               {"head": "Au ressenti", "items": [
@@ -125,4 +128,5 @@ SLIDES = [
 
 if __name__ == "__main__":
     d.write(SLUG, SLIDES)
-    noter_couverture("guestlucky", "cover_citation")
+    noter_couverture("guestlucky", "cover_mot")
+    noter_theme("guestlucky", "clair")

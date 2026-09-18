@@ -18,23 +18,29 @@ l'ajustement a deja commence en 2022 et il sera lent.
   - Sebastien n'est ni economiste ni conseiller financier : il lit des donnees
     publiques et raconte ce qu'il fait de sa propre maison, qu'il vend.
 
-Couverture : cover_aplat (la question de la video, posee a plat).
-Semaine derniere LSL = cover_chiffre, donc rotation respectee (regle 16).
+Couverture : cover_index (le sommaire du carrousel), theme sombre, scene de fond
+"escalier" (une marche de pierre dans une cage d'escalier parisienne). Refonte du
+18/09 : Martin trouvait que TOUS les fonds et TOUTES les couvertures se
+ressemblaient. Voir la regle 18 dans carroussel.md.
 
 Usage : python3 v2_lsl_immobilier_2026.py && python3 render.py v2_lsl_immobilier_2026
 """
-from design_v2 import Deck, acc, noter_couverture
+from design_v2 import Deck, acc, noter_couverture, noter_theme
 
 SLUG = "v2_lsl_immobilier_2026"
 
-d = Deck("lesousloueur")
-d.set_bg_photo("lsl_immobilier_2026_bg.jpg", veil=0.88)
+d = Deck("lesousloueur", "sombre")
+d.set_bg_photo("lsl_immobilier_2026_bg.jpg", veil=0.86)
 
 SLIDES = [
-    d.cover_aplat(
+    d.cover_index(
         "Le Sous Loueur · Marché 2026",
         "Faut-il encore acheter<br>de l'immobilier ?",
-        "Les vrais chiffres du tableau de bord Crédit Logement et des courbes de Friggit. Le marché n'est pas mort : il est figé."),
+        ["Le décor en quatre chiffres publics",
+         "Pourquoi les prix sont montés si haut",
+         "Le bouchon : pourquoi ça bloque avant de baisser",
+         "Les trois scénarios, chiffres à l'appui",
+         "Ce que tu fais si tu vends, si tu achètes"]),
 
     d.stats(1, "Le décor,<br>en quatre chiffres", "Août 2026",
             [("3,31&nbsp;%", "Le taux moyen relevé en août, contre 3,23&nbsp;% de février à juin"),
@@ -118,4 +124,5 @@ SLIDES = [
 
 if __name__ == "__main__":
     d.write(SLUG, SLIDES)
-    noter_couverture("lesousloueur", "cover_aplat")
+    noter_couverture("lesousloueur", "cover_index")
+    noter_theme("lesousloueur", "sombre")
