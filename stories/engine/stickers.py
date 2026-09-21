@@ -467,6 +467,37 @@ STICKERS = {
         "options": ["Le prix que j'espere", "Le prix des ventes qui se font"],
     },
 
+    # ---- interactifs-15 : le mythe des 183 jours (video ZdEMuAtcJcE)
+    # ⚠️ Format VRAI ou FAUX, et volontairement pas trois « faux » d'affilee.
+    "quiz15_02": {
+        "type": "Sondage",
+        "question": "Passer moins de 183 jours en France suffit a ne plus etre resident fiscal francais.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Faux",
+    },
+    "quiz15_04": {
+        "type": "Sondage",
+        "question": "En partant vivre a l'etranger, l'impot sur tes loyers francais augmente souvent.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Vrai",
+    },
+    "quiz15_06": {
+        "type": "Sondage",
+        "question": "Depuis 2025, le fisc a dix ans pour contester ton depart a l'etranger.",
+        "options": ["Vrai", "Faux"],
+        "reponse": "Vrai",
+    },
+    "sondage15_01": {
+        "type": "Sondage",
+        "question": "T'expatrier, tu y penses vraiment ?",
+        "options": ["C'est prevu", "J'y pense", "Jamais de la vie"],
+    },
+    "sondage15_02": {
+        "type": "Sondage",
+        "question": "Si tu partais, ton bien en France, tu en ferais quoi ?",
+        "options": ["Je le vends avant", "Je le loue", "Je le garde vide"],
+    },
+
     # ===================== semaine-01 : les diagnostics isolés ===============
     # ⚠️ Ces deux-la posent EXACTEMENT la meme question que sondage_02 et
     # sondage_03. Repere par Martin le 08/08/2026 : le calendrier les

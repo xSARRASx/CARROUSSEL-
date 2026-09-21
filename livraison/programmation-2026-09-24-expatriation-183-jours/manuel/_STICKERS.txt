@@ -1,0 +1,52 @@
+CE QU'IL FAUT TAPER DANS CHAQUE STICKER
+==============================================================
+
+Ces stories ne peuvent pas etre programmees : Instagram interdit de
+poser un sticker sur une story planifiee. Tu les postes a la main, et
+tu recopies exactement la question et les options ci-dessous.
+
+Les trois stickers Instagram :
+  Sondage    : 2 a 4 options, pas de bonne reponse.
+  Quiz       : 2 a 4 options AVEC une bonne reponse a cocher.
+  Questions  : boite a questions ouverte, sans option.
+
+==============================================================
+
+--- 2026-11-07-12h00-02-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Passer moins de 183 jours en France suffit a ne plus etre resident fiscal francais.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Faux", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-11-07-12h00-04-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : En partant vivre a l'etranger, l'impot sur tes loyers francais augmente souvent.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Vrai", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-11-07-12h00-06-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Depuis 2025, le fisc a dix ans pour contester ton depart a l'etranger.
+    Option 1 : Vrai
+    Option 2 : Faux
+    (La bonne reponse est "Vrai", mais ne la
+     coche PAS : elle est revelee dans la story suivante.)
+
+--- 2026-11-07-12h00-09-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : T'expatrier, tu y penses vraiment ?
+    Option 1 : C'est prevu
+    Option 2 : J'y pense
+    Option 3 : Jamais de la vie
+
+--- 2026-11-07-12h00-10-SONDAGE.jpg
+    Sticker  : Sondage
+    Question : Si tu partais, ton bien en France, tu en ferais quoi ?
+    Option 1 : Je le vends avant
+    Option 2 : Je le loue
+    Option 3 : Je le garde vide
+
