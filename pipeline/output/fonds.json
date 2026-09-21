@@ -1,8 +1,10 @@
 {
   "lesousloueur": [
-    "escalier"
+    "escalier",
+    "rebord_fenetre"
   ],
   "guestlucky": [
-    "marbre_violet"
+    "marbre_violet",
+    "etagere"
   ]
 }

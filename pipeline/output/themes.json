@@ -1,8 +1,10 @@
 {
   "lesousloueur": [
-    "sombre"
+    "sombre",
+    "clair"
   ],
   "guestlucky": [
-    "clair"
+    "clair",
+    "sombre"
   ]
 }

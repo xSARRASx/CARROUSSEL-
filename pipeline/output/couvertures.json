@@ -1,10 +1,12 @@
 {
   "lesousloueur": [
     "cover_aplat",
-    "cover_index"
+    "cover_index",
+    "cover_bandeau"
   ],
   "guestlucky": [
     "cover_citation",
-    "cover_mot"
+    "cover_mot",
+    "cover_moities"
   ]
 }
