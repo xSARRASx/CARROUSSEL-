@@ -2,11 +2,13 @@
   "lesousloueur": [
     "cover_aplat",
     "cover_index",
-    "cover_bandeau"
+    "cover_bandeau",
+    "cover_trois"
   ],
   "guestlucky": [
     "cover_citation",
     "cover_mot",
-    "cover_moities"
+    "cover_moities",
+    "cover_cadre"
   ]
 }
