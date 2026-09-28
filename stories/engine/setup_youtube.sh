@@ -63,12 +63,23 @@ cat <<'NOTE'
 
 --- LA COMMANDE QUI PASSE -------------------------------------------------
 yt-dlp --js-runtimes "node:/opt/node22/bin/node" \
+  --extractor-args "youtube:player_client=mweb" --ignore-no-formats-error \
   --skip-download --write-auto-sub --sub-lang "fr.*" --sub-format json3 \
   -o "%(id)s.%(ext)s" "https://www.youtube.com/watch?v=<ID>"
 
 Elle produit <ID>.fr-orig.json3 : la VO francaise, a PRIVILEGIER sur <ID>.fr.
 Parsing : concatener les segs[].utf8 de chaque events[], joindre par un espace.
-Plus besoin de forcer player_client : avec le moteur JS, c'est inutile.
+
+⚠️ --ignore-no-formats-error EST OBLIGATOIRE (perdu deux essais le 28/09/2026).
+Sans lui, yt-dlp ECRIT les sous-titres puis PLANTE juste apres sur « Requested
+format is not available » -- parce qu'il n'a pas pu resoudre le defi JS et ne
+voit plus que des images. Le message d'erreur parle de FORMAT VIDEO, alors que
+ce qu'on veut, les sous-titres, etait deja pret : on croit a un blocage
+YouTube alors qu'il n'y en a aucun, et les fichiers ne sont pas conserves.
+
+⚠️ NE PAS ajouter --remote-components ejs:github : le telechargement du script
+de resolution passe par le proxy sortant et casse en « CERTIFICATE_VERIFY_
+FAILED ». Ca ne sert a rien ici, les sous-titres n'ont pas besoin du defi JS.
 
 --- CE QUI NE SERT A RIEN, NE PAS Y PASSER DE TEMPS ------------------------
 --impersonate / curl_cffi : le proxy sortant du conteneur re-termine le TLS,

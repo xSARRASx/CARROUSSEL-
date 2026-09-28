@@ -404,6 +404,13 @@ fichier — Whisper fait le reste.
   d'écran, coulisses filmées.
 - Les sujets « réglementation » (loi Le Meur, carte G...) : ton alerte
   journalistique, factuel, jamais anxiogène gratuit.
+- 🔢 **Les nombres ne se coupent jamais en fin de ligne** (corrigé le
+  28/09/2026). « Sur 15 000 € de loyers » s'affichait « Sur 15 » puis
+  « 000 € » à la ligne suivante : sur une story, ça saute aux yeux.
+  `photo_style.nb()` soude désormais les tranches de mille **et** l'unité qui
+  suit (% et €) avec des espaces insécables. C'est automatique, il n'y a rien
+  à écrire à la main — mais si un nombre se coupe quand même, c'est là qu'il
+  faut regarder.
 
 ---
 
@@ -928,6 +935,37 @@ fini par faire ignorer les vraies alertes. Corrigé : seul `auto/` est exigé (l
 robot Mac ne programme que celui-là), et `manuel/` n'est réclamé que si des
 images manuelles existent vraiment.
 
+**2 nonies. `--ignore-no-formats-error` EST OBLIGATOIRE SUR yt-dlp.**
+Appris le 28/09/2026, et ça a coûté deux essais et une fausse peur. Sans ce
+drapeau, yt-dlp **écrit les sous-titres, puis plante juste après** sur
+« Requested format is not available » : il n'a pas résolu le défi JS, il ne
+voit plus que des images, et il échoue sur le FORMAT VIDÉO — dont on n'a
+justement rien à faire. Les fichiers ne sont pas conservés, et l'erreur
+ressemble à un blocage YouTube alors qu'il n'y en a aucun.
+👉 Le drapeau était déjà dans la recette écrite ici, mais **pas dans la commande
+imprimée par `setup_youtube.sh`**, qui est celle qu'on recopie. Corrigé à la
+racine le 28/09 : le script imprime désormais la commande complète, avec
+`mweb` et `--ignore-no-formats-error`.
+👉 Et **ne jamais ajouter `--remote-components ejs:github`** (suggéré par un
+WARNING de yt-dlp) : le téléchargement passe par le proxy sortant et casse en
+`CERTIFICATE_VERIFY_FAILED`. Les sous-titres n'ont pas besoin du défi JS.
+
+**2 decies. UNE FOURNÉE PLUS GROSSE QUE LA GRILLE SE COUPE EN DEUX LOTS.**
+Appris le 28/09/2026. Un réveil du **jeudi** n'ouvre que deux journées
+automatiques (jeudi 6 + vendredi 5 = **11 créneaux**) ; celui du lundi aussi
+(lundi 6 + mardi 5). Une fournée de 15 stories laisse donc forcément une
+séquence dehors, et depuis le placement par séquence elle part **entière en
+réserve** — où elle peut dormir des semaines.
+👉 Tant que c'est du contenu intemporel, très bien. Mais quand la séquence est
+**périssable** (le 28/09 : « dix semaines avant le vote de décembre »), la
+laisser en réserve pendant que le stock recycle `banque-01` est un gâchis.
+👉 La solution, sans rien inventer : le build écrit **deux lots** (`banque-18`
+et `banque-18b`), et on livre le second sur le premier jour auto libre qui
+suit, avec son propre `--sujet`. `livraison.py` saute tout seul les jours déjà
+servis, donc `--date` peut viser un jour occupé sans risque : la séquence
+glisse sur le suivant. `variete.py` continue de lire le fichier de build
+entier, les trois séquences restent donc contrôlées ensemble.
+
 **4. 🔁 LA VARIÉTÉ EST UNE EXIGENCE, PAS UN BONUS (Martin, 10/09/2026).**
 > « je vois que les stories que tu fais sont parfois les mêmes, je veux des
 > choses différentes »
@@ -1337,6 +1375,55 @@ main. Le contrôle de livraison reste vert.
   👉 **Où ancrer les prochains réveils :** lundi 14/09 → `--date 2026-09-17
   --reveil jeudi` ; jeudi 17/09 → `--date 2026-09-21 --reveil lundi`. Les
   jours 17, 18, 21 et 22/09 sont libres, le stock reprend le 24/09.
+
+- **Rattrapage : banque-13 à banque-17 (17/09 → 29/09).** Ces cinq fournées
+  n'avaient pas leur ligne ici ; le détail complet est dans l'en-tête de
+  chaque `build_banque<NN>.py`, qui fait foi. En résumé :
+  - **banque-13** (`h0fE0L6d5QI`, les 5 erreurs qui déclenchent un contrôle
+    fiscal) → livrée le **17/09**. **Première fournée sous la règle de variété
+    du 10/09** : 13 stories au lieu de 32, et assumé.
+  - **banque-14** (`iIO-RH_doLo`, la vérité sur le marché immobilier 2026) →
+    **21/09**. Sujet 100 % neuf après quatre fournées fiscales d'affilée.
+  - **banque-15** (`ZdEMuAtcJcE`, le mythe des 183 jours de l'expatrié) →
+    **24/09**. Beaucoup élagué : Sébastien renvoie lui-même à ses vidéos
+    précédentes, tout ce qui était déjà sorti a été écarté.
+  - **banque-16** → **28/09**. Le complément de banque-14, **même vidéo** :
+    29 minutes, banque-14 n'en avait tiré que trois séquences et Martin a
+    demandé de reprendre ce qui avait été coupé (« vzy reprend »).
+  - **banque-17** (`8hotJuvXPuM`, gérer sa location sans être interrompu) →
+    **29/09**. Deux séquences seulement, là où la vidéo en donnerait six :
+    c'est la règle de variété qui joue, court et neuf plutôt que long et déjà vu.
+
+- **2026-09-28 (réveil du lundi) : banque-18, la lettre du 23 septembre.**
+  Vidéo `U6vGmP7QX1k` « LMNP 2027 : ce que le gouvernement prépare ».
+  Transcription **récupérée par le robot** (`mweb` + `--ignore-no-formats-error`).
+  ⚠️ **Cette vidéo est elle-même un démenti** : depuis 48 h les titres annoncent
+  « la fin du LMNP » à partir d'une lettre du premier ministre qui contient
+  **deux phrases** sur le meublé. Les stories sont donc l'inverse d'alarmistes :
+  elles citent mot pour mot, et elles séparent proprement **voté / rejeté /
+  rumeur**. Quand Sébastien donne son pronostic, il précise « une analyse
+  personnelle, pas comme un fait » : la nuance est gardée telle quelle.
+  3 séquences, **trois tailles différentes** : `BA_la_lettre_mot_pour_mot`
+  (6, jeudi 01/10), `BB_ce_que_tu_as_deja_perdu` (4, vendredi 02/10),
+  `BC_quatre_decisions_avant_decembre` (5, mardi 06/10). 15 stories,
+  15 fonds différents, aucun repris aux fournées 15, 16 et 17.
+  👉 **Deux lots dans un seul build** (`banque-18` + `banque-18b`) : 15 stories
+  ne rentrent pas dans les 11 créneaux d'un réveil du jeudi, et BC est la plus
+  périssable des trois (« dix semaines avant le vote de décembre »). Voir le
+  piège **2 decies**.
+  👉 **Écartés** (séparation des marques) : le logiciel de déclaration au réel,
+  la lettre d'option préparée par l'outil, le simulateur maison, et l'outil de
+  gestion cité pour la courte durée. Les **décisions** restent (passer au réel,
+  faire classer) : ce sont des conseils, pas des outils.
+  👉 **Recouvrements évités** : banque-04 avait déjà traité le rapport du
+  8 juillet et le « le statut n'est PAS supprimé » ; banque-06 la liasse et
+  l'expert-comptable ; banque-12 la plus-value de la résidence principale.
+  👉 **Où ancrer les prochains réveils :** tout est servi jusqu'au **06/10**
+  inclus, et le stock ne reprend que le **15/10** — quatre jours auto sont donc
+  gardés libres pour les deux prochains réveils, comme l'exige le piège
+  **2 sexies** : jeudi **08/10** + vendredi **09/10**, puis lundi **12/10** +
+  mardi **13/10**. Donc : réveil du jeudi 01/10 → `--date 2026-10-08 --reveil
+  jeudi` ; réveil du lundi 05/10 → `--date 2026-10-12 --reveil lundi`.
 
 ---
 

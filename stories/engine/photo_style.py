@@ -19,7 +19,8 @@ de la cover "Remplir ton Airbnb sans baisser tes prix") :
 Ce module est LE socle commun : fonds, polices, logo, gabarits.
 Les builds (banque, interactifs, semaine) ne font qu'assembler du contenu.
 """
-import base64, pathlib
+import base64
+import re, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 REPO = ROOT.parents[0]
@@ -181,11 +182,22 @@ def acc(w):
     return f'<span class="b">{w}</span>'
 
 def nb(text):
-    """Typographie FR : espace insecable avant ? ! : ; et dans les guillemets."""
+    """Typographie FR : espaces insecables.
+
+    Avant ? ! : ; et dans les guillemets, comme depuis le debut. Et, depuis le
+    28/09/2026, DANS LES NOMBRES : « Sur 15 000 € de loyers » se coupait en fin
+    de ligne entre le 15 et le 000, ce qui saute aux yeux sur une story.
+    On soude donc les tranches de mille, et l'unite qui suit (% et €).
+    """
     if not text:
         return text
     for p in ("?", "!", ":", ";"):
         text = text.replace(f" {p}", f"&nbsp;{p}")
+    # 15 000 -> 15&nbsp;000, y compris 1 200 000 (deux passes)
+    for _ in range(2):
+        text = re.sub(r"(\d) (\d{3})(?!\d)", r"\1&nbsp;\2", text)
+    # 000 € / 18,6 % -> unite collee au nombre
+    text = re.sub(r"(\d) (%|€)", r"\1&nbsp;\2", text)
     return text.replace("« ", "«&nbsp;").replace(" »", "&nbsp;»")
 
 def open_photo(bg):
