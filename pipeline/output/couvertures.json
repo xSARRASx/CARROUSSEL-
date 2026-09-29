@@ -3,12 +3,14 @@
     "cover_aplat",
     "cover_index",
     "cover_bandeau",
-    "cover_trois"
+    "cover_trois",
+    "cover_citation"
   ],
   "guestlucky": [
     "cover_citation",
     "cover_mot",
     "cover_moities",
-    "cover_cadre"
+    "cover_cadre",
+    "cover_trois"
   ]
 }
