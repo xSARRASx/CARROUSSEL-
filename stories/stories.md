@@ -966,6 +966,36 @@ servis, donc `--date` peut viser un jour occupé sans risque : la séquence
 glisse sur le suivant. `variete.py` continue de lire le fichier de build
 entier, les trois séquences restent donc contrôlées ensemble.
 
+**2 undecies. `--list-subs` MENT : il annonce « has no automatic captions »
+sur une vidéo qui en a.** Appris le 01/10/2026. Sur `U6vGmP7QX1k`, dont les
+sous-titres avaient été téléchargés trois jours plus tôt, les **sept** clients
+répondaient « has no automatic captions / has no subtitles ». Le téléchargement
+réel, lui, les a ramenés en dix secondes.
+👉 **Le test témoin se fait donc sur le CHEMIN DU TÉLÉCHARGEMENT**, jamais sur
+`--list-subs` : on relance la vraie commande (`--write-auto-sub --sub-lang
+"fr.*"`) sur une vidéo déjà traitée. Si elle revient, l'accès est bon et
+l'absence est réelle ; si elle échoue aussi, c'est un blocage.
+👉 Conséquence directe : **une vidéo sans sous-titres n'est pas forcément
+bloquée**. Les sous-titres automatiques de YouTube mettent des heures à
+apparaître sur une vidéo de 20 minutes. Attendre et relancer est souvent la
+bonne réponse, pas « YouTube nous bloque ».
+
+**2 duodecies. `pip install yt-dlp-ejs` RÉSOUT LE DÉFI JAVASCRIPT, EN LOCAL.**
+Trouvé le 01/10/2026. Quand yt-dlp affiche « n challenge solving failed » puis
+« Only images are available for download », **aucun format audio ni vidéo n'est
+résolvable** : impossible de se rabattre sur Whisper. Son propre conseil
+(`--remote-components ejs:github`) échoue ici, le téléchargement passe par le
+proxy sortant et casse en `CERTIFICATE_VERIFY_FAILED`.
+👉 Le paquet **PyPI `yt-dlp-ejs`** fait exactement la même chose sans rien
+télécharger. Installé, le défi se résout (« Solving JS challenges using node »
+sans avertissement) et les formats redeviennent visibles. **Ajouté à
+`setup_youtube.sh`**, donc plus rien à faire à la main.
+👉 ⚠️ Ça ne règle pas tout : le 01/10, les formats étaient enfin résolus mais le
+**média lui-même** restait refusé (403 sur les URL `googlevideo`, contrôle de
+bot sur `tv` et `web_safari`). Les sous-titres passent, l'audio non. Tant que
+c'est le cas, **pas de repli Whisper possible** : il faut demander la
+transcription à Martin.
+
 **4. 🔁 LA VARIÉTÉ EST UNE EXIGENCE, PAS UN BONUS (Martin, 10/09/2026).**
 > « je vois que les stories que tu fais sont parfois les mêmes, je veux des
 > choses différentes »

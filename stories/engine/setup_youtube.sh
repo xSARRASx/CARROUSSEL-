@@ -20,8 +20,15 @@ echo "1/4  node"
 echo "     $(command -v node) -> $(node --version)"
 
 echo "2/4  yt-dlp + fournisseur de jetons PO"
-pip install --quiet -U yt-dlp bgutil-ytdlp-pot-provider 2>&1 | grep -vi warning | tail -1
+# yt-dlp-ejs : le resolveur de defi JavaScript, en LOCAL depuis PyPI.
+# Sans lui, yt-dlp affiche « n challenge solving failed » et ne voit plus que
+# des images : aucun format audio/video n'est resolvable. Il propose alors
+# --remote-components ejs:github, qui ECHOUE ici (le telechargement passe par
+# le proxy sortant et casse en CERTIFICATE_VERIFY_FAILED). Le paquet PyPI fait
+# la meme chose sans rien telecharger. Ajoute le 01/10/2026.
+pip install --quiet -U yt-dlp bgutil-ytdlp-pot-provider yt-dlp-ejs 2>&1 | grep -vi warning | tail -1
 echo "     yt-dlp $(yt-dlp --version)"
+python3 -c "import yt_dlp_ejs" 2>/dev/null && echo "     resolveur de defi JS installe (yt-dlp-ejs)"
 # ⚠️ curl_cffi est RETIRE volontairement : voir la note en bas.
 pip uninstall -y curl_cffi >/dev/null 2>&1 && echo "     curl_cffi retire (il casse le telechargement ici)"
 
