@@ -414,13 +414,18 @@ def p_timeline(bg, kicker, title, steps):
     return (open_photo(bg) + '<div class="pad2">' + p_head(kicker, title)
             + f'<div class="pfill"><div class="veil">{tl}</div></div></div></div>')
 
-def p_bars(bg, kicker, title, bars, note=None):
-    maxv = max(v for _, v in bars)
+def p_bars(bg, kicker, title, bars, note=None, unite="%"):
+    """Barres comparees. `unite` suit chaque valeur (05/10/2026 : elle etait
+    figee a « % », ce qui interdisait le gabarit a toute comparaison en euros).
+    Une valeur nulle garde sa ligne et son libelle, sans barre : c'est juste.
+    """
+    maxv = max(v for _, v in bars) or 1
     rows = ""
     for name, v in bars:
+        valeur = f"{v:,}".replace(",", "\u00a0") if isinstance(v, int) and v >= 1000 else f"{v}"
         rows += (f'<div class="pbarrow"><div class="pbarlab">'
                  f'<div class="pbarname">{nb(name)}</div>'
-                 f'<div class="pbarpct">{v}&nbsp;%</div></div>'
+                 f'<div class="pbarpct">{valeur}&nbsp;{unite}</div></div>'
                  f'<div class="pbartrack"><div class="pbarfill" style="width:{v/maxv*100:.0f}%;"></div></div></div>')
     n = (f'<div class="veil" style="margin-top:28px;"><div class="vnote"><span class="ar">→</span>'
          f'<span>{nb(note)}</span></div></div>') if note else ''

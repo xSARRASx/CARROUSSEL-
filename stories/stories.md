@@ -1448,12 +1448,45 @@ main. Le contrôle de livraison reste vert.
   👉 **Recouvrements évités** : banque-04 avait déjà traité le rapport du
   8 juillet et le « le statut n'est PAS supprimé » ; banque-06 la liasse et
   l'expert-comptable ; banque-12 la plus-value de la résidence principale.
-  👉 **Où ancrer les prochains réveils :** tout est servi jusqu'au **06/10**
-  inclus, et le stock ne reprend que le **15/10** — quatre jours auto sont donc
-  gardés libres pour les deux prochains réveils, comme l'exige le piège
-  **2 sexies** : jeudi **08/10** + vendredi **09/10**, puis lundi **12/10** +
-  mardi **13/10**. Donc : réveil du jeudi 01/10 → `--date 2026-10-08 --reveil
-  jeudi` ; réveil du lundi 05/10 → `--date 2026-10-12 --reveil lundi`.
+- **2026-10-05 (réveil du lundi) : banque-19, l'article 7 du budget 2027.**
+  Vidéo `bysfkU90VQI` « Budget 2027 : La fin du régime réel ? ». Sous-titres
+  récupérés par le robot.
+  ⚠️ **C'est la suite directe de banque-18, et elle la CORRIGE.** La semaine
+  d'avant, le conseil était « passe au réel, c'est le micro qui est visé ».
+  Cette semaine l'article 7 s'attaque à l'amortissement, donc au réel.
+  Sébastien le dit lui-même : « la règle n'est plus passe au réel
+  systématiquement ». Cette correction est le cœur de la fournée, elle passe
+  avant les chiffres — c'est ce qu'il y a de plus honnête et de plus utile.
+  3 séquences, trois tailles : `CA_article_7_ce_qui_change` (6, jeudi 08/10),
+  `CB_le_reel_n_est_plus_automatique` (5, vendredi 09/10),
+  `CC_le_detail_que_personne_ne_dit` (4, réserve). 15 fonds différents, aucun
+  repris aux fournées 16, 17 et 18.
+  👉 **Pourquoi cette fournée du LUNDI part sur les jours du JEUDI.** Ses jours
+  à elle (05 et 06/10) étaient déjà servis, et surtout Sébastien demande
+  d'écrire à son député **avant le 12 octobre** (c'est en commission des
+  finances que ça se joue) : le conseil périme. Donc 08 et 09/10. Ce n'est pas
+  le piège **2 sexies** : ce n'est pas une réserve intemporelle qui squatte,
+  c'est l'actualité fraîche elle-même, et elle est datée.
+  👉 **Écartés** (séparation des marques) : le channel manager cité pour le
+  suivi logement par logement, et le logiciel de déclaration au réel.
+  👉 **Recouvrements évités** : banque-18 avait déjà traité la lettre du
+  23 septembre, le tri voté/rejeté/rumeur, les 18,6 %, la réintégration des
+  amortissements expliquée de zéro, le micro-BIC à 30 % et le Jeanbrun.
+  👉 `p_bars` accepte désormais une **unité** (`unite="€/an"`) : elle était
+  figée sur « % », ce qui interdisait le gabarit à toute comparaison en euros.
+  Une valeur nulle garde sa ligne sans barre, et c'est juste.
+  👉 **Où ancrer les prochains réveils :** servi jusqu'au **09/10**, stock à
+  partir du **19/10** → lundi 12/10 + mardi 13/10 et jeudi 15/10 + vendredi
+  16/10 sont libres pour les deux prochains réveils.
+
+- **⏳ EN ATTENTE : `2X1pWkzGvp8`** « Meublé : pourquoi de plus en plus de
+  propriétaires vont arrêter de tout faire seuls » (04/10). Le 01/10 elle
+  n'avait **aucun sous-titre** ; le 05/10 la piste `fr` existe enfin mais son
+  téléchargement bute sur un **429 qui ne se vide pas**, alors qu'une autre
+  vidéo se télécharge dans la foulée. L'audio reste refusé (403), donc pas de
+  repli Whisper. Transcription demandée à Martin le 01/10, sans réponse à ce
+  jour. **Rien n'a été fabriqué.** À retenter au prochain réveil : c'est la
+  plus ancienne non traitée, elle passe donc en premier.
 
 ---
 
