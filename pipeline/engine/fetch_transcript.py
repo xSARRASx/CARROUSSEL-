@@ -57,11 +57,48 @@ TRANSCRIPTS_DIR = os.path.join(REPO_ROOT, "pipeline", "output", "transcripts")
 # Petit utilitaire : lancer yt-dlp
 # --------------------------------------------------------------------------
 
+def fichier_cookies():
+    """Ecrit les cookies YouTube dans un fichier TEMPORAIRE et renvoie son chemin.
+
+    POURQUOI (constat du 01/10/2026) : l'adresse IP de ce serveur est partagee et
+    YouTube la refuse desormais presque en permanence. Attendre ne suffit plus :
+    le blocage a tenu sur quatre videos de suite entre le 25/09 et le 05/10, et
+    seules les transcriptions collees a la main ont permis de livrer. Le seul
+    correctif qui rende la chaine autonome, c'est de se presenter avec une
+    session YouTube authentifiee.
+
+    COMMENT L'ACTIVER (une seule manipulation, cote Martin) :
+      1. Exporter ses cookies YouTube au format Netscape depuis son navigateur.
+      2. Coller le contenu du fichier dans une variable d'environnement de
+         l'environnement cloud, nommee YOUTUBE_COOKIES.
+    Rien d'autre a faire : ce code la detecte tout seul au prochain reveil.
+
+    ⛔ SECURITE, non negociable :
+      - Les cookies ne passent JAMAIS par le depot, ni par la conversation.
+      - Le fichier est ecrit hors du depot (/tmp), en lecture pour le seul
+        proprietaire (chmod 600), et il disparait avec le conteneur.
+      - Ne jamais afficher son contenu, meme tronque, meme pour deboguer.
+    """
+    brut = os.environ.get("YOUTUBE_COOKIES", "").strip()
+    if not brut:
+        return None
+    chemin = pathlib.Path(tempfile.gettempdir()) / "yt-cookies.txt"
+    if not chemin.is_file():
+        chemin.write_text(brut + "\n", encoding="utf-8")
+        chemin.chmod(0o600)
+    return str(chemin)
+
+
+COOKIES = fichier_cookies()
+
+
 def _run_ytdlp(args):
     """Lance yt-dlp avec les arguments donnes. Renvoie la sortie texte.
     Explique clairement quoi faire si yt-dlp n'est pas installe."""
     if NODE and "--js-runtimes" not in args:
         args = ["--js-runtimes", "node:" + NODE] + args
+    if COOKIES and "--cookies" not in args:
+        args = ["--cookies", COOKIES] + args
     try:
         result = subprocess.run(
             ["yt-dlp"] + args,

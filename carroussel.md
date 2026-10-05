@@ -1687,6 +1687,41 @@ couverture ni à la scène de la semaine précédente, et on passe les `objects=
 pour une marque, la même scène, ou la même couverture. Le code le propose tout
 seul ; il n'y a plus d'excuse.
 
+## 🍪 LE BLOCAGE YOUTUBE EST DEVENU CHRONIQUE (constat du 05/10/2026)
+
+Entre le 25/09 et le 05/10, YouTube a refusé l'adresse IP de ce serveur sur
+**quatre vidéos de suite** (8hotJuvXPuM, U6vGmP7QX1k, 2X1pWkzGvp8, bysfkU90VQI),
+à chaque tentative, y compris en pleine nuit. Les deux packages livrés pendant
+cette période ne l'ont été que parce que **Martin a collé la transcription**.
+
+Ce qui a été essayé et qui est épuisé :
+- attendre et espacer (jusqu'à six tentatives sur 24 heures) ;
+- mettre yt-dlp à jour : il est déjà à la dernière version disponible ;
+- le runtime JavaScript : il est branché depuis le 24/08 et ça ne suffit plus ;
+- `--impersonate` / curl_cffi : **architecturalement impossible ici**, le proxy
+  sortant re-termine le TLS (testé et mesuré le 27/08).
+
+### Le correctif, prêt dans le code depuis le 05/10
+`fetch_transcript.py` lit maintenant une variable d'environnement
+**`YOUTUBE_COOKIES`** (fonction `fichier_cookies()`). Si elle existe, les
+cookies sont écrits dans `/tmp/yt-cookies.txt` en 600, et `--cookies` est ajouté
+à chaque appel yt-dlp. Si elle n'existe pas, le code se comporte exactement
+comme avant : rien n'est cassé.
+
+**Il reste UNE manipulation, et elle n'appartient qu'à Martin :**
+1. exporter ses cookies YouTube au format Netscape depuis son navigateur ;
+2. coller le contenu dans une variable d'environnement de l'environnement
+   cloud, nommée `YOUTUBE_COOKIES`.
+
+⛔ SÉCURITÉ, non négociable : les cookies ne passent JAMAIS par le dépôt ni par
+la conversation. Le fichier vit hors du dépôt, dans `/tmp`, et disparaît avec le
+conteneur. Ne jamais afficher son contenu, même tronqué, même pour déboguer.
+Un cookie YouTube ouvre le compte Google : il se traite comme un mot de passe.
+
+⚠️ En attendant, le robot n'est plus autonome sur l'étape transcription. Le dire
+franchement à chaque fois, sans le noyer : demande de relais poussée, UN essai
+espacé, puis on s'arrête et on demande la transcription.
+
 ## 👁️ RÈGLE DE LIVRAISON (Martin, 27/07/2026) : TOUJOURS MONTRER LES SLIDES
 Martin veut **voir le rendu de chaque slide**, pas seulement recevoir les ZIP.
 À chaque livraison (hebdo automatique ou à la demande) :
