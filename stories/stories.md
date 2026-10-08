@@ -1480,13 +1480,19 @@ main. Le contrôle de livraison reste vert.
   16/10 sont libres pour les deux prochains réveils.
 
 - **⏳ EN ATTENTE : `2X1pWkzGvp8`** « Meublé : pourquoi de plus en plus de
-  propriétaires vont arrêter de tout faire seuls » (04/10). Le 01/10 elle
-  n'avait **aucun sous-titre** ; le 05/10 la piste `fr` existe enfin mais son
-  téléchargement bute sur un **429 qui ne se vide pas**, alors qu'une autre
-  vidéo se télécharge dans la foulée. L'audio reste refusé (403), donc pas de
-  repli Whisper. Transcription demandée à Martin le 01/10, sans réponse à ce
-  jour. **Rien n'a été fabriqué.** À retenter au prochain réveil : c'est la
-  plus ancienne non traitée, elle passe donc en premier.
+  propriétaires vont arrêter de tout faire seuls » (04/10). **Trois tentatives,
+  trois échecs** : 01/10 (aucun sous-titre du tout), 05/10 et 08/10 (la piste
+  `fr` existe, son téléchargement rend un 429). L'audio est refusé (403), donc
+  **pas de repli Whisper**. Transcription demandée à Martin le 01/10 puis le
+  05/10, sans réponse. **Rien n'a été fabriqué.**
+  👉 **C'est un blocage PROPRE À CETTE VIDÉO, pas un quota général** (nouveau,
+  08/10/2026). Le test témoin tourne au vert dans la même minute : les
+  sous-titres de `U6vGmP7QX1k` reviennent, ceux de `2X1pWkzGvp8` non. Fetché
+  en direct avec curl, son URL `youtube.com/api/timedtext` rend la page
+  « Sorry… » de Google en 429. Une semaine n'y a rien changé.
+  👉 **Donc on arrête d'y revenir tout seul.** Sans transcription de Martin,
+  cette vidéo est perdue, et ce n'est pas grave : rien n'est en retard, les
+  jours sont couverts. À reprendre uniquement s'il envoie le texte.
 
 ---
 
