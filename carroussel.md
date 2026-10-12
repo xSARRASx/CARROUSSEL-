@@ -1722,6 +1722,28 @@ Un cookie YouTube ouvre le compte Google : il se traite comme un mot de passe.
 franchement à chaque fois, sans le noyer : demande de relais poussée, UN essai
 espacé, puis on s'arrête et on demande la transcription.
 
+## 🔑 CLÉ GEMINI INVALIDE DEPUIS LE 12/10/2026 — FONDS EN SECOURS CSS
+
+Le 12/10, la génération d'image a renvoyé **401 UNAUTHENTICATED sur les quatre
+modèles** de la cascade. Ce n'est donc ni une saturation (« high demand »), ni un
+problème de prompt : c'est l'authentification.
+
+Diagnostic fait sans jamais afficher le secret : `GEMINI_API_KEY` est bien
+**présente** (53 caractères) mais **commence par `AQ.`**, alors qu'une clé Google
+AI Studio commence par `AIza`. Le message d'erreur le confirme : l'API attend un
+jeton qu'elle ne reconnaît pas sous ce format.
+
+⚠️ Je ne peux pas la réparer : c'est une variable d'environnement de
+l'environnement cloud. **Il faut que Martin regénère une clé sur Google AI
+Studio et la recolle dans `GEMINI_API_KEY`.**
+
+En attendant, on applique la règle 4 du déclencheur : **on ne bloque jamais la
+livraison pour une image.** Les deux carrousels sortent avec le fond CSS de
+secours (dégradé de la marque), ce qui rend très proprement dans les deux
+thèmes. Dans chaque script, la ligne `set_bg_photo(...)` est commentée avec la
+raison : il suffira de la décommenter et de générer la scène prévue une fois la
+clé valide.
+
 ## 👁️ RÈGLE DE LIVRAISON (Martin, 27/07/2026) : TOUJOURS MONTRER LES SLIDES
 Martin veut **voir le rendu de chaque slide**, pas seulement recevoir les ZIP.
 À chaque livraison (hebdo automatique ou à la demande) :
