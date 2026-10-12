@@ -139,6 +139,52 @@ CATALOG = {
                           "style": STYLE_WARM},
     "bg_rideau":         {"subject": "Sheer white curtain glowing with warm backlight from a window, gentle folds, very soft and calm, filling the frame.",
                           "style": STYLE_WARM},
+    # ------------------------------------------------------------------
+    # Vague 4 (12/10/2026) — MEME CAUSE, MEME REMEDE, UN CRAN PLUS LOIN.
+    # Avec 45 fonds et 15 par fournee, la 4e fournee d'affilee ne pouvait plus
+    # eviter de reprendre une image vue dans les trois precedentes : il n'en
+    # restait qu'UN de libre. Le controle de variete ne l'attrape pas (il ne
+    # refuse qu'un fond present dans les TROIS lots precedents), donc c'est
+    # arrive sans alerte. On elargit a 63, ce qui redonne une vraie marge.
+    # Regle a retenir : des qu'il reste moins de 20 fonds inutilises sur les
+    # trois dernieres fournees, on genere une vague.
+    # ------------------------------------------------------------------
+    "bg_salle_bain":     {"subject": "Clean simple bathroom with a white basin and a mirror, warm morning light from a frosted window, calm empty tiled wall filling the upper frame.",
+                          "style": STYLE_WARM},
+    "bg_entree":         {"subject": "Entrance hall of an apartment with a closed wooden door and a coat hook, warm daylight on a plain wall, large calm empty area.",
+                          "style": STYLE_WARM},
+    "bg_canape":         {"subject": "Corner of a linen sofa with two cushions, warm late afternoon light across it, plain calm wall above filling most of the frame.",
+                          "style": STYLE_WARM},
+    "bg_fenetre_ouverte":{"subject": "Open window with a light curtain moving in the breeze, warm sunlight streaming in, blurred greenery outside, calm and bright.",
+                          "style": STYLE_WARM},
+    "bg_parquet":        {"subject": "Close-up of a warm oak parquet floor filling the whole frame, soft golden light from a side window, subtle wood grain, nothing on it.",
+                          "style": STYLE_WARM},
+    "bg_mur_brique":     {"subject": "Old warm red brick wall lit by late afternoon sun, soft texture, minimal, filling the whole frame.",
+                          "style": STYLE_WARM},
+    "bg_plante":         {"subject": "A single green potted plant near a bright window, warm backlight through the leaves, plain calm wall filling most of the frame.",
+                          "style": STYLE_WARM},
+    "bg_lampe":          {"subject": "Small warm table lamp glowing on a side table at dusk, soft pool of light, calm darker wall around it with lots of empty space.",
+                          "style": STYLE_WARM},
+    "bg_miroir":         {"subject": "Round mirror on a warm plaster wall reflecting soft daylight, minimal, large calm empty wall area around it.",
+                          "style": STYLE_WARM},
+    "bg_cour_interieure":{"subject": "Quiet inner courtyard of an old building at golden hour, warm stone walls, a few plants, calm sky above, nobody in sight.",
+                          "style": STYLE_WARM},
+    "bg_quai":           {"subject": "Riverside quay at golden hour, calm water reflecting warm light, low stone wall along the bottom, wide soft sky filling the upper frame.",
+                          "style": STYLE_WARM},
+    "bg_pont":           {"subject": "Old stone bridge over calm water at sunrise, soft mist, pastel sky filling the upper two thirds, very quiet.",
+                          "style": STYLE_WARM},
+    "bg_marche":         {"subject": "Empty european market street early in the morning, closed shutters, warm low sunlight along the pavement, receding perspective, nobody in sight.",
+                          "style": STYLE_WARM},
+    "bg_colline":        {"subject": "Rolling green hills at dawn with soft layered mist, warm pastel sky filling the upper two thirds, very calm.",
+                          "style": STYLE_WARM},
+    "bg_dunes":          {"subject": "Sand dunes with beach grass at golden hour, long soft shadows, wide warm sky filling the upper half, nobody in sight.",
+                          "style": STYLE_WARM},
+    "bg_oliviers":       {"subject": "Olive grove in warm late afternoon light, silver green leaves, soft rows receding, calm hazy sky above.",
+                          "style": STYLE_WARM},
+    "bg_brume_matin":    {"subject": "Open field under morning mist with a faint warm sun breaking through, very soft and minimal, large pale calm area filling most of the frame.",
+                          "style": STYLE_WARM},
+    "bg_toit_terrasse":  {"subject": "Empty rooftop terrace with a simple wooden table at sunset, warm hazy city rooftops far below, wide calm sky filling the upper frame.",
+                          "style": STYLE_WARM},
 }
 
 def call_gemini(body, key):

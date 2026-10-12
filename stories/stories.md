@@ -1479,6 +1479,47 @@ main. Le contrôle de livraison reste vert.
   partir du **19/10** → lundi 12/10 + mardi 13/10 et jeudi 15/10 + vendredi
   16/10 sont libres pour les deux prochains réveils.
 
+- **2026-10-12 (réveil du lundi) : banque-20, Airbnb choisit ta photo.**
+  Vidéo `soj5bEyLcKE` « Airbnb choisi maintenant votre photo à votre place ».
+  Sous-titres récupérés par le robot.
+  **Sujet 100 % neuf** après cinq fournées fiscales ou budgétaires d'affilée :
+  depuis le 20 mai, une IA choisit la photo de couverture parmi les cinq
+  premières, et il existe un réglage caché pour reprendre la main.
+  2 séquences : `DA_airbnb_choisit_ta_photo` (6, lundi 12/10),
+  `DB_cinq_regles_cinq_photos` (5, mardi 13/10).
+  👉 **Écartés** (séparation des marques) : l'outil de retouche présenté dans
+  toute la seconde moitié de la vidéo. On garde les principes.
+  👉 **REPORTÉ faute de fonds** : la ligne rouge de la retouche (Californie
+  au 1er janvier 2026, Milwaukee au 1er septembre, Airbnb qui refuse depuis
+  le 20 avril 2026 une photo retouchée comme preuve de dommage, les trois
+  paliers vert / orange / rouge). L'essentiel tient dans la clôture de DB.
+  👉 **Où ancrer les prochains réveils :** servi jusqu'au **13/10**, stock à
+  partir du **22/10** → jeudi 15/10 + vendredi 16/10, puis lundi 19/10 +
+  mardi 20/10.
+
+- **🔴 LA BANQUE DE FONDS EST À SEC, ET LA CLÉ GEMINI NE MARCHE PLUS
+  (12/10/2026).** C'est ce qui a limité banque-20 à 11 stories au lieu de 15.
+  Le compte : **45 fonds**, dont 4 trop sombres, et **30 sont passés à
+  l'écran dans les deux fournées précédentes**. Il n'en restait que 11
+  utilisables sans remontrer une image vue la semaine d'avant.
+  👉 ⚠️ **Le contrôle de variété ne l'attrape pas** : il ne refuse un fond que
+  s'il est présent dans les **TROIS** lots précédents, et les lots récents ne
+  se recoupent pas entre eux. L'épuisement est donc arrivé **sans aucune
+  alerte**. Règle à tenir à la main : **dès qu'il reste moins de 20 fonds
+  inutilisés sur les trois dernières fournées, on génère une vague.**
+  👉 **La vague 4 est écrite** (18 nouveaux fonds dans `gen_background.py`,
+  intérieurs et lieux qu'on n'a pas), **mais elle n'a pas pu être générée** :
+  Gemini répond **401 UNAUTHENTICATED**. La variable `GEMINI_API_KEY` de
+  l'environnement ne contient pas une clé Gemini — elle commence par `AQ.A`
+  au lieu de `AIza`. Vérifié aussi en direct avec curl : même 401.
+  👉 **À FAIRE PAR MARTIN** : remettre une vraie clé Gemini dans la variable
+  d'environnement `GEMINI_API_KEY` (jamais dans le code, le dépôt est
+  public). Ensuite `python3 stories/engine/gen_background.py` suffit : il
+  saute les fonds déjà présents et ne génère que les 18 nouveaux.
+  👉 **Tant que ce n'est pas fait**, les fournées resteront courtes. C'est
+  conforme à la règle de Martin du 10/09 (« si tu fais moins de storie c'est
+  pas grave »), mais c'est une limite subie, pas un choix.
+
 - **⏳ EN ATTENTE : `2X1pWkzGvp8`** « Meublé : pourquoi de plus en plus de
   propriétaires vont arrêter de tout faire seuls » (04/10). **Trois tentatives,
   trois échecs** : 01/10 (aucun sous-titre du tout), 05/10 et 08/10 (la piste

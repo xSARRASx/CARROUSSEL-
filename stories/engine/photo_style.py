@@ -422,7 +422,13 @@ def p_bars(bg, kicker, title, bars, note=None, unite="%"):
     maxv = max(v for _, v in bars) or 1
     rows = ""
     for name, v in bars:
-        valeur = f"{v:,}".replace(",", "\u00a0") if isinstance(v, int) and v >= 1000 else f"{v}"
+        if isinstance(v, float):
+            # virgule decimale francaise : « 17,5 » et pas « 17.5 »
+            valeur = f"{v:g}".replace(".", ",")
+        elif v >= 1000:
+            valeur = f"{v:,}".replace(",", "\u00a0")
+        else:
+            valeur = f"{v}"
         rows += (f'<div class="pbarrow"><div class="pbarlab">'
                  f'<div class="pbarname">{nb(name)}</div>'
                  f'<div class="pbarpct">{valeur}&nbsp;{unite}</div></div>'
