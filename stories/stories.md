@@ -996,6 +996,36 @@ bot sur `tv` et `web_safari`). Les sous-titres passent, l'audio non. Tant que
 c'est le cas, **pas de repli Whisper possible** : il faut demander la
 transcription à Martin.
 
+**2 terdecies. LA RÉSERVE NE SE PUBLIE PAS TOUTE SEULE — elle pourrissait.**
+Trouvé le 15/10/2026, et ça durait depuis août. **60 stories** dormaient dans
+les dossiers `reserve/` de **9 fournées**, écrites, rendues, livrées… et
+jamais postées. `programmation.py` ne lit QUE sa liste figée `LOTS`
+(banque-01, banque-02, semaine-01, interactifs-01 et 02) : il ne regarde
+**aucun** dossier `reserve/`. La réserve était donc un cul-de-sac.
+👉 **Et le prompt des Routines disait le contraire** : « s'il n'y a eu aucune
+vidéo le mercredi, réponds en UNE ligne, les jours sont couverts par le stock
+et par les séquences en réserve ». C'était faux. Le 15/10, sans vidéo le
+mercredi, **jeudi 15 et vendredi 16 étaient VIDES** : deux jours sans rien.
+👉 **CE QU'ON FAIT MAINTENANT, à chaque réveil sans vidéo** (et c'est écrit
+dans les deux Routines depuis le 15/10) :
+```bash
+# 1. voir ce qui dort
+for d in livraison/programmation-*/reserve; do echo "$(ls $d|wc -l) $d"; done
+# 2. materialiser les sequences choisies en un lot (on retire le prefixe 01-)
+LOT=stories/output/reserve-<date>/jpg; mkdir -p $LOT
+for s in livraison/<fournee>/reserve/*<SEQ>*.jpg; do b=$(basename $s); cp $s $LOT/${b#*-}; done
+# 3. livrer sur LES JOURS DU REVEIL EN COURS (piege 2 sexies), puis
+#    EFFACER les fichiers utilises de la reserve source, sinon ils ressortiront
+```
+👉 **Choisir d'abord ce qui est périssable**, ensuite ce qui est intemporel.
+Le 15/10 : `CC_le_detail_que_personne_ne_dit` (le vrai coût du plafond
+d'amortissement, à quatre jours du vote du 20 octobre) et
+`AW_teletravail_et_maison`. Deux sujets différents, deux jours remplis.
+👉 **Pourquoi on n'automatise pas** (pour l'instant) : brancher
+`programmation.py` sur les `reserve/` publierait deux fois la même séquence
+si le nettoyage était oublié une seule fois. À faire proprement un jour, avec
+Martin ; en attendant, la main est plus sûre, et la réserve est enfin servie.
+
 **4. 🔁 LA VARIÉTÉ EST UNE EXIGENCE, PAS UN BONUS (Martin, 10/09/2026).**
 > « je vois que les stories que tu fais sont parfois les mêmes, je veux des
 > choses différentes »
